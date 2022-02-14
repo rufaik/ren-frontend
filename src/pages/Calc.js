@@ -37,7 +37,6 @@ export default () => {
 	const [first8, setFirst8] = useState('');
 	const [foundUser, setFoundUser] = useState('');
 	const [lowFunds, setLowFunds] = useState(false)
-	const [lowFunds1, setLowFunds1] = useState(false)
 	const [transferConfirmation, setTransferConfirmation] = useState(false)
 	const [transferConfirmation1, setTransferConfirmation1] = useState(false)
 	const [itemValue, setItemValue] = useState('');
@@ -46,9 +45,6 @@ export default () => {
 	const [calculated1, setCalculated1] = useState(false);
 	const [coin, setCoin] = useState('');
 	const [days, setDays] = useState('');
-	const [submit, setSubmit] = useState(false);
-	const [bulk, setBulk] = useState(false);
-	const [err, setErr] = useState('');
   
 
 
@@ -198,14 +194,10 @@ console.log("total", total)
 
 updateCurrent1(total)
 
-				if(parseInt(simpleUser.coins) > parseInt(total)){
+
                 {results.data.map((upload, i) => { findUser1(upload[0], upload[1])
                 	
                 })}
-
-            } else {
-            	setLowFunds1(true)
-            }
 
            
               }}
@@ -242,7 +234,7 @@ updateCurrent1(total)
     	} catch(err){
 		console.log("Exception ", err)}
 	} else {
-		setLowFunds1(true)
+		setLowFunds(true)
 	}
 
     }
@@ -338,7 +330,7 @@ updateCurrent1(total)
 // }
 
 
-	const [upload, setUpload] = useState(false);
+
 
 
 console.log(fileBulk)
@@ -347,124 +339,104 @@ console.log(fileBulk)
 
   return (
   	<>
-            <div className="shareBox ml-auto">
-              <div className="h3Dark">Share your R.E.N Coins</div>
-              <div className="gen mt-4 mb-7"> Simply enter the user’s unique code and submit the number of R.E.N Coins you’d like to share.</div>
-              <input
-                          value={first1}
-                          placeholder="Enter user unqiue code"
-                          className="uniqueBox pl-4"
-                          onChange={(event) => {
-                          	setTransferConfirmation(false)
-                          	setLowFunds(false)
-                          	setFirst1(event.target.value)}}
-                        />
-              <input
-                          value={first2}
-                          placeholder="Number of R.E.N Coins"
-                          className="uniqueBox mt-2 pl-4"
-                          onChange={(event) => {
-                          	setTransferConfirmation(false)
-                          	setLowFunds(false)
-                          	setFirst2(event.target.value)}}
-                        />
-              <div className="flex items-center mt-6">
-                <button 
-                	className="bulkTxt underline pointer" 
-                	onClick={() => {setBulk(true)}}
-                >Bulk Share Option
-                </button>
-                <button 
-                	className="sendBtn bulkTxt ml-20 text-center"
-                	onClick={updateCurrent}
+           
+
+
+    <div className="mx-32 mt-10">
+
+    <div className="calcBox">
+      <div className="borderBoundary mx-auto">
+        <div className="h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder">R.E.N Coin Calculator</div>
+        <div className="normalBold mt-7">Set the item value and desired rental price above to calculate R.E.N price and return on investment.</div>
+        
+        <div className="flex flex-row">
+          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Item value (£)</div>
+          <input
+                            value={itemValue}
+                            onChange={(event ) => {setItemValue(event.target.value)}}
+                            className="uniqueBox mt-2 pl-4"
+                          
+                          />
+        </div>
+        <div className="flex flex-row">
+          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Rental price per day (£)</div>
+          <input
+                            value={rentalValue}
+                            onChange={(event ) => {setRentalValue(event.target.value)}}
+                            className="uniqueBox mt-2 pl-4"
+                          
+                          />
+        </div>
+
+         <button 
+                  className="sendBtn bulkTxt ml-auto mr-12 block mt-4 text-center"
+                  onClick={() => setCalculated(true)} 
+                  value="Submit"
                 >
-                Send R.E.N Coins
-                </button>
-			</div>
-			{transferConfirmation &&
-				<div className="normalBold mt-3">Congrats! You have shared {first2} coins</div>
-			}
-			{lowFunds &&
-				<div className="normalBold mt-3">Unfortunately you dont have enough REN coins, please top up</div>
-			} 
-			</div>
+                Calculate
+          </button>
+          {calculated && itemValue > 0 && rentalValue > 0 &&
+            <div>
+              <h2 className="normalBold mt-7">Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
+              <h2 className="normalBold mt-7">Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
+            </div>
 
-			{bulk &&
-			<div className="absolute w-screen h-screen z-10 top-24 left-0 flex justify-center">
-			
-				<div className="smallBox">
-					<div className="coin absolute top-4 right-4" onClick={() => {setBulk(false)}}>
-	                  <img className='w-100' alt='leave' src="../Vector.png" />
-	                </div>
-				{!transferConfirmation1 &&
-					<>
-	    			<div className="h3Bold mx-auto flex justify-center py-8"> Bulk Share R.E.N Coins </div>
-	    			<div className="borderBoundary mx-auto">
-						<div className="gryLine"></div>
-						<div className="h3Sub pt-6">Step 1: Create the template</div>
-						<div className="genLight py-6">First column: R.E.N Code, found in the user profile. This code should have no spaces.
-							Second column: Amount of R.E.N Coins. This should be a whole number. DO NOT ADD TITLES.</div>
-						<div className="gryLine1"></div>
-						<div className="h3Sub pt-6">Step 2: Export spreadsheet as CSV</div>
-						<div className="genLight py-6">Click on File > Export as > CSV. This should update the originally downloaded CSV, or save as a new file, ending with the .csv extension.</div>
-						<div className="gryLine1"></div>
-						<div className="h3Sub pt-6">Step 3: Review and upload</div>
-						<div className="genLight py-6">Double-check through the amounts and R.E.N Codes, if you're happy click the Upload button</div>
-						<div className="gryLine1"></div>
-						{!upload &&
-							<button 
-								onClick={() => {setUpload(true)}}
-								className="stdBtn flex items-center justify-center  mt-4"
-							>Upload
-							</button>
-						}
-						{upload &&
-							<>
-								<input
-							        type="file"
-							        accept=".csv,.xlsx,.xls"
-									className="mt-4"
-							        onChange={(e) => {
-							          const files = e.target.files;
-							          console.log(files);
-							          if (files) {
-							          	setFileBulk(e.target.files[0])
-							          	setOriginal(simpleUser.coins)
-							          }
-							      }}
-							  />
-							  <button 
-					  			type="submit" 
-					  			onClick={bulkUpdate2} 
-					  			value="Submit"
-					  			className="stdBtn flex items-center justify-center  mt-4"
-					  		>
-					  		Submit 
-					  		</button>
-					  	</>}
-					</div>
+          }
+      
 
-				</>}
-				{transferConfirmation1 &&
-			            	<>
-			            	<div className="h3Sub">Congrats! You have shared: </div>
-			            	{fileArray.map((fa, i) => { 
-			            		return(
-			            			<div className="h3Sub">{fa[1]} coins with user: {fa[0]}</div>
-			            		)
-				  	    	})}
-						</>}
-				{lowFunds1 &&
-				<div className="normalBold mt-3 ml-4">Unfortunately you dont have enough REN coins, please top up</div>
-			} 
+      </div>
+    </div>
+    
+    <div className="calcBox my-16">
+      <div className="borderBoundary mx-auto">
+        <div className="h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder">R.E.N Coin Calculator</div>
+        <div className="normalBold mt-7 pb-4">Calculate how much you could make!</div>
+        
+        <div className="flex flex-row">
+          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Rental price per day (coins)</div>
+          <input
+                           value={coin}
+                            onChange={(event ) => {
+                              setCalculated1(false) 
+                              setCoin(event.target.value)}}
+                            className="uniqueBox mt-2 pl-4"
+                          
+                          />
+        </div>
+        <div className="flex flex-row">
+          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Rental days</div>
+          <input
+                          value={days}
+                          onChange={(event ) => {
+                            setCalculated1(false)
+                            setDays(event.target.value)}}
+                          className="uniqueBox mt-2 pl-4"
+                          
+                          />
+        </div>
+
+         <button 
+                  className="sendBtn bulkTxt ml-auto mr-12 block mt-4 text-center"
+                  onClick={() => setCalculated1(true)} 
+                  value="Submit"
+                >
+                Calculate
+          </button>
+          {calculated1 && coin > 0 && days > 0 &&
+            <div>
+              <h2 className="normalBold mt-7">You could earn £{calculate()} in {days} days by just renting out ONE item </h2>
+            </div>
+
+          }
+      
+
+      </div>
+    </div>
+
+
+
+
 	</div>
-
-		
-
-			</div>
-}
-
-   
 	</>
   );
 }

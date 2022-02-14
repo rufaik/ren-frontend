@@ -12,7 +12,8 @@ import Signup from './pages/Signup'
 import Reset from './pages/Reset'
 import Forgot from './pages/Forgot'
 import Cart from './pages/Cart'
-import Share from './pages/Share'
+import Calc from './pages/Calc'
+import Type from './pages/Type'
 import {UserContext} from './context/UserContext'
 
 
@@ -58,8 +59,9 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/reset" exact component={Reset} />
+          <Route path="/type" exact component={Type} />
           <Route path="/forgot" exact component={Forgot} />
-          <Route path="/share" exact component={Share} />
+          <Route path="/calc" exact component={Calc} />
           <Route path="/cart" exact component={Cart} />
           <Route path="/profile/:id" exact component={Profile} />
           <Route path="/products/:id" exact component={SingleProduct} />

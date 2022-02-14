@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import Post from '../components/Post'
+import Share from './Share'
 
 import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
@@ -32,6 +33,7 @@ const [letter, setLetter] = useState('')
 const [first, setFirst] = useState('')
 const [unique, setUnique] = useState('')
 const [code, setCode] = useState('')
+const [coins, setCoins] = useState('')
 const [file, setFile] = useState(null)
 const [profile, setProfile] = useState('/profile.jpg')
 const [error, setError] = useState('')
@@ -64,6 +66,7 @@ const fetchUser = async (user) => {
                   setPost1(data);
                   setFirst(data.Name)
                   setCode(data.username)
+                  setCoins(data.coins)
                   setDescription1(data.Name)
                   const letterA = data.Surname.charAt(0)
                   setLetter(letterA)
@@ -71,6 +74,7 @@ const fetchUser = async (user) => {
                   console.log("else", user)
                   setFirst(user.user.Name)
                   setCode(user.user.username)
+                  setCoins(user.user.coins)
                   setDescription1(user.user.bio)
                   const letterA = user.user.Surname.charAt(0)
                   setLetter(letterA)
@@ -226,10 +230,10 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 {/*        <img className="PostImage w-full h-full object-cover" src={formatImageUrl(url)} alt="" />
 */}         
       </div>
-{/*      {user.user.id === post1.id 
+      {user && user.user.id === post1.id 
       ? <button className="orangeTxt" onClick={() => { show ==='collapse' ? setShow('visible') : setShow('collapse')}} >Choose Photo</button>
       : null
-    }*/}
+    }
       <form onSubmit={handleImgSubmit} className="flex flex-col justify-center mx-auto" style={{"visibility":show}}> 
          <input
             type="file"
@@ -254,7 +258,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                 <div className="coin mr-2">
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
-                <h3>380</h3>
+                <h3>{coins}</h3>
                 <button className="authBtn ml-10">
                   Top up
                 </button>
@@ -270,7 +274,9 @@ const formatImageUrl = (url) => `${API_URL}${url}`
               </div>
             </div>
 
-            <div className="shareBox ml-auto">
+            <Share />
+
+{/*            <div className="shareBox ml-auto">
               <div className="h3Dark">Share your R.E.N Coins</div>
               <div className="gen mt-4 mb-7"> Simply enter the user’s unique code and submit the number of R.E.N Coins you’d like to share.</div>
               <input
@@ -287,7 +293,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                 <div className="bulkTxt underline">Bulk Share Option</div>
                 <button className="sendBtn bulkTxt ml-20 text-center">Send R.E.N Coins</button>
               </div>
-            </div>
+            </div>*/}
             
         </div>
     </div>
@@ -295,18 +301,18 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 <div className="sectWidth flex mx-auto mt-10">
   <div className="leftCol">
-{/*  <div className="flex items-center">
+  <div className="flex items-center">
     <h2 className="flex">
       <div>Jasmine.</div>
       <div className="capitalize">K</div>
     </h2>
 
-    { id.toString() === user.user.id.toString() ?
+    {user && user.user.id.toString() === id.toString() ?
       <button onClick={() => setEdit(true)} className="editBtn bulkTxt ml-8 text-center">Edit profile</button>
 
-      : console.log(user.user.id.toString(), "and",  id.toString())
+      : null
     }
-  </div>*/}
+  </div>
     <div className="flex items-center">
       <div className="gen greyCol">R.E.N code:</div>
       <div className="genBold orangeCol mr-2">&nbsp;{code}</div>
