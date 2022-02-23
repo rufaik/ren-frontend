@@ -16,7 +16,7 @@ export default () =>{
   return (
     <div className="Nav sectWidth flex items-center mt-8 mx-auto">
         <div className="logoBox ">
-            <img className='w-100' alt='REN logo' src="../logo3.png" />
+            <img className='w-100' alt='REN logo' src={create === 'darkbg' ? "../whiteLogo.png" :"../logo3.png"} />
         </div>
         <div className="ml-20">
           <Switch.Group
@@ -24,8 +24,8 @@ export default () =>{
             className="flex text-gray-600 justify-center space-x-4 mx-auto text-2xl sm:text-4xl lg:text-xl items-center"
           >
             <Switch.Label className="norm text-xl">
-          {create === 'dark' && <img className='w-100 vector' alt='REN logo' src="../sun.png"/>}
-          {create === 'light' &&  <img className='w-100 vector' alt='REN logo' src="../moon.png"/> }
+          {create === 'light' && <img className='w-100 vector' alt='REN logo' src="../sun.png"/>}
+          {create === 'darkbg' &&  <img className='w-100 vector' alt='REN logo' src="../moon.png"/> }
             </Switch.Label>
             <Switch
               as="button"
@@ -45,14 +45,14 @@ export default () =>{
 
             </Switch>
           </Switch.Group>
-          {enabled ? setCreate('dark') : setCreate('light')}
+          {enabled ? ( document.body.classList.remove('darkbg'), setCreate('light')) :( document.body.classList.add('darkbg'), setCreate('darkbg'))}
         </div>
     <div className="Nav flex ml-auto">
 
-      <div className="mx-4 menuItem">About</div>
-      <div className="mx-4 menuItem">How it works</div>
-      <div className="mx-4 menuItem">Add Listing</div>
-      <div className="mx-4 menuItem">Contact</div>
+      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>About</div>
+      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>How it works</div>
+      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Add Listing</div>
+      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Contact</div>
   	   <NavLink to="/" exact className="mx-4 menuItem"> Home </NavLink>
   	   {user &&
         <>

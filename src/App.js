@@ -12,8 +12,9 @@ import Signup from './pages/Signup'
 import Reset from './pages/Reset'
 import Forgot from './pages/Forgot'
 import Cart from './pages/Cart'
-import Calc from './pages/Calc'
 import Type from './pages/Type'
+import Search from './pages/Search'
+import NewListing from './pages/NewListing'
 import {UserContext} from './context/UserContext'
 
 
@@ -60,11 +61,12 @@ function App() {
           <Route path="/signup" exact component={Signup} />
           <Route path="/reset" exact component={Reset} />
           <Route path="/type" exact component={Type} />
+          <Route path="/search" exact component={Search} />
+          <Route path="/newlisting" exact component={NewListing} />
           <Route path="/forgot" exact component={Forgot} />
-          <Route path="/calc" exact component={Calc} />
           <Route path="/cart" exact component={Cart} />
           <Route path="/profile/:id" exact component={Profile} />
-          <Route path="/products/:id" exact component={SingleProduct} />
+          <Route path="/listing/:id" exact component={SingleProduct} />
           <Route path="/:id" exact component={SinglePost} />
         </Switch>
       </BrowserRouter>

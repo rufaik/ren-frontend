@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, Fragment} from 'react'
 import Post from '../components/Post'
 import Share from './Share'
 
@@ -6,15 +6,21 @@ import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
 import Tabs,{Tab} from 'react-best-tabs';
 import 'react-best-tabs/dist/index.css';
+import { LockClosedIcon } from '@heroicons/react/solid'
+import { Dialog, Transition } from '@headlessui/react'
+import { BellIcon } from '@heroicons/react/outline'
+
+
 
 
 export default ({match, history}) =>{
 const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
-
-const {user, setUser} = useContext(UserContext)
-console.log("user1", user)
+const [open, setOpen] = useState(false)
+const [open1, setOpen1] = useState(false)
+const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+console.log("user1111x", simpleUser)
 // console.log("setUser", setUser)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -26,6 +32,7 @@ console.log("user1", user)
 // console.log("isPostAlreadyLiked", isPostAlreadyLiked)
 
 const [post1, setPost1] = useState({})
+const [post2, setPost2] = useState({})
 const [loading, setLoading] = useState(true)
 const [edit, setEdit] = useState(false)
 const [description1, setDescription1] = useState('')
@@ -38,6 +45,7 @@ const [file, setFile] = useState(null)
 const [profile, setProfile] = useState('/profile.jpg')
 const [error, setError] = useState('')
 const [show, setShow] = useState('collapse')
+const [pop, setPop] = useState({})
 // const [profileUser, setProfileUser] = useState([])
 
 
@@ -87,6 +95,47 @@ const fetchUser = async (user) => {
                 setLoading(false);
             }         
         }
+
+
+useEffect(() => {
+
+  fetchListings()
+
+}, [user])
+
+const fetchListings = async (user) => {
+  console.log("gosssss", user)
+    const response = await fetch('http://localhost:1337/listings', {
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+          // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                
+                // setDescription1(data.description)
+                setLoading(false);
+                console.log("sideeeee", data)
+                if(data !== null){
+                  setPost2(data);
+          
+                } else {
+                  console.log("else", user)
+               
+
+                }
+                // history.push(`/profile/${id}`)
+            } catch(err){
+              console.log("nope")
+                setPost2({}); 
+                setLoading(false);
+            }         
+        }
+
+
+
 
 
 useEffect(() =>{
@@ -193,7 +242,124 @@ const handleImgSubmit = async (event) => {
 
 
 
+  const acceptBooking = (event) => {
+    event.preventDefault()
 
+    pop.bookings.map( async (booking, i) => {
+      if(booking.status ==='Pending'){
+        const original = booking.id
+        console.log("original", original)
+
+
+    try{
+   
+        const response = await fetch(`http://localhost:1337/bookings/${original}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${user.jwt}`
+          },          
+         body: JSON.stringify({
+              status: 'Confirmed'
+            })
+        })
+  
+        const data = await response.json()
+  
+        console.log("dataRRRRRRR", data) 
+      }catch(err){
+        console.log("Exception", err)
+        setError(err)
+      }
+
+      }
+      return null
+    })
+
+    //find booking set Status to confirmed
+
+}
+
+
+  // try{
+   
+  //       const response = await fetch(`http://localhost:1337/booking/${id}`, {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type':'application/multipart/form-data',
+  //           'Authorization': `Bearer ${user.jwt}`
+  //         },          
+  //         body: {formData}
+  //       })
+  
+  //       const data = await response.json()
+  
+  //       console.log("dataR", data) 
+  //     }catch(err){
+  //       console.log("Exception", err)
+  //       setError(err)
+  //     }
+
+  // }
+
+  const rejectBooking = (event) => {
+    //item.booked to false
+    //find booking set Status to rejected
+
+    event.preventDefault()
+
+    pop.bookings.map( async (booking, i) => {
+      if(booking.status ==='Pending'){
+        const original = booking.id
+        console.log("original", original)
+
+
+    try{
+   
+        const response = await fetch(`http://localhost:1337/bookings/${original}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${user.jwt}`
+          },          
+         body: JSON.stringify({
+              status: 'Rejected'
+            })
+        })
+  
+        const data = await response.json()
+        releaseItem()
+        console.log("Rejected", data) 
+      }catch(err){
+        console.log("Exception", err)
+        setError(err)
+      }
+
+      }
+      return null
+    })
+    
+  }
+
+
+//item.booked to false
+const releaseItem = async () => {
+  
+
+  const response = await fetch(`http://localhost:1337/listings/${pop.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type':'application/json',
+      'Authorization': `Bearer ${user.jwt}`
+    },
+    body: JSON.stringify({
+      booked: false
+    })
+  })
+  const data = await response.json();
+ 
+  console.log("releaseItem", data)
+}
 
 
 // useEffect(() => {
@@ -361,34 +527,44 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   <div className="rightCol ml-12">
 
       <Tabs activeTab="1" className="mt-5 w-100" ulClassName="tabTitle" activityClassName="bg-success activeTabTitle" onClick={(event, tab) => console.log(event, tab)} >
-        <Tab title="Listed" className="mr-3 w-1/2">
+        <Tab title="Listed" className="mr-3 w-1/3">
            
         
            <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
-  
-            <div>
-            <div className="flex flex-col overflow-hidden thumbImgBx">
-              <div className="flex-shrink-0 relative thumbImg">
-                <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src="../pstn.png" alt="playstation" />
-              </div>
-              <div className="flex flex-row px-8">
 
-                  <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
-                      <div className="flex items-center ">
-                        <h3>4</h3>
-                        <div className="smallCoin flex mb-1 ml-1.5 mr-1">
-                          <img className='w-100' alt='REN coin' src="../coin.png" />
+{ post2 && post2[0]
+  ?            
+
+
+      <div>
+           {post2.map((listing, i) => {
+            if(listing.userID === id)
+                     
+                        return(
+                  <div className="flex flex-col overflow-hidden thumbImgBx">
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(listing.image && listing.image.url)} alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{listing.name}</div>
                         </div>
-                        <h3>/day</h3>
-                      </div>
-                      <div className="line mt-1 mb-3"></div>
-                      <div className="gen"> Xbox Series X</div>
-                  </div>
 
-                  <div className="gen pt-9">23rd Sep 2021</div>
-              </div>
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )})}
             </div>
-            </div>
+        : null}
             </div>
 
 
@@ -396,71 +572,250 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
          </Tab>
      
-         <Tab title="Rented" className="mr-3 w-1/2">
+         <Tab title="Rented" className="mr-3 w-1/3">
               <div className="mt-3">
-                  Tab 2 content
+        { post2 && post2[0]
+          ?<>
+
+{/*            { post1.listings[0].booked === true
+                    ?<>
+                          <div className="h3Bold mt-8 mb-4">Congratulations!&nbsp;&nbsp;You have bookings!</div>
+                          <div className="genLight my-4">Please click on each item to <b>accept</b> or <b>reject</b> the reservations on your items</div>
+                      </>
+                    : null
+                  }*/}
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+                  <div>
+                
+                  {post2.map((listing, i) => {
+{/*                    console.log("listing", listing)
+*/}                     if (listing.booked === true && listing.userID === id) {
+                        return(
+                  <div 
+                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    onClick={() => {
+                        setPop(listing)
+                        console.log("list", listing)
+                        setOpen(true)
+                      }}>
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(listing.image && listing.image.url)}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )}})}
+
+                 
+
+                 
+                  
+                  </div>
+
+
+            </div>
+             <div className="gryLine2 w-full my-10"></div>
+            </>
+: null}
+
+
                </div>
           </Tab>
      
-{/*          <Tab title="Reviews" className="mr-3 w-1/3">
+{          <Tab title="Bookings" className="mr-3 w-1/3">
               <div className="mt-3">
-                  Tab 3 content
+                <div>
+                    <div className="h3Bold mt-8 mb-4">Pending: Congratulations!&nbsp;&nbsp;You have bookings!</div>
+                    <div className="genLight my-4">Please click on each item to <b>accept</b> or <b>reject</b> the reservations on your items</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
+                <div>
+                    <div className="h3Bold mt-8 mb-4">Confirmed</div>
+                    <div className="genLight my-4">Once you're booking has been complete and your items have been returned, set your booking to <b>COMPLETED</b> and your coins will be released your account</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
+                <div>
+                    <div className="h3Bold mt-8 mb-4">Completed</div>
+                    <div className="genLight my-4">View your completed bookings</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
               </div>
-          </Tab>*/}
+          </Tab>}
       </Tabs>
   </div>
 
 </div>
+{ pop && pop.name ?
+<Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "44em"}}>
+              <div style={{"width":"620px"}} className="mx-auto">
+              <div className="h3Bold mt-12 text-center">Review Item Rental</div>
+              <div className="gryLine2 w-full mt-6 mb-10"></div>
+{/*              <div className="h3Sub my-4 ">Canon EOS M50 Black + EF-M 15-45mm IS STM Lens Black</div>
+*/}              <div className="h3Sub my-4 ">{pop.name}</div>
+              <div className="flex flex-row">
+                <div className="flex-col flex w-9/12">
+                  <div className="genLight mt-6">
+                    A modern classic, this 4K mirrorless camera is packed with innovative technologies with an EF-M 15-45mm lens
+                  </div>
+                  <div className="genLight mt-6">
+                    From Jasmine
+                  </div>
+                  <div className="genLight mt-6">
+                    The location will be confirmed and agreed upon confirmation.
+                  </div>
+
+                </div>
+                
+                <div className="flex-col flex w-3/12 justify-center items-center">
+                   <div className="w-full flex ">
+                      <img className="w-full" src="../bigCam.png" alt="playstation" />
+                    </div>
+                </div>
+              </div>
+              <div className="gryLine2 w-full my-10"></div>
+
+              <div className="flex items-center ">
+                <h3>8</h3>
+                <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                  <img className='w-100' alt='REN coin' src="../coin.png" />
+                </div>
+                <div className="genLight">x 19 days</div>
+                <div className="genBold">&nbsp; (2nd May - 21st May)</div>
+              </div>
+              <div className="flex items-center mt-4">
+                <div className="genBold">Total:&nbsp;</div>
+                <h3>152</h3>
+                <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                  <img className='w-100' alt='REN coin' src="../coin.png" />
+                </div>
+              </div>
+              <div className="gryLine2 w-full mt-10 mb-3"></div>
+              <div className="flex">
+                <div 
+                  className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
+                  onClick={acceptBooking}
+                >
+                 Accept
+                </div>
+                <div 
+                  className="sendBtn bulkTxt block mt-4 text-center pt-1 ml-auto"
+                  onClick={rejectBooking}
+                >
+                 Reject
+                </div>
+              </div>
+              </div>
+            </div>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+
+: null}
 
 
 
-      {loading &&
-        <p>Loading...</p>
-      }
-      {!loading &&
-        <>
-          { user &&
-            <>
-              <Post 
-                  // description={post1.description}
+<Transition.Root show={open1} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen1}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
 
-                />
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+              <div style={{"width":"620px"}} className="mx-auto">
+              <div className="h3Bold mt-12 text-center">
+                Congratulations, your item will be rented out! Contact the renter to organise your drop off
+              </div>
 
-{/*                {user &&
-                  <>
-                    {isPostAlreadyLiked &&
-                      <button onClick={handleRemoveLike}>Remove Like</button>
-                    }
-                    {!isPostAlreadyLiked &&
-                      <button onClick={handleLike}>Like</button>
-                    }
-                  </>
-                }*/}
+    
+              <div className="flex flex-col justify-center items-center pt-">
+          
+                <div 
+                  className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto"
+                >
+                 Contact Now
+                </div>
+               {/* <div 
+                  className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
+                >
+                 I made a mistake
+                </div>*/}
+              </div>
+              </div>
+            </div>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
 
 
-{/*                {user &&
-                  <>
-                    <button onClick={() => setEdit(true)}> Edit this post </button>
-                    {edit &&
-                      <form onSubmit={handleEditSubmit}>
-                        <input
-                          value={description1}
-                          onChange={(event) => setDescription1(event.target.value)}
-                          placeholder="New description"
-                        />
-                        <button> Confirm</button>
-                      </form> 
-                    }
-                  </>
-                }*/}
+     
 
-          </>
-          }
-{/*          { !post.id &&
-            <p> not found </p>
-          }*/}
-        </>
-      }
     </div>
   );
 }

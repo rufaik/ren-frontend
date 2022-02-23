@@ -6,6 +6,8 @@ import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
+import {Verify} from './Verify'
+
 
   const API_URL = 'http://localhost:1337'
 
@@ -43,11 +45,12 @@ export default ({description, likes, url}) =>{
  const [posts, setPosts] = useState([])
  const [products, setProducts] = useState([])
  const [userTypes, setUserTypes] = useState([])
- const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+ const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
  const [q1, setQ1] = useState(true)
  const [q2, setQ2] = useState(false)
  const [q3, setQ3] = useState(false)
-
+ const [darkMode, setDarkMode] = useState(true)
+const [verify, setVerify] = useState(true)
 
   useEffect(() => {
     const getPosts = async () => {
@@ -96,7 +99,7 @@ export default ({description, likes, url}) =>{
 
 
   return (
-    <div className="">
+    <div className={create === 'darkbg' ? 'darkbg' : null}>
 {/*	    {posts.map(post => (
       <Link to={`/${post.id}`}>
   	    <Post 
@@ -124,9 +127,13 @@ export default ({description, likes, url}) =>{
         />
       </Link>
       ))}*/}
+        {verify &&
+          <Verify />
+          }
         <div
           id="carouselDarkVariant"
-          class="carousel slide carousel-fade carousel-dark relative sectWidth mx-auto mt-10"
+          // className="carousel slide carousel-fade carousel-dark relative sectWidth mx-auto mt-10"
+          className="carousel slide carousel-fade carousel-dark relative sectWidth mx-auto mt-10 "
           data-bs-ride="carousel"
         >
             <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
@@ -152,8 +159,9 @@ export default ({description, likes, url}) =>{
               ></button>
             </div>
 
-            <div class="carousel-inner relative w-full ">
-                <div class="carousel-item active relative float-left w-full" style={{'height':'90vh'}}>
+            <div class="carousel-inner relative w-full  ">
+                <div class={create === 'darkbg' ? "carousel-item active relative float-left w-full darkbg" : "carousel-item active relative float-left w-full "} 
+                  style={{'height':'90vh'}}>
         {/*      <div class="carousel-caption hidden md:block absolute text-center">
                 <h5 class="text-xl">First slide label</h5>
                 <p>Some representative placeholder content for the first slide.</p>
@@ -163,22 +171,22 @@ export default ({description, likes, url}) =>{
                 class="block w-1/2"
                 alt="Motorbike Smoke"
               />*/}
-                  <div className="flex w-100  h-5/6">
+                  <div className={create === 'darkbg' ? "flex w-100  h-5/6 darkbg" : "flex w-100  h-5/6 "}>
 
-                    <div className='w-1/2 flex flex-col bg-white'>
-                      <h2 className="heroFont mt-16">Access better technology.</h2>
-                      <h2 className="heroFont">Get better results.</h2>
+                    <div className={create === 'darkbg' ? 'w-1/2 flex flex-col darkbg' : 'w-1/2 flex flex-col '}>
+                      <h2 className={create === 'darkbg' ? "heroFont mt-16 text-white" : "heroFont mt-16 "}>Access better technology.</h2>
+                      <h2 className={create === 'darkbg' ? "heroFont  text-white" : "heroFont "}>Get better results.</h2>
                       <div className="w-10/12">
-                        <div className="h3Light mt-6">We’re making it affordable to action your ideas and get better results.</div>
+                        <div className={create === 'darkbg' ? "h3Light mt-6 text-white" : "h3Light mt-6 "}>We’re making it affordable to action your ideas and get better results.</div>
                       </div>
                     </div>
 
                     <div className='w-1/2 relative' >
                       <img className='w-100 ml-auto' alt='camera' src="../renHomeCamera.png" />
-                      <div className="absolute rectangle"></div>
+                      <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
                       <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
-                          <div className="miniText">Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
-                          <div className="miniText">Lens Black</div>
+                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
+                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Lens Black</div>
                       </div>
                     </div>
 
@@ -260,7 +268,7 @@ export default ({description, likes, url}) =>{
                   data-bs-target="#carouselDarkVariant"
                   data-bs-slide="prev"
                 >
-                  <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                  <span class={create === 'darkbg' ? "carousel-control-prev-iconD inline-block bg-no-repeat" : "carousel-control-prev-icon inline-block bg-no-repeat"} aria-hidden="true"></span>
                 </button>
                 <button
                   class="carousel-control-next absolute top-auto bottom-4 left-auto right-5 h-8 flex items-center justify-end p-0 border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline"
@@ -268,14 +276,14 @@ export default ({description, likes, url}) =>{
                   data-bs-target="#carouselDarkVariant"
                   data-bs-slide="next"
                 >
-                  <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                  <span class={create === 'darkbg' ? "carousel-control-next-iconD inline-block bg-no-repeat" :"carousel-control-next-icon inline-block bg-no-repeat" } aria-hidden="true"></span>
                 </button>
               </div>
 
             </div>
 
 
-            <div className='bluebg'>
+            <div className='bluebg pb-8'>
               <div className='sectWidth mx-auto pt-32'>
                 <h2 className='text-white '> Powered by R.E.N Coins </h2>
                 <div className='h3Light text-white mt-4'> At Rent Equipment Now, our currency is R.E.N Coins.</div>
@@ -400,7 +408,7 @@ export default ({description, likes, url}) =>{
               }
                 
                 {q3 &&
-                <div className='answerBox w-full py-16 pl-16 mt-12'>
+                <div className='answerBox w-full py-16 pl-16 mt-12 pb-10'>
                   <div className='h3Bold text-white'>What is the Pound to R.E.N Coin conversion rate?</div>
                   <div className='flex flex-row relative'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
