@@ -321,6 +321,40 @@ line-height: 26px;
 letter-spacing: 0em;
 }
 
+.blueBgBx{
+  background: #F6F7FA;
+border-radius: 20px;
+box-shadow: 14px 10px 35px 0px #1B314214;
+
+}
+
+
+
+.StripeElement {
+  height: 38px;
+  width: 100%;
+  border-radius: 10px;
+  border: 0.5px solid #BBBFC5;
+  box-shadow: 1px 1px 4px 0px #1B31421C;
+  height: 40px;
+  padding: 10px 12px;
+
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 1px 1px 4px 0px #1B31421C;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
 
 .line{
   height: 0px;

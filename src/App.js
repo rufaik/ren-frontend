@@ -15,6 +15,8 @@ import Cart from './pages/Cart'
 import Type from './pages/Type'
 import Search from './pages/Search'
 import NewListing from './pages/NewListing'
+import Topup from './pages/Topup'
+import TransitionPayout from './pages/TransitionPayout'
 import {UserContext} from './context/UserContext'
 
 
@@ -62,6 +64,8 @@ function App() {
           <Route path="/reset" exact component={Reset} />
           <Route path="/type" exact component={Type} />
           <Route path="/search" exact component={Search} />
+          <Route path="/topup" exact component={Topup} />
+          <Route path="/transitionpayout" exact component={TransitionPayout} />
           <Route path="/newlisting" exact component={NewListing} />
           <Route path="/forgot" exact component={Forgot} />
           <Route path="/cart" exact component={Cart} />

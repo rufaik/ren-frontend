@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useContext, Fragment} from 'react'
 import Post from '../components/Post'
+import Availability from '../components/Availability'
 import Share from './Share'
+import Payout from './Payout'
 
 import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
@@ -8,7 +10,6 @@ import Tabs,{Tab} from 'react-best-tabs';
 import 'react-best-tabs/dist/index.css';
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
-import { BellIcon } from '@heroicons/react/outline'
 
 
 
@@ -19,7 +20,8 @@ console.log("idd", id)
 console.log("match", id)
 const [open, setOpen] = useState(false)
 const [open1, setOpen1] = useState(false)
-const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+const [open2, setOpen2] = useState(true)
+const {user, setUser, simpleUser, setSimpleUser, simpleUser1} = useContext(UserContext)
 console.log("user1111x", simpleUser)
 // console.log("setUser", setUser)
 
@@ -33,6 +35,7 @@ console.log("user1111x", simpleUser)
 
 const [post1, setPost1] = useState({})
 const [post2, setPost2] = useState({})
+const [post3, setPost3] = useState({})
 const [loading, setLoading] = useState(true)
 const [edit, setEdit] = useState(false)
 const [description1, setDescription1] = useState('')
@@ -46,8 +49,21 @@ const [profile, setProfile] = useState('/profile.jpg')
 const [error, setError] = useState('')
 const [show, setShow] = useState('collapse')
 const [pop, setPop] = useState({})
+const [fullBooking, setFullBooking] = useState({})
+const [status, setStatus] = useState('')
+const [lastStatement, setLast] = useState('')
+const [newBooking, setNewBooking] = useState('')
 // const [profileUser, setProfileUser] = useState([])
-
+  const [bookingList, setBookingList] = useState([]);
+  const [bookingList1, setBookingList1] = useState([]);
+  const [reject, setReject] = useState(false);
+  const [tranStatus, setTranStatus] = useState('Ingoing');
+  const [activePayout, setActivePayout] = useState(false);
+  const [showPayout, setShowPayout] = useState(false);
+  const [coinsToTransfer, setCoinsToTransfer] = useState(null);
+  const [range1, setRange1] = useState(null);
+  const [range2, setRange2] = useState(null);
+  const [range3, setRange3] = useState(null);
 
 useEffect(() => {
 
@@ -103,6 +119,30 @@ useEffect(() => {
 
 }, [user])
 
+const callRange1 =  () => {
+
+  const sold = localStorage.getItem("simpleUser1")
+  console.log("simpleUser1", sold.value)
+  console.log("state", window)
+
+
+
+setRange1(simpleUser1)
+
+}
+
+const callRange2 =  () => {
+
+setRange2(simpleUser1)
+
+}
+
+const callRange3 =  () => {
+
+setRange3(simpleUser1)
+
+}
+
 const fetchListings = async (user) => {
   console.log("gosssss", user)
     const response = await fetch('http://localhost:1337/listings', {
@@ -135,12 +175,120 @@ const fetchListings = async (user) => {
         }
 
 
+useEffect(() => {
+
+  fetchBookings()
+
+}, [user])
+
+const fetchBookings = async (user) => {
+  console.log("gottttt", user)
+    const response = await fetch('http://localhost:1337/bookings', {
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+            // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                
+                // setDescription1(data.description)
+                setLoading(false);
+                console.log("sidYYYYY", data)
+            
+
+                if(data !== null){
+                  setPost3(data);
+          
+                } else {
+                  console.log("else", user)
+               
+
+                }
+                // history.push(`/profile/${id}`)
+            } catch(err){
+              console.log("nope")
+                setLoading(false);
+            }         
+        }
 
 
+
+
+const newBookings =  () => {
+    // pop.bookings.map( async (booking, i) => {
+    //   if(booking.status ==='Pending'){
+    //     const original = booking.id
+    //     console.log("original", original)
+
+  post3.map((booking, i) => {
+    if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
+      let updatedItems = bookingList;
+      updatedItems.push(booking.id);
+      setBookingList(updatedItems);
+      console.log("updatedItems", updatedItems)
+  }
+})}
 
 useEffect(() =>{
-    console.log("hey")
-  }, [])
+if(post3.length > 0) {
+    newBookings()}
+
+  }, [post3])
+
+
+const newBookingsRej =  () => {
+    // pop.bookings.map( async (booking, i) => {
+    //   if(booking.status ==='Pending'){
+    //     const original = booking.id
+    //     console.log("original", original)
+
+  post3.map((booking, i) => {
+    if (booking.status === "Rejected" && `${booking.renter.id}` === id) {
+      let updatedItems = bookingList;
+      updatedItems.push(booking.id);
+      setBookingList1(updatedItems);
+      console.log("updatedItems", updatedItems)
+  }
+})}
+
+useEffect(() =>{
+if(post3.length > 0) {
+    newBookingsRej()}
+
+  }, [post3])
+
+useEffect(() =>{
+if(simpleUser && simpleUser.stripeStatus !== "Completed") {
+    setActivePayout(true)
+  }
+
+  }, [simpleUser])
+
+console.log("bookingList", bookingList)
+
+  // const addToList = item => {
+  //   //copy the selected item array
+  //   let updatedItems = recipeIds;
+  //   //use array.push to add it to the array
+  //   updatedItems.push(item.id);
+  //   setRecipeIds(updatedItems);
+  //   setSelectedId1(item.id);
+  //   // console.log(itemList);
+  // };
+
+
+  //   const addToList = item => {
+  //   //copy the selected item array
+  //   let updatedItems = bookingList;
+  //   //use array.push to add it to the array
+  //   updatedItems.push(booking.id);
+  //   setBookingList(updatedItems);
+  
+  //   // console.log(itemList);
+  // };
+
 
 // const handleDelete = async () => {
 //   const response = await fetch(`http://localhost:1337/posts/${id}`, {
@@ -242,42 +390,69 @@ const handleImgSubmit = async (event) => {
 
 
 
-  const acceptBooking = (event) => {
-    event.preventDefault()
+  const acceptBooking = async (event) => {
+   
 
-    pop.bookings.map( async (booking, i) => {
-      if(booking.status ==='Pending'){
-        const original = booking.id
-        console.log("original", original)
+    // pop.bookings.map( async (booking, i) => {
+    //   if(booking.status ==='Pending'){
+    //     const original = booking.id
+    //     console.log("original", original)
 
 
     try{
    
-        const response = await fetch(`http://localhost:1337/bookings/${original}`, {
+        const response = await fetch(`http://localhost:1337/bookings/${fullBooking.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type':'application/json',
             'Authorization': `Bearer ${user.jwt}`
           },          
          body: JSON.stringify({
-              status: 'Confirmed'
+              status
             })
         })
   
         const data = await response.json()
   
         console.log("dataRRRRRRR", data) 
+
+        // window.location.reload()
+        setOpen1(true)
+        createTransaction()
       }catch(err){
         console.log("Exception", err)
         setError(err)
       }
 
-      }
-      return null
-    })
+    //   }
+    //   return null
+    // })
 
     //find booking set Status to confirmed
 
+}
+
+
+const createTransaction = async () => {
+  console.log(createTransaction)
+ try{
+     const response = await fetch('http://localhost:1337/transactions', {
+         method: 'POST',
+         headers: {
+             'Authorization': `Bearer ${user.jwt}`,
+             'Content-Type':'application/json',
+         },
+         body: JSON.stringify({
+             amount: fullBooking.coins,
+             booking: parseInt(fullBooking.id),
+             InOrOut: tranStatus
+    
+         })
+     })
+    
+ } catch(err){
+     console.log("Exception ", err)
+ }
 }
 
 
@@ -302,28 +477,30 @@ const handleImgSubmit = async (event) => {
 
   // }
 
-  const rejectBooking = (event) => {
+console.log("fullBooking", fullBooking)
+
+  const rejectBooking = async (event) => {
     //item.booked to false
     //find booking set Status to rejected
 
     event.preventDefault()
 
-    pop.bookings.map( async (booking, i) => {
-      if(booking.status ==='Pending'){
-        const original = booking.id
-        console.log("original", original)
+    // pop.bookings.map( async (booking, i) => {
+    //   if(booking.status ==='Pending'){
+    //     const original = booking.id
+    //     console.log("original", original)
 
 
     try{
    
-        const response = await fetch(`http://localhost:1337/bookings/${original}`, {
+        const response = await fetch(`http://localhost:1337/bookings/${fullBooking.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type':'application/json',
             'Authorization': `Bearer ${user.jwt}`
           },          
          body: JSON.stringify({
-              status: 'Rejected'
+              status: "Rejected"
             })
         })
   
@@ -335,10 +512,14 @@ const handleImgSubmit = async (event) => {
         setError(err)
       }
 
-      }
-      return null
-    })
+    //   }
+    //   return null
+    // })
     
+  }
+
+  const showingPayout = () => {
+    setShowPayout(true)
   }
 
 
@@ -357,9 +538,95 @@ const releaseItem = async () => {
     })
   })
   const data = await response.json();
- 
+ shareCoins()
   console.log("releaseItem", data)
 }
+
+
+   const shareCoins = async () => {
+    console.log()
+    const data2 = {
+      coins:  
+        fullBooking.renter.coins === null 
+        ? Math.round(parseInt(0) + parseInt(fullBooking.coins))
+        : Math.round(parseInt(fullBooking.renter.coins) + parseInt(fullBooking.coins))
+      
+    }
+
+      try{
+        const response = await fetch(`http://localhost:1337/users/${fullBooking.renter.id}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${user.jwt}`
+            },
+            body: JSON.stringify(data2)
+          })
+
+          const shared = await response.json()         
+
+      } catch(err){
+    console.log("Exception ", err)}
+
+    } 
+
+
+ console.log("FORST", parseInt(coins) * 20 )
+ console.log("SEC", Math.round(parseInt(coins) * 20 ))
+
+  const confirmPayout = async (data) => {
+    setCoinsToTransfer(simpleUser.coins)
+  }
+
+   const clearCoins = async (data) => {
+    
+    const data1 = {
+      coins: 0,
+    }
+
+      try{
+        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${user.jwt}`
+            },
+            body: JSON.stringify(data1)
+          })
+
+          const confirm = await response.json()
+          setSimpleUser(confirm)
+           localStorage.setItem('simpleUser', JSON.stringify(confirm))
+          transferCoins()
+
+      } catch(err){
+    console.log("Exception ", err)}
+
+    }
+
+  const transferCoins = async () => {
+     const data3 = {
+      account: post1.payoutID, 
+      amount: Math.round(parseInt(coinsToTransfer) * 20)
+      }
+      console.log("CLICK2")
+       try{
+        const response = await fetch(`http://localhost:1337/payouts/coinPay`, {
+            method: 'POST',
+            headers: {
+            'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data3)
+          })
+
+          const confirm = await response.json()
+          console.log("confirm2", confirm)
+
+      } catch(err){
+    console.log("Payment ", err)
+      }
+    }
+
 
 
 // useEffect(() => {
@@ -383,6 +650,10 @@ const API_URL = 'http://localhost:1337'
 const formatImageUrl = (url) => `${API_URL}${url}`
 
                   console.log("if", post1)
+
+
+
+
 
 
 
@@ -425,9 +696,18 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
                 <h3>{coins}</h3>
-                <button className="authBtn ml-10">
-                  Top up
-                </button>
+                <div className="flex flex-col">
+                  <button className="authBtn ml-10 mb-1">
+                    Top up
+                  </button>
+                  <button onClick={confirmPayout} className="authBtn ml-10 mt-1 onClick">
+                    Payout
+                  </button>
+                  <button onClick={clearCoins} className="authBtn ml-10 mt-1 onClick">
+                    OUTTTT
+                  </button>
+                </div>
+       
               </div>
 
               <div className="flex mt-4">
@@ -438,6 +718,30 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                 <div className="genBold">30</div>
                 <div className="gen ml-2">spent in the past 30 days</div>
               </div>
+        {bookingList.length > 0 
+          ?
+              <div className="flex mt-4">
+                <div className="genBold orangeCol">{bookingList.length}</div>
+                <div className="gen ml-2"> rental booking(s) have been confirmed</div>
+              </div>
+          : null
+        }
+        {bookingList1.length > 0 
+          ?
+              <div className="flex">
+                <div className="genBold orangeCol">{bookingList.length}</div>
+                <div className="gen ml-2"> rental booking(s) have been rejected</div>
+              </div>
+          : null
+        }
+        {activePayout &&
+          <button onClick={showingPayout} className="authBtn ml-10">
+                  Set up your payment information
+          </button>
+        }
+        {showPayout &&
+          <Payout />
+        }
             </div>
 
             <Share />
@@ -507,6 +811,10 @@ const formatImageUrl = (url) => `${API_URL}${url}`
     <div className="gen greyCol mb-7">
       Joined 8th Jan 2021
     </div>
+    <div className="orangeCol my-3 text-white block mt-4 underline"
+    >
+    Select availability
+    </div>
     <div className="flex my-3 items-center">
       <h3>95%</h3>
       <div className="gen">&nbsp;Rentals approved</div>
@@ -574,23 +882,123 @@ const formatImageUrl = (url) => `${API_URL}${url}`
      
          <Tab title="Rented" className="mr-3 w-1/3">
               <div className="mt-3">
+
+              { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+                  <div>
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Pending" && `${booking.renter.id}` === id) {
+                        return(
+                  <div 
+                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    onClick={() => {
+                        setPop(booking.listing)
+                        setFullBooking(booking)
+                        console.log("list", booking.listing)
+                        setOpen(true)
+                        setStatus("Complete")
+                        setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                      }}>
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(booking.listing.image && booking.listing.image.url)}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )}})}
+
+                 
+
+                 
+                  
+                  </div>
+
+
+            </div>
+            </>
+: null}
+
+      <div className="genBold">confirmed</div>
+
+      { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+                  <div>
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
+                        return(
+                  <div 
+                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    onClick={() => {
+                        setPop(booking.listing)
+                        setFullBooking(booking)
+                        console.log("list", booking.listing)
+                        setOpen(true)
+                        setStatus("Complete")
+                        setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                      }}>
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(booking.listing.image && booking.listing.image.url)}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )}})}
+
+                 
+
+                 
+                  
+                  </div>
+
+
+            </div>
+            </>
+: null}
+
+  <div className="genBold">all</div>
         { post2 && post2[0]
           ?<>
 
-{/*            { post1.listings[0].booked === true
-                    ?<>
-                          <div className="h3Bold mt-8 mb-4">Congratulations!&nbsp;&nbsp;You have bookings!</div>
-                          <div className="genLight my-4">Please click on each item to <b>accept</b> or <b>reject</b> the reservations on your items</div>
-                      </>
-                    : null
-                  }*/}
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
                   <div>
                 
                   {post2.map((listing, i) => {
-{/*                    console.log("listing", listing)
-*/}                     if (listing.booked === true && listing.userID === id) {
+                     if (listing.booked === true && listing.userID === id) {
                         return(
                   <div 
                     className="flex flex-col overflow-hidden thumbImgBx" 
@@ -637,29 +1045,240 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                </div>
           </Tab>
      
-{          <Tab title="Bookings" className="mr-3 w-1/3">
+          <Tab title="Bookings" className="mr-3 w-1/3">
               <div className="mt-3">
                 <div>
                     <div className="h3Bold mt-8 mb-4">Pending: Congratulations!&nbsp;&nbsp;You have bookings!</div>
                     <div className="genLight my-4">Please click on each item to <b>accept</b> or <b>reject</b> the reservations on your items</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
+
+          { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+                  <div>
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Pending" && booking.listing.userID === id) {
+                        return(
+                  <div 
+                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    onClick={() => {
+                        setPop(booking.listing)
+                        setFullBooking(booking)
+                        console.log("list", booking)
+                        setOpen(true)
+                        setStatus("Confirmed")
+                        setLast("Congratulations, your item will be rented out! Contact the renter to organise your drop off")
+                      }}>
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(booking.listing.image && booking.listing.image.url)}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )}})}
+
+                 
+
+                 
+                  
+                  </div>
+
+
+            </div>
+            </>
+: null}
                 <div>
                     <div className="h3Bold mt-8 mb-4">Confirmed</div>
                     <div className="genLight my-4">Once you're booking has been complete and your items have been returned, set your booking to <b>COMPLETED</b> and your coins will be released your account</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
+        { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+                  <div>
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Confirmed" && booking.listing.userID === id) {
+                        return(
+                  <div 
+                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    onClick={() => {
+                        setPop(booking.listing)
+                        setFullBooking(booking)
+                        console.log("list", booking.listing)
+                        setOpen(true)
+                        setStatus("Complete")
+                        setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                      }}>
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(booking.listing.image && booking.listing.image.url)}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )}})}
+
+                 
+
+                 
+                  
+                  </div>
+
+
+            </div>
+            </>
+: null}
                 <div>
                     <div className="h3Bold mt-8 mb-4">Completed</div>
                     <div className="genLight my-4">View your completed bookings</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
+
+          { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+                  <div>
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Complete" && booking.listing.userID === id) {
+                        return(
+                  <div 
+                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    onClick={() => {
+                        setPop(booking.listing)
+                        setFullBooking(booking)
+                        console.log("list", booking)
+                        setOpen(true)
+                      }}>
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(booking.listing.image && booking.listing.image.url)}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )}})}
+
+                 
+
+                 
+                  
+                  </div>
+
+
+            </div>
+            </>
+: null}
               </div>
-          </Tab>}
+          </Tab>
       </Tabs>
   </div>
 
 </div>
+
+
+<Transition.Root show={open2} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen2}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "44em"}}>
+              <div style={{"width":"620px"}} className="mx-auto">
+              <div className="h3Bold mt-12 text-center">Availability</div>
+              <div className="mx-auto flex justify-center decoration-none">
+                <Availability />
+                {/*<button className="authBtn ml-10 mb-1" onClick={callRange1}>
+                   Range 1
+                  </button>
+                  <h3>{range1}</h3>
+                <button className="authBtn ml-10 mb-1"onClick={callRange2}>
+                   Range 2
+                  </button>
+                  <h3>{range2}</h3>
+                <button className="authBtn ml-10 mb-1"onClick={callRange3}>
+                   Range 3
+                  </button>
+                  <h3>{range3}</h3>*/}
+              </div>
+              </div>
+            </div>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+
+
+
+
 { pop && pop.name ?
 <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
@@ -759,7 +1378,13 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
 <Transition.Root show={open1} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen1}>
+      <Dialog 
+        as="div" 
+        className="fixed z-10 inset-0 overflow-y-auto" 
+        onClose={()=> {
+          setOpen1(false)
+          window.location.reload()
+        }}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -789,17 +1414,15 @@ const formatImageUrl = (url) => `${API_URL}${url}`
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">
-                Congratulations, your item will be rented out! Contact the renter to organise your drop off
+              {lastStatement}
+                
+              }
               </div>
 
     
               <div className="flex flex-col justify-center items-center pt-">
           
-                <div 
-                  className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto"
-                >
-                 Contact Now
-                </div>
+                <a className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" href="mailto:kemi@kodedldn.com" target="_blank" rel="noopener noreferrer" > Contact Now</a>
                {/* <div 
                   className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
                 >

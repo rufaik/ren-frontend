@@ -76,6 +76,15 @@ export const cartSubTotal = (cart) => {
 	return subTotal
 }
 
+export const cartCoinTotal = (cart) => {
+	//Sum up all of the individual product cost
+	const coinTotal = cart.reduce((counter, productc) => {
+		return counter + parseInt(productc.name) * productc.qty
+
+	}, 0)
+	return coinTotal
+}
+
 export const shouldPayShipping = (cart) => {
 	const subTotal = cartSubTotal(cart)
 

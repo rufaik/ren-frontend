@@ -41,8 +41,8 @@ export default ({children}) =>{
 		reloader()
 	}, [user])
 
-console.log("likesGiven", likesGiven)
-console.log("likesReceived", likesReceived)
+// console.log("likesGiven", likesGiven)
+// console.log("likesReceived", likesReceived)
 
   return (
   	<LikesContext.Provider value={{likesGiven, likesReceived, reloader}} >

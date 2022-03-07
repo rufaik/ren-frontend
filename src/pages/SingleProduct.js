@@ -1,14 +1,21 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, Component} from 'react'
 import Post from '../components/Post'
+import Calendar1 from '../components/Calendar1'
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
 import {CartContext} from '../context/CartContext'
-// import {addToCart} from '../utils/cart'
+import { extendMoment } from "moment-range";
 import { addDays } from 'date-fns';
 import { DateRange } from 'react-date-range';
+// import Moment from "moment";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'react-dates/initialize';
+// import 'react-dates/lib/css/_datepicker.css';
+// // import {DateRangePicker} from ‘react-dates’;
+
 
 const API_URL = 'http://localhost:1337'
 
@@ -19,9 +26,9 @@ const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
 
-const {user, setUser} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
 const {addToCart} = useContext(CartContext)
-console.log("user1", user)
+console.log("user1", simpleUser)
 console.log("setUser", setUser)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -32,13 +39,13 @@ console.log("setUser", setUser)
 
 // console.log("isPostAlreadyLiked", isPostAlreadyLiked)
 
-const [state, setState] = useState([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
-      key: 'selection'
-    }
-  ]);
+// const [state, setState] = useState([
+//     {
+//       startDate: new Date(),
+//       endDate: addDays(new Date(), 7),
+//       key: 'selection'
+//     }
+//   ]);
 
 
 
@@ -48,6 +55,8 @@ const [product, setProduct] = useState({})
 const [loading, setLoading] = useState(true)
 const [edit, setEdit] = useState(false)
 const [description, setDescription] = useState('')
+const [coins, setCoins] = useState('')
+const [lowFunds, setLowFunds] = useState(false)
 
 // const fetchProduct = async () => {
 // 		const response = await fetch('http://localhost:1337/products')
@@ -108,6 +117,40 @@ const handleEditSubmit = async (event) => {
 	console.log("handleEditSubmit data", data)
 }
 
+const updateCurrent = async (data) => {
+    console.log("simpleUser.coins", simpleUser.coins)
+    console.log("product.rental", product.rental)
+    const data1 = {
+      coins: Math.round(parseInt(simpleUser.coins) - parseInt(product.rental))
+    }
+
+    if(parseInt(simpleUser.coins) > parseInt(product.rental)){
+        try{
+            const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+              method: 'PUT',
+              headers: {
+              'Content-Type':'application/json',
+              'Authorization': `Bearer ${user.jwt}`
+              },
+              body: JSON.stringify(data1)
+            })
+
+          const confirm = await response.json()
+          setSimpleUser(confirm)
+           localStorage.setItem('simpleUser', JSON.stringify(confirm))
+          makeBooking()
+
+        } catch(err){
+        console.log("Exception ", err)}
+    } else {
+        setLowFunds(true)
+    }
+
+    }
+
+
+
+
 const makeBooking = async () => {
  try{
      const response = await fetch('http://localhost:1337/bookings', {
@@ -119,7 +162,8 @@ const makeBooking = async () => {
          body: JSON.stringify({
              status: "Pending",
              rentalDays:"5",
-             listing: parseInt(product.id)
+             listing: parseInt(product.id),
+             coins: product.rental
     
          })
      })
@@ -128,6 +172,8 @@ const makeBooking = async () => {
      console.log("Exception ", err)
  }
 }
+
+
 
 
 const bookItem = async () => {
@@ -191,6 +237,37 @@ useEffect(() => {
 
 
 
+const [state, setState] = useState({
+  selection1: {
+    startDate: addDays(new Date(), 1),
+    endDate: null,
+    key: 'selection1'
+  },
+  selection2: {
+    startDate: addDays(new Date(), 4),
+    endDate: addDays(new Date(), 8),
+    key: 'selection2'
+  },
+  selection3: {
+    startDate: addDays(new Date(), 8),
+    endDate: addDays(new Date(), 10),
+    key: 'selection3',
+    autoFocus: false
+  },
+  selection4: {
+    startDate: addDays(new Date(), 10),
+    endDate: addDays(new Date(), 12),
+    key: 'selection4',
+  }
+});
+
+<DateRangePicker
+  onChange={item => setState({ ...state, ...item })}
+  ranges={[state.selection1, state.selection2, state.selection3]}
+/>;
+
+
+
   return (
     <div className="SinglePost">
     { product && product.name
@@ -204,12 +281,23 @@ useEffect(() => {
             <div>
             <button
                 className="orangeBg text-white h3Dark py-3 px-8 rounded-full"
-                onClick={makeBooking} 
+                onClick={updateCurrent} 
                 >
                 Book Now
             </button>
             </div>
-{/*            <DateRange
+            {lowFunds &&
+                <div className="normalBold mt-3">Unfortunately you dont have enough REN coins, please top up</div>
+            } 
+
+            <Calendar1 />
+
+{/*            <DateRangePicker
+  onChange={item => setState({ ...state, ...item })}
+  ranges={[state.selection1, state.selection2, state.selection3]}
+/>;*/}
+
+ {/*          <DateRange
   editableDateInputs={true}
   onChange={item => setState([item.selection])}
   moveRangeOnFirstSelection={false}

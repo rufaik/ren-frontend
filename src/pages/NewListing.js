@@ -6,7 +6,7 @@ import {CartContext} from '../context/CartContext'
 import {Calc} from './Calc'
 import ReactPlayer from 'react-player'
 import ImageUploading from "react-images-uploading";
-import { Menu, Transition } from '@headlessui/react'
+import { Menu, Transition, Dialog } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
 function classNames(...classes) {
@@ -45,6 +45,8 @@ export default () =>{
 	const [rentalValue, setRentalValue] = useState('');
 	const [calculated, setCalculated] = useState(false);
 	const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+	const [open, setOpen] = useState(true)
+
 
 	console.log("user", user)
 	console.log("simpleUser", simpleUser)
@@ -136,6 +138,75 @@ const handleSubmit = async (event) => {
 
 	return(
 		<div>
+
+		{ simpleUser && simpleUser.stripeStatus  !== "Completed"
+		  ?
+			<Transition.Root show={open} as={Fragment}>
+			      <Dialog 
+			        as="div" 
+			        className="fixed z-10 inset-0 overflow-y-auto" 
+			        onClose={()=> {
+			          setOpen(false)
+			        }}>
+			        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+			          <Transition.Child
+			            as={Fragment}
+			            enter="ease-out duration-300"
+			            enterFrom="opacity-0"
+			            enterTo="opacity-100"
+			            leave="ease-in duration-200"
+			            leaveFrom="opacity-100"
+			            leaveTo="opacity-0"
+			          >
+			            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+			          </Transition.Child>
+
+			          {/* This element is to trick the browser into centering the modal contents. */}
+			          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+			            &#8203;
+			          </span>
+			          <Transition.Child
+			            as={Fragment}
+			            enter="ease-out duration-300"
+			            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+			            enterTo="opacity-100 translate-y-0 sm:scale-100"
+			            leave="ease-in duration-200"
+			            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+			            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+			          >
+			            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+			              <div style={{"width":"620px"}} className="mx-auto">
+			              { simpleUser.stripeStatus === "NotStarted" || simpleUser.stripeStatus === null && 
+				              <div className="h3Bold mt-12 text-center">
+				              	Please set up your payment information to convert your coins into cash!
+				              </div>
+				          }
+			              { simpleUser.stripeStatus === "Incomplete" && 
+				              <div className="h3Bold mt-12 text-center">
+				              	You have not completed your payment setup
+				              </div>
+				          }
+			              <div className="flex flex-col justify-center items-center pt-">
+			          
+			                <div className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto">
+			                Setup payments
+			                </div>
+			               {/* <div 
+			                  className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
+			                >
+			                 I made a mistake
+			                </div>*/}
+			              </div>
+			              </div>
+			            </div>
+			          </Transition.Child>
+			        </div>
+			      </Dialog>
+			    </Transition.Root>
+
+
+		  :
+
 			<div className="sectWidth mx-auto">
 				<h2 className="mt-12">Add new listing</h2>
 				<div className="genLight mt-6">All your items will be insured for <b> up to £20,000 </b> so you and lend with confidence.</div>
@@ -696,6 +767,7 @@ const handleSubmit = async (event) => {
 				</div>
 
 			</div>
+		 }
 		</div>
 
 		)

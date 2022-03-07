@@ -2,7 +2,11 @@ import React, {useState, useEffect, useCallback, useContext} from 'react'
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import {CartContext} from '../context/CartContext'
 import {UserContext} from '../context/UserContext'
-
+import {
+  cartCoinTotal, 
+  cartSubTotal, 
+} from '../utils/cart'
+import {formatPrice} from '../utils/format'
 
 const Card_Styles = {
 	style: {
@@ -15,11 +19,12 @@ const Card_Styles = {
 
 const generateInput = (label, value, setOnChange) => {
   return(
-      <div>
-        <label htmlFor={label}>{label}</label>
+      <div >
+        <div className="genBold w-36" >{label} </div>
         <input 
           id={label}
           value={value}
+          className="uniqueBox mb-7 pl-4"
           onChange={(event) => setOnChange(event.target.value)}
         />
       </div>
@@ -48,6 +53,29 @@ export default () =>{
   const [shipping_postcode, setShipping_postcode] = useState('');
   
   const [coins, setCoins] = useState(null);
+
+
+  const Card_Styles = {
+  style: {
+    base: {
+      color: "#32325d",
+      height: "38px",
+      width: "359px",
+      borderRadius: "10px",
+      border: "0.5px solid #BBBFC5",
+      boxShadow: "1px 1px 4px 0px #1b31421c",
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4",
+      },
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a",
+    },
+  },
+};
 
   const valid = () => {
     if(!shipping_name || !shipping_address || !shipping_county || !shipping_country || !shipping_postcode){
@@ -167,18 +195,11 @@ console.log("checkout", user)
 console.log("coins", coins)
   return (
   	<div>
-  	{!loading && 
-  		<>
-  		<h3>Total: {total}</h3>
-  	</>
-	  }
-  	{loading && 
-  		<>
-  		<h3>Loading</h3>
-  	</>
-	  }
+   
     {!success &&
-	    <form onSubmit={handleSubmit}>
+       <div className="flex flex-row w-full">
+        <div className="w-9/12">
+	         <form onSubmit={handleSubmit}>
     
 {/*      <div>
         <label>Name</label>
@@ -221,18 +242,38 @@ console.log("coins", coins)
         />
       </div>*/}
 
-    {generateInput('Name', shipping_name, setShipping_name)}
-    {generateInput('Address', shipping_address, setShipping_address)}
-    {generateInput('County', shipping_county, setShipping_county)}
-    {generateInput('Country', shipping_country, setShipping_country)}
-    {generateInput('Postcode', shipping_postcode, setShipping_postcode)}
-
-	      <CardElement options={Card_Styles} />
-	      <button disabled={!stripe || !valid()}>Submit</button>
-	      {/* Show error message to your customers */}
-	      {errorMessage && <div>{errorMessage}</div>}
+            {generateInput('Name', shipping_name, setShipping_name)}
+            {generateInput('Address', shipping_address, setShipping_address)}
+            {generateInput('County', shipping_county, setShipping_county)}
+            {generateInput('Country', shipping_country, setShipping_country)}
+            {generateInput('Postcode', shipping_postcode, setShipping_postcode)}
+            <div className="genBold w-36" >Card Details </div>
+    	      <CardElement options={Card_Styles} />
+    	      <button 
+              // disabled={!stripe || !valid()}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+    	      {/* Show error message to your customers */}
+    	      {errorMessage && <div>{errorMessage}</div>}
 	    </form>
+
+      </div>
+      <div className="w-3/12 flex flex-col h-40 blueBgBx pt-4 items-center">
+        <div>
+          <img className='w-100' alt='REN coin' src="../coin.png" />
+        </div>
+        <div className="genBold orangeCol">
+        {cartCoinTotal(cart)}
+        </div>
+        <div className="h3Bold genBold mt-4">
+        Total:{formatPrice(cartSubTotal(cart))}
+        </div>
+      </div>
+  </div>
 }
+
 {success &&
   <h2>Your order was successfully processed!</h2>
 }

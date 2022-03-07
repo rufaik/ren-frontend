@@ -10,7 +10,7 @@ export default () =>{
   const {cart} = useContext(CartContext)
   const [enabled, setEnabled] = useState(true);
   const [vector, setVector] = useState("../sun.png");
-  console.log("Nav", cart)
+  // console.log("Nav", cart)
   console.log("Navvy", simpleUser)
 
   return (
@@ -59,7 +59,9 @@ export default () =>{
   	   		<NavLink to="/create" exact className="mx-4 menuItem"> Create </NavLink>
           <button className="authBtn" onClick={() => {
             setUser(null)
+            setSimpleUser(null)
             localStorage.removeItem('user') 
+            localStorage.removeItem('simpleUser') 
             }}>
             Log Out
           </button>

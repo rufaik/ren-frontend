@@ -12,7 +12,7 @@ const [lastName, setLastName] = useState('')
 const [error, setError] = useState('')
 
 
-const {user, setUser} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
 console.log('user', user)
 
 
@@ -51,6 +51,8 @@ const handleSubmit = async (event) => {
 
         localStorage.setItem('user', JSON.stringify(data))
         setUser(data)
+        localStorage.setItem('simpleUser', JSON.stringify(data.user))
+        setSimpleUser(data.user)
 
 
      } catch(err){
