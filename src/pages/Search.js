@@ -185,8 +185,8 @@ const getListings = async (user) => {
 								<div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
 
 							{listings.map((listing, i) => {
-								if(listing.booked !== true){
-	                			return(
+{/*								if(listing.booked !== true)
+*/}	                			return(
 
 									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
@@ -206,7 +206,7 @@ const getListings = async (user) => {
 					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
 
 									</Link>	                				
-	                		)}})}
+	                		)})}
 	                
 {/*
 								<div className="h-96 searchThumb pt-4">

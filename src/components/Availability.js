@@ -36,10 +36,12 @@ export default class Calendar1 extends React.Component {
   render() {
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
+    console.log('this', this)
+    
 
     return (
-      <div className="RangeExample">
-        <p>
+      <div className="RangeExample mb-4">
+      {/*  <p>
           {!from && !to && 'Please select the first day.'}
           {from && !to && 'Please select the last day.'}
           {from &&
@@ -51,25 +53,26 @@ export default class Calendar1 extends React.Component {
               Reset
             </button>
           )}
-        </p>
+        </p>*/}
         <DayPicker
           className="Selectable"
           numberOfMonths={this.props.numberOfMonths}
           selectedDays={[from, { from, to }]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
-          disabledDays={[
-        new Date(2022, 3, 12),
-        new Date(2022, 3, 2),
-        {
-          after: new Date(2022, 3, 20),
-          before: new Date(2022, 3, 25),
-        },
-         {
-          after: new Date(2022, 2, 20),
-          before: new Date(2022, 2, 25),
-        },
-      ]}
+          disabledDays={this.props.noShow}
+      //     disabledDays={[
+      //   new Date(2022, 3, 12),
+      //   new Date(2022, 3, 2),
+      //   {
+      //     after: new Date(2022, 3, 20),
+      //     before: new Date(2022, 3, 25),
+      //   },
+      //    {
+      //     after: new Date(2022, 2, 20),
+      //     before: new Date(2022, 2, 25),
+      //   },
+      // ]}
         />
         <Helmet>
           <style>{`
@@ -100,7 +103,7 @@ export default class Calendar1 extends React.Component {
 }
 `}</style>
         </Helmet>
-        <Dates rangeF={this.state.from} rangeT={this.state.to} />
+        <Dates rangeF1={this.state.from} rangeT1={this.state.to} show={this.props.show} />
       </div>
     );
   }

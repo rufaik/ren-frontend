@@ -128,6 +128,8 @@ export default () =>{
 
           clearCart()
 
+          createTransaction(order)
+
 
 
     console.log("handleSubmit result", result)
@@ -138,6 +140,25 @@ export default () =>{
     // event.preventDefault();
 }
 
+
+const createTransaction = async (order) => {
+  const data = {
+      amount: (Math.round(parseInt(order.product_qty[0].qty))),
+      InOrOut: "Ingoing",
+      type:"TopUp",
+      userID: simpleUser.id
+    }
+  const response = await fetch('http://localhost:1337/transactions', {
+       method: 'POST',
+          headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${user.jwt}`
+          },
+          body: JSON.stringify(data)
+        })
+
+
+}
 
   const topUpCoins = async (order) => {
     console.log("coins", coins)

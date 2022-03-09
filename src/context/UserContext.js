@@ -7,11 +7,12 @@ export default ({children}) => {
 
 	const [user, setUser] = useState(null)
 	const [simpleUser, setSimpleUser] = useState(null)
-	const [simpleUser1, setSimpleUser1] = useState(null)
+	const [rangeF, setRangeF] = useState(null)
+	const [rangeT, setRangeT] = useState(null)
 	const [create, setCreate] = useState('light')
 
 	return(
-		<UserContext.Provider value={{user, setUser, create, setCreate, simpleUser, setSimpleUser, simpleUser1, setSimpleUser1}}>
+		<UserContext.Provider value={{user, setUser, create, setCreate, simpleUser, setSimpleUser, rangeF, setRangeF, rangeT, setRangeT}}>
 			{children}
 		</UserContext.Provider>
 

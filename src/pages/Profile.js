@@ -20,7 +20,8 @@ console.log("idd", id)
 console.log("match", id)
 const [open, setOpen] = useState(false)
 const [open1, setOpen1] = useState(false)
-const [open2, setOpen2] = useState(true)
+const [open2, setOpen2] = useState(false)
+const [open3, setOpen3] = useState(true)
 const {user, setUser, simpleUser, setSimpleUser, simpleUser1} = useContext(UserContext)
 console.log("user1111x", simpleUser)
 // console.log("setUser", setUser)
@@ -58,7 +59,7 @@ const [newBooking, setNewBooking] = useState('')
   const [bookingList1, setBookingList1] = useState([]);
   const [reject, setReject] = useState(false);
   const [tranStatus, setTranStatus] = useState('Ingoing');
-  const [activePayout, setActivePayout] = useState(false);
+  const [activePayout, setActivePayout] = useState(true);
   const [showPayout, setShowPayout] = useState(false);
   const [coinsToTransfer, setCoinsToTransfer] = useState(null);
   const [range1, setRange1] = useState(null);
@@ -408,7 +409,8 @@ const handleImgSubmit = async (event) => {
             'Authorization': `Bearer ${user.jwt}`
           },          
          body: JSON.stringify({
-              status
+              status,
+              fullBooking
             })
         })
   
@@ -418,7 +420,7 @@ const handleImgSubmit = async (event) => {
 
         // window.location.reload()
         setOpen1(true)
-        createTransaction()
+        createTransaction1()
       }catch(err){
         console.log("Exception", err)
         setError(err)
@@ -433,27 +435,25 @@ const handleImgSubmit = async (event) => {
 }
 
 
-const createTransaction = async () => {
-  console.log(createTransaction)
- try{
-     const response = await fetch('http://localhost:1337/transactions', {
-         method: 'POST',
-         headers: {
-             'Authorization': `Bearer ${user.jwt}`,
-             'Content-Type':'application/json',
-         },
-         body: JSON.stringify({
-             amount: fullBooking.coins,
-             booking: parseInt(fullBooking.id),
-             InOrOut: tranStatus
-    
-         })
-     })
-    
- } catch(err){
-     console.log("Exception ", err)
- }
-}
+const createTransaction1 = async () => {
+  const data = {
+      amount: fullBooking.coins,
+      InOrOut: "Outgoing",
+      type:"Payment",
+      booking: parseInt(fullBooking.id),
+      userID:simpleUser.id
+    }
+  const response = await fetch('http://localhost:1337/transactions', {
+       method: 'POST',
+          headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${user.jwt}`
+          },
+          body: JSON.stringify(data)
+        })
+
+
+} 
 
 
   // try{
@@ -563,20 +563,67 @@ const releaseItem = async () => {
             body: JSON.stringify(data2)
           })
 
-          const shared = await response.json()         
+          const shared = await response.json() 
+          createTransaction()        
 
       } catch(err){
     console.log("Exception ", err)}
 
     } 
 
+const createTransaction = async () => {
+  const data = {
+      amount: fullBooking.id,
+      InOrOut: "Ingoing",
+      type:"BookingRejected",
+      booking: parseInt(fullBooking.id),
+      userID:fullBooking.renter.id
+    }
+  const response = await fetch('http://localhost:1337/transactions', {
+       method: 'POST',
+          headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${user.jwt}`
+          },
+          body: JSON.stringify(data)
+        })
+
+
+} 
 
  console.log("FORST", parseInt(coins) * 20 )
  console.log("SEC", Math.round(parseInt(coins) * 20 ))
 
   const confirmPayout = async (data) => {
     setCoinsToTransfer(simpleUser.coins)
+    setOpen3(true)
   }
+
+
+  const goToDashboard = async (data) => {
+    
+    console.log("CLICK2")
+       try{
+        const response = await fetch('http://localhost:1337/payouts/getLink', {
+            method: 'POST',
+            headers: {
+            'Content-Type':'application/json',
+            },
+            body: JSON.stringify({ account: simpleUser.payoutID})
+          })
+
+          const confirm = await response.json()
+          console.log("confirm2", confirm)
+          window.location.href = `${confirm.url}`
+
+      } catch(err){
+    console.log("Payment ", err)
+      }
+
+    }
+
+
+
 
    const clearCoins = async (data) => {
     
@@ -700,12 +747,12 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                   <button className="authBtn ml-10 mb-1">
                     Top up
                   </button>
-                  <button onClick={confirmPayout} className="authBtn ml-10 mt-1 onClick">
-                    Payout
+                  <button onClick={confirmPayout} className="authBtn ml-10 mt-1">
+                    Payouts 
                   </button>
-                  <button onClick={clearCoins} className="authBtn ml-10 mt-1 onClick">
+{/*                  <button onClick={clearCoins} className="authBtn ml-10 mt-1 onClick">
                     OUTTTT
-                  </button>
+                  </button>*/}
                 </div>
        
               </div>
@@ -735,7 +782,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
           : null
         }
         {activePayout &&
-          <button onClick={showingPayout} className="authBtn ml-10">
+          <button onClick={showingPayout} className="orangeCol my-3 text-white block mt-4 underline cursor-pointer">
                   Set up your payment information
           </button>
         }
@@ -768,6 +815,78 @@ const formatImageUrl = (url) => `${API_URL}${url}`
         </div>
     </div>
   </div>
+
+
+     <Transition.Root show={open3} as={Fragment}>
+      <Dialog 
+        as="div" 
+        className="fixed z-10 inset-0 overflow-y-auto" 
+        onClose={()=> {
+          setOpen3(false)
+          window.location.reload()
+        }}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+              <div style={{"width":"620px"}} className="mx-auto flex justify-center flex-col">
+     
+            <div>
+              <div className="h3Bold mt-12 text-center">
+              Payouts
+              </div>
+              <div className="genLight mt-4 text-center">
+                Would you like to convert your coins to cash and payout or go to payout dashboard
+              </div>
+      
+
+              <div className="flex mt-8 mx-12">
+                <div 
+                  className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
+                  onClick={clearCoins}
+                >
+                  Payout
+                </div>
+                <div 
+                  className="sendBtn bulkTxt block mt-4 text-center pt-1 ml-auto"
+                  onClick={goToDashboard}
+                >
+                 Dashboard
+                </div>
+            </div>
+          
+              </div>
+              </div>
+              </div>
+           
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+
 
 <div className="sectWidth flex mx-auto mt-10">
   <div className="leftCol">
@@ -811,7 +930,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
     <div className="gen greyCol mb-7">
       Joined 8th Jan 2021
     </div>
-    <div className="orangeCol my-3 text-white block mt-4 underline"
+    <div className="orangeCol my-3 text-white block mt-4 underline cursor-pointer" onClick={() => setOpen2(true)}
     >
     Select availability
     </div>

@@ -145,7 +145,7 @@ font-size: 24px;
 font-style: normal;
 font-weight: 700;
 line-height: 38px;
-letter-spacing: -0.045em;
+letter-spacing: 0em;
 
 }
 
@@ -191,6 +191,16 @@ letter-spacing: 0em;
   border: 0.5px solid #BBBFC5;
   box-shadow: 1px 1px 4px 0px #1B31421C;
 
+
+}
+
+.dateBox{
+  height: 25px;
+  width: 126px;
+/*  border-radius: 10px;
+*/  border-bottom: 0.5px solid #BBBFC5;
+/*  box-shadow: 1px 1px 4px 0px #1B31421C;
+*/
 
 }
 

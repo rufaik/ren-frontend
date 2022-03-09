@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext, Component} from 'react'
 import Post from '../components/Post'
-import Calendar1 from '../components/Calendar1'
+import Availability from '../components/Availability'
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
@@ -26,10 +26,19 @@ const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
 
-const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, rangeF, rangeT} = useContext(UserContext)
 const {addToCart} = useContext(CartContext)
 console.log("user1", simpleUser)
 console.log("setUser", setUser)
+const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+
+
+const diffDays = Math.round(Math.abs((rangeF - rangeT) / oneDay));
+
+console.log("rangenF, ranSgeT", diffDays)
+console.log("rangenF, ranSgeT1", rangeT - rangeF)
+console.log("rangenF, ranSgeT2", rangeF - rangeT)
+
 
 // const {likesGiven, reloader} = useContext(LikesContext)
 
@@ -57,6 +66,9 @@ const [edit, setEdit] = useState(false)
 const [description, setDescription] = useState('')
 const [coins, setCoins] = useState('')
 const [lowFunds, setLowFunds] = useState(false)
+const [bookings, setBookings] = useState('')
+const [blockedDates, setBlockedDates] = useState([])
+
 
 // const fetchProduct = async () => {
 // 		const response = await fetch('http://localhost:1337/products')
@@ -85,7 +97,8 @@ const fetchProduct = async () => {
             }         
         }
 
-              
+
+
 
 const handleDelete = async () => {
 	const response = await fetch(`http://localhost:1337/products/${id}`, {
@@ -120,11 +133,12 @@ const handleEditSubmit = async (event) => {
 const updateCurrent = async (data) => {
     console.log("simpleUser.coins", simpleUser.coins)
     console.log("product.rental", product.rental)
+    const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
     const data1 = {
-      coins: Math.round(parseInt(simpleUser.coins) - parseInt(product.rental))
+      coins: Math.round(parseInt(simpleUser.coins) - parseInt(rentalCost))
     }
 
-    if(parseInt(simpleUser.coins) > parseInt(product.rental)){
+    if(parseInt(simpleUser.coins) > parseInt(rentalCost)){
         try{
             const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
               method: 'PUT',
@@ -152,6 +166,7 @@ const updateCurrent = async (data) => {
 
 
 const makeBooking = async () => {
+    const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
  try{
      const response = await fetch('http://localhost:1337/bookings', {
          method: 'POST',
@@ -161,17 +176,91 @@ const makeBooking = async () => {
          },
          body: JSON.stringify({
              status: "Pending",
-             rentalDays:"5",
+             rentalDays: diffDays + 1,
              listing: parseInt(product.id),
-             coins: product.rental
-    
+             coins: rentalCost,
+             startDate: rangeF,
+             endDate:rangeT, 
+             item: product
+
          })
      })
-    bookItem() 
+     const data1 = await response.json();
+     console.log("data11", data1)
+    bookItem()
+    createTransaction(data1) 
  } catch(err){
      console.log("Exception ", err)
  }
 }
+
+
+useEffect(() => {
+
+  fetchBookings()
+
+}, [user])
+
+
+const createTransaction = async (data1) => {
+    console.log("data1", data1)
+const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
+  const data = {
+      amount: rentalCost,
+      InOrOut: "Outgoing",
+      type:"SecureBooking",
+      booking: parseInt(data1.id),
+      userID: simpleUser.id
+    }
+  const response = await fetch('http://localhost:1337/transactions', {
+       method: 'POST',
+          headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${user.jwt}`
+          },
+          body: JSON.stringify(data)
+        })
+
+
+}  
+
+const fetchBookings = async (user) => {
+    const response = await fetch('http://localhost:1337/bookings', {
+
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+            // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                
+                // setDescription1(data.description)
+                setLoading(false);
+                console.log("bookings", data)
+
+                data.map( async (booking, i) => {
+                    if ( booking.listing && `${booking.listing.id}` === id && (booking.status === 'Pending' || 'Confirmed')) {
+                        let date = new Date(booking.startDate)
+                       const first = date.setDate(date.getDate() - 1)
+
+                        let date1 = new Date(booking.endDate)
+                       const first1 = date1.setDate(date1.getDate() + 1)
+
+                    const block = {  after: new Date(first), before: new Date(first1)}
+
+                    blockedDates.push(block)
+                    console.log("blockedDates", blockedDates)
+            
+                }})
+            
+    } catch(err){
+              console.log("nope")
+            }         
+        }
+
+
 
 
 
@@ -194,6 +283,35 @@ const bookItem = async () => {
     fetchProduct()
     console.log("handleEditSubmit data", data)
 }
+
+
+// const newBookings =  () => {
+//     // pop.bookings.map( async (booking, i) => {
+//     //   if(booking.status ==='Pending'){
+//     //     const original = booking.id
+//     //     console.log("original", original)
+
+//   bookings.map((booking, i) => {
+//     if (booking.status === "Confirmed" || "Pending" && `${booking.listing.id}` === id) {
+//         const response = await fetch(`http://localhost:1337/bookings/date`, {
+//             method: 'POST',
+//             headers: {
+//             'Content-Type':'application/json',
+//             },
+//             body: JSON.stringify({
+//                 fromDateSearch:rangeF, toDateSearch, fromDateBooking, toDateBooking , id})
+//           })
+
+//           const confirm = await response.json()
+//           console.log("con", confirm)
+
+//       let updatedItems = bookingList;
+//       updatedItems.push(booking.id);
+//       setBookingList(updatedItems);
+//       console.log("updatedItems", updatedItems)
+//   }
+// })}
+
 
 // const handleLike = async () => {
 // 	try{
@@ -290,7 +408,7 @@ const [state, setState] = useState({
                 <div className="normalBold mt-3">Unfortunately you dont have enough REN coins, please top up</div>
             } 
 
-            <Calendar1 />
+            <Availability show={true} noShow={blockedDates}/>
 
 {/*            <DateRangePicker
   onChange={item => setState({ ...state, ...item })}
