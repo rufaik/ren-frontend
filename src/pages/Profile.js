@@ -3,7 +3,7 @@ import Post from '../components/Post'
 import Availability from '../components/Availability'
 import Share from './Share'
 import Payout from './Payout'
-
+import {Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
 import Tabs,{Tab} from 'react-best-tabs';
@@ -21,7 +21,8 @@ console.log("match", id)
 const [open, setOpen] = useState(false)
 const [open1, setOpen1] = useState(false)
 const [open2, setOpen2] = useState(false)
-const [open3, setOpen3] = useState(true)
+const [open3, setOpen3] = useState(false)
+const [final, setFinalPayout] = useState(false)
 const {user, setUser, simpleUser, setSimpleUser, simpleUser1} = useContext(UserContext)
 console.log("user1111x", simpleUser)
 // console.log("setUser", setUser)
@@ -59,7 +60,7 @@ const [newBooking, setNewBooking] = useState('')
   const [bookingList1, setBookingList1] = useState([]);
   const [reject, setReject] = useState(false);
   const [tranStatus, setTranStatus] = useState('Ingoing');
-  const [activePayout, setActivePayout] = useState(true);
+  const [activePayout, setActivePayout] = useState(false);
   const [showPayout, setShowPayout] = useState(false);
   const [coinsToTransfer, setCoinsToTransfer] = useState(null);
   const [range1, setRange1] = useState(null);
@@ -644,6 +645,7 @@ const createTransaction = async () => {
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
+           setCoins(simpleUser.coins)
           transferCoins()
 
       } catch(err){
@@ -668,6 +670,8 @@ const createTransaction = async () => {
 
           const confirm = await response.json()
           console.log("confirm2", confirm)
+          setFinalPayout(true)
+          // window.location.reload()
 
       } catch(err){
     console.log("Payment ", err)
@@ -744,10 +748,10 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                 </div>
                 <h3>{coins}</h3>
                 <div className="flex flex-col">
-                  <button className="authBtn ml-10 mb-1">
+                  <Link to='/topup' style={{"padding": "0.3rem"}} className="cursor-pointer authBtn ml-10 mb-1">
                     Top up
-                  </button>
-                  <button onClick={confirmPayout} className="authBtn ml-10 mt-1">
+                  </Link>
+                  <button onClick={confirmPayout} className=" cursor-pointer authBtn ml-10 mt-1">
                     Payouts 
                   </button>
 {/*                  <button onClick={clearCoins} className="authBtn ml-10 mt-1 onClick">
@@ -823,7 +827,6 @@ const formatImageUrl = (url) => `${API_URL}${url}`
         className="fixed z-10 inset-0 overflow-y-auto" 
         onClose={()=> {
           setOpen3(false)
-          window.location.reload()
         }}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child

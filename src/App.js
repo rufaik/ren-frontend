@@ -16,7 +16,11 @@ import Type from './pages/Type'
 import Search from './pages/Search'
 import NewListing from './pages/NewListing'
 import Topup from './pages/Topup'
+import Transactions from './pages/Transactions'
 import TransitionPayout from './pages/TransitionPayout'
+import Contact from './pages/Contact'
+import About from './pages/About'
+import HowItWorks from './pages/HowItWorks'
 import {UserContext} from './context/UserContext'
 
 
@@ -65,8 +69,12 @@ function App() {
           <Route path="/type" exact component={Type} />
           <Route path="/search" exact component={Search} />
           <Route path="/topup" exact component={Topup} />
+          <Route path="/transactions" exact component={Transactions} />
           <Route path="/transitionpayout" exact component={TransitionPayout} />
           <Route path="/newlisting" exact component={NewListing} />
+          <Route path="/contact" exact component={Contact} />
+          <Route path="/about" exact component={About} />
+          <Route path="/howitworks" exact component={HowItWorks} />
           <Route path="/forgot" exact component={Forgot} />
           <Route path="/cart" exact component={Cart} />
           <Route path="/profile/:id" exact component={Profile} />

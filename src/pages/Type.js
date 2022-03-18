@@ -4,13 +4,14 @@ import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
 import {CartContext} from '../context/CartContext'
 import ReactPlayer from 'react-player'
+import Footer from '../components/Footer'
 
 
 const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
-export default () =>{
+export default (history) =>{
 
 	const [userTypes, setUserTypes] = useState([])
 	const [change1, setChage1] = useState('Creative')
@@ -32,9 +33,16 @@ export default () =>{
 
   }, [])
 
+	useEffect(() => {
+		if( history.location.state && history.location.state.card !== null){
+			setChage1(history.location.state.card)
+		}
+
+	  }, [])	
+
 	return(
 
-		<div className='pb-20'>
+		<div className=''>
 
 			<div className='sectWidth mx-auto pt-36' >
 				<h2 className='mb-8'> Get Inspired! </h2>
@@ -172,6 +180,7 @@ export default () =>{
 	: null
 			}
 			</div>
+			<Footer />
 			
 		</div>
 

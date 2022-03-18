@@ -7,6 +7,8 @@ import ReactPlayer from 'react-player'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import {Link } from 'react-router-dom'
+import { SearchIcon } from '@heroicons/react/outline'
+import { CheckIcon } from '@heroicons/react/outline'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -17,7 +19,7 @@ const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
-export default () =>{
+export default (history) =>{
 
 	const [results, setResults] = useState('84')
 	const [place, setPlace] = useState('London, England')
@@ -25,6 +27,8 @@ export default () =>{
 	const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
 	const [listings, setListings] = useState(null)
 	const [finding, setFinding] = useState(true)
+	const [searchWord, setSearchWord] = useState('')
+	console.log("history", history)
 
 
 useEffect(() => {
@@ -34,7 +38,6 @@ useEffect(() => {
 }, [])
 
 const getListings = async (user) => {
-  console.log("go", user)
     const response = await fetch(`http://localhost:1337/listings`, {
        method: 'GET',
         headers: {
@@ -61,140 +64,265 @@ const getListings = async (user) => {
             }         
         }
 
+useEffect(() => {
+if(listings !== null){
+  addToList1()
+}
+
+}, [listings])
+ 
+  const [selectedId1, setSelectedId1] = useState(null);
+  const [selectedIdC, setSelectedIdC] = useState(null);
+  const [itemList1, setItemList1] = useState([]);
+  const [itemListC, setItemListC] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [borough, setBorough] = useState(null);
+  const [checked, setChecked] = useState(false);
+
+  // const addToList1 = item => {
+  //   //copy the selected item array
+  //   let updatedItems = itemList1;
+  //   //use array.push to add it to the array
+  //   updatedItems.push(item.name);
+
+  //   setItemList1(updatedItems);
+  //   setSelectedId1(item.name);
+  // };
+
+    const addToList1 = () => {
+    	listings.map((boro, i) => {
+	        let updatedItems = itemList1;
+	        updatedItems.push(boro.borough);
+	        setItemList1(updatedItems);
+	    	setSelectedId1(boro.borough);
+	    })
+    	listings.map((cat, i) => {
+	        let updatedItemsC = itemListC;
+	        updatedItemsC.push(cat.category);
+	        setItemListC(updatedItemsC);
+	    	setSelectedIdC(cat.category);
+	    })	    
+	    let uniqueCategory = [...new Set(itemListC)];
+	    let uniqueBorough = [...new Set(itemList1)];
+	    setBorough(uniqueBorough);
+	    setCategory(uniqueCategory);
+}
+console.log("category1", category)
 
 
+const [selectedId1a, setSelectedId1a] = useState(null);
+  const [optionList, setOptionList] = useState([]);
+const [selectedId1B, setSelectedId1B] = useState(null);
+  const [optionListB, setOptionListB] = useState([]);
+console.log("optionList", optionList)
+console.log("optionListB", optionListB)
 
+
+  const addToList = (person, list, setList, setSelect) => {
+    //copy the selected item array
+    let updatedItems = list;
+    //use array.push to add it to the array
+    updatedItems.push(person);
+
+    setList(updatedItems);
+    setSelect(person);
+  };
+
+  const removeFromList = (person, list, setList, setSelect) => {
+    //copy the slected item array
+    let updatedItems = list;
+    //find the current item in the array
+    let itemIndexToRemove = updatedItems.indexOf(person);
+    //use splice to remove the item from list
+    //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+    updatedItems.splice(itemIndexToRemove, 1);
+
+    setList(updatedItems);
+    //this is weird but it makes it work - I can't unselect, so made a non-existing id
+    setSelect(person + "____");
+    ;
+  };
+
+useEffect(() => {
+		if( history.location.state !== undefined){
+			setSearchWord(history.location.state)
+			// console.log("history!!!", )
+		}
+
+	  }, [])
 
 	return(
 			<div>
 				<div className=' mx-12 pt-36' >
-					<h2 className=""> Find equipment nearby</h2>
-					<div className="flex flex-row items-center mt-6" >
+					<div className="flex flex-row">
+						<h2 className=""> Find equipment nearby</h2>
+						<div className="searchBx ml-auto items-center flex flex-row">
+							<input
+			                  id="searchWord"
+			                  name="searchWord"
+			                  type="text"
+			                  required
+			                  className="border-0 noRing bg-transparent genBold w-11/12 ml-4 py-2"
+			                  placeholder="Cameras, laptops, speakers, drones..."
+			                  value={searchWord}
+			                  onChange={(event) => {
+			                    setSearchWord(event.target.value)
+			                  }}
+			                />
+							<div className="w-10 h-10 rounded-full flex justify-center items-center ml-auto mr-2" style={{"backgroundColor": "#0B1A2C"}}>
+								<SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
+							</div>
+						</div>
+					</div>
+{/*					<div className="flex flex-row items-center mt-6" >
 						<div className="h3Bold mr-2">{results} results </div>
 						<div className="genLight" style={{"fontSize": "24px"}}>in {place}</div>
 					</div>
-
+*/}
 					<div className="flex flex-row mt-12">
 						<div className="flex flex-col w-3/12">
-							<div className="h3Sub">Location</div>
-							<div className="uniqueBoxSearch mt-4"></div>
+							
 			              		
-			              		<div className="flex flex-row mt-4">
-			              			<Menu as="div" className="relative inline-block text-left">
-									      <div>
-									        <Menu.Button className="genLight uniqueBoxSearch inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-									          Within 1 mile
-									          <ChevronDownIcon className="-mr-1 ml-auto h-5 w-5" aria-hidden="true" />
-									        </Menu.Button>
-									      </div>
-
-									      <Transition
-									        as={Fragment}
-									        enter="transition ease-out duration-100"
-									        enterFrom="transform opacity-0 scale-95"
-									        enterTo="transform opacity-100 scale-100"
-									        leave="transition ease-in duration-75"
-									        leaveFrom="transform opacity-100 scale-100"
-									        leaveTo="transform opacity-0 scale-95"
-									      >
-									        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-									          <div className="py-1">
-									            <Menu.Item>
-									              {({ active }) => (
-									                <a
-									                  href="#"
-									                  className={classNames(
-									                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									                    'block px-4 py-2 text-sm'
-									                  )}
-									                >
-									                  Account settings
-									                </a>
-									              )}
-									            </Menu.Item>
-									            <Menu.Item>
-									              {({ active }) => (
-									                <a
-									                  href="#"
-									                  className={classNames(
-									                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									                    'block px-4 py-2 text-sm'
-									                  )}
-									                >
-									                  Support
-									                </a>
-									              )}
-									            </Menu.Item>
-									            <Menu.Item>
-									              {({ active }) => (
-									                <a
-									                  href="#"
-									                  className={classNames(
-									                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									                    'block px-4 py-2 text-sm'
-									                  )}
-									                >
-									                  License
-									                </a>
-									              )}
-									            </Menu.Item>
-									            <form method="POST" action="#">
-									              <Menu.Item>
-									                {({ active }) => (
-									                  <button
-									                    type="submit"
-									                    className={classNames(
-									                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									                      'block w-full text-left px-4 py-2 text-sm'
-									                    )}
-									                  >
-									                    Sign out
-									                  </button>
-									                )}
-									              </Menu.Item>
-									            </form>
-									          </div>
-									        </Menu.Items>
-									      </Transition>
-									    </Menu>
-			              			</div>
-
+			              		
 			              			<div className="h3Sub mt-12 mb-4">Categories</div>
-			              			<div className="flex flex-row items-center">
-			              				<div className="checkBx"></div>
-			              				<div className="genLight ml-3">Film & Photography</div>
-			              			</div>
-			              			<div className="flex flex-row items-center mt-3">
-			              				<div className="checkBx"></div>
-			              				<div className="genLight ml-3">Film & Photography</div>
-			              			</div>
-			              			<div className="flex flex-row items-center mt-3">
-			              				<div className="checkBx"></div>
-			              				<div className="genLight ml-3">Film & Photography</div>
-			              			</div>
-			              			<div className="flex flex-row items-center mt-3">
-			              				<div className="checkBx"></div>
-			              				<div className="genLight ml-3">Film & Photography</div>
-			              			</div>
+			              		{category && category[0] &&
+			              			<div>
+
+
+{/*				              			{category.map((item, i) => {
+				              				return(
+				              				<div key={i} 
+				              					className="flex flex-row items-center mb-3" 
+				              					onClick={() => setChecked(true)}
+				              				>
+					              				{!checked 
+					              					? <div className="checkBx"></div>
+
+					              					: <div className="checkBx" style={{"background": "#0B1A2C"}}>
+					              						<CheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
+					              					  </div>
+					              				}
+					              				<div className="genLight ml-3">{item}</div>
+				              				</div>
+
+				              			)})}*/}
+
+
+									<fieldset>
+									      <div className="">
+									        {category.map((person, personIdx) => (
+									          <div key={personIdx} className="flex flex-row items-center mb-3">
+									   {/*         <div className="min-w-0 flex-1 text-sm">
+									              <label htmlFor={`person-${person}`} className="font-medium bluenorm select-none">
+									                {person}
+									              </label>
+									            </div>*/}
+{/*									            <div className="ml-3 flex items-center h-5">
+*/}									              <input
+									                id={`person-${person}`}
+									                name={`person-${person}`}
+									                type="checkbox"
+									                className="checkBx ring-transparent"
+									                onClick={() =>
+									                    optionList.indexOf(person) > -1
+									                      ? removeFromList(person, optionList, setOptionList, setSelectedId1a)
+									                      : addToList(person, optionList, setOptionList, setSelectedId1a)
+									                  }
+									              />
+									              <div className="genLight ml-3">{person}</div>
+{/*									            </div>
+*/}									          </div>
+									        ))}
+									      </div>
+									    </fieldset>				              			
+
+
+
+
+
+
+
+				              		</div>
+				              	}
+			              			<div className="h3Sub mt-12 mb-4">Location</div>
+			              		{borough && borough[0] &&
+			              			<div>
+
+
+{/*				              			{category.map((item, i) => {
+				              				return(
+				              				<div key={i} 
+				              					className="flex flex-row items-center mb-3" 
+				              					onClick={() => setChecked(true)}
+				              				>
+					              				{!checked 
+					              					? <div className="checkBx"></div>
+
+					              					: <div className="checkBx" style={{"background": "#0B1A2C"}}>
+					              						<CheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
+					              					  </div>
+					              				}
+					              				<div className="genLight ml-3">{item}</div>
+				              				</div>
+
+				              			)})}*/}
+
+
+									<fieldset>
+									      <div className="">
+									        {borough.map((person, personIdx) => (
+									          <div key={personIdx} className="flex flex-row items-center mb-3">
+									   {/*         <div className="min-w-0 flex-1 text-sm">
+									              <label htmlFor={`person-${person}`} className="font-medium bluenorm select-none">
+									                {person}
+									              </label>
+									            </div>*/}
+{/*									            <div className="ml-3 flex items-center h-5">
+*/}									              <input
+									                id={`person-${person}`}
+									                name={`person-${person}`}
+									                type="checkbox"
+									                className="checkBx ring-transparent"
+									                onClick={() =>
+									                    optionListB.indexOf(person) > -1
+									                      ? removeFromList(person, optionListB, setOptionListB, setSelectedId1B)
+									                      : addToList(person, optionListB, setOptionListB, setSelectedId1B)
+									                  }
+									              />
+									              <div className="genLight ml-3">{person}</div>
+{/*									            </div>
+*/}									          </div>
+									        ))}
+									      </div>
+									    </fieldset>				              			
+
+
+
+
+
+
+
+				              		</div>
+				              	}
+
 								</div>
 						<div className="flex flex-col w-9/12">
-{/*							Add MAP HERE							
-*/}
+
 
 {listings ?
 								<div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
 
 							{listings.map((listing, i) => {
-{/*								if(listing.booked !== true)
-*/}	                			return(
+								if(optionList.length < 1 && optionListB < 1 && listing.name.includes(searchWord)) {
+	                			return(
 
 									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
 											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
 										</div>
 										<div className="flex justify-between px-8">
-											<div className="genLight">{listing.name}</div>
-											<div className="genLight">{listing.postcode}</div>
+											<div className="genLight">{listing.category}</div>
+											<div className="genLight">{listing.borough}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3>{listing.coins}</h3>
@@ -206,7 +334,78 @@ const getListings = async (user) => {
 					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
 
 									</Link>	                				
-	                		)})}
+	                		)} else if (optionListB.includes(listing.borough) && optionList.length < 1 && listing.name.includes(searchWord)) {
+	                			return(
+
+									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
+										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
+											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+										</div>
+										<div className="flex justify-between px-8">
+											<div className="genLight">{listing.category}</div>
+											<div className="genLight">{listing.borough}</div>
+										</div>
+										<div className="flex items-center pl-8">
+					                        <h3>{listing.coins}</h3>
+					                        <div className="smallCoin flex mb-1 ml-0.5 mr-0">
+					                          <img className='w-100' alt='REN coin' src="../coin.png" />
+					                        </div>
+					                        <h3>/day</h3>
+					                     </div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+
+									</Link>	  
+
+
+	                		)} else if (optionList.includes(listing.category) && optionListB.length < 1 && listing.name.includes(searchWord)) {
+	                			return(
+
+									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
+										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
+											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+										</div>
+										<div className="flex justify-between px-8">
+											<div className="genLight">{listing.category}</div>
+											<div className="genLight">{listing.borough}</div>
+										</div>
+										<div className="flex items-center pl-8">
+					                        <h3>{listing.coins}</h3>
+					                        <div className="smallCoin flex mb-1 ml-0.5 mr-0">
+					                          <img className='w-100' alt='REN coin' src="../coin.png" />
+					                        </div>
+					                        <h3>/day</h3>
+					                     </div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+
+									</Link>	  
+
+
+	                		)} else if (optionListB.includes(listing.borough) && optionList.includes(listing.category && listing.name.includes(searchWord))) {
+	                			return(
+
+									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
+										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
+											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+										</div>
+										<div className="flex justify-between px-8">
+											<div className="genLight">{listing.category}</div>
+											<div className="genLight">{listing.borough}</div>
+										</div>
+										<div className="flex items-center pl-8">
+					                        <h3>{listing.coins}</h3>
+					                        <div className="smallCoin flex mb-1 ml-0.5 mr-0">
+					                          <img className='w-100' alt='REN coin' src="../coin.png" />
+					                        </div>
+					                        <h3>/day</h3>
+					                     </div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+
+									</Link>	  
+
+
+	                		)}
+
+	                		})}
 	                
 {/*
 								<div className="h-96 searchThumb pt-4">

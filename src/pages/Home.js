@@ -1,12 +1,15 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {Link } from 'react-router-dom'
 import Post from '../components/Post'
+import Footer from '../components/Footer'
 import {formatPrice} from '../utils/format'
 import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
 import {Verify} from './Verify'
+import { SearchIcon } from '@heroicons/react/outline'
+
 
 
   const API_URL = 'http://localhost:1337'
@@ -39,7 +42,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
 
-export default ({description, likes, url}) =>{
+export default ({history}) =>{
 
 
  const [posts, setPosts] = useState([])
@@ -49,8 +52,11 @@ export default ({description, likes, url}) =>{
  const [q1, setQ1] = useState(true)
  const [q2, setQ2] = useState(false)
  const [q3, setQ3] = useState(false)
+ const [first1, setFirst1] = useState(1)
  const [darkMode, setDarkMode] = useState(true)
 const [verify, setVerify] = useState(true)
+  const [searchWord, setSearchWord] = useState('')
+
 
   useEffect(() => {
     const getPosts = async () => {
@@ -159,8 +165,8 @@ const [verify, setVerify] = useState(true)
               ></button>
             </div>
 
-            <div class="carousel-inner relative w-full  ">
-                <div class={create === 'darkbg' ? "carousel-item active relative float-left w-full darkbg" : "carousel-item active relative float-left w-full "} 
+            <div className="carousel-inner relative w-full  ">
+                <div className={create === 'darkbg' ? "carousel-item active relative float-left w-full darkbg" : "carousel-item active relative float-left w-full "} 
                   style={{'height':'90vh'}}>
         {/*      <div class="carousel-caption hidden md:block absolute text-center">
                 <h5 class="text-xl">First slide label</h5>
@@ -171,7 +177,7 @@ const [verify, setVerify] = useState(true)
                 class="block w-1/2"
                 alt="Motorbike Smoke"
               />*/}
-                  <div className={create === 'darkbg' ? "flex w-100  h-5/6 darkbg" : "flex w-100  h-5/6 "}>
+                  <div className={create === 'darkbg' ? "flex w-100  h-5/6" : "flex w-100  h-5/6 "}>
 
                     <div className={create === 'darkbg' ? 'w-1/2 flex flex-col darkbg' : 'w-1/2 flex flex-col '}>
                       <h2 className={create === 'darkbg' ? "heroFont mt-16 text-white" : "heroFont mt-16 "}>Access better technology.</h2>
@@ -179,6 +185,44 @@ const [verify, setVerify] = useState(true)
                       <div className="w-10/12">
                         <div className={create === 'darkbg' ? "h3Light mt-6 text-white" : "h3Light mt-6 "}>We’re making it affordable to action your ideas and get better results.</div>
                       </div>
+                      <div className="searchBxHome mt-12 ml-auto items-center flex flex-row">
+                        <input
+                                  id="searchWord"
+                                  name="searchWord"
+                                  type="text"
+                                  required
+                                  className="border-0 noRing bg-transparent w-11/12 ml-7 genBold text-white py-2"
+                                  placeholder="Cameras, laptops, speakers, drones..."
+                                  value={searchWord}
+                                  onChange={(event) => {
+                                    setSearchWord(event.target.value)
+                                  }}
+                                  onKeyDown={(e) => {
+                                   if (e.key === 'Enter') {
+                                    console.log('do validate');
+                                    history.push({ 
+                                       pathname: '/search',
+                                       state: searchWord
+                                      });
+
+                                  }
+                                  }}
+                                />
+                          <div 
+                            className="w-10 h-10 rounded-full flex justify-center items-center ml-auto mr-2" 
+                            style={{"backgroundColor": "#0B1A2C"}}
+                            onClick={() => {
+                              history.push({ 
+                                         pathname: '/search',
+                                         state: searchWord
+                                        });
+                            }}
+
+                            >
+                            <SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                          </div>
+                      </div>
+
                     </div>
 
                     <div className='w-1/2 relative' >
@@ -194,8 +238,11 @@ const [verify, setVerify] = useState(true)
 
                 </div>
 
-                <div class="carousel-item relative float-left w-full h-screen">
 
+                <div 
+                  style={{'height':'90vh'}}
+                  className={create === 'darkbg' ? "carousel-item relative float-left w-full darkbg" : "carousel-item relative float-left w-full "} 
+                >
         {/*      <img
                 src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(35).webp"
                 class="block w-full"
@@ -207,56 +254,122 @@ const [verify, setVerify] = useState(true)
               </div>
 
         */}
-                  <div className="flex w-100  h-5/6">
-
-                    <div className='w-1/2 flex flex-col bg-white'>
-                      <h2 className="heroFont mt-16">Use technology sustainably.</h2>
-                      <h2 className="heroFont">Reduce digital waste.</h2>
+                  <div className={create === 'darkbg' ? "flex w-100  h-5/6" : "flex w-100  h-5/6 "}>
+                    <div className={create === 'darkbg' ? 'w-1/2 flex flex-col darkbg' : 'w-1/2 flex flex-col '}>
+                      <h2 className={create === 'darkbg' ? "heroFont mt-16 text-white" : "heroFont mt-16 "}>Use technology sustainably.</h2>
+                      <h2 className={create === 'darkbg' ? "heroFont  text-white" : "heroFont "}>Reduce digital waste.</h2>
                       <div className="w-10/12">
-                        <div className="h3Light mt-6">Do your bit for the environment by lending and renting equipment.</div>
+                        <div className={create === 'darkbg' ? "h3Light mt-6 text-white" : "h3Light mt-6 "}>Do your bit for the environment by lending and renting equipment.</div>
+                      </div>
+                        <div className="searchBxHome mt-12 ml-auto items-center flex flex-row">
+                        <input
+                                  id="searchWord"
+                                  name="searchWord"
+                                  type="text"
+                                  required
+                                  className="border-0 noRing bg-transparent w-11/12 ml-7 genBold text-white py-2"
+                                  placeholder="Cameras, laptops, speakers, drones..."
+                                  value={searchWord}
+                                  onChange={(event) => {
+                                    setSearchWord(event.target.value)
+                                  }}
+                                  onKeyDown={(e) => {
+                                   if (e.key === 'Enter') {
+                                    console.log('do validate');
+                                    history.push({ 
+                                       pathname: '/search',
+                                       state: searchWord
+                                      });
+
+                                  }
+                                  }}
+                                />
+                          <div 
+                            className="w-10 h-10 rounded-full flex justify-center items-center ml-auto mr-2" 
+                            style={{"backgroundColor": "#0B1A2C"}}
+                            onClick={() => {
+                              history.push({ 
+                                         pathname: '/search',
+                                         state: searchWord
+                                        });
+                            }}
+
+                            >
+                            <SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                          </div>
                       </div>
                     </div>
 
                     <div className='w-1/2 relative' >
                       <img className='w-100 ml-auto' alt='camera' src="../renHomeStereo.png" />
-                      <div className="absolute rectangle"></div>
+                      <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
                       <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
-                        <div className="miniText">SOUNDBOKS</div>
-                        <div className="miniText">(GEN. 3)</div>
+                        <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>SOUNDBOKS</div>
+                        <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>(GEN. 3)</div>
                       </div>
-
                     </div>
-
                   </div>
-                </div>
 
-                <div class="carousel-item relative float-left w-full h-screen">
+              </div>
 
 
-        {/*      <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(40).webp"
-                class="block w-full"
-                alt="Woman Reading a Book"
-              />
-              <div class="carousel-caption hidden md:block absolute text-center">
-                <h5 class="text-xl">Third slide label</h5>
-                <p>Some representative placeholder content for the third slide.</p>
-              </div>*/}
-                  <div className="flex w-100  h-5/6">
-                      <div className='w-1/2 flex flex-col bg-white'>
-                        <h2 className="heroFont mt-16">No long-term commitments.</h2>
-                        <h2 className="heroFont">Always use the latest gear.</h2>
+
+                <div 
+                  style={{'height':'90vh'}}
+                  className={create === 'darkbg' ? "carousel-item relative float-left w-full darkbg" : "carousel-item relative float-left w-full "} 
+                >
+                  <div className={create === 'darkbg' ? "flex w-100  h-5/6" : "flex w-100  h-5/6 "}>
+                      <div className={create === 'darkbg' ? 'w-1/2 flex flex-col darkbg' : 'w-1/2 flex flex-col '}>
+                        <h2 className={create === 'darkbg' ? "heroFont mt-16 text-white" : "heroFont mt-16 "}>No long-term commitments.</h2>
+                        <h2 className={create === 'darkbg' ? "heroFont  text-white" : "heroFont "}>Always use the latest gear.</h2>
                         <div className="w-10/12">
-                          <div className="h3Light mt-6">Use the newest technology, never fall behind.</div>
+                          <div className={create === 'darkbg' ? "h3Light mt-6 text-white" : "h3Light mt-6 "}>Use the newest technology, never fall behind.</div>
                         </div>
+                          <div className="searchBxHome mt-12 ml-auto items-center flex flex-row">
+                        <input
+                                  id="searchWord"
+                                  name="searchWord"
+                                  type="text"
+                                  required
+                                  className="border-0 noRing bg-transparent w-11/12 ml-7 genBold text-white py-2"
+                                  placeholder="Cameras, laptops, speakers, drones..."
+                                  value={searchWord}
+                                  onChange={(event) => {
+                                    setSearchWord(event.target.value)
+                                  }}
+                                  onKeyDown={(e) => {
+                                   if (e.key === 'Enter') {
+                                    console.log('do validate');
+                                    history.push({ 
+                                       pathname: '/search',
+                                       state: searchWord
+                                      });
+
+                                  }
+                                  }}
+                                />
+                          <div 
+                            className="w-10 h-10 rounded-full flex justify-center items-center ml-auto mr-2" 
+                            style={{"backgroundColor": "#0B1A2C"}}
+                            onClick={() => {
+                              history.push({ 
+                                         pathname: '/search',
+                                         state: searchWord
+                                        });
+                            }}
+
+                            >
+                            <SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                          </div>
+                      </div>
                       </div>
 
                       <div className='w-1/2 relative' >
                         <img className='w-100 ml-auto' alt='camera' src="../renHomeDrone.png" />
-                        <div className="absolute rectangle"></div>
+                        <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
                         <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
-                          <div className="miniText">DJI Mavic 2 Pro with</div>
-                          <div className="miniText">Hasselblad Camera</div>
+                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>DJI Mavic 2 Pro with</div>
+                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Hasselblad Camera</div>
                         </div>
                       </div>
                   </div>
@@ -268,7 +381,7 @@ const [verify, setVerify] = useState(true)
                   data-bs-target="#carouselDarkVariant"
                   data-bs-slide="prev"
                 >
-                  <span class={create === 'darkbg' ? "carousel-control-prev-iconD inline-block bg-no-repeat" : "carousel-control-prev-icon inline-block bg-no-repeat"} aria-hidden="true"></span>
+                  <span class={create === 'darkbg' ? " carousel-control-prev-icon carousel-control-prev-iconD inline-block bg-no-repeat" : "carousel-control-prev-icon inline-block bg-no-repeat"} aria-hidden="true"></span>
                 </button>
                 <button
                   class="carousel-control-next absolute top-auto bottom-4 left-auto right-5 h-8 flex items-center justify-end p-0 border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline"
@@ -276,30 +389,30 @@ const [verify, setVerify] = useState(true)
                   data-bs-target="#carouselDarkVariant"
                   data-bs-slide="next"
                 >
-                  <span class={create === 'darkbg' ? "carousel-control-next-iconD inline-block bg-no-repeat" :"carousel-control-next-icon inline-block bg-no-repeat" } aria-hidden="true"></span>
+                  <span class={create === 'darkbg' ? "carousel-control-next-icon carousel-control-next-iconD inline-block bg-no-repeat" :"carousel-control-next-icon inline-block bg-no-repeat" } aria-hidden="true"></span>
                 </button>
               </div>
 
             </div>
 
 
-            <div className='bluebg pb-8'>
+            <div className={create === 'darkbg' ? 'grybg pb-8' : 'bluebg pb-8'}>
               <div className='sectWidth mx-auto pt-32'>
-                <h2 className='text-white '> Powered by R.E.N Coins </h2>
-                <div className='h3Light text-white mt-4'> At Rent Equipment Now, our currency is R.E.N Coins.</div>
-                <div className='h3Light text-white mt-1'>Buy them. Earn them. Share them! </div>
-                <button  className="findBtn findTxt text-center text-white mt-10">Find out more</button>
+                <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Coins </h2>
+                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Coins.</div>
+                <div className={create === 'darkbg' ? 'h3Light text-black mt-1' : 'h3Light text-white mt-1'}>Buy them. Earn them. Share them! </div>
+                <Link to='/howitworks'> <button  className={create === 'darkbg' ? "findDrkBtn findTxt text-center text-black mt-10" : "findBtn findTxt text-center text-white mt-10"}>Find out more</button></Link>
 
                {!q1 && 
                   <div
                     onClick={() => { setQ1(true); setQ2(false); setQ3(false) }} 
-                    className='questionTxt h3Bold my-8 cursor-pointer'
+                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
                     >What can I do with my R.E.N Coins?
                     </div> 
               }
 
                 {q1 &&
-                <div className='answerBox w-full py-16 pl-16 mt-12'>
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12' : 'answerBox w-full py-16 pl-16 mt-12'}>
                   <div className='h3Bold text-white'>What can I do with my R.E.N Coins?</div>
                   <div className='flex flex-row'>
                       <div className='flex flex-col pt-12 w-48  mr-10'>
@@ -333,13 +446,13 @@ const [verify, setVerify] = useState(true)
                {!q2 && 
                   <div 
                   onClick={() => { setQ1(false); setQ2(true); setQ3(false) }} 
-                  className='questionTxt h3Bold my-8 cursor-pointer'
+                  className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
                   >How do I get R.E.N Coins?
                   </div> 
               }
                 
                 {q2 &&
-                <div className='answerBox w-full py-16 pl-16 mt-12'>
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12' : 'answerBox w-full py-16 pl-16 mt-12'}>
                   <div className='h3Bold text-white'>How do I get R.E.N Coins?</div>
                   <div className='flex flex-row'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
@@ -402,21 +515,26 @@ const [verify, setVerify] = useState(true)
                {!q3 && 
                   <div 
                     onClick={() => { setQ1(false); setQ2(false); setQ3(true) }} 
-                    className='questionTxt h3Bold py-8 cursor-pointer'
+                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
                     >What is the Pound to R.E.N Coin conversion rate?
                     </div>
               }
                 
                 {q3 &&
-                <div className='answerBox w-full py-16 pl-16 mt-12 pb-10'>
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12 pb-10' : 'answerBox w-full py-16 pl-16 mt-12 pb-10'}>
                   <div className='h3Bold text-white'>What is the Pound to R.E.N Coin conversion rate?</div>
                   <div className='flex flex-row relative'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
                         <div className='h-16'>
                          <img className='w-100 mx-auto' alt='money' src="../money.png" />
                         </div>
-                        <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> 1
-                        </div>
+                         <input
+                          value={first1}
+                          placeholder="£"
+                          className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"
+                          onChange={(event) => {
+                            setFirst1(event.target.value)}}
+                        />
                         <div className='genBold text-center text-white mt-6'>
                          Pound Sterling
                         </div>
@@ -435,7 +553,7 @@ const [verify, setVerify] = useState(true)
                            <img className='w-100 mx-auto' alt='coin' src="../bigCoin.png" />
                           </div>
                         </div>
-                         <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> 5
+                         <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 5}
                         </div>
                           <div className='genBold text-center text-white mt-6'>
                             R.E.N Coin
@@ -453,30 +571,40 @@ const [verify, setVerify] = useState(true)
 
 {userTypes && userTypes[0] 
   ?         <div className="relative">
-              <div className="backgroundShape w-5/12 h-full top-0 right-0 -z-10"></div>
+              <div className={create === 'darkbg' ? "backgroundDrkShape w-5/12 h-full top-0 right-0 -z-10" : "backgroundShape w-5/12 h-full top-0 right-0 -z-10"}></div>
               <div className='sectWidth mx-auto pt-36 pb-16  '>
                 
-                <h2 className='pb-16'>Explore R.E.N whoever you are</h2>
+                <h2 className={create === 'darkbg' ? 'text-white pb-16' : 'pb-16'}>Explore R.E.N whoever you are</h2>
                 <div className='flex flex-row'>
                 {userTypes.map((type, i) => {
                 return(
-                <div className='identityCard p-8 pt-12 mr-8 relative'>
+
+                <Link 
+                   to={{
+                      pathname: '/type',
+                      state: {
+                        card: type.title
+                      }
+                    }}
+                   
+                  className={create === 'darkbg' ? 'identityCardDrk p-8 pt-12 mr-8 relative' : 'identityCard p-8 pt-12 mr-8 relative'}
+                  >
                   <div className=''>
                     <img className='w-100' alt='icon' src={formatImageUrl(type.icon && type.icon.url)} />
                   </div>
-                  <div className='h3Bold my-4'>{type.cardTitle}</div>
-                  <div className='genLight'>{type.description}</div>
+                  <div className={create === 'darkbg' ? 'text-white h3Bold my-4' : 'h3Bold my-4'}>{type.cardTitle}</div>
+                  <div className={create === 'darkbg' ? 'text-white genLight' : 'genLight'}>{type.description}</div>
                   <div className='absolute bottom-4 right-6'>
                   <img className='w-100 ml-auto' alt='arrow' src="../arrow.png" />
                   </div>
-                </div>
+                </Link >
               )})}
               </div>
               </div>
             </div>
     : null
 }
-
+  <Footer />
             </div>
 
 

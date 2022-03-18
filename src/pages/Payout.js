@@ -224,7 +224,7 @@ return(
               </div>
               {simpleUser && <div className="orangeCol my-4 text-center"></div> }
                <div className="genLight text-center">
-                Your payout ID is what we will use to identify your account to pay your correctly
+                Your payout ID is what we will use to identify your account to pay you correctly
               </div>
 
 {/*      <button className="authBtn" onClick={updateCurrent}>Begin Setup</button> 
@@ -242,7 +242,7 @@ return(
             <div>
              {simpleUser &&
                <div className="genBold mt-16 text-center">
-               Your payout ID is: {simpleUser.payoutID}
+               Your payout ID is: {setUpBegan}
               </div> }
                <div className="genLight mt-4 text-center">
                 You can keep this for your own records

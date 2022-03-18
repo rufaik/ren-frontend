@@ -254,13 +254,7 @@ export default ({description, likes, url}) =>{
               <div className="gryLine2 w-full my-10"></div>
               <div className="flex flex-row">
                 <div className="h3Sub mb-4">R.E.N Offers</div>
-              {cart && cart[0] ?
-                <div 
-                  className="orangeCol ml-auto text-white block text-center underline"
-                >
-                  Go to Basket
-                </div>
-              : null}
+             
               </div>
               {products.map((product) => {
                 if(product.name !== "1"){
@@ -296,6 +290,14 @@ export default ({description, likes, url}) =>{
                 
               </div>
 )}})}
+               {cart && cart[0] ?
+                <Link
+                  to='/cart' 
+                  className="orangeCol ml-auto text-white block text-right underline"
+                >
+                  Go to Basket
+                </Link>
+              : null}
 
               </div>
             </div>

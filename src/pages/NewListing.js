@@ -8,7 +8,7 @@ import ReactPlayer from 'react-player'
 import ImageUploading from "react-images-uploading";
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-
+import { Link} from 'react-router-dom'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -176,21 +176,21 @@ const handleSubmit = async (event) => {
 			          >
 			            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
 			              <div style={{"width":"620px"}} className="mx-auto">
-			              { simpleUser.stripeStatus === "NotStarted" || simpleUser.stripeStatus === null && 
+			              { simpleUser.stripeStatus === "NotStarted"  && 
 				              <div className="h3Bold mt-12 text-center">
 				              	Please set up your payment information to convert your coins into cash!
 				              </div>
 				          }
-			              { simpleUser.stripeStatus === "Incomplete" && 
+			              { simpleUser.stripeStatus === "Incomplete"  && 
 				              <div className="h3Bold mt-12 text-center">
 				              	You have not completed your payment setup
 				              </div>
 				          }
 			              <div className="flex flex-col justify-center items-center pt-">
 			          
-			                <div className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto">
+			                <Link to={`/profile/${user.user.id}`} className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto">
 			                Setup payments
-			                </div>
+			                </Link>
 			               {/* <div 
 			                  className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
 			                >

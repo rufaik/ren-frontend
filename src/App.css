@@ -50,7 +50,7 @@ a.active{
   font-style: normal;
   font-weight: 700;
   line-height: 22px;
-  letter-spacing: 0em;
+  letter-spacing: 0.01em;
   text-align: left;
   display: flex;
   align-items: center;
@@ -89,6 +89,7 @@ border-radius: 0px;
 
 }
 
+
 .authBtn{
   height: 32px;
   width: 106px;
@@ -120,7 +121,6 @@ font-style: normal;
 font-weight: 700;
 line-height: 72px;
 letter-spacing: -0.045em;
-text-align: left;
 }
 
 .coin{
@@ -614,26 +614,34 @@ text-align: left;
 
 .rectangle{
   height: 445px;
-width: 493px;
-right: 20px;
-top: 40px;
-border-radius: 20px;
-background: rgba(246, 247, 250, 1);
-box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.08);
-z-index: -1;
+  width: 493px;
+  right: 20px;
+  top: 40px;
+  border-radius: 20px;
+  background: rgba(246, 247, 250, 1);
+  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.08);
+  z-index: -1;
 
 }
 
 .rectangle1{
   height: 445px;
-width: 493px;
-right: 20px;
-top: 40px;
-border-radius: 20px;
-background: rgba(34, 34, 34, 1);
-box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.08);
+  width: 493px;
+  right: 20px;
+  top: 40px;
+  border-radius: 20px;
+  background: #222222;
+  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.08);
+  z-index: -1;
 
-z-index: -1;
+}
+
+.rectangle2{
+
+  border-radius: 20px;
+  background: #222222;
+  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.08);
+
 
 }
 
@@ -711,6 +719,10 @@ text-align: right;
 
 }
 
+.grybg{
+  background-color: rgba(187, 191, 197, 1);
+
+}
 
 .findBtn{
   height: 50px;
@@ -719,6 +731,12 @@ text-align: right;
   border: 1px solid rgba(255, 255, 255, 1);
 }
 
+.findDrkBtn{
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  border: 1px solid black;
+}
 
 .findTxt{
 font-size: 19px;
@@ -733,13 +751,22 @@ letter-spacing: 0em;
   background: rgba(44, 57, 73, 1);
   box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
+}
 
 
+.answerDrkBox{
+  background: rgba(73, 84, 97, 1);
+  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
+  border-radius: 10px;
 }
 
 .questionTxt{
   color: rgba(255, 255, 255, 0.5);
 
+}
+
+.unSelectedTxt{
+  color: #707070;
 }
 
 
@@ -754,12 +781,29 @@ border-radius: 10px;
 
 
 .identityCard{
-height: 430px;
-width: 300px;
-left: 0px;
-top: 0px;
-border-radius: 20px;
-background: white;
+  height: 430px;
+  width: 300px;
+  left: 0px;
+  top: 0px;
+  border-radius: 20px;
+  background: white;
+}
+
+.identityCard:hover {
+  box-shadow: 6px 16px 26px 0px #1B31421C;
+}
+
+.identityCardDrk{
+  height: 430px;
+  width: 300px;
+  left: 0px;
+  top: 0px;
+  border-radius: 20px;
+  background: #1A1A1A;
+}
+
+.identityCardDrk:hover {
+  box-shadow: 6px 16px 26px 0px #5A5A5A0F;
 }
 
 
@@ -767,6 +811,12 @@ background: white;
 .backgroundShape{
   position: absolute;
 background: #F6F7FA;
+border-bottom-left-radius: 20px;
+}
+
+.backgroundDrkShape{
+    position: absolute;
+background: #222222;
 border-bottom-left-radius: 20px;
 }
 
@@ -892,18 +942,57 @@ border: 1px solid #EFF0F2;
 }
 
 
+.searchBx{
+  width: 640px;
+  height: 60px;
+  border: 1px solid #BBBFC5;
+  box-sizing: border-box;
+  filter: drop-shadow(6px 16px 26px rgba(27, 49, 66, 0.11));
+  border-radius: 50px;
+}
+
+.searchBxHome{
+  width: 592px;
+  height: 60px;
+  box-shadow: 6px 16px 26px 0px #1B31421C;
+  background: #2C3949;
+  border-radius: 50px;
+}
+
+[type='checkbox'], [type='radio']  {
+  color: #0B1A2C !important;
+  --tw-ring-color: transparent !important;
+
+}
 
 
+.noRing{
+    --tw-ring-color: transparent !important;
+}
+
+.socialBx{
+  width: 30px;
+}
 
 
+.copy{
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px;
+}
+
+.searchBxHome > ::placeholder {
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 26px;
+letter-spacing: 0em;
+text-align: left;
+color: rgba(255, 255, 255, 0.65);
 
 
-
-
-
-
-
-
+}
 
 
   

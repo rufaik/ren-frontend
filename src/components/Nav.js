@@ -15,9 +15,9 @@ export default () =>{
 
   return (
     <div className="Nav sectWidth flex items-center mt-8 mx-auto">
-        <div className="logoBox ">
+        <Link className="logoBox" to='/home'>
             <img className='w-100' alt='REN logo' src={create === 'darkbg' ? "../whiteLogo.png" :"../logo3.png"} />
-        </div>
+        </Link>
         <div className="ml-20">
           <Switch.Group
             as="div"
@@ -49,22 +49,22 @@ export default () =>{
         </div>
     <div className="Nav flex ml-auto">
 
-      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>About</div>
-      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>How it works</div>
-      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Add Listing</div>
-      <div className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Contact</div>
-  	   <NavLink to="/" exact className="mx-4 menuItem"> Home </NavLink>
+      <Link to='/about'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>About</Link>
+      <Link to='/howitworks'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>How it works</Link>
+      <Link to='/newlisting' className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Add Listing</Link>
+      <Link to='/contact'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Contact</Link>
   	   {user &&
         <>
-  	   		<NavLink to="/create" exact className="mx-4 menuItem"> Create </NavLink>
-          <button className="authBtn" onClick={() => {
+  	   		<Link to={`/profile/${user.user.id}`} exact className= {create === 'darkbg' ? "ml-4 mr-6 text-white menuItem" : "ml-4 mr-6 menuItem"}> My Profile </Link>
+          <Link to='/home' className="authBtn" style={{"padding":"0.3rem"}} onClick={() => {
             setUser(null)
             setSimpleUser(null)
             localStorage.removeItem('user') 
             localStorage.removeItem('simpleUser') 
+
             }}>
             Log Out
-          </button>
+          </Link>
           {simpleUser &&
             <div className="mx-4 menuItem">{simpleUser.coins}</div>
           }
@@ -84,8 +84,8 @@ export default () =>{
   	   	}
   	   {!user &&
   	   	<>
-	  	   <NavLink className="mx-4 menuItem" to="/login" exact> Login </NavLink>
-	  	   <NavLink className="mx-4 menuItem" to="/signup" exact> Signup </NavLink>
+	  	   <NavLink className={create === 'darkbg' ? "text-white mx-4 menuItem" : "mx-4 menuItem"} to="/login" exact> Login </NavLink>
+	  	   <NavLink className={create === 'darkbg' ? "text-white mx-4 menuItem" : "mx-4 menuItem"} to="/signup" exact> Signup </NavLink>
 	  	</>
   		}
     </div>

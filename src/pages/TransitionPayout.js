@@ -54,7 +54,7 @@ const [status, setStatus] = useState(null)
             updateCurrent()
           } else {
             setStatus("Incomplete")
-            window.location.href = "http://localhost:3000/profile/38"
+            window.location.href = 'http://localhost:3000/home'
           }
           
 
