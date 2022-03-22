@@ -8,7 +8,6 @@ import ReactPlayer from 'react-player'
 import Footer from '../components/Footer'
 
 
-const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -21,7 +20,7 @@ export default (history) =>{
 
 	useEffect(() => {
 	    const getUserTypes = async () => {
-	      const response = await fetch('http://localhost:1337/identity-cards')
+	      const response = await fetch(`${API_URL}identity-cards`)
 	      const data = await response.json()
 	      console.log("data", data)
 	      setUserTypes(data)
