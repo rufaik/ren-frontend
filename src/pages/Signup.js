@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
+import {API_URL} from '../utils/urls'
+
 
 
 export default ({history}) =>{
@@ -26,7 +28,7 @@ const handleSubmit = async (event) => {
   event.preventDefault()
     
   try{
-          const response = await fetch('http://localhost:1337/auth/local/register', {
+          const response = await fetch(`${API_URL}/auth/local/register`, {
           method: 'POST',
           headers: {
           'Content-Type':'application/json'

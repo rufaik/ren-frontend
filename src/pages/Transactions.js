@@ -3,6 +3,7 @@ import {Link } from 'react-router-dom'
 import Post from '../components/Post'
 import {formatPrice} from '../utils/format'
 import {fromProductSlugToUrl} from '../utils/products'
+import {API_URL} from '../utils/urls'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
 import { Fade } from 'react-slideshow-image';
@@ -13,7 +14,6 @@ import { ArrowRightIcon } from '@heroicons/react/outline'
 
 
 
-  const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -48,7 +48,7 @@ export default ({description, likes, url}) =>{
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch('http://localhost:1337/posts')
+      const response = await fetch(`${API_URL}7/posts`)
       const data = await response.json()
       setPosts(data)
     }
@@ -60,7 +60,7 @@ export default ({description, likes, url}) =>{
 
   useEffect(() => {
     const getProducts = async () => {
-      const response = await fetch('http://localhost:1337/transactions')
+      const response = await fetch(`${API_URL}/transactions`)
       const data = await response.json()
       console.log("data", data)
       setProducts(data)

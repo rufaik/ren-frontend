@@ -9,10 +9,10 @@ import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
 import {Verify} from './Verify'
 import { SearchIcon } from '@heroicons/react/outline'
+import {API_URL} from '../utils/urls'
 
 
 
-  const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -60,7 +60,7 @@ const [verify, setVerify] = useState(true)
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch('http://localhost:1337/posts')
+      const response = await fetch(`${API_URL}/posts`)
       const data = await response.json()
       setPosts(data)
     }
@@ -72,7 +72,7 @@ const [verify, setVerify] = useState(true)
 
   useEffect(() => {
     const getProducts = async () => {
-      const response = await fetch('http://localhost:1337/products')
+      const response = await fetch(`${API_URL}/products`)
       const data = await response.json()
       console.log("data", data[0].id)
       setProducts(data)
@@ -86,7 +86,7 @@ const [verify, setVerify] = useState(true)
 
     useEffect(() => {
     const getUserTypes = async () => {
-      const response = await fetch('http://localhost:1337/identity-cards')
+      const response = await fetch(`${API_URL}/identity-cards`)
       const data = await response.json()
       console.log("data", data)
       setUserTypes(data)

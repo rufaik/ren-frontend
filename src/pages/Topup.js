@@ -8,10 +8,11 @@ import VerifyButton from "@passbase/button/react";
 import { Fade } from 'react-slideshow-image';
 import { Dialog, Transition } from '@headlessui/react'
 import {CartContext} from '../context/CartContext'
+import {API_URL} from '../utils/urls'
 
 
 
-  const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -46,7 +47,7 @@ export default ({description, likes, url}) =>{
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch('http://localhost:1337/posts')
+      const response = await fetch(`${API_URL}/posts`)
       const data = await response.json()
       setPosts(data)
     }
@@ -58,7 +59,7 @@ export default ({description, likes, url}) =>{
 
   useEffect(() => {
     const getProducts = async () => {
-      const response = await fetch('http://localhost:1337/products')
+      const response = await fetch(`${API_URL}/products`)
       const data = await response.json()
       console.log("data", data)
       setProducts(data)

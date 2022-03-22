@@ -10,6 +10,8 @@ import {CartContext} from '../context/CartContext'
 import { extendMoment } from "moment-range";
 import { addDays } from 'date-fns';
 import { DateRange } from 'react-date-range';
+import {API_URL} from '../utils/urls'
+
 // import Moment from "moment";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'react-dates/initialize';
@@ -17,7 +19,7 @@ import { DateRange } from 'react-date-range';
 // // import {DateRangePicker} from ‘react-dates’;
 
 
-const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -71,7 +73,7 @@ const [blockedDates, setBlockedDates] = useState([])
 
 
 // const fetchProduct = async () => {
-// 		const response = await fetch('http://localhost:1337/products')
+// 		const response = await fetch('${API_URL}/products')
 // 		try{
 //                 const data = await response.json();
 //                 setProducts(data);
@@ -86,7 +88,7 @@ const [blockedDates, setBlockedDates] = useState([])
 //         }
 
 const fetchProduct = async () => {
-        const response = await fetch(`http://localhost:1337/listings/${id}`)
+        const response = await fetch(`${API_URL}/listings/${id}`)
         try{
                 const data = await response.json();
                 setProduct(data);
@@ -101,7 +103,7 @@ const fetchProduct = async () => {
 
 
 const handleDelete = async () => {
-	const response = await fetch(`http://localhost:1337/products/${id}`, {
+	const response = await fetch(`${API_URL}/products/${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Authorization': `Bearer ${user.jwt}`
@@ -115,7 +117,7 @@ const handleEditSubmit = async (event) => {
 	event.preventDefault()
 	console.log("handleEditSubmit")
 
-	const response = await fetch(`http://localhost:1337/products/${id}`, {
+	const response = await fetch(`${API_URL}/products/${id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type':'application/json',
@@ -140,7 +142,7 @@ const updateCurrent = async (data) => {
 
     if(parseInt(simpleUser.coins) > parseInt(rentalCost)){
         try{
-            const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+            const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
               method: 'PUT',
               headers: {
               'Content-Type':'application/json',
@@ -168,7 +170,7 @@ const updateCurrent = async (data) => {
 const makeBooking = async () => {
     const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
  try{
-     const response = await fetch('http://localhost:1337/bookings', {
+     const response = await fetch(`${API_URL}/bookings`, {
          method: 'POST',
          headers: {
              'Authorization': `Bearer ${user.jwt}`,
@@ -212,7 +214,7 @@ const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
       booking: parseInt(data1.id),
       userID: simpleUser.id
     }
-  const response = await fetch('http://localhost:1337/transactions', {
+  const response = await fetch(`${API_URL}/transactions`, {
        method: 'POST',
           headers: {
           'Content-Type':'application/json',
@@ -225,7 +227,7 @@ const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
 }  
 
 const fetchBookings = async (user) => {
-    const response = await fetch('http://localhost:1337/bookings', {
+    const response = await fetch(`${API_URL}/bookings`, {
 
        method: 'GET',
         headers: {
@@ -269,7 +271,7 @@ const bookItem = async () => {
 
     console.log("bookItem")
 
-    const response = await fetch(`http://localhost:1337/listings/${id}`, {
+    const response = await fetch(`${API_URL}/listings/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type':'application/json',
@@ -293,7 +295,7 @@ const bookItem = async () => {
 
 //   bookings.map((booking, i) => {
 //     if (booking.status === "Confirmed" || "Pending" && `${booking.listing.id}` === id) {
-//         const response = await fetch(`http://localhost:1337/bookings/date`, {
+//         const response = await fetch(`${API_URL}/bookings/date`, {
 //             method: 'POST',
 //             headers: {
 //             'Content-Type':'application/json',
@@ -315,7 +317,7 @@ const bookItem = async () => {
 
 // const handleLike = async () => {
 // 	try{
-// 		const response = await fetch('http://localhost:1337/likes', {
+// 		const response = await fetch('${API_URL}/likes', {
 // 			method: 'POST',
 // 			headers: {
 // 				'Authorization': `Bearer ${user.jwt}`,
@@ -334,7 +336,7 @@ const bookItem = async () => {
 
 // const handleRemoveLike = async () => {
 // 	try{
-// 		const response = await fetch(`http://localhost:1337/likes/${id}`, {
+// 		const response = await fetch(`${API_URL}/likes/${id}`, {
 // 			method: 'DELETE',
 // 			headers: {
 // 				'Authorization': `Bearer ${user.jwt}`

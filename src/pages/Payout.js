@@ -5,13 +5,13 @@ import {formatPrice} from '../utils/format'
 import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
+import {API_URL} from '../utils/urls'
 import { Fade } from 'react-slideshow-image';
 import { Dialog, Transition } from '@headlessui/react'
 import {CartContext} from '../context/CartContext'
 
 
 
-  const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -42,7 +42,7 @@ export default () =>{
 // //   useEffect(() =>{
 // //   const loadToken = async () => {
 // //     setLoading(true)
-// //     const response = await fetch('http://localhost:1337/orders/payment', {
+// //     const response = await fetch('${API_URL}/orders/payment', {
 // //       method: 'POST',
 // //           headers: {
 // //             'Content-Type':'application/json'
@@ -82,7 +82,7 @@ const getFields = async () => {
  //      verifyKey: identityAccessKey
  //    }
       try{
-        const response = await fetch(`http://localhost:1337/payouts/payment`, {
+        const response = await fetch(`${API_URL}/payouts/payment`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',
@@ -111,7 +111,7 @@ const getFields = async () => {
     }
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',
@@ -137,7 +137,7 @@ const getFields = async () => {
 
       console.log("CLICK")
        try{
-        const response = await fetch(`http://localhost:1337/payouts/paymentA`, {
+        const response = await fetch(`${API_URL}/payouts/paymentA`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',
@@ -159,7 +159,7 @@ const getFields = async () => {
 
       console.log("CLICK2")
        try{
-        const response = await fetch(`http://localhost:1337/payouts/coinPay`, {
+        const response = await fetch(`${API_URL}/payouts/coinPay`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',

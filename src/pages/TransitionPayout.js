@@ -3,13 +3,14 @@ import {Link } from 'react-router-dom'
 import Post from '../components/Post'
 import {formatPrice} from '../utils/format'
 import {fromProductSlugToUrl} from '../utils/products'
+import {API_URL} from '../utils/urls'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
 import {Verify} from './Verify'
 
 
-  const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -39,7 +40,7 @@ const [status, setStatus] = useState(null)
     const getStripeStatus = async () => {
       console.log("get")
       try{
-        const response = await fetch(`http://localhost:1337/payouts/retrieveStatus`, {
+        const response = await fetch(`${API_URL}/payouts/retrieveStatus`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',
@@ -54,7 +55,7 @@ const [status, setStatus] = useState(null)
             updateCurrent()
           } else {
             setStatus("Incomplete")
-            window.location.href = 'http://localhost:3000/home'
+            window.location.href = '/home'
           }
           
 
@@ -71,7 +72,7 @@ const [status, setStatus] = useState(null)
     }
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',

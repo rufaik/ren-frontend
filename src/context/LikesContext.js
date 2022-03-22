@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useContext, createContext} from 'react'
 import {UserContext} from './UserContext'
+import {API_URL} from '../utils/urls'
+
 
 
 export const LikesContext = createContext(null)
@@ -13,7 +15,7 @@ export default ({children}) =>{
 	const reloader = () => {
 		if(user) {
 			const loadLikesGiven = async () => {
-				const response =  await fetch(`http://localhost:1337/likes/given?users_permissions_user=${user.user.id}`,{
+				const response =  await fetch(`${API_URL}/likes/given?users_permissions_user=${user.user.id}`,{
 					headers: {
 						'Authorization': `Bearer ${user.jwt}`
 					}
@@ -25,7 +27,7 @@ export default ({children}) =>{
 			loadLikesGiven()
 
 			const loadLikesReceived = async () => {
-				const response =  await fetch(`http://localhost:1337/likes/received?post.author=${user.user.id}`,{
+				const response =  await fetch(`${API_URL}/likes/received?post.author=${user.user.id}`,{
 					headers: {
 						'Authorization': `Bearer ${user.jwt}`
 					}	

@@ -9,13 +9,14 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import {Link } from 'react-router-dom'
 import { SearchIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/outline'
+import {API_URL} from '../utils/urls'
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 
-const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -38,7 +39,7 @@ useEffect(() => {
 }, [])
 
 const getListings = async (user) => {
-    const response = await fetch(`http://localhost:1337/listings`, {
+    const response = await fetch(`${API_URL}/listings`, {
        method: 'GET',
         headers: {
           'Content-Type':'application/json',

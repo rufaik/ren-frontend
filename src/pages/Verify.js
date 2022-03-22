@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext, Fragment} from 'react'
 import {UserContext} from '../context/UserContext'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import VerifyButton from "@passbase/button/react";
+import {API_URL} from '../utils/urls'
 import { Dialog, Transition } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
 
@@ -19,7 +20,7 @@ const updateCurrent = async (identityAccessKey) => {
       verifyKey: identityAccessKey
     }
       try{
-        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',

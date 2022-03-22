@@ -1,4 +1,6 @@
 import React from 'react'
+import {API_URL} from '../utils/urls'
+
 
 // const post = {
 //     "id": 1,
@@ -18,7 +20,7 @@ import React from 'react'
 //     }
 // }
 
-const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 

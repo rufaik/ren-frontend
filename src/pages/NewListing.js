@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext, Fragment} from 'react'
 import ReactMarkdown from "react-markdown";
 import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
+import {API_URL} from '../utils/urls'
 import {CartContext} from '../context/CartContext'
 import {Calc} from './Calc'
 import ReactPlayer from 'react-player'
@@ -17,8 +18,6 @@ function classNames(...classes) {
 
 
 
-
-const API_URL = 'http://localhost:1337'
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -85,7 +84,7 @@ export default () =>{
 
 	useEffect(() => {
 	    const getUserTypes = async () => {
-	      const response = await fetch('http://localhost:1337/identity-cards')
+	      const response = await fetch(`${API_URL}/identity-cards`)
 	      const data = await response.json()
 	      console.log("data", data)
 	      setUserTypes(data)
@@ -118,7 +117,7 @@ const handleSubmit = async (event) => {
     formData.append('files.image3', images3[0].file)
 
   try{
-        const response = await fetch('http://localhost:1337/listings', {
+        const response = await fetch(`${API_URL}/listings`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${user.jwt}`

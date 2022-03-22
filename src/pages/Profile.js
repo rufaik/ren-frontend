@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext, Fragment} from 'react'
 import Post from '../components/Post'
 import Availability from '../components/Availability'
 import Share from './Share'
+import {API_URL} from '../utils/urls'
 import Payout from './Payout'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
@@ -75,7 +76,7 @@ useEffect(() => {
 
 const fetchUser = async (user) => {
   console.log("go", user)
-    const response = await fetch(`http://localhost:1337/users/${id}`, {
+    const response = await fetch(`${API_URL}/users/${id}`, {
        method: 'GET',
         headers: {
           'Content-Type':'application/json',
@@ -147,7 +148,7 @@ setRange3(simpleUser1)
 
 const fetchListings = async (user) => {
   console.log("gosssss", user)
-    const response = await fetch('http://localhost:1337/listings', {
+    const response = await fetch(`${API_URL}/listings`, {
        method: 'GET',
         headers: {
           'Content-Type':'application/json',
@@ -185,7 +186,7 @@ useEffect(() => {
 
 const fetchBookings = async (user) => {
   console.log("gottttt", user)
-    const response = await fetch('http://localhost:1337/bookings', {
+    const response = await fetch(`${API_URL}/bookings`, {
        method: 'GET',
         headers: {
           'Content-Type':'application/json',
@@ -293,7 +294,7 @@ console.log("bookingList", bookingList)
 
 
 // const handleDelete = async () => {
-//   const response = await fetch(`http://localhost:1337/posts/${id}`, {
+//   const response = await fetch(`${API_URL}/posts/${id}`, {
 //     method: 'DELETE',
 //     headers: {
 //       'Authorization': `Bearer ${user.jwt}`
@@ -307,7 +308,7 @@ const handleEditSubmit = async (event) => {
   event.preventDefault()
   console.log("handleEditSubmit")
 
-  const response = await fetch(`http://localhost:1337/users/${id}`, {
+  const response = await fetch(`${API_URL}/users/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type':'application/json',
@@ -325,7 +326,7 @@ const handleEditSubmit = async (event) => {
 
 // const handleLike = async () => {
 //   try{
-//     const response = await fetch('http://localhost:1337/likes', {
+//     const response = await fetch('${API_URL}/likes', {
 //       method: 'POST',
 //       headers: {
 //         'Authorization': `Bearer ${user.jwt}`,
@@ -344,7 +345,7 @@ const handleEditSubmit = async (event) => {
 
 // const handleRemoveLike = async () => {
 //   try{
-//     const response = await fetch(`http://localhost:1337/likes/${id}`, {
+//     const response = await fetch(`${API_URL}/likes/${id}`, {
 //       method: 'DELETE',
 //       headers: {
 //         'Authorization': `Bearer ${user.jwt}`
@@ -371,7 +372,7 @@ const handleImgSubmit = async (event) => {
 
   try{
    
-        const response = await fetch(`http://localhost:1337/users/${id}`, {
+        const response = await fetch(`${API_URL}/users/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type':'application/multipart/form-data',
@@ -403,7 +404,7 @@ const handleImgSubmit = async (event) => {
 
     try{
    
-        const response = await fetch(`http://localhost:1337/bookings/${fullBooking.id}`, {
+        const response = await fetch(`${API_URL}/bookings/${fullBooking.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type':'application/json',
@@ -444,7 +445,7 @@ const createTransaction1 = async () => {
       booking: parseInt(fullBooking.id),
       userID:simpleUser.id
     }
-  const response = await fetch('http://localhost:1337/transactions', {
+  const response = await fetch(`${API_URL}/transactions`, {
        method: 'POST',
           headers: {
           'Content-Type':'application/json',
@@ -459,7 +460,7 @@ const createTransaction1 = async () => {
 
   // try{
    
-  //       const response = await fetch(`http://localhost:1337/booking/${id}`, {
+  //       const response = await fetch(`${API_URL}/booking/${id}`, {
   //         method: 'PUT',
   //         headers: {
   //           'Content-Type':'application/multipart/form-data',
@@ -494,7 +495,7 @@ console.log("fullBooking", fullBooking)
 
     try{
    
-        const response = await fetch(`http://localhost:1337/bookings/${fullBooking.id}`, {
+        const response = await fetch(`${API_URL}/bookings/${fullBooking.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type':'application/json',
@@ -528,7 +529,7 @@ console.log("fullBooking", fullBooking)
 const releaseItem = async () => {
   
 
-  const response = await fetch(`http://localhost:1337/listings/${pop.id}`, {
+  const response = await fetch(`${API_URL}/listings/${pop.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type':'application/json',
@@ -555,7 +556,7 @@ const releaseItem = async () => {
     }
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${fullBooking.renter.id}`, {
+        const response = await fetch(`${API_URL}/users/${fullBooking.renter.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',
@@ -580,7 +581,7 @@ const createTransaction = async () => {
       booking: parseInt(fullBooking.id),
       userID:fullBooking.renter.id
     }
-  const response = await fetch('http://localhost:1337/transactions', {
+  const response = await fetch(`${API_URL}/transactions`, {
        method: 'POST',
           headers: {
           'Content-Type':'application/json',
@@ -605,7 +606,7 @@ const createTransaction = async () => {
     
     console.log("CLICK2")
        try{
-        const response = await fetch('http://localhost:1337/payouts/getLink', {
+        const response = await fetch(`${API_URL}/payouts/getLink`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',
@@ -633,7 +634,7 @@ const createTransaction = async () => {
     }
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',
@@ -660,7 +661,7 @@ const createTransaction = async () => {
       }
       console.log("CLICK2")
        try{
-        const response = await fetch(`http://localhost:1337/payouts/coinPay`, {
+        const response = await fetch(`${API_URL}/payouts/coinPay`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',
@@ -695,7 +696,6 @@ const createTransaction = async () => {
 
 console.log("sided", letter)
 
-const API_URL = 'http://localhost:1337'
 
 // const url = post.image && post.image.url
 const formatImageUrl = (url) => `${API_URL}${url}`

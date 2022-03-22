@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import Post from '../components/Post'
+import {API_URL} from '../utils/urls'
 
 import {UserContext} from '../context/UserContext'
 import {LikesContext} from '../context/LikesContext'
@@ -70,7 +71,7 @@ function classNames(...classes) {
 
 
 
- const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
@@ -107,7 +108,7 @@ const [confirmation, setConfirmation] = useState(false)
 
 
 const fetchPost = async () => {
-		const response = await fetch(`http://localhost:1337/posts/${id}`)
+		const response = await fetch(`${API_URL}/posts/${id}`)
 		try{
                 const data = await response.json();
                 setPost(data);
@@ -121,7 +122,7 @@ const fetchPost = async () => {
         }
 
 const handleDelete = async () => {
-	const response = await fetch(`http://localhost:1337/posts/${id}`, {
+	const response = await fetch(`${API_URL}/posts/${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Authorization': `Bearer ${user.jwt}`
@@ -135,7 +136,7 @@ const handleEditSubmit = async (event) => {
 	event.preventDefault()
 	console.log("handleEditSubmit")
 
-	const response = await fetch(`http://localhost:1337/posts/${id}`, {
+	const response = await fetch(`${API_URL}/posts/${id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type':'application/json',
@@ -153,7 +154,7 @@ const handleEditSubmit = async (event) => {
 
 const handleLike = async () => {
 	try{
-		const response = await fetch('http://localhost:1337/likes', {
+		const response = await fetch(`${API_URL}/likes`, {
 			method: 'POST',
 			headers: {
 				'Authorization': `Bearer ${user.jwt}`,
@@ -172,7 +173,7 @@ const handleLike = async () => {
 
 const handleRemoveLike = async () => {
 	try{
-		const response = await fetch(`http://localhost:1337/likes/${id}`, {
+		const response = await fetch(`${API_URL}/likes/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Authorization': `Bearer ${user.jwt}`
@@ -193,7 +194,7 @@ const handleRemoveLike = async () => {
 //       coins: Math.round(parseInt(user.user.coins) + parseInt(order.product_qty[0].qty))
 //     }
 
-//           const response = await fetch(`http://localhost:1337/users/${user.user.id}`, {
+//           const response = await fetch(`${API_URL}/users/${user.user.id}`, {
 //           method: 'PUT',
 //           headers: {
 //           'Content-Type':'application/json',
@@ -221,7 +222,7 @@ const handleRemoveLike = async () => {
 
     if(parseInt(simpleUser.coins) > parseInt(post.coinPrice)){
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${user.user.id}`, {
+	    	const response = await fetch(`${API_URL}/users/${user.user.id}`, {
 	          method: 'PUT',
 	          headers: {
 	          'Content-Type':'application/json',

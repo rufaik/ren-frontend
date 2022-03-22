@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
 import Papa from "papaparse";
+import {API_URL} from '../utils/urls'
 
 const generateInput = ( value, setOnChange) => {
   return(
@@ -57,7 +58,7 @@ export const Calc = () => {
 
     if(parseInt(simpleUser.coins) > parseInt(first2)){
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+	    	const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
 	          method: 'PUT',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -84,7 +85,7 @@ export const Calc = () => {
       const findUser = async () => {
 
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${first1}`, {
+	    	const response = await fetch(`${API_URL}/users/${first1}`, {
 	          method: 'GET',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -115,7 +116,7 @@ export const Calc = () => {
     }
 
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${first1}`, {
+	    	const response = await fetch(`${API_URL}/users/${first1}`, {
 	          method: 'PUT',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -148,7 +149,7 @@ export const Calc = () => {
     formData.append('files.bulkupload', fileBulk)
 
   try{
-        const response = await fetch('http://localhost:1337/contents', {
+        const response = await fetch(`${API_URL}/contents`, {
           method: 'POST',
           body: formData
         })
@@ -217,7 +218,7 @@ updateCurrent1(total)
 
     if(parseInt(simpleUser.coins) > parseInt(total)){
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+	    	const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
 	          method: 'PUT',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -244,7 +245,7 @@ updateCurrent1(total)
       const findUser1 = async (receiverID, amount) => {
 
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${receiverID}`, {
+	    	const response = await fetch(`${API_URL}/users/${receiverID}`, {
 	          method: 'GET',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -275,7 +276,7 @@ updateCurrent1(total)
     }
 
     	try{
-	    	const response = await fetch(`http://localhost:1337/users/${receiverID}`, {
+	    	const response = await fetch(`${API_URL}/users/${receiverID}`, {
 	          method: 'PUT',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -487,7 +488,7 @@ export const Calc1 = () => {
 
     if(parseInt(simpleUser.coins) > parseInt(first2)){
       try{
-        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',
@@ -514,7 +515,7 @@ export const Calc1 = () => {
       const findUser = async () => {
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${first1}`, {
+        const response = await fetch(`${API_URL}/users/${first1}`, {
             method: 'GET',
             headers: {
             'Content-Type':'application/json',
@@ -545,7 +546,7 @@ export const Calc1 = () => {
     }
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${first1}`, {
+        const response = await fetch(`${API_URL}/users/${first1}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',
@@ -578,7 +579,7 @@ export const Calc1 = () => {
     formData.append('files.bulkupload', fileBulk)
 
   try{
-        const response = await fetch('http://localhost:1337/contents', {
+        const response = await fetch(`${API_URL}/contents`, {
           method: 'POST',
           body: formData
         })
@@ -647,7 +648,7 @@ updateCurrent1(total)
 
     if(parseInt(simpleUser.coins) > parseInt(total)){
       try{
-        const response = await fetch(`http://localhost:1337/users/${simpleUser.id}`, {
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',
@@ -674,7 +675,7 @@ updateCurrent1(total)
       const findUser1 = async (receiverID, amount) => {
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${receiverID}`, {
+        const response = await fetch(`${API_URL}/users/${receiverID}`, {
             method: 'GET',
             headers: {
             'Content-Type':'application/json',
@@ -705,7 +706,7 @@ updateCurrent1(total)
     }
 
       try{
-        const response = await fetch(`http://localhost:1337/users/${receiverID}`, {
+        const response = await fetch(`${API_URL}/users/${receiverID}`, {
             method: 'PUT',
             headers: {
             'Content-Type':'application/json',

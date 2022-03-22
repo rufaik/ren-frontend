@@ -7,6 +7,7 @@ import {
   cartSubTotal, 
 } from '../utils/cart'
 import {formatPrice} from '../utils/format'
+import {API_URL} from '../utils/urls'
 
 const Card_Styles = {
 	style: {
@@ -107,7 +108,7 @@ export default () =>{
       cart
     }
 
-          const response = await fetch('http://localhost:1337/orders', {
+          const response = await fetch(`${API_URL}/orders`, {
           method: 'POST',
           headers: {
           'Content-Type':'application/json',
@@ -148,7 +149,7 @@ const createTransaction = async (order) => {
       type:"TopUp",
       userID: simpleUser.id
     }
-  const response = await fetch('http://localhost:1337/transactions', {
+  const response = await fetch(`${API_URL}/transactions`, {
        method: 'POST',
           headers: {
           'Content-Type':'application/json',
@@ -166,7 +167,7 @@ const createTransaction = async (order) => {
       coins: Math.round(parseInt(simpleUser.coins) + parseInt(order.product_qty[0].qty))
     }
 
-          const response = await fetch(`http://localhost:1337/users/${user.user.id}`, {
+          const response = await fetch(`${API_URL}/users/${user.user.id}`, {
           method: 'PUT',
           headers: {
           'Content-Type':'application/json',
@@ -192,7 +193,7 @@ const createTransaction = async (order) => {
 useEffect(() =>{
 	const loadToken = async () => {
 		setLoading(true)
-		const response = await fetch('http://localhost:1337/orders/payment', {
+		const response = await fetch(`${API_URL}/orders/payment`, {
 			method: 'POST',
         	headers: {
         		'Content-Type':'application/json'

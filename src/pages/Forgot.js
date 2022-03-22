@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import {API_URL} from '../utils/urls'
 
 
 export default ({history}) =>{
@@ -33,7 +34,7 @@ const handleSubmit = async (event) => {
 	event.preventDefault()
 		
 	try{
-          const response = await fetch('http://localhost:1337/auth/local/', {
+          const response = await fetch(`${API_URL}/auth/local/`, {
       		method: 'POST',
       		headers: {
       		'Content-Type':'application/json'

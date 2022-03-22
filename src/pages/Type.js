@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import ReactMarkdown from "react-markdown";
 import {UserContext} from '../context/UserContext'
+import {API_URL} from '../utils/urls'
 import {LikesContext} from '../context/LikesContext'
 import {CartContext} from '../context/CartContext'
 import ReactPlayer from 'react-player'

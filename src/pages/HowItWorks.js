@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import {Link } from 'react-router-dom'
 import Post from '../components/Post'
 import {formatPrice} from '../utils/format'
+import {API_URL} from '../utils/urls'
 import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
@@ -9,7 +10,7 @@ import 'tw-elements';
 import {Verify} from './Verify'
 import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/react/outline'
 
-  const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
