@@ -25,10 +25,10 @@ export default (history) =>{
 	      console.log("data", data)
 	      setUserTypes(data)
 	      if( history.location.state && history.location.state.card !== null){
-	      	setChage2(history.location.state.card)
-	      } else {
-	      	setChage2(data[0].user_stories[0].id)
-	      }
+	      	return null
+	      } else{
+	      storyPicker(data)
+	  }
     }
 
     getUserTypes()
@@ -37,12 +37,28 @@ export default (history) =>{
 
   }, [])
 
+
+const storyPicker =  (data) => {
+   data.map( async (card, i) => {
+      if(card.title === change1){
+        setChage2(card.user_stories[0].id)
+}})}
+	
+
 	useEffect(() => {
 		if( history.location.state && history.location.state.card !== null){
 			setChage1(history.location.state.card)
+			setChage2(history.location.state.card)
 		}
 
-	  }, [])	
+	  }, [])
+
+		useEffect(() => {
+		if( history.location.state && history.location.state.card !== null && userTypes.length > 0){
+			storyPicker(userTypes)
+		}
+
+	  }, [userTypes])		
 
 	return(
 
