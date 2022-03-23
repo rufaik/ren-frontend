@@ -142,7 +142,7 @@ const getFields = async () => {
             headers: {
             'Content-Type':'application/json',
             },
-            body: JSON.stringify({ account: setUpBegan, url: API_URL})
+            body: JSON.stringify({ account: setUpBegan, url: 'https://rent-equipment-now.netlify.app'})
           })
 
           const confirm = await response.json()
