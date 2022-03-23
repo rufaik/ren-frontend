@@ -24,7 +24,11 @@ export default (history) =>{
 	      const data = await response.json()
 	      console.log("data", data)
 	      setUserTypes(data)
-	      setChage2(data[0].user_stories[0].id)
+	      if( history.location.state && history.location.state.card !== null){
+	      	setChage2(history.location.state.card)
+	      } else {
+	      	setChage2(data[0].user_stories[0].id)
+	      }
     }
 
     getUserTypes()
@@ -36,7 +40,6 @@ export default (history) =>{
 	useEffect(() => {
 		if( history.location.state && history.location.state.card !== null){
 			setChage1(history.location.state.card)
-			setChage2(history.location.state.card)
 		}
 
 	  }, [])	
