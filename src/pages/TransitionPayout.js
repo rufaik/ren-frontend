@@ -84,7 +84,7 @@ const [status, setStatus] = useState(null)
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
-            window.location.href = "http://localhost:3000/profile/38"
+            window.location.href = `${API_URL}/profile/38`
 
       } catch(err){
     console.log("Exception ", err)}
