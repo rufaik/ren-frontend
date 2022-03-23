@@ -142,7 +142,7 @@ const getFields = async () => {
             headers: {
             'Content-Type':'application/json',
             },
-            body: JSON.stringify({ account: setUpBegan})
+            body: JSON.stringify({ account: setUpBegan, url: API_URL})
           })
 
           const confirm = await response.json()
