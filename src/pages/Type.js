@@ -20,7 +20,7 @@ export default (history) =>{
 
 	useEffect(() => {
 	    const getUserTypes = async () => {
-	      const response = await fetch(`${API_URL}identity-cards`)
+	      const response = await fetch(`${API_URL}/identity-cards`)
 	      const data = await response.json()
 	      console.log("data", data)
 	      setUserTypes(data)
