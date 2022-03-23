@@ -36,6 +36,7 @@ export default (history) =>{
 	useEffect(() => {
 		if( history.location.state && history.location.state.card !== null){
 			setChage1(history.location.state.card)
+			setChage2(history.location.state.card)
 		}
 
 	  }, [])	
