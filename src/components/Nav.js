@@ -50,7 +50,9 @@ export default () =>{
     <div className="Nav flex ml-auto">
 
       <Link to='/about'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>About</Link>
-      <Link to='/howitworks'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>How it works</Link>
+      {user &&
+        <Link to='/howitworks'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>How it works</Link>
+      }
       <Link to='/newlisting' className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Add Listing</Link>
       <Link to='/contact'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Contact</Link>
   	   {user &&
