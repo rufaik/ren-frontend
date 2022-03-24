@@ -785,7 +785,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         {imageList && imageList[0] ? null : <img className="absolute uploadSketch" src="../upload.png" />}
                         {imageList.map((image, index) => (
                         <div key={index} className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
-                          <img src={simpleUser && simpleUser.image !== null ? formatImageUrl(simpleUser.image.url ): formatImageUrl(image.data_url)  } className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
+                          <img src={simpleUser && simpleUser.image !== null ? formatImageUrl(simpleUser.image.url ) : formatImageUrl(image.data_url)  } className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
                           
                         </div>
                       ))}
