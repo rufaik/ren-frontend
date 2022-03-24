@@ -994,6 +994,9 @@ color: rgba(255, 255, 255, 0.65);
 
 }
 
+.borderbot{
+  border-bottom-width: 3px;
+}
 
   
 

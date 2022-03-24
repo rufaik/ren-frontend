@@ -11,6 +11,7 @@ import Tabs,{Tab} from 'react-best-tabs';
 import 'react-best-tabs/dist/index.css';
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
+import ImageUploading from "react-images-uploading";
 
 
 
@@ -46,7 +47,7 @@ const [letter, setLetter] = useState('')
 const [first, setFirst] = useState('')
 const [unique, setUnique] = useState('')
 const [code, setCode] = useState('')
-const [coins, setCoins] = useState('')
+const [coins, setCoins] = useState(0)
 const [file, setFile] = useState(null)
 const [profile, setProfile] = useState('/profile.jpg')
 const [error, setError] = useState('')
@@ -694,7 +695,7 @@ const createTransaction = async () => {
 //   }
 // }, [user])
 
-console.log("sided", letter)
+console.log("coins", coins)
 
 
 // const url = post.image && post.image.url
@@ -703,8 +704,43 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                   console.log("if", post1)
 
 
+  const [image, setImages] = React.useState([]);
+  const [showSave, setShowSave] = useState(true)
+
+  const maxNumber = 69;
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log("iiiiii", imageList, addUpdateIndex);
+    setImages(imageList);
+    console.log("imageList", imageList)
+  };  
+
+  const saveImage = async (event) => {
+    event.preventDefault()
+    console.log('handling')
 
 
+    const formData = new FormData()
+    formData.append('files.image', image[0].file)
+
+  try{
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${user.jwt}`
+          },          
+          body: formData
+        })
+  
+        const data = await response.json()
+        setShowSave(false)
+        console.log("dataK1", data) 
+      }catch(err){
+        console.log("Exception", err)
+        setError(err)
+      }
+
+  }
 
 
 
@@ -713,11 +749,60 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
     <div className="sectWidth flex mx-auto mt-16">
     <div className="flex flex-col">
-      <div className="imgBx rounded-t-full rounded-b-lg flex justify-center items-center">
+{/*      <div className="imgBx rounded-t-full rounded-b-lg flex justify-center items-center">
         <img className="rounded-t-full rounded-b-lg w-full h-full object-cover" src={profile} alt="" />
-{/*        <img className="PostImage w-full h-full object-cover" src={formatImageUrl(url)} alt="" />
+*/}{/*        <img className="PostImage w-full h-full object-cover" src={formatImageUrl(url)} alt="" />
 */}         
-      </div>
+
+ <ImageUploading
+                  multiple={false}
+                  value={image}
+                  onChange={onChange}
+                  maxNumber={maxNumber}
+                  dataURLKey="data_url"
+                >
+                  {({
+                    imageList,
+                    onImageUpload,
+                    onImageRemoveAll,
+                    onImageUpdate,
+                    onImageRemove,
+                    isDragging,
+                    dragProps
+                  }) => (
+                    // write your building UI
+                    <div className="upload__image-wrapper relative">
+                      <div
+                        style={isDragging ? { color: "red" } : null}
+                        className="imgBx rounded-t-full  border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"
+                        onClick={onImageUpload}
+                        {...dragProps}
+                      >
+                        {imageList && imageList[0] ? null : <img className="w-100" src="../camsketch.png" />}
+                        {imageList && imageList[0] ? null : <img className="absolute uploadSketch" src="../upload.png" />}
+                        {imageList.map((image, index) => (
+                        <div key={index} className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
+                          <img src={image.data_url} className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
+                          
+                        </div>
+                      ))}
+
+                      </div>
+                  {showSave &&
+                    <div>
+                      {imageList && imageList[0] &&
+                        <button onClick={saveImage} className="orangeCol my-3 text-white block mx-auto mt-4 text-center underline cursor-pointer">
+                                Save
+                        </button>
+                      }
+                      </div>
+                      }
+                    </div>
+                  )}
+              </ImageUploading>
+
+
+    
       {user && user.user.id === post1.id 
       ? <button className="orangeTxt" onClick={() => { show ==='collapse' ? setShow('visible') : setShow('collapse')}} >Choose Photo</button>
       : null
@@ -747,6 +832,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
                 <h3>{coins}</h3>
+                {user && user.user.id.toString() === id.toString() &&
                 <div className="flex flex-col">
                   <Link to='/topup' style={{"padding": "0.3rem"}} className="cursor-pointer authBtn ml-10 mb-1">
                     Top up
@@ -758,6 +844,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                     OUTTTT
                   </button>*/}
                 </div>
+              }
        
               </div>
 
@@ -785,11 +872,16 @@ const formatImageUrl = (url) => `${API_URL}${url}`
               </div>
           : null
         }
+
+      {user && user.user.id.toString() === id.toString() &&
+        <div>
         {activePayout &&
           <button onClick={showingPayout} className="orangeCol my-3 text-white block mt-4 underline cursor-pointer">
                   Set up your payment information
           </button>
         }
+        </div>
+      }
         {showPayout &&
           <Payout />
         }
@@ -933,10 +1025,12 @@ const formatImageUrl = (url) => `${API_URL}${url}`
     <div className="gen greyCol mb-7">
       Joined 8th Jan 2021
     </div>
-    <div className="orangeCol my-3 text-white block mt-4 underline cursor-pointer" onClick={() => setOpen2(true)}
-    >
-    Select availability
-    </div>
+    {user && user.user.id.toString() === id.toString() &&
+      <div className="orangeCol my-3 text-white block mt-4 underline cursor-pointer" onClick={() => setOpen2(true)}
+      >
+      Select availability
+      </div>
+    }
     <div className="flex my-3 items-center">
       <h3>95%</h3>
       <div className="gen">&nbsp;Rentals approved</div>
@@ -954,6 +1048,8 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
   </div>
 
+ {user && user.user.id.toString() === id.toString()
+?
   <div className="rightCol ml-12">
 
       <Tabs activeTab="1" className="mt-5 w-100" ulClassName="tabTitle" activityClassName="bg-success activeTabTitle" onClick={(event, tab) => console.log(event, tab)} >
@@ -1342,7 +1438,73 @@ const formatImageUrl = (url) => `${API_URL}${url}`
       </Tabs>
   </div>
 
+
+
+:
+
+  <div className="rightCol ml-12">
+
+      <div
+      className="mt-5 w-100">
+        <div className="mr-3 w-full " >
+           <div className='h3Bold borderbot border-black py-2'>
+           Listed
+           </div>
+        
+           <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+{ post2 && post2[0]
+  ?            
+
+
+      <div>
+           {post2.map((listing, i) => {
+            if(listing.userID === id)
+                     
+                        return(
+                  <div className="flex flex-col overflow-hidden thumbImgBx">
+                    <div className="flex-shrink-0 relative thumbImg">
+                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={formatImageUrl(listing.image && listing.image.url)} alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">23rd Sep 2021</div>
+                    </div>
+                  </div>
+                  )})}
+            </div>
+        : null}
+            </div>
+
+
+
+
+         </div>
+     
+         
+     
+      </div>
+  </div>
+}
+
 </div>
+
+
+
+
+
 
 
 <Transition.Root show={open2} as={Fragment}>
