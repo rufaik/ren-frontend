@@ -781,8 +781,8 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         onClick={onImageUpload}
                         {...dragProps}
                       >
-                        {imageList && imageList[0] ? null : <img className="w-100" src="../camsketch.png" />}
-                        {imageList && imageList[0] ? null : <img className="absolute uploadSketch" src="../upload.png" />}
+                        {imageList && imageList[0] && simpleUser && simpleUser.image ? null : <img className="w-100" src="../camsketch.png" />}
+                        {imageList && imageList[0] && simpleUser && simpleUser.image ? null : <img className="absolute uploadSketch" src="../upload.png" />}
                         {imageList.map((image, index) => (
                         <div key={index} className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
                           <img src={simpleUser && simpleUser.image !== null ? formatImageUrl(simpleUser.image.url ) : formatImageUrl(image.data_url)  } className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
