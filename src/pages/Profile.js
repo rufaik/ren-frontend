@@ -721,11 +721,12 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
     const formData = new FormData()
+    formData.append('data', JSON.stringify({name: simpleUser.name}))
     formData.append('files.image', image[0].file)
 
   try{
         const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Authorization': `Bearer ${user.jwt}`
           },          
