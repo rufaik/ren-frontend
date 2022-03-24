@@ -721,7 +721,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
     const formData = new FormData()
-    formData.append('data', JSON.stringify({name: simpleUser.name}))
+    formData.append('data', JSON.stringify({name: "simpleUser.name"}))
     formData.append('files.image', image[0].file)
 
   try{
