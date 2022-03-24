@@ -785,12 +785,14 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                           ? <img className="w-100" src="../camsketch.png" />
 
                           : <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
-                              <img 
-                                src={formatImageUrl(simpleUser.image.url)} 
-                                className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
-                                alt="" 
-                                width="66%" 
-                              />
+                              {simpleUser && simpleUser.image &&
+                                 <img 
+                                  src={formatImageUrl(simpleUser.image.url)} 
+                                  className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
+                                  alt="" 
+                                  width="66%" 
+                                />
+                              }
                               
                             </div> 
                         }
