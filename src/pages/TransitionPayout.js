@@ -3,7 +3,7 @@ import {Link } from 'react-router-dom'
 import Post from '../components/Post'
 import {formatPrice} from '../utils/format'
 import {fromProductSlugToUrl} from '../utils/products'
-import {API_URL} from '../utils/urls'
+import {API_URL, THIS_URL} from '../utils/urls'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
@@ -84,7 +84,7 @@ const [status, setStatus] = useState(null)
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
-            window.location.href = `${API_URL}/profile/38`
+            window.location.href = `${THIS_URL}/profile/${user.user.id}`
 
       } catch(err){
     console.log("Exception ", err)}
