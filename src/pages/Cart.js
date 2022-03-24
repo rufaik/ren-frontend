@@ -7,13 +7,14 @@ import {
 	SHIPPING_RATE
 } from '../utils/cart'
 import {formatPrice} from '../utils/format'
+import {API_URL} from '../utils/urls'
 import Checkout from '../components/Checkout'
 import {CartContext} from '../context/CartContext'
 import {UserContext} from '../context/UserContext'
 import { Dialog, Transition } from '@headlessui/react'
 
 
-const API_URL = 'http://localhost:1337'
+
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
