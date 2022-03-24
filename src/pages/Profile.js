@@ -734,6 +734,8 @@ const formatImageUrl = (url) => `${API_URL}${url}`
         })
   
         const data = await response.json()
+        setSimpleUser(data)
+           localStorage.setItem('simpleUser', JSON.stringify(data))
         setShowSave(false)
         console.log("dataK1", data) 
       }catch(err){
