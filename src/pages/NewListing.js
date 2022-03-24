@@ -100,7 +100,7 @@ export default () =>{
 const handleSubmit = async (event) => {
     event.preventDefault()
     const coins = Math.round(rentalValue * 5)
-    console.log('handling')
+    console.log('handling', image)
 
     if(!user){
       setError('Please log in first')
