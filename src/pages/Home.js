@@ -54,7 +54,7 @@ export default ({history}) =>{
  const [q3, setQ3] = useState(false)
  const [first1, setFirst1] = useState(1)
  const [darkMode, setDarkMode] = useState(true)
-const [verify, setVerify] = useState(true)
+const [verify, setVerify] = useState(false)
   const [searchWord, setSearchWord] = useState('')
 
 

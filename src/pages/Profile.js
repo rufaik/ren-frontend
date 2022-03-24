@@ -781,8 +781,10 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         onClick={onImageUpload}
                         {...dragProps}
                       >
-                        {imageList && imageList[0] && simpleUser && simpleUser.image !== null 
-                          ? <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
+                        {simpleUser && simpleUser.image === null 
+                          ? <img className="w-100" src="../camsketch.png" />
+
+                          : <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
                               <img 
                                 src={formatImageUrl(simpleUser.image.url)} 
                                 className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
@@ -791,16 +793,15 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                               />
                               
                             </div> 
-                          : <img className="w-100" src="../camsketch.png" />
                         }
-                        {imageList && imageList[0] && simpleUser && simpleUser.image !== null 
-                          ? null 
-                          : <img className="absolute uploadSketch" src="../upload.png" />
+                        {simpleUser && simpleUser.image === null 
+                          ? <img className="absolute uploadSketch" src="../upload.png" /> 
+                          : null
                         }
-                        {}
+                        
                         {imageList.map((image, index) => (
                         <div key={index} className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
-                          <img src={simpleUser && simpleUser.image !== null ? formatImageUrl(simpleUser.image.url ) : formatImageUrl(image.data_url)  } className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
+                          <img src={image.data_url} className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
                           
                         </div>
                       ))}
@@ -1009,9 +1010,13 @@ const formatImageUrl = (url) => `${API_URL}${url}`
       <div className="capitalize">K</div>
     </h2>
 
-    {user && user.user.id.toString() === id.toString() ?
-      <button onClick={() => setEdit(true)} className="editBtn bulkTxt ml-8 text-center">Edit profile</button>
-
+    {user && user.user.id.toString() === id.toString() 
+      ?<>
+       {edit 
+        ? <button onClick={() => setEdit(false)} className="editBtn bulkTxt ml-8 text-center">Save profile</button>
+        : <button onClick={() => setEdit(true)} className="editBtn bulkTxt ml-8 text-center">Edit profile</button>
+      } 
+      </>
       : null
     }
   </div>
@@ -1024,20 +1029,25 @@ const formatImageUrl = (url) => `${API_URL}${url}`
     </div>
    
       <>
-    <div className="gen mt-4">
-      {description1}
-    </div>
-    {edit &&
-                      <form onSubmit={handleEditSubmit}>
-                        <input
-                          value={description1}
-                          onChange={(event) => setDescription1(event.target.value)}
-                          placeholder="New description"
-                        />
-                        <button onClick={() => setEdit(false)}> Confirm</button>
-                      </form> 
-                    }
-                    </>
+    
+    {edit 
+      ?
+          <form onSubmit={handleEditSubmit}>
+            <input
+              value={description1}
+              onChange={(event) => setDescription1(event.target.value)}
+              placeholder="New description"
+              className="uniqueBox mt-4 gen"
+            />
+            <button onClick={() => setEdit(false)}> Confirm</button>
+          </form> 
+
+      : <div className="gen mt-4">
+          {description1}
+        </div>
+
+      }
+      </>
                  
   
     <div className="gen greyCol mb-7">
