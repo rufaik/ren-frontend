@@ -717,7 +717,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
   const saveImage = async (event) => {
     event.preventDefault()
-    console.log('handling')
+    console.log('handling', image)
 
 
     const formData = new FormData()
@@ -725,7 +725,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
   try{
         const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
-          method: 'PUT',
+          method: 'POST',
           headers: {
             'Authorization': `Bearer ${user.jwt}`
           },          
