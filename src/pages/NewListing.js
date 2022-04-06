@@ -54,7 +54,7 @@ export default () =>{
 	const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
 	const [open, setOpen] = useState(true)
 	const [open1, setOpen1] = useState(true)
-	const [booked, setBooked] = useState(true)
+	const [booked, setBooked] = useState(false)
 	const [categories, setCategories] = useState(null)
 	const [dropdown, setDrop] = useState('Select from dropdown')
 	const [feat1, setFeat1] = useState('')
@@ -63,8 +63,8 @@ export default () =>{
 	
 
 
-	console.log("user", user)
-	console.log("simpleUser", simpleUser)
+	// console.log("user", booked)
+	// console.log("simpleUser", open1)
 
 
 
@@ -124,7 +124,7 @@ export default () =>{
 	const getCategories = async () => {
 		console.log("yooo")
     	try{
-	    	const response = await fetch('http://localhost:1337/new-listing-pages', {
+	    	const response = await fetch(`${API_URL}/new-listing-pages`, {
 	          method: 'GET',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -202,10 +202,10 @@ const handleSubmit1 = async () => {
     console.log('handling1', image)
     console.log('handling2', images1)
 
-    // if(!user){
-    //   setError('Please log in first')
-    //   return
-    // }
+    if(!user){
+      setError('Please log in first')
+      return
+    }
 
 
 
@@ -217,7 +217,7 @@ const handleSubmit1 = async () => {
     formData.append('files.image3', images3[0].file)
 
   try{
-        const response = await fetch(`http://localhost:1337/listings`, {
+        const response = await fetch(`${API_URL}/listings`, {
           method: 'POST',
           // headers: {
           //   'Authorization': `Bearer ${user.jwt}`
@@ -959,14 +959,14 @@ const handleSubmit1 = async () => {
 
 				    
 				              <div className="flex flex-col justify-center items-center pt-">
-				        
+				          {user &&
 				                <Link 
-				                	// to={`/profile/${user.user.id}`} 
-				                	className="sendBtn1 bulkTxt block mt-12 text-center pt-1 mx-auto" 
+				                	to={`/profile/${user.user.id}`} 
+				                	className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
 				                > 
 				                	Got it
 				                </Link>
-				             
+				             }
 				               {/* <div 
 				                  className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
 				                >
