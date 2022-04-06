@@ -84,6 +84,8 @@ const [verify, setVerify] = useState(false)
   }, [])
 
 
+
+
     useEffect(() => {
     const getUserTypes = async () => {
       const response = await fetch(`${API_URL}/identity-cards`)

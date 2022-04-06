@@ -12,7 +12,7 @@ import 'react-best-tabs/dist/index.css';
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import ImageUploading from "react-images-uploading";
-
+import { addDays } from 'date-fns';
 
 
 
@@ -68,6 +68,13 @@ const [newBooking, setNewBooking] = useState('')
   const [range1, setRange1] = useState(null);
   const [range2, setRange2] = useState(null);
   const [range3, setRange3] = useState(null);
+  const [joined, setJoined] = useState(null);
+
+const [name, setName] = useState('')
+const [surname, setSurname] = useState('')
+
+
+
 
 useEffect(() => {
 
@@ -92,19 +99,20 @@ const fetchUser = async (user) => {
                 console.log("side", data)
                 if(data !== null){
                   setPost1(data);
-                  setFirst(data.Name)
+                  setFirst(data.name)
+                  changeDate(data.created_at)
                   setCode(data.username)
                   setCoins(data.coins)
-                  setDescription1(data.Name)
-                  const letterA = data.Surname.charAt(0)
+                  setDescription1(data.bio)
+                  const letterA = data.surname.charAt(0)
                   setLetter(letterA)
                 } else {
                   console.log("else", user)
-                  setFirst(user.user.Name)
+                  setFirst(user.user.name)
                   setCode(user.user.username)
                   setCoins(user.user.coins)
                   setDescription1(user.user.bio)
-                  const letterA = user.user.Surname.charAt(0)
+                  const letterA = user.user.surname.charAt(0)
                   setLetter(letterA)
 
                 }
@@ -122,6 +130,8 @@ useEffect(() => {
   fetchListings()
 
 }, [user])
+
+
 
 const callRange1 =  () => {
 
@@ -324,6 +334,31 @@ const handleEditSubmit = async (event) => {
   console.log("handleEditSubmit data", data)
 }
 
+
+const editBio = async () => {
+
+
+  const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type':'application/json',
+      'Authorization': `Bearer ${user.jwt}`
+    },
+    body: JSON.stringify({
+      bio: description1,
+      name,
+      surname
+    })
+  })
+    const data = await response.json();
+    setSimpleUser(data)
+    localStorage.setItem('simpleUser', JSON.stringify(data))
+    console.log("editBio data", data)
+    setFirst(data.name)
+    setDescription1(data.bio)
+    const letterA = data.surname.charAt(0)
+    setLetter(letterA)
+}
 
 // const handleLike = async () => {
 //   try{
@@ -745,9 +780,31 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
   }
 
+const changeDate = (data) => {
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate() - 1)
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const joined2 = new Date(joined1)
+  setJoined(joined2.toLocaleDateString('en-EN', options))
+
+}
 
 
-  return (
+  // const capit = () => {
+  //     const name1 = "sandy"
+  //  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+  //  console.log("name1", name1)
+  // }
+
+// const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+//     const username1 = data.user.name + "-" + data.user.surname.charAt(0) + "-" + getRndInteger(100, 1000) + data.user.id
+
+
+
+console.log("post1", post1)
+// console.log("joined", (new Date(joined)).setDate((new Date(joined)).getDate() - 1))
+
+return (
     <div className="SinglePost">
 
     <div className="sectWidth flex mx-auto mt-16">
@@ -1008,15 +1065,33 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   <div className="leftCol">
   <div className="flex items-center">
     <h2 className="flex">
-      <div>Jasmine.</div>
-      <div className="capitalize">K</div>
+      <div className="capitalize">{first}.</div>
+      <div className="capitalize">{letter}</div>
     </h2>
 
     {user && user.user.id.toString() === id.toString() 
       ?<>
        {edit 
-        ? <button onClick={() => setEdit(false)} className="editBtn bulkTxt ml-8 text-center">Save profile</button>
-        : <button onClick={() => setEdit(true)} className="editBtn bulkTxt ml-8 text-center">Edit profile</button>
+        ? <button 
+            onClick={() => {
+              setEdit(false)
+              editBio()
+            }} 
+            className="editBtn bulkTxt ml-8 text-center"
+          >
+            Save bio
+          </button>
+        : <button 
+            onClick={() => {
+              setEdit(true)
+              
+              setName(simpleUser.name)
+              setSurname(simpleUser.surname)
+            }} 
+            className="editBtn bulkTxt ml-8 text-center"
+          >
+            Edit bio
+          </button>
       } 
       </>
       : null
@@ -1036,12 +1111,23 @@ const formatImageUrl = (url) => `${API_URL}${url}`
       ?
           <form onSubmit={handleEditSubmit}>
             <input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="New description"
+              className="descBox mt-4 gen pl-3"
+            />
+            <input
+              value={surname}
+              onChange={(event) => setSurname(event.target.value)}
+              placeholder="New description"
+              className="descBox mt-4 gen pl-3"
+            />
+            <input
               value={description1}
               onChange={(event) => setDescription1(event.target.value)}
-              placeholder="New description"
-              className="uniqueBox mt-4 gen"
+              placeholder="Tell us about yourself"
+              className="descBox my-4 gen pl-3"
             />
-            <button onClick={() => setEdit(false)}> Confirm</button>
           </form> 
 
       : <div className="gen mt-4">
@@ -1051,10 +1137,12 @@ const formatImageUrl = (url) => `${API_URL}${url}`
       }
       </>
                  
-  
+  {joined &&
     <div className="gen greyCol mb-7">
-      Joined 8th Jan 2021
+      Joined {joined}
+
     </div>
+  }
     {user && user.user.id.toString() === id.toString() &&
       <div className="orangeCol my-3 text-white block mt-4 underline cursor-pointer" onClick={() => setOpen2(true)}
       >
@@ -1296,7 +1384,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
           <Tab title="Bookings" className="mr-3 w-1/3">
               <div className="mt-3">
                 <div>
-                    <div className="h3Bold mt-8 mb-4">Pending: Congratulations!&nbsp;&nbsp;You have bookings!</div>
+                    <div className="h3Bold mt-8 mb-4">Pending { post3 && post3[0] && <span>: Congratulations!&nbsp;&nbsp;You have bookings!</span>}</div>
                     <div className="genLight my-4">Please click on each item to <b>accept</b> or <b>reject</b> the reservations on your items</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>

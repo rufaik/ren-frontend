@@ -34,9 +34,9 @@ const handleSubmit = async (event) => {
           'Content-Type':'application/json'
           },
           body: JSON.stringify({
-          username: email,
           email,
           password,
+          username: email,
           name: firstName,
           surname: lastName
           })
@@ -55,6 +55,7 @@ const handleSubmit = async (event) => {
         setUser(data)
         localStorage.setItem('simpleUser', JSON.stringify(data.user))
         setSimpleUser(data.user)
+        createUsername(data)
 
 
      } catch(err){
@@ -62,6 +63,53 @@ const handleSubmit = async (event) => {
      }      
 
 }
+
+
+   const createUsername = async (data) => {
+    console.log()
+    const username1 = data.user.name + "-" + data.user.surname.charAt(0) + "-" + getRndInteger(100, 1000) + data.user.id
+
+      console.log("username", username1.toLowerCase())
+    const data2 = {
+      username: username1.toLowerCase()      
+    }
+
+      try{
+        const response = await fetch(`${API_URL}/users/${data.user.id}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${data.jwt}`
+            },
+            body: JSON.stringify(data2)
+          })
+
+          const shared = await response.json()
+          console.log(shared)
+         localStorage.setItem('simpleUser', JSON.stringify(shared))
+         
+
+      } catch(err){
+    console.log("Exception ", err)}
+
+    }  
+
+
+  useEffect(() => {
+     if( simpleUser ){
+      const username = simpleUser.name + "-" + simpleUser.surname.charAt(0) + "-" + getRndInteger(100, 1000) + simpleUser.id
+
+      console.log("username", username.toLowerCase())
+     }
+
+    // console.log("products", products)
+
+  }, [simpleUser])
+
+  const getRndInteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
 
 
 
@@ -169,23 +217,6 @@ const handleSubmit = async (event) => {
               </div>
             </div>
 
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
-              <div className="mt-1 sm:mt-0 sm:col-span-2">
-                <input
-                  placeholder="Username"
-                  type="text"
-                  name="last-name"
-                  id="last-name"
-                  autoComplete="off"
-                  className="uniqueBox mt-4 pl-4"
-                  onChange={(event) => {
-                    setError('')
-                    setUsername(event.target.value)
-                  }}
-
-                />
-              </div>
-            </div>
 
    
           </div>

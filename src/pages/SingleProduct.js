@@ -146,7 +146,8 @@ const updateCurrent = async (data) => {
               method: 'PUT',
               headers: {
               'Content-Type':'application/json',
-              'Authorization': `Bearer ${user.jwt}`
+              'Authorization': `Bearer ${user.jwt}`,
+              'Access-Control-Allow-Origin': '*'
               },
               body: JSON.stringify(data1)
             })
@@ -175,6 +176,7 @@ const makeBooking = async () => {
          headers: {
              'Authorization': `Bearer ${user.jwt}`,
              'Content-Type':'application/json',
+             'Access-Control-Allow-Origin':'https://rent-equipment-now.netlify.app'
          },
          body: JSON.stringify({
              status: "Pending",

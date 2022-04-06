@@ -26,11 +26,19 @@ export default () =>{
 	const [userTypes, setUserTypes] = useState([])
 	const [change1, setChage1] = useState('Creative')
 	const [change2, setChage2] = useState('')
-	const [name, setName] = useState('')
-	const [desc, setDescription] = useState('')
-	const [features, setFeatures] = useState('')
-	const [postcode, setPostcode] = useState('')
-	const [rental, setRent] = useState('')
+	const [name, setName] = useState(null)
+	const [nameError, setNameError] = useState(false)
+	const [descError, setDescError] = useState(false)
+	const [featError, setFeatError] = useState(false)
+	const [catError, setCatError] = useState(false)
+	const [locError, setLocError] = useState(false)
+	const [rentError, seRentError] = useState(false)
+	const [imgError, setImgError] = useState(false)
+	const [coinError, setCoinError] = useState(false)
+	const [desc, setDescription] = useState(null)
+	const [features, setFeatures] = useState([])
+	const [postcode, setPostcode] = useState(null)
+	const [rental, setRent] = useState(null)
 	const [error, setError] = useState('')
 	const [file1, setFile1] = useState(null)
 	const [file2, setFile2] = useState(null)
@@ -45,6 +53,14 @@ export default () =>{
 	const [calculated, setCalculated] = useState(false);
 	const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
 	const [open, setOpen] = useState(true)
+	const [open1, setOpen1] = useState(true)
+	const [booked, setBooked] = useState(true)
+	const [categories, setCategories] = useState(null)
+	const [dropdown, setDrop] = useState('Select from dropdown')
+	const [feat1, setFeat1] = useState('')
+	const [feat2, setFeat2] = useState('')
+	const [feat3, setFeat3] = useState('')
+	
 
 
 	console.log("user", user)
@@ -82,53 +98,137 @@ export default () =>{
   };	
 
 
+	// useEffect(() => {
+	//     const getUserTypes = async () => {
+	//       const response = await fetch(`${API_URL}/identity-cards`)
+	//       const data = await response.json()
+	//       // console.log("data", data)
+	//       setUserTypes(data)
+	//       setChage2(data[0].user_stories[0].id)
+ //    }
+
+ //    getUserTypes()
+ //    console.log("userTypes", userTypes)
+
+
+ //  }, [])
+
+
+
 	useEffect(() => {
-	    const getUserTypes = async () => {
-	      const response = await fetch(`${API_URL}/identity-cards`)
-	      const data = await response.json()
-	      console.log("data", data)
-	      setUserTypes(data)
-	      setChage2(data[0].user_stories[0].id)
-    }
-
-    getUserTypes()
-    console.log("userTypes", userTypes)
-
+	    getCategories()
 
   }, [])
 
-const handleSubmit = async (event) => {
-    event.preventDefault()
+
+	const getCategories = async () => {
+		console.log("yooo")
+    	try{
+	    	const response = await fetch('http://localhost:1337/new-listing-pages', {
+	          method: 'GET',
+	          headers: {
+	          'Content-Type':'application/json',
+	          // 'Authorization': `Bearer ${user.jwt}`
+	          }
+	        })
+	        const data = await response.json()
+	      console.log("categories", data)
+	      setCategories(data[0].categories.dropdown)
+
+    	} catch(err){
+		console.log("Exception ", err)}
+	
+
+    }
+
+
+    const handleSubmit = (event) => {
+    	event.preventDefault()
+    	// let updatedItems = features;
+    	if(name === null || name === '') {
+    		setNameError(true)
+    	}
+    	if(desc === null || desc === '') {
+    		setDescError(true)
+    	}
+    	if(feat1 === null || feat1 === '') {
+    		setFeatError(true)
+    	}
+    	if(postcode === null || postcode === '') {
+    		setLocError(true)
+    	}
+    	if(rental === null || rental === '') {
+    		seRentError(true)
+    	}
+    	if(dropdown === 'Select from dropdown') {
+    		setCatError(true)
+    	}
+    	if(image.length === 0) {
+    		setImgError(true)
+    	}
+    	if(images1.length === 0) {
+    		setImgError(true)
+    	}
+    	if(images2.length === 0) {
+    		setImgError(true)
+    	}
+    	if(images3.length === 0) {
+    		setImgError(true)
+    	}
+    	if(itemValue === 0 || rentalValue === 0 || itemValue === '' || rentalValue === '' ) {
+    		setCoinError(true)
+    	}
+    	if(nameError === false && descError === false && featError === false && locError === false && rentError === false && catError === false && coinError === false) {
+    		handleSubmit1()
+    	}
+    	
+    	// handleSubmit1()
+    	// setFeatures(updatedItems);
+     //  	console.log("updatedItems", updatedItems)
+      	// handleSubmit1()
+    // 	  post3.map((booking, i) => {
+    // if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
+    //   let updatedItems = bookingList;
+    //   updatedItems.push(booking.id);
+    //   setBookingList(updatedItems);
+    //   console.log("updatedItems", updatedItems)
+  
+    }
+
+    console.log("NAME", name)
+
+const handleSubmit1 = async () => {
     const coins = Math.round(rentalValue * 5)
     console.log('handling1', image)
     console.log('handling2', images1)
 
-    if(!user){
-      setError('Please log in first')
-      return
-    }
+    // if(!user){
+    //   setError('Please log in first')
+    //   return
+    // }
 
 
 
     const formData = new FormData()
-    formData.append('data', JSON.stringify({name, features, postcode, rental, coins, userID: simpleUser.id}))
+    formData.append('data', JSON.stringify({name, description: desc, feature1: feat1, feature2: feat2, feature3: feat3, borough:postcode, category:dropdown,  rental, coins, userID: simpleUser.id}))
     formData.append('files.image', image[0].file)
     formData.append('files.image1', images1[0].file)
     formData.append('files.image2', images2[0].file)
     formData.append('files.image3', images3[0].file)
 
   try{
-        const response = await fetch(`${API_URL}/listings`, {
+        const response = await fetch(`http://localhost:1337/listings`, {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${user.jwt}`
-          },          
+          // headers: {
+          //   'Authorization': `Bearer ${user.jwt}`
+          // },          
           body: formData
         })
   
         const data = await response.json()
   
         console.log("dataK1", data) 
+        setBooked(true)
       }catch(err){
         console.log("Exception", err)
         setError(err)
@@ -224,18 +324,24 @@ const handleSubmit = async (event) => {
 					              <div className="genBold pt-4 mr-6 text-right w-40">Name</div>
 					              </div>
 		              		<div className="flex flex-row">
+		              			<div className ='flex flex-col'>    
 					                <input
 					                  placeholder="Max 40 characters"
 					                  type="text"
 					                  name="item-title"
 					                  id="item-title"
 					                  className="uniqueBox mt-4 pl-4"
+					                  onClick={() => {setNameError(false)}}
 					                  onChange={(event) => {
 					                    setError('')
 					                    setName(event.target.value)
 					                  }}
 
 					                />
+					                {nameError &&
+					                	<div className="mt-3 genBold text-red-600"> Please add the name of your item </div> 
+					                }
+					            </div>
 				            </div>
 			              </div>
 			           
@@ -322,6 +428,7 @@ const handleSubmit = async (event) => {
 */}		                
 				<div className="flex flex row">
 					<div className="pt-4 mr-6 text-right w-40"></div>
+              		<div className="flex flex-col">
               		<div className="flex flex-row">
               			<ImageUploading
 					        multiple={false}
@@ -476,15 +583,21 @@ const handleSubmit = async (event) => {
 					        )}
 					    </ImageUploading>
 					   </div>
+					   {imgError &&
+					                	<div className="mt-3 genBold text-red-600"> Please include FOUR images </div> 
+					                }
+
+					   </div>
 					   </div>
 
 				<div className="flex flex row">
 					<div className="genBold pt-4 mr-6 text-right w-40">Category</div>
               		<div className="flex flex-row">
+              		<div className="flex flex-col">
               			<Menu as="div" className="relative inline-block text-left">
 						      <div>
 						        <Menu.Button className="genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-						          Select from dropdown
+						          {dropdown}
 						          <ChevronDownIcon className="-mr-1 ml-auto h-5 w-5" aria-hidden="true" />
 						        </Menu.Button>
 						      </div>
@@ -499,65 +612,37 @@ const handleSubmit = async (event) => {
 						        leaveTo="transform opacity-0 scale-95"
 						      >
 						        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-						          <div className="py-1">
-						            <Menu.Item>
-						              {({ active }) => (
-						                <a
-						                  href="#"
-						                  className={classNames(
-						                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-						                    'block px-4 py-2 text-sm'
-						                  )}
-						                >
-						                  Account settings
-						                </a>
-						              )}
-						            </Menu.Item>
-						            <Menu.Item>
-						              {({ active }) => (
-						                <a
-						                  href="#"
-						                  className={classNames(
-						                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-						                    'block px-4 py-2 text-sm'
-						                  )}
-						                >
-						                  Support
-						                </a>
-						              )}
-						            </Menu.Item>
-						            <Menu.Item>
-						              {({ active }) => (
-						                <a
-						                  href="#"
-						                  className={classNames(
-						                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-						                    'block px-4 py-2 text-sm'
-						                  )}
-						                >
-						                  License
-						                </a>
-						              )}
-						            </Menu.Item>
-						            <form method="POST" action="#">
-						              <Menu.Item>
-						                {({ active }) => (
-						                  <button
-						                    type="submit"
-						                    className={classNames(
-						                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-						                      'block w-full text-left px-4 py-2 text-sm'
-						                    )}
-						                  >
-						                    Sign out
-						                  </button>
-						                )}
-						              </Menu.Item>
-						            </form>
+						        {categories &&
+						          <div className="py-1"> 
+						           {categories.map((cat, index) => { 
+			            				return(
+								            <Menu.Item>
+								              {({ active }) => (
+								                <div
+								                  onClick={() => {
+								                  	setDrop(cat)
+								                  	setCatError(false)
+								                  }}
+								                  className={classNames(
+								                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+								                    'block px-4 py-2 text-sm'
+								                  )}
+								                >
+								                  {cat}
+								                </div>
+								              )}
+								            </Menu.Item>
+								        )})}
+
 						          </div>
+						         }
 						        </Menu.Items>
 						      </Transition>
 						    </Menu>
+						    {catError &&
+					                	<div className="mt-3 genBold text-red-600"> Please select a category </div> 
+					                }
+					               </div>
 
               		</div>
               	</div>
@@ -581,19 +666,25 @@ const handleSubmit = async (event) => {
 			                  }}
 
 			                />*/}
-			          <div className ='flex flex-col'>      
-			            <textarea
-			            	name="Description"
-			                  id="description"
-			                  className="uniqueBoxDesc mt-4 p-4"
-			                  maxlength='240'
-			                  onChange={(event) => {
-			                    setError('')
-			                    setDescription(event.target.value)
-			                  }}
-			            >
-				  
-				  		</textarea>
+			          <div className ='flex flex-col'>  
+				            
+				            <textarea
+				            	name="Description"
+				                  id="description"
+				                  className="uniqueBoxDesc mt-4 p-4"
+				                  maxlength='240'
+				                  onClick={() => {setDescError(false)}}
+				                  onChange={(event) => {
+				                    setError('')
+				                    setDescription(event.target.value)
+				                  }}
+				            >
+					  
+					  		</textarea>
+					  		  {descError &&
+					                	<div className="mt-3 genBold text-red-600"> Please write a description </div> 
+					                }
+
 				  		<div className="pr-8 text-right">
 				  			{desc ? desc.length : null}
 				  		</div>
@@ -604,9 +695,10 @@ const handleSubmit = async (event) => {
 
               	<div className="flex flex row">
               		<div className ='flex flex-col'>
-						<div className="genBold pt-4 mr-6 text-right w-40">Product Feature</div>
+						<div className="genBold pt-4 mr-6 text-right w-40">Product Features</div>
 					</div>
-              		<div className="flex flex-row">
+					<div className="flex flex-col">
+              		<div className="flex flex-row uniqueBoxDesc">
               {/*			 <input
 			                  placeholder="Last Name"
 			                  type="text"
@@ -620,7 +712,7 @@ const handleSubmit = async (event) => {
 			                  }}
 
 			                />*/}
-			            <textarea
+			       {/*     <textarea
 			            	name="Description"
 			                  id="description"
 			                  className="uniqueBoxDesc mt-4 p-4"
@@ -631,30 +723,78 @@ const handleSubmit = async (event) => {
 			                  }}
 			            >
 				  
-				  		</textarea>
+				  		</textarea>*/}
+				  		<div className="flex flex-col ">
+				  		 <input
+			                  type="text"
+			                  name="feat1"
+			                  id="feat1"
+			                  placeholder="feature 1"
+			                  onClick={() => {setFeatError(false)}}
+			                  className="featureBox mt-4 pl-4 mx-auto border-none"
+			                  onChange={(event) => {
+			                    setError('')
+			                    setFeat1(event.target.value)
+			                  }}
+			                />
+			                 <input
+			                  type="text"
+			                  name="feat2"
+			                  id="feat2"
+			                  placeholder="feature 2"
+			                  className="featureBox mt-4 pl-4 mx-auto border-none"
+			                  onChange={(event) => {
+			                    setError('')
+			                    setFeat2(event.target.value)
+			                  }}
+			                />
+			                 <input
+			                  type="text"
+			                  name="feat3"
+			                  id="feat3"
+			                  placeholder="feature 3"
+			                  className="featureBox mt-4 pl-4 mx-auto border-none"
+			                  onChange={(event) => {
+			                    setError('')
+			                    setFeat3(event.target.value)
+			                  }}
+			                />
 				  	
 			             </div>
-				  		
+			             </div>
+
+			             {featError &&
+					                	<div className="mt-3 genBold text-red-600"> Please add some features </div> 
+					                }
+					          
+				  		</div>
 			            </div>
 
               	<div className="flex flex row">
               		<div className ='flex flex-col'>
-						<div className="genBold pt-4 mr-6 text-right w-40">Postcode</div>
+						<div className="genBold pt-4 mr-6 text-right w-40">Location</div>
 					</div>
               		<div className="flex flex-row">
+              			<div className="flex flex-col">
               			 <input
 			                  type="text"
 			                  name="postcode"
 			                  id="postcode"
+			                  placeholder="e.g. Islington"
 			                  autoComplete="postcode"
 			                  className="uniqueBox mt-4 pl-4"
+			                  onClick={() => {setLocError(false)}}
 			                  onChange={(event) => {
 			                    setError('')
 			                    setPostcode(event.target.value)
 			                  }}
 			                />
 			          
-				  	
+				  	 {locError &&
+					                	<div className="mt-3 genBold text-red-600"> Please specify your location </div> 
+					                }
+					          
+				  		</div>
 			             </div>
 				  		
 			            </div>
@@ -664,17 +804,23 @@ const handleSubmit = async (event) => {
 						<div className="genBold pt-4 mr-6 text-right w-40">Minimum rental days</div>
 					</div>
               		<div className="flex flex-row">
+              		<div className="flex flex-col">
               			 <input
 			                  type="text"
 			                  name="rental"
 			                  id="rental"
 			                  className="uniqueBox mt-4 pl-4"
+			                  onClick={() => {seRentError(false)}}
 			                  onChange={(event) => {
 			                    setError('')
 			                    setRent(event.target.value)
 			                  }}
 			                />
-			      
+			      		{rentError &&
+					                	<div className="mt-3 genBold text-red-600"> Please include the minimum rental days </div> 
+					                }
+					          
+				  		</div>
 				  	
 			             </div>
 				  		
@@ -722,6 +868,7 @@ const handleSubmit = async (event) => {
 						          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Item value (£)</div>
 						          <input
 						                            value={itemValue}
+						                            onClick={() => {setCoinError(false)}}
 						                            onChange={(event ) => {setItemValue(event.target.value)}}
 						                            className="uniqueBox mt-2 pl-4"
 						                          
@@ -731,6 +878,7 @@ const handleSubmit = async (event) => {
 						          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Rental price per day (£)</div>
 						          <input
 						                            value={rentalValue}
+						                            onClick={() => {setCoinError(false)}}
 						                            onChange={(event ) => {setRentalValue(event.target.value)}}
 						                            className="uniqueBox mt-2 pl-4"
 						                          
@@ -751,6 +899,9 @@ const handleSubmit = async (event) => {
 						            </div>
 
 						          }
+						          {coinError &&
+						          	<div className="mt-3 mb-2 genBold text-red-600"> Please calculate how much you would like to rent out your equipment for</div> 
+						          }
 						      	<button
 						      		className="orangeBg text-white h3Dark py-3 px-8 rounded-full"
 						      		onClick={handleSubmit} 
@@ -765,6 +916,71 @@ const handleSubmit = async (event) => {
 					</div>
 					</div>
 				</div>
+{booked &&
+				<Transition.Root show={open1} as={Fragment}>
+				      <Dialog 
+				        as="div" 
+				        className="fixed z-10 inset-0 overflow-y-auto" 
+				        onClose={()=> {
+				          setOpen1(false)
+				          window.location.reload()
+				        }}>
+				        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+				          <Transition.Child
+				            as={Fragment}
+				            enter="ease-out duration-300"
+				            enterFrom="opacity-0"
+				            enterTo="opacity-100"
+				            leave="ease-in duration-200"
+				            leaveFrom="opacity-100"
+				            leaveTo="opacity-0"
+				          >
+				            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+				          </Transition.Child>
+
+				          {/* This element is to trick the browser into centering the modal contents. */}
+				          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+				            &#8203;
+				          </span>
+				          <Transition.Child
+				            as={Fragment}
+				            enter="ease-out duration-300"
+				            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+				            enterTo="opacity-100 translate-y-0 sm:scale-100"
+				            leave="ease-in duration-200"
+				            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+				            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+				          >
+				            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+				              <div style={{"width":"620px"}} className="mx-auto">
+				              <div className="h3Bold mt-12 text-center">
+				             Congratulations! Your item has been set for listing. Click below to view in profile.
+				              </div>
+
+				    
+				              <div className="flex flex-col justify-center items-center pt-">
+				        
+				                <Link 
+				                	// to={`/profile/${user.user.id}`} 
+				                	className="sendBtn1 bulkTxt block mt-12 text-center pt-1 mx-auto" 
+				                > 
+				                	Got it
+				                </Link>
+				             
+				               {/* <div 
+				                  className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
+				                >
+				                 I made a mistake
+				                </div>*/}
+				              </div>
+				              </div>
+				            </div>
+				          </Transition.Child>
+				        </div>
+				      </Dialog>
+				    </Transition.Root>	
+
+}
 
 			</div>
 		 }

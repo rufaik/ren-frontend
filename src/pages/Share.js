@@ -51,12 +51,42 @@ export default () => {
 	const [submit, setSubmit] = useState(false);
 	const [bulk, setBulk] = useState(false);
 	const [err, setErr] = useState('');
+
+
+
+
+
+    const findUsername = async () => {
+    	console.log("findUsername")
+    	try{
+	    	const response = await fetch(`${API_URL}/users`, {
+	          method: 'GET',
+	          headers: {
+	          'Content-Type':'application/json',
+	          'Authorization': `Bearer ${user.jwt}`
+	          }
+	        })
+
+          const usernames = await response.json()
+          usernames.map((user, i) => { 
+          	if(user.username === first1) {
+          		updateCurrent(user.id)
+          	}
+          })
+
+    	} catch(err){
+		console.log("Exception ", err)}
+	
+
+    }
   
 
 
 //First find current User, subtract shared coins from my account
 
-   const updateCurrent = async (data) => {
+   const updateCurrent = async (realUserId) => {
+   	    	console.log("updateCurrent")
+
     const data1 = {
       coins: Math.round(parseInt(simpleUser.coins) - parseInt(first2))
     }
@@ -75,7 +105,7 @@ export default () => {
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
-          findUser()
+          findUser(realUserId)
 
     	} catch(err){
 		console.log("Exception ", err)}
@@ -87,10 +117,9 @@ export default () => {
 
 // Find the other users info
 
-      const findUser = async () => {
-
+      const findUser = async (realUserId) => {
     	try{
-	    	const response = await fetch(`${API_URL}/users/${first1}`, {
+	    	const response = await fetch(`${API_URL}/users/${realUserId}`, {
 	          method: 'GET',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -99,7 +128,7 @@ export default () => {
 	        })
 
           const dataOtherUser = await response.json()
-          shareCoins(dataOtherUser)
+          shareCoins(dataOtherUser, realUserId)
           console.log("dataOtherUser", dataOtherUser)
 
     	} catch(err){
@@ -110,7 +139,7 @@ export default () => {
 
 //Update the other user with the shared coins
 
-   const shareCoins = async (dataOtherUser) => {
+   const shareCoins = async (dataOtherUser, realUserId) => {
    	console.log()
     const data2 = {
       coins:  
@@ -121,7 +150,7 @@ export default () => {
     }
 
     	try{
-	    	const response = await fetch(`${API_URL}/users/${first1}`, {
+	    	const response = await fetch(`${API_URL}/users/${realUserId}`, {
 	          method: 'PUT',
 	          headers: {
 	          'Content-Type':'application/json',
@@ -187,6 +216,7 @@ var secondNumbers = []
 for(var x = 0;x<results.data.length;x++){
   var secondNumber = results.data[x][1]//index 1 = 2nd number in item
   secondNumbers.push(parseInt(secondNumber)) //parseInt - change string to number
+  console.log("secondNumbers", secondNumbers)
 }
 
 //now add the ones in second item
@@ -201,7 +231,7 @@ console.log("total", total)
 updateCurrent1(total)
 
 				if(parseInt(simpleUser.coins) > parseInt(total)){
-                {results.data.map((upload, i) => { findUser1(upload[0], upload[1])
+                {results.data.map((upload, i) => { findUsername1(upload[0], upload[1])
                 	
                 })}
 
@@ -214,6 +244,10 @@ updateCurrent1(total)
             )
           }
         
+
+
+
+
 
 
 //First find current User, subtract shared coins from my account
@@ -249,6 +283,32 @@ updateCurrent1(total)
 
     }
 
+
+// Convert Username
+
+    const findUsername1 = async (receiverID, amount) => {
+    	console.log("findUsername")
+    	try{
+	    	const response = await fetch(`${API_URL}/users`, {
+	          method: 'GET',
+	          headers: {
+	          'Content-Type':'application/json',
+	          'Authorization': `Bearer ${user.jwt}`
+	          }
+	        })
+
+          const usernames = await response.json()
+          usernames.map((user, i) => { 
+          	if(user.username === receiverID) {
+          		findUser1(user.id, amount)
+          	}
+          })
+
+    	} catch(err){
+		console.log("Exception ", err)}
+	
+
+    }
 // Find the other users info
 
       const findUser1 = async (receiverID, amount) => {
@@ -378,7 +438,7 @@ console.log(fileBulk)
                 </button>
                 <button 
                 	className="sendBtn bulkTxt ml-20 text-center"
-                	onClick={updateCurrent}
+                	onClick={findUsername}
                 >
                 Send R.E.N Coins
                 </button>
