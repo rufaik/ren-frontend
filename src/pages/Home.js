@@ -48,7 +48,7 @@ export default ({history}) =>{
  const [posts, setPosts] = useState([])
  const [products, setProducts] = useState([])
  const [userTypes, setUserTypes] = useState([])
- const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
+ const {user, setUser, simpleUser, setSimpleUser, create, mainImages} = useContext(UserContext)
  const [q1, setQ1] = useState(true)
  const [q2, setQ2] = useState(false)
  const [q3, setQ3] = useState(false)
@@ -228,7 +228,7 @@ const [verify, setVerify] = useState(false)
                     </div>
 
                     <div className='w-1/2 relative' >
-                      <img className='w-100 ml-auto' alt='camera' src="../renHomeCamera.png" />
+                      {mainImages && <img className='w-100 ml-auto' alt='camera' src={mainImages[0].mainimage.url} /> }
                       <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
                       <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
