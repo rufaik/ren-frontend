@@ -401,12 +401,10 @@ const [state, setState] = useState({
                 <img className='w-full' alt='camera' src={formatImageUrl(product.image && product.image.url)} />
             </div>
             <div>
-            <button
-                className="orangeBg text-white h3Dark py-3 px-8 rounded-full"
-                onClick={updateCurrent} 
-                >
-                Book Now
-            </button>
+          
+            <div
+              className="h3Bold mt-8 mb-8"
+            >Check Availability</div>
             </div>
             {lowFunds &&
                 <div className="normalBold mt-3">Unfortunately you dont have enough REN coins, please top up</div>
@@ -437,6 +435,16 @@ const [state, setState] = useState({
               ranges={state}
               direction="horizontal"
                 />;*/}
+              <div>
+            <button
+                className="orangeBg text-white h3Dark py-3 px-8 rounded-full"
+                onClick={updateCurrent} 
+                >
+                Book Now
+            </button>
+            </div>
+
+
         </div>
         <div className="flex flex-col w-1/2">
             <h2>{product.name}</h2>

@@ -26,7 +26,6 @@ const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
 const [final, setFinalPayout] = useState(false)
 const {user, setUser, simpleUser, setSimpleUser, simpleUser1} = useContext(UserContext)
-console.log("user1111x", simpleUser)
 // console.log("setUser", setUser)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -755,19 +754,47 @@ const formatImageUrl = (url) => `${API_URL}${url}`
     console.log('handling', image)
 
 
+  
+
     const formData = new FormData()
-    formData.append('data', JSON.stringify({name: simpleUser.name}))
-    formData.append('files.image', image[0].file)
+    formData.append('files', image[0].file)
+
+    formData.append('refId', simpleUser.id)
+    formData.append('ref', 'user')
+    formData.append('field', 'image')
+    formData.append('source', 'users-permissions')
 
   try{
-        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
-          method: 'PUT',
+        const response = await fetch(`${API_URL}/upload`, {
+          method: 'POST',
           headers: {
             'Authorization': `Bearer ${user.jwt}`
           },          
           body: formData
         })
+
+
   
+        const data = await response.json()
+        getUser()
+        console.log("dataK1", data) 
+      }catch(err){
+        console.log("Exception", err)
+        setError(err)
+      }
+
+  }
+
+  const getUser = async () => {
+
+
+  try{
+        const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${user.jwt}`
+          },          
+        })
         const data = await response.json()
         setSimpleUser(data)
            localStorage.setItem('simpleUser', JSON.stringify(data))
@@ -779,7 +806,6 @@ const formatImageUrl = (url) => `${API_URL}${url}`
       }
 
   }
-
 const changeDate = (data) => {
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate() - 1)
@@ -801,7 +827,8 @@ const changeDate = (data) => {
 
 
 
-console.log("post1", post1)
+
+
 // console.log("joined", (new Date(joined)).setDate((new Date(joined)).getDate() - 1))
 
 return (
@@ -814,78 +841,107 @@ return (
 */}{/*        <img className="PostImage w-full h-full object-cover" src={formatImageUrl(url)} alt="" />
 */}         
 
- <ImageUploading
-                  multiple={false}
-                  value={image}
-                  onChange={onChange}
-                  maxNumber={maxNumber}
-                  dataURLKey="data_url"
-                >
-                  {({
-                    imageList,
-                    onImageUpload,
-                    onImageRemoveAll,
-                    onImageUpdate,
-                    onImageRemove,
-                    isDragging,
-                    dragProps
-                  }) => (
-                    // write your building UI
-                    <div className="upload__image-wrapper relative">
-                      <div
-                        style={isDragging ? { color: "red" } : null}
-                        className="imgBx rounded-t-full  border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"
-                        onClick={onImageUpload}
-                        {...dragProps}
-                      >
-                        {simpleUser && simpleUser.image === null 
-                          ? <img className="w-100" src="../camsketch.png" />
+{user && user.user.id.toString() === id.toString() 
+  ?
+      <ImageUploading
+          multiple={false}
+          value={image}
+          onChange={onChange}
+          maxNumber={maxNumber}
+          dataURLKey="data_url"
+        >
+          {({
+            imageList,
+            onImageUpload,
+            onImageRemoveAll,
+            onImageUpdate,
+            onImageRemove,
+            isDragging,
+            dragProps
+          }) => (
+            // write your building UI
+            <div className="upload__image-wrapper relative">
+            {console.log(imageList)}
+              <div
+                style={isDragging ? { color: "red" } : null}
+                className="imgBx rounded-t-full border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"
+                onClick={onImageUpload}
+                {...dragProps}
+              >
+                {simpleUser && simpleUser.image === null && imageList.length === 0
+                  ? <img className="w-100" src="../camsketch.png" />
 
-                          : <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
-                              {simpleUser && simpleUser.image &&
-                                 <img 
-                                  src={formatImageUrl(simpleUser.image.url)} 
-                                  className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
-                                  alt="" 
-                                  width="66%" 
-                                />
-                              }
-                              
-                            </div> 
-                        }
-                        {simpleUser && simpleUser.image === null 
-                          ? <img className="absolute uploadSketch" src="../upload.png" /> 
-                          : null
-                        }
-                        
-                        {imageList.map((image, index) => (
-                        <div key={index} className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
-                          <img src={image.data_url} className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
-                          
-                        </div>
-                      ))}
+                  : <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
+                      {simpleUser && simpleUser.image &&
+                         <img 
+                          src={simpleUser.image.url} 
+                          className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
+                          alt="" 
+                          width="66%" 
+                        />
+                      }
+                      
+                    </div> 
+                }
+                {simpleUser && simpleUser.image === null
+                  ? <img className="absolute uploadSketch" src="../upload.png" /> 
+                  : null
+                }
+                
+                {imageList.map((image, index) => (
+                <div key={index} className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg absolute top-0 left-0">
+                  <img src={image.data_url} className="rounded-t-full rounded-b-lg w-full h-full object-cover" alt="" width="66%" />
+                  
+                </div>
+              ))}
 
-                      </div>
-                  {showSave &&
-                    <div>
-                      {imageList && imageList[0] &&
-                        <button onClick={saveImage} className="orangeCol my-3 text-white block mx-auto mt-4 text-center underline cursor-pointer">
-                                Save
-                        </button>
-                      }
-                      </div>
-                      }
-                    </div>
-                  )}
-              </ImageUploading>
+              </div>
+          {showSave &&
+            <div>
+              {imageList && imageList[0] &&
+                <button onClick={saveImage} className="orangeCol my-3 text-white block mx-auto mt-4 text-center underline cursor-pointer">
+                        Save
+                </button>
+              }
+              </div>
+              }
+            </div>
+          )}
+      </ImageUploading>
+    :
+     <div className="relative">
+      <div
+          className="imgBx rounded-t-full border border-black-100 rounded-b-lg flex justify-center items-center"
+        >
+          {post1 && post1.image === null
+            ? <img className="w-100" src="../camsketch.png" />
+
+            : <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg">
+                {post1 && post1.image &&
+                   <img 
+                    src={post1.image.url} 
+                    className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
+                    alt="" 
+                    width="66%" 
+                  />
+                }
+              </div> 
+          }
+          {post1 && post1.image === null
+            ? <img className="absolute uploadSketch" src="../upload.png" /> 
+            : null
+          }
+      </div>
+    </div>
+   }
 
 
     
-      {user && user.user.id === post1.id 
+{/*      {user && user.user.id === post1.id 
       ? <button className="orangeTxt" onClick={() => { show ==='collapse' ? setShow('visible') : setShow('collapse')}} >Choose Photo</button>
       : null
-    }
-      <form onSubmit={handleImgSubmit} className="flex flex-col justify-center mx-auto" style={{"visibility":show}}> 
+    }*/}
+{/*      <form onSubmit={handleImgSubmit} className="flex flex-col justify-center mx-auto" style={{"visibility":show}}> 
          <input
             type="file"
             className="orangeTxt"
@@ -897,7 +953,7 @@ return (
             }}
           />
           <button onClick={() => setProfile('./profile2')} c>Submit</button>
-       </form>
+       </form>*/}
        </div>
 
       <div className="ml-12 coinBox">
