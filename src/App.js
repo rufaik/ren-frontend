@@ -22,6 +22,7 @@ import Contact from './pages/Contact'
 import About from './pages/About'
 import HowItWorks from './pages/HowItWorks'
 import {UserContext} from './context/UserContext'
+import {API_URL} from './utils/urls'
 
 
   
