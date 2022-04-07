@@ -592,7 +592,7 @@ const [verify, setVerify] = useState(false)
                   className={create === 'darkbg' ? 'identityCardDrk p-8 pt-12 mr-8 relative' : 'identityCard p-8 pt-12 mr-8 relative'}
                   >
                   <div className=''>
-                    <img className='w-100' alt='icon' src={formatImageUrl(type.icon && type.icon.url)} />
+                    <img className='w-100' alt='icon' src={type.icon && type.icon.url} />
                   </div>
                   <div className={create === 'darkbg' ? 'text-white h3Bold my-4' : 'h3Bold my-4'}>{type.cardTitle}</div>
                   <div className={create === 'darkbg' ? 'text-white genLight' : 'genLight'}>{type.description}</div>
