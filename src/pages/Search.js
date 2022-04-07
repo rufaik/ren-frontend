@@ -319,7 +319,7 @@ useEffect(() => {
 
 									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div className="genLight">{listing.category}</div>
@@ -340,7 +340,7 @@ useEffect(() => {
 
 									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div className="genLight">{listing.category}</div>
@@ -363,7 +363,7 @@ useEffect(() => {
 
 									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div className="genLight">{listing.category}</div>
@@ -386,7 +386,7 @@ useEffect(() => {
 
 									<Link to={`/listing/${listing.id}`} className="h-96 searchThumb pt-4">
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={formatImageUrl(listing.image && listing.image.url)}/>
+											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div className="genLight">{listing.category}</div>
