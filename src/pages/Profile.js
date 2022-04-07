@@ -1242,8 +1242,8 @@ return (
                      
                         return(
                   <div className="flex flex-col overflow-hidden thumbImgBx">
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={listing.image && listing.image.url} alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url} alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1294,8 +1294,8 @@ return (
                         setStatus("Complete")
                         setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1348,8 +1348,8 @@ return (
                         setStatus("Complete")
                         setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1399,8 +1399,8 @@ return (
                         console.log("list", listing)
                         setOpen(true)
                       }}>
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={listing.image && listing.image.url}  alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1464,8 +1464,8 @@ return (
                         setStatus("Confirmed")
                         setLast("Congratulations, your item will be rented out! Contact the renter to organise your drop off")
                       }}>
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1520,8 +1520,8 @@ return (
                         setStatus("Complete")
                         setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1575,8 +1575,8 @@ return (
                         console.log("list", booking)
                         setOpen(true)
                       }}>
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
@@ -1637,8 +1637,8 @@ return (
                      
                         return(
                   <div className="flex flex-col overflow-hidden thumbImgBx">
-                    <div className="flex-shrink-0 relative thumbImg">
-                      <img className="w-full h-full object-cover rounded-3xl lg:rounded-2xl" src={listing.image && listing.image.url} alt="playstation" />
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url} alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
