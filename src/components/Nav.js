@@ -3,6 +3,11 @@ import {NavLink, Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
 import {CartContext} from '../context/CartContext'
 import { Switch } from '@headlessui/react';
+import {
+  cartCoinTotal, 
+
+} from '../utils/cart'
+
 
 export default () =>{
 
@@ -74,10 +79,9 @@ export default () =>{
           <Link to='/cart'>
           <div>
           🛒
-          <span>
-          {cart.reduce((counter, product) => {
-            return counter + product.qty
-          }, 0)}
+          <span className="ml-2">
+          {cartCoinTotal(cart)}
+
           </span>
           </div>
           </Link>

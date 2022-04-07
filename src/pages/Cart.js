@@ -36,73 +36,10 @@ export default () =>{
 
 	return (
 		<div className="Create">
-			<h2> Cart </h2>
-			<table>
-				<thead>
-					<tr>
-						<th>
-							Product
-						</th>
-						<th>
-							Price
-						</th>
-						<th>
-							Quanity
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-			   {cart.map(cartItem => (
-			   	<tr>
-			   		<td>
-					   	<img className="PostImage" src={formatImageUrl(cartItem.thumbnail.url)} />
-						<span>{cartItem.name}</span>
-					</td>
-					<td>
-						{cartItem.price_in_cent}
-					</td>	
-					<td>
-						<span onClick={() => {
-							addToCart(cartItem, -1)
-							forceUpdate()
-						}}> - </span>
-						{cartItem.qty}
-						<span onClick={() => { 
-							addToCart(cartItem, 1)
-							forceUpdate()
-
-						}}> + </span>
-					</td>	
-			   	</tr>
-			   	))}
-			   </tbody>
-		   </table>
-		   <h3>Coin Total: {cartCoinTotal(cart)}</h3>
-		   <h3>Subtotal: {formatPrice(cartSubTotal(cart))}</h3>
-		   {shouldPayShipping(cart) && 
-		   	<h3>Shipping:{formatPrice(SHIPPING_RATE)} </h3>
-		   }
-		   {!shouldPayShipping(cart) && 
-		   	<h3>Shipping is free! </h3>
-		   }
-
-
-		   <h3>Total: {formatPrice(cartTotal(cart))}</h3>
-		   <div>
-		   {cart && cart.length > 0 &&
-			   	<button onClick={() => setShowCheckout(true)}>
-			   		Initiate Checkout
-			   	</button>
-		   }
-		   </div>
-		   {showCheckout &&
-		   	<Checkout cart={cart}/>
-		   }
-
-
+			
 
 		   <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={() => window.location.href = `/profile/${user.user.id}`}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -157,7 +94,7 @@ export default () =>{
 
 			   	<tr>
 			   		<td className="flex flex-row items-center">
-					   	<img className="PostImage" src={formatImageUrl(cartItem.thumbnail.url)} />
+					   	<img className="PostImage" src={cartItem.thumbnail.url} />
 						<span className="normalBold ml-2"> R.E.N Coins</span>
 					</td>
 					<td className="genLight">
@@ -221,7 +158,7 @@ export default () =>{
 			   	})}
 			   	
 			   </tbody>
-        }
+        
 
 {/*
 			   <tbody>

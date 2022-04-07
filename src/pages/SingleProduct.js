@@ -398,7 +398,7 @@ const [state, setState] = useState({
     <div className="flex flex-row sectWidth mx-auto pt-16">
         <div className="flex flex-col w-1/2 ">
             <div className="picBg items-center justify-center">
-                <img className='w-full' alt='camera' src={formatImageUrl(product.image && product.image.url)} />
+                <img className='w-full' alt='camera' src={product.image && product.image.url} />
             </div>
             <div>
           

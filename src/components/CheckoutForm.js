@@ -8,12 +8,24 @@ import {
 } from '../utils/cart'
 import {formatPrice} from '../utils/format'
 import {API_URL} from '../utils/urls'
+import { Link} from 'react-router-dom'
+
 
 const Card_Styles = {
 	style: {
 		base: {
-			padding: '24px 12px',
-			fontSize: '16px'
+	
+      width: "100%",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      paddingTop: "0.75rem",
+      paddingBottom: "0.75rem",
+      border: "none !important",
+      borderRadius: "0.25rem",
+      color: "rgba(55, 65, 81, 1)",
+      backgroundColor: "red",
+      boxShadow: "1px 1px 4px 0px #1b31421c"
+
 		}
 	}
 }
@@ -25,8 +37,9 @@ const generateInput = (label, value, setOnChange) => {
         <input 
           id={label}
           value={value}
-          className="uniqueBox mb-7 pl-4"
+          className="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox"
           onChange={(event) => setOnChange(event.target.value)}
+          value={value}
         />
       </div>
     )
@@ -51,6 +64,7 @@ export default () =>{
   const [shipping_address, setShipping_address] = useState('');
   const [shipping_county, setShipping_county] = useState('');
   const [shipping_country, setShipping_country] = useState('');
+  const [shipping_city, setShipping_city] = useState('');
   const [shipping_postcode, setShipping_postcode] = useState('');
   
   const [coins, setCoins] = useState(null);
@@ -217,89 +231,87 @@ console.log("checkout", user)
 console.log("coins", coins)
   return (
   	<div>
-   
-    {!success &&
-       <div className="flex flex-row w-full">
-        <div className="w-9/12">
-	         <form onSubmit={handleSubmit}>
-    
-{/*      <div>
-        <label>Name</label>
-        <input 
-          id="name"
-          value={shipping_name}
-          onChange={(event) => setShipping_name(event.target.value)}
-        />
-      </div>
-      <div>
-        <label>Address</label>
-        <input 
-          id="address"
-          value={shipping_address}
-          onChange={(event) => setShipping_address(event.target.value)}
-        />
-      </div>
-      <div>
-        <label>County</label>
-        <input 
-          id="county"
-          value={shipping_county}
-          onChange={(event) => setShipping_county(event.target.value)}
-        />
-      </div>
-      <div>
-        <label>Country</label>
-        <input 
-          id="country"
-          value={shipping_country}
-          onChange={(event) => setShipping_country(event.target.value)}
-        />
-      </div>
-      <div>
-        <label>Postcode</label>
-        <input 
-          id="postcode"
-          value={shipping_postcode}
-          onChange={(event) => setShipping_postcode(event.target.value)}
-        />
-      </div>*/}
-
-            {generateInput('Name', shipping_name, setShipping_name)}
-            {generateInput('Address', shipping_address, setShipping_address)}
-            {generateInput('County', shipping_county, setShipping_county)}
-            {generateInput('Country', shipping_country, setShipping_country)}
-            {generateInput('Postcode', shipping_postcode, setShipping_postcode)}
-            <div className="genBold w-36" >Card Details </div>
-    	      <CardElement options={Card_Styles} />
-    	      <button 
-              // disabled={!stripe || !valid()}
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-    	      {/* Show error message to your customers */}
-    	      {errorMessage && <div>{errorMessage}</div>}
-	    </form>
-
-      </div>
-      <div className="w-3/12 flex flex-col h-40 blueBgBx pt-4 items-center">
-        <div>
-          <img className='w-100' alt='REN coin' src="../coin.png" />
-        </div>
-        <div className="genBold orangeCol">
-        {cartCoinTotal(cart)}
-        </div>
-        <div className="h3Bold genBold mt-4">
-        Total:{formatPrice(cartSubTotal(cart))}
-        </div>
-      </div>
-  </div>
+{!success &&
+<div >
+  <form class="max-w-xl mx-auto px-10 ">
+    <div class="">
+      <label class="block text-sm genBold text-gray-600" for="cus_name">Name</label>
+      <input
+      onChange={(event) => setShipping_name(event.target.value)}
+      value={shipping_name} 
+      class="w-full px-5 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name"/>
+    </div>
+{/*    <div class="mt-2">
+      <label class="block text-sm genBold text-gray-600 mt-4" for="cus_email">Email</label>
+      <input 
+      onChange={(event) => setOnChange(event.target.value)}
+      value={value}
+      class="w-full px-5 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email"/>
+    </div>*/}
+    <div class="mt-2">
+      <label class=" block text-sm genBold text-gray-600 mt-4" for="cus_email">Address</label>
+      <input  
+      onChange={(event) => setShipping_address(event.target.value)}
+      value={shipping_address}
+      class="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Email"/>
+    </div>
+    <div class="mt-2">
+      <label class="hidden text-sm block genBold text-gray-600 mt-4" for="cus_email">City</label>
+      <input  
+      onChange={(event) => setShipping_city(event.target.value)}
+      value={shipping_city}
+      class="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="Email"/>
+    </div>
+    <div class="inline-block mt-2 w-1/2 pr-1">
+      <label class="hidden block text-sm genBold text-gray-600 mt-4" for="cus_email">Country</label>
+      <input  
+      onChange={(event) => setShipping_country(event.target.value)}
+      value={shipping_country}
+      class="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="Country" aria-label="Email"/>
+    </div>
+    <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
+      <label class="hidden block text-sm genBold text-gray-600 mt-4 " for="cus_email">Zip</label>
+      <input  
+      onChange={(event) => setShipping_postcode(event.target.value)}
+      value={shipping_postcode}
+      class="w-full px-2 py-3 ml-1 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email"  name="cus_email" type="text" required="" placeholder="Zip" aria-label="Email"/>
+    </div>
+    <div class="">
+      <label class="block text-sm genBold text-gray-600 mt-4" for="cus_name">Card</label>
+      <CardElement options={Card_Styles} />
+    </div>
+    <div class="mt-4 flex justify-center mt-4">
+      <button 
+        // class="px-4 py-1 text-white font-light tracking-wider genBold orangeBg rounded" 
+        className="orangeBg text-white normalBold text-center w-fit rounded-full py-2 px-12" 
+        onClick={handleSubmit} type="submit">{formatPrice(cartSubTotal(cart))}</button>
+    </div>
+    {errorMessage && <div>{errorMessage}</div>}
+  </form>
+</div>
 }
-
 {success &&
-  <h2>Your order was successfully processed!</h2>
+<div>
+
+ <div className="h3Bold mt-12 text-center">
+     Your order was successfully processed. Click below to view in profile.
+      </div>
+
+
+      <div className="flex flex-col justify-center items-center pt-">
+  {user &&
+        <Link 
+          to={`/profile/${user.user.id}`} 
+          className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
+        > 
+          Got it
+        </Link>
+    }
+      </div>
+      </div>
 }
-	
+
+   
 	</div>
   )
 

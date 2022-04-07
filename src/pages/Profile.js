@@ -1229,14 +1229,14 @@ return (
       <Tabs activeTab="1" className="mt-5 w-100" ulClassName="tabTitle" activityClassName="bg-success activeTabTitle" onClick={(event, tab) => console.log(event, tab)} >
         <Tab title="Listed" className="mr-3 w-1/3">
            
-        
+        { post2 && post2[0]
+  ?  
            <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-{ post2 && post2[0]
-  ?            
+          
 
 
-      <div>
+    
            {post2.map((listing, i) => {
             if(listing.userID === id)
                      
@@ -1263,9 +1263,10 @@ return (
                     </div>
                   </div>
                   )})}
+           
+        
             </div>
-        : null}
-            </div>
+            : null}
 
 
 
@@ -1279,7 +1280,7 @@ return (
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-                  <div>
+               
                 
                   {post3.map((booking, i) => {
                      if (booking.status === "Pending" && `${booking.renter.id}` === id) {
@@ -1319,21 +1320,24 @@ return (
                  
 
                  
-                  
-                  </div>
+               
 
 
             </div>
             </>
 : null}
 
-      <div className="genBold">confirmed</div>
+       <div>
+                    <div className="h3Bold mt-8 mb-4">Confirmed</div>
+                    <div className="genLight my-4">View your confirmed bookings</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
 
       { post3 && post3[0]
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-                  <div>
+               
                 
                   {post3.map((booking, i) => {
                      if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
@@ -1374,20 +1378,24 @@ return (
 
                  
                   
-                  </div>
+               
 
 
             </div>
             </>
 : null}
 
-  <div className="genBold">all</div>
+   <div>
+                    <div className="h3Bold mt-8 mb-4">All rented booking</div>
+                    <div className="genLight my-4">View your rented bookings</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
         { post2 && post2[0]
           ?<>
 
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-                  <div>
+            
                 
                   {post2.map((listing, i) => {
                      if (listing.booked === true && listing.userID === id) {
@@ -1425,7 +1433,7 @@ return (
 
                  
                   
-                  </div>
+              
 
 
             </div>
@@ -1449,7 +1457,7 @@ return (
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-                  <div>
+              
                 
                   {post3.map((booking, i) => {
                      if (booking.status === "Pending" && booking.listing.userID === id) {
@@ -1490,7 +1498,7 @@ return (
 
                  
                   
-                  </div>
+                 
 
 
             </div>
@@ -1505,7 +1513,7 @@ return (
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-                  <div>
+               
                 
                   {post3.map((booking, i) => {
                      if (booking.status === "Confirmed" && booking.listing.userID === id) {
@@ -1546,7 +1554,7 @@ return (
 
                  
                   
-                  </div>
+                  
 
 
             </div>
@@ -1562,7 +1570,7 @@ return (
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-                  <div>
+                
                 
                   {post3.map((booking, i) => {
                      if (booking.status === "Complete" && booking.listing.userID === id) {
@@ -1601,7 +1609,7 @@ return (
 
                  
                   
-                  </div>
+              
 
 
             </div>
@@ -1624,14 +1632,14 @@ return (
            <div className='h3Bold borderbot border-black py-2'>
            Listed
            </div>
-        
+        { post2 && post2[0]
+  ?   
            <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-{ post2 && post2[0]
-  ?            
+         
 
 
-      <div>
+ 
            {post2.map((listing, i) => {
             if(listing.userID === id)
                      
@@ -1660,7 +1668,7 @@ return (
                   )})}
             </div>
         : null}
-            </div>
+           
 
 
 
