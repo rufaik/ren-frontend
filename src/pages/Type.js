@@ -79,7 +79,7 @@ const storyPicker =  (data) => {
 	                		className={ change1 === type.title ? 'w-1/4 flex flex-row items-center justify-center border-b borderIconB pb-2' : 'w-1/4 flex flex-row items-center justify-center border-b borderIcon pb-2'}>
 		                {change1 === type.title &&
 		                	<div className='mr-2'>
-		                    	<img className='w-100' alt='icon' src={formatImageUrl(type.icon && type.icon.url)} />
+		                    	<img className='w-100' alt='icon' src={type.icon && type.icon.url} />
 		                  	</div>
 		                  }
 		                  	<div className='h3Dark24'>{type.title}</div>
@@ -102,7 +102,7 @@ const storyPicker =  (data) => {
 						</div>
 						<div className="itemBox mt-16 relative">
 							<div className='flex justify-center items-center' style={{"height": "35rem"}}>
-								<img className='w-100 mx-auto' alt='macbook' src={formatImageUrl(type.mainImage1 && type.mainImage1.url)} />
+								<img className='w-100 mx-auto' alt='macbook' src={type.mainImage1 && type.mainImage1.url} />
 							</div>
 							<div className=" w-full h-32 absolute bottom-0 bg-white flex justify-center items-center">
 								<div className="h3Dark24">{type.image1Title}</div>
@@ -113,7 +113,7 @@ const storyPicker =  (data) => {
 					<div className='flex flex-col w-1/2 ml-4'>
 						<div className="itemBoxSm  relative">
 							<div className='pt-8' style={{"height": "22.5rem"}}>
-								<img className='h-full mx-auto' alt='macbook' src={formatImageUrl(type.mainImage2 && type.mainImage2.url)} />
+								<img className='h-full mx-auto' alt='macbook' src={type.mainImage2 && type.mainImage2.url} />
 							</div>
 							<div className=" w-full h-32 absolute bottom-0 bg-white flex justify-center items-center">
 								<div className="h3Dark24">{type.image2Title}</div>
@@ -121,7 +121,7 @@ const storyPicker =  (data) => {
 						</div>
 						<div className="itemBoxSm mt-16 relative">
 							<div className='pt-8' style={{"height": "22.5rem"}}>
-								<img className='h-full mx-auto' alt='macbook' src={formatImageUrl(type.mainImage3 && type.mainImage3.url)} />
+								<img className='h-full mx-auto' alt='macbook' src={type.mainImage3 && type.mainImage3.url} />
 							</div>
 							<div className=" w-full h-32 absolute bottom-0 bg-white flex justify-center items-center">
 								<div className="h3Dark24">{type.image3Title}</div>
@@ -160,7 +160,7 @@ const storyPicker =  (data) => {
 
 					            				<div className="flex flex-col mr-4">
 				            				      <div className="avatar items-center justify-center">
-												        <img className="object-cover avatar1 rounded-full" src={formatImageUrl(story1.avatar && story1.avatar.url)} alt="" />
+												        <img className="object-cover avatar1 rounded-full" src={story1.avatar && story1.avatar.url} alt="" />
 												   </div>
 												</div>
 												<div  className="flex flex-col items-center justify-center ml-4">
@@ -179,8 +179,8 @@ const storyPicker =  (data) => {
 								                playing
 
 								                 // url={story1.Video.url}  
-								                 url={formatImageUrl(story1.Video && story1.Video.url)} 
-								                 light={formatImageUrl(story1.videoImage && story1.videoImage.url)}
+								                 url={story1.Video && story1.Video.url} 
+								                 light={story1.videoImage && story1.videoImage.url}
 								                 controls={true}
 								                 width='47rem'
     											height='38rem'
