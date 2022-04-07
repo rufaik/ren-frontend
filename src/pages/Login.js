@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import {API_URL} from '../utils/urls'
-
+import Footer from '../components/Footer'
 
 export default ({history}) =>{
 
@@ -189,7 +189,7 @@ console.log("login", simpleUser)
 
 
 
-
+      <Footer />
 
     </div>
   );

@@ -6,12 +6,12 @@ import { Switch } from '@headlessui/react';
 
 export default () =>{
 
-  const {user, setUser, create, setCreate, simpleUser, setSimpleUser} = useContext(UserContext)
+  const {user, setUser, create, setCreate, simpleUser, setSimpleUser, mainImages, setImages} = useContext(UserContext)
   const {cart} = useContext(CartContext)
   const [enabled, setEnabled] = useState(true);
   const [vector, setVector] = useState("../sun.png");
   // console.log("Nav", cart)
-  console.log("Navvy", simpleUser)
+  console.log("Navvy11", mainImages)
 
   return (
     <div className="Nav sectWidth flex items-center mt-8 mx-auto">

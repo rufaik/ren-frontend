@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
 import {API_URL} from '../utils/urls'
-
+import Footer from '../components/Footer'
 
 
 export default ({history}) =>{
@@ -244,7 +244,7 @@ const handleSubmit = async (event) => {
 
 
 
-
+  <Footer />
 
 
     </div>

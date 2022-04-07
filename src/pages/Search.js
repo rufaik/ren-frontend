@@ -10,7 +10,7 @@ import {Link } from 'react-router-dom'
 import { SearchIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/outline'
 import {API_URL} from '../utils/urls'
-
+import Footer from '../components/Footer'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -525,6 +525,7 @@ useEffect(() => {
 						</div>
 					</div>
 				</div>
+				<Footer />
 			</div>
 
 		)

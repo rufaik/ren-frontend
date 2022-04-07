@@ -11,7 +11,7 @@ import { extendMoment } from "moment-range";
 import { addDays } from 'date-fns';
 import { DateRange } from 'react-date-range';
 import {API_URL} from '../utils/urls'
-
+import Footer from '../components/Footer'
 // import Moment from "moment";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'react-dates/initialize';
@@ -521,6 +521,7 @@ const [state, setState] = useState({
     	
     </div>
     : null}
+    <Footer />
     </div>
   );
 }

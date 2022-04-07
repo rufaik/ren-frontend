@@ -31,7 +31,7 @@ import {UserContext} from './context/UserContext'
 
 function App() {
 
-  const {user, setUser, create, simpleUser, setSimpleUser} = useContext(UserContext)
+  const {user, setUser, create, simpleUser, setSimpleUser, mainImages, setImages} = useContext(UserContext)
 
     useEffect(() => {
       if(localStorage.getItem('user')){
@@ -48,6 +48,28 @@ function App() {
         }
     }, [])
 
+
+    const getImages = async () => {
+      try{
+        const response = await fetch(`${API_URL}/homepages`, {
+            method: 'GET',
+            headers: {
+            'Content-Type':'application/json',
+            }
+          })
+
+          const data = await response.json()
+          setImages(data)
+
+      } catch(err){
+    console.log("Exception ", err)}
+  
+
+    }
+
+   useEffect(() => {
+      getImages()
+    }, [])
 
 
   return (

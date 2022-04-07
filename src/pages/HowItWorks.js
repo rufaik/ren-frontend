@@ -9,6 +9,7 @@ import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
 import {Verify} from './Verify'
 import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/react/outline'
+import Footer from '../components/Footer'
 
 
 
@@ -91,6 +92,7 @@ export default function Example() {
           ))}
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

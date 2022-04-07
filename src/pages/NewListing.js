@@ -10,6 +10,8 @@ import ImageUploading from "react-images-uploading";
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Link} from 'react-router-dom'
+import Footer from '../components/Footer'
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -984,6 +986,7 @@ const handleSubmit1 = async () => {
 
 			</div>
 		 }
+		 <Footer />
 		</div>
 
 		)

@@ -13,7 +13,7 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import ImageUploading from "react-images-uploading";
 import { addDays } from 'date-fns';
-
+import Footer from '../components/Footer'
 
 
 export default ({match, history}) =>{
@@ -1894,7 +1894,7 @@ return (
       </Dialog>
     </Transition.Root>
 
-
+<Footer />
      
 
     </div>

@@ -8,6 +8,8 @@ import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
 import {Verify} from './Verify'
+import Footer from '../components/Footer'
+
 
 
 const formatImageUrl = (url) => `${API_URL}${url}`
@@ -28,6 +30,7 @@ export default function Example() {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
