@@ -120,6 +120,7 @@ export default () =>{
       shipping_county,
       shipping_country,
       shipping_postcode,
+      coins: cartCoinTotal(cart),
       users_permissions_user:user.user.id,
       cart
     }
@@ -139,7 +140,7 @@ export default () =>{
 
           setSuccess(true)
 
-          setCoins(Math.round(parseInt(user.user.coins) + parseInt(order.product_qty[0].qty)))
+          setCoins(Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
 
           setLoading(false)
 
@@ -167,7 +168,7 @@ export default () =>{
 
 const createTransaction = async (order) => {
   const data = {
-      amount: (Math.round(parseInt(order.product_qty[0].qty))),
+      amount: (Math.round(parseInt(order.coins))),
       InOrOut: "Ingoing",
       type:"TopUp",
       userID: simpleUser.id
@@ -187,7 +188,7 @@ const createTransaction = async (order) => {
   const topUpCoins = async (order) => {
     console.log("coins", coins)
     const data = {
-      coins: Math.round(parseInt(simpleUser.coins) + parseInt(order.product_qty[0].qty))
+      coins: Math.round(parseInt(simpleUser.coins) + parseInt(order.coins))
     }
 
           const response = await fetch(`${API_URL}/users/${user.user.id}`, {
