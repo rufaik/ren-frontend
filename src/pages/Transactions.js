@@ -167,7 +167,7 @@ export default ({description, likes, url}) =>{
                 
               </div>
      
-              <div className="w-10/12 mx-auto">
+              <div className="w-10/12 mx-auto h-96 overflow-y-scroll">
               {products.map((product) => {
 
                   return(
@@ -186,7 +186,7 @@ export default ({description, likes, url}) =>{
               </div>
 )})}
               </div>
-               
+               <div className="gryLine2 w-full"></div>
 
               </div>
             </div>
