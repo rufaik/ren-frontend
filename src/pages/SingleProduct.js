@@ -180,6 +180,7 @@ const updateCurrent = async (data) => {
     const data1 = {
       coins: Math.round(parseInt(simpleUser.coins) - parseInt(rentalCost))
     }
+    console.log("data1", data1)
 
     if(parseInt(simpleUser.coins) > parseInt(rentalCost)){
         try{
@@ -196,7 +197,7 @@ const updateCurrent = async (data) => {
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
-          makeBooking()
+          // makeBooking()
 
         } catch(err){
         console.log("Exception ", err)}
@@ -492,7 +493,7 @@ const [state, setState] = useState({
         <div className="flex flex-col w-1/2">
             <h2>{product.name}</h2>
             <div className="flex items-center mt-8">
-                <div className="h3Bold">{product.rental}</div>
+                <div className="h3Bold">{product.coins}</div>
                 <div className="smallCoin flex mb-1 ml-0.5 mr-0">
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
