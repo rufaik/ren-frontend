@@ -92,9 +92,12 @@ const [description, setDescription] = useState('')
 const [coins, setCoins] = useState('')
 const [lowFunds, setLowFunds] = useState(false)
 const [open, setOpen] = useState(false)
+const [open1, setOpen1] = useState(false)
 const [bookings, setBookings] = useState('')
 const [blockedDates, setBlockedDates] = useState([])
 const [listingUser, setListingUser] = useState([])
+
+
 
 
 // const fetchProduct = async () => {
@@ -111,6 +114,53 @@ const [listingUser, setListingUser] = useState([])
 //                 setLoading(false);
 //             }         
 //         }
+
+
+
+
+const fetchBookings = async (user) => {
+    const response = await fetch(`${API_URL}/bookings`, {
+
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+            // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                
+                // setDescription1(data.description)
+                setLoading(false);
+                console.log("bookings", data)
+
+                data.map( async (booking, i) => {
+                    if ( booking.listing && `${booking.listing.id}` === id && (booking.status === 'Pending' || 'Confirmed')) {
+                        let date = new Date(booking.startDate)
+                       const first = date.setDate(date.getDate() - 1)
+
+                        let date1 = new Date(booking.endDate)
+                       const first1 = date1.setDate(date1.getDate() + 1)
+
+                    const block = {  after: new Date(first), before: new Date(first1)}
+
+                    blockedDates.push(block)
+                    console.log("blockedDates", blockedDates)
+            
+                }})
+            
+    } catch(err){
+              console.log("nope")
+            }         
+        }
+
+useEffect(() => {
+
+  fetchBookings()
+
+}, [user])
+
+
 
 const fetchProduct = async () => {
         const response = await fetch(`${API_URL}/listings/${id}`)
@@ -188,8 +238,8 @@ const updateCurrent = async (data) => {
               method: 'PUT',
               headers: {
               'Content-Type':'application/json',
-              'Authorization': `Bearer ${user.jwt}`,
-              'Access-Control-Allow-Origin': '*'
+              // 'Authorization': `Bearer ${user.jwt}`,
+              // 'Access-Control-Allow-Origin': '*'
               },
               body: JSON.stringify(data1)
             })
@@ -197,7 +247,7 @@ const updateCurrent = async (data) => {
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
-          // makeBooking()
+          makeBooking()
 
         } catch(err){
         console.log("Exception ", err)}
@@ -218,7 +268,7 @@ const makeBooking = async () => {
          headers: {
              'Authorization': `Bearer ${user.jwt}`,
              'Content-Type':'application/json',
-             'Access-Control-Allow-Origin':'https://rent-equipment-now.netlify.app'
+             // 'Access-Control-Allow-Origin':'https://rent-equipment-now.netlify.app'
          },
          body: JSON.stringify({
              status: "Pending",
@@ -241,11 +291,31 @@ const makeBooking = async () => {
 }
 
 
-useEffect(() => {
 
-  fetchBookings()
 
-}, [user])
+const bookItem = async () => {
+
+    console.log("bookItem")
+try {
+    const response = await fetch(`${API_URL}/listings/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${user.jwt}`
+        },
+        body: JSON.stringify({
+            booked: true
+        })
+    })
+    const data = await response.json();
+    fetchProduct()
+    setOpen(false)
+    setOpen1(true)
+    console.log("handleEditSubmit data", data)
+  } catch(err){
+     console.log("Exception ", err)
+ }
+}
 
 
 const createTransaction = async (data1) => {
@@ -254,7 +324,7 @@ const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
   const data = {
       amount: rentalCost,
       InOrOut: "Outgoing",
-      type:"SecureBooking",
+      type: "SecureBooking",
       booking: parseInt(data1.id),
       userID: simpleUser.id
     }
@@ -270,65 +340,11 @@ const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
 
 }  
 
-const fetchBookings = async (user) => {
-    const response = await fetch(`${API_URL}/bookings`, {
-
-       method: 'GET',
-        headers: {
-          'Content-Type':'application/json',
-            // 'Authorization': `Bearer ${user.jwt}`
-        }
-    })
-    try{
-                const data = await response.json();
-                
-                // setDescription1(data.description)
-                setLoading(false);
-                console.log("bookings", data)
-
-                data.map( async (booking, i) => {
-                    if ( booking.listing && `${booking.listing.id}` === id && (booking.status === 'Pending' || 'Confirmed')) {
-                        let date = new Date(booking.startDate)
-                       const first = date.setDate(date.getDate() - 1)
-
-                        let date1 = new Date(booking.endDate)
-                       const first1 = date1.setDate(date1.getDate() + 1)
-
-                    const block = {  after: new Date(first), before: new Date(first1)}
-
-                    blockedDates.push(block)
-                    console.log("blockedDates", blockedDates)
-            
-                }})
-            
-    } catch(err){
-              console.log("nope")
-            }         
-        }
 
 
 
 
 
-
-const bookItem = async () => {
-
-    console.log("bookItem")
-
-    const response = await fetch(`${API_URL}/listings/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type':'application/json',
-            'Authorization': `Bearer ${user.jwt}`
-        },
-        body: JSON.stringify({
-            booked: true
-        })
-    })
-    const data = await response.json();
-    fetchProduct()
-    console.log("handleEditSubmit data", data)
-}
 
 
 // const newBookings =  () => {
@@ -450,9 +466,7 @@ const [state, setState] = useState({
               className="h3Bold mt-8 mb-8"
             >Check Availability</div>
             </div>
-            {lowFunds &&
-                <div className="normalBold mt-3">Unfortunately you dont have enough REN coins, please top up</div>
-            } 
+            
 
             <Availability show={true} noShow={blockedDates}/>
 
@@ -640,7 +654,7 @@ const [state, setState] = useState({
                 <div className="genBold">&nbsp;({chageDate(rangeF)} - {chageDate(rangeT)})</div>
               </div>
 
-           
+              
               <div className="flex items-center mt-4">
                 <div className="genBold">Total:&nbsp;</div>
                 <h3>{Math.round(parseInt(product.coins) * (diffDays + 1))}</h3>
@@ -648,8 +662,11 @@ const [state, setState] = useState({
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
               </div>
-            
+              {lowFunds ?
+                <div className="normalBold mt-7 mb-3">Unfortunately you dont have enough REN coins, please top up</div>
+            :
               <div className="gryLine2 w-full mt-10 mb-3"></div>
+            }
               <div className="flex">
                 <div 
                   className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
@@ -671,6 +688,69 @@ const [state, setState] = useState({
       </Dialog>
     </Transition.Root>
 }
+
+<Transition.Root show={open1} as={Fragment}>
+      <Dialog 
+        as="div" 
+        className="fixed z-10 inset-0 overflow-y-auto" 
+        onClose={()=> {
+          setOpen1(false)
+          
+        }}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+              <div style={{"width":"620px"}} className="mx-auto">
+              <div className="h3Bold mt-12 text-center">
+              Congratulations, this item has been submitted to lender for approval you will get a notification once they approve!
+              </div>
+
+    
+              <div className="flex flex-col justify-center items-center pt-">
+          
+               <div 
+                className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
+                onClick={() => setOpen1(false)}
+                > 
+                  Got it
+                </div>
+               
+               {/* <div 
+                  className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
+                >
+                 I made a mistake
+                </div>*/}
+              </div>
+              </div>
+            </div>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
 
     <Footer />
     </div>
