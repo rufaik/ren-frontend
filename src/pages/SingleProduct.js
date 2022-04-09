@@ -519,11 +519,7 @@ const [state, setState] = useState({
               className="sendBtn bulkTxt block mt-4 text-center pt-1"
               href={`mailto:${listingUser.email}`} target="_blank" rel="noopener noreferrer" > Message {listingUser.name}</a>
 
-            <button 
-                  className="sendBtn bulkTxt block mt-4 text-center pt-1"
-                >
-                Message {listingUser.name}
-            </button>
+           
             <div className="gryLine2 w-full my-10"></div>
             <div className="h3Bold">Collection Location : {simpleUser.borough}</div>
             <div className="genLight mt-8">

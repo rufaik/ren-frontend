@@ -69,6 +69,8 @@ export default () =>{
   
   const [coins, setCoins] = useState(null);
 
+  console.log("money", cartCoinTotal(cart))
+
 
   const Card_Styles = {
   style: {
