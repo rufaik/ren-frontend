@@ -115,6 +115,14 @@ top: 165px;*/
 
 }
 
+.imgBx1{
+  height: 440px;
+width: 440px;
+/*left: 120px;
+top: 165px;*/
+
+}
+
 h2{
 font-size: 45px;
 font-style: normal;
@@ -187,7 +195,18 @@ letter-spacing: 0em;
 .uniqueBox{
   height: 38px;
   width: 359px;
+  border-radius: 10px;
+  border: 0.5px solid #BBBFC5;
+  box-shadow: 1px 1px 4px 0px #1B31421C;
 
+
+}
+
+
+.profileBox{
+  height: 38px;
+  width: 179px;
+  border-radius: 10px;
   border: 0.5px solid #BBBFC5;
   box-shadow: 1px 1px 4px 0px #1B31421C;
 
@@ -254,6 +273,15 @@ letter-spacing: 0em;
 
 .uniqueBoxDesc{
   height: 190px;
+  width: 359px;
+  border-radius: 10px;
+  border: 0.5px solid #BBBFC5;
+  box-shadow: 1px 1px 4px 0px #1B31421C;
+  margin-right: 1.3rem;
+}
+
+.uniqueDesc{
+  height: 100px;
   width: 359px;
   border-radius: 10px;
   border: 0.5px solid #BBBFC5;

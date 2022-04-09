@@ -262,7 +262,7 @@ export default ({description, likes, url}) =>{
                   return(
               <div className="flex flex-row items-center mt-3">
                 <div>
-                  <img className='w-100' alt='REN coin' src="../coin.png" />
+                  <img className='w-100' alt='REN coin' src={(product.thumbnail && product.thumbnail.url)} />
                 </div>
                 <div className="genBold w-10 ml-4">{product.name}</div>
                 <div 

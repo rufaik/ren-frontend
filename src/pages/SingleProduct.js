@@ -1,4 +1,5 @@
-import React, {useState, useEffect, useContext, Component} from 'react'
+import React, {useState, useEffect, useContext, Fragment} from 'react'
+import { Menu, Transition, Dialog } from '@headlessui/react'
 import Post from '../components/Post'
 import Availability from '../components/Availability'
 import 'react-date-range/dist/styles.css'; 
@@ -12,6 +13,7 @@ import { addDays } from 'date-fns';
 import { DateRange } from 'react-date-range';
 import {API_URL} from '../utils/urls'
 import Footer from '../components/Footer'
+
 // import Moment from "moment";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'react-dates/initialize';
@@ -37,9 +39,30 @@ const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
 const diffDays = Math.round(Math.abs((rangeF - rangeT) / oneDay));
 
+const changeEndDate = (data) => {
+  console.log("start", data)
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate() - 1)
+  const options = { month: 'long', day: 'numeric' };
+  const joined2 = new Date(joined1)
+  // setEnd(joined2.toLocaleDateString('en-EN', options))
+
+}
+
+const chageDate = (data) => {
+  console.log("start", data)
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate() - 1)
+  const options = { month: 'long', day: 'numeric' };
+  const joined2 = new Date(joined1)
+  return(joined2.toLocaleDateString('en-EN', options))
+
+}
+
+
 console.log("rangenF, ranSgeT", diffDays)
-console.log("rangenF, ranSgeT1", rangeT - rangeF)
-console.log("rangenF, ranSgeT2", rangeF - rangeT)
+console.log("rangenF, ranSgeT1", chageDate(rangeT) )
+console.log("rangenF, ranSgeT2", rangeF )
 
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -68,8 +91,10 @@ const [edit, setEdit] = useState(false)
 const [description, setDescription] = useState('')
 const [coins, setCoins] = useState('')
 const [lowFunds, setLowFunds] = useState(false)
+const [open, setOpen] = useState(false)
 const [bookings, setBookings] = useState('')
 const [blockedDates, setBlockedDates] = useState([])
+const [listingUser, setListingUser] = useState([])
 
 
 // const fetchProduct = async () => {
@@ -94,8 +119,24 @@ const fetchProduct = async () => {
                 setProduct(data);
                 console.log("matchhhhhh", data)
                 setLoading(false);
+                fetchUser(data.userID)
             } catch(err){
                 setLoading(false);
+            }         
+        }
+
+
+const fetchUser = async (productUser) => {
+        const response = await fetch(`${API_URL}/users/${productUser}`, {
+          method: 'GET'
+        })
+        try{
+                const data = await response.json();
+                setListingUser(data);
+                console.log("listingUser", data)
+              
+            } catch(err){
+                
             }         
         }
 
@@ -135,7 +176,7 @@ const handleEditSubmit = async (event) => {
 const updateCurrent = async (data) => {
     console.log("simpleUser.coins", simpleUser.coins)
     console.log("product.rental", product.rental)
-    const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
+    const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
     const data1 = {
       coins: Math.round(parseInt(simpleUser.coins) - parseInt(rentalCost))
     }
@@ -169,7 +210,7 @@ const updateCurrent = async (data) => {
 
 
 const makeBooking = async () => {
-    const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
+    const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
  try{
      const response = await fetch(`${API_URL}/bookings`, {
          method: 'POST',
@@ -208,7 +249,7 @@ useEffect(() => {
 
 const createTransaction = async (data1) => {
     console.log("data1", data1)
-const rentalCost = Math.round(parseInt(product.rental) * (diffDays + 1))
+const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
   const data = {
       amount: rentalCost,
       InOrOut: "Outgoing",
@@ -355,7 +396,7 @@ const bookItem = async () => {
 useEffect(() => {
 	
 	fetchProduct()
-}, [])
+}, [user])
 
 
 
@@ -397,8 +438,10 @@ const [state, setState] = useState({
     <div>
     <div className="flex flex-row sectWidth mx-auto pt-16">
         <div className="flex flex-col w-1/2 ">
-            <div className="picBg items-center justify-center">
-                <img className='w-full' alt='camera' src={product.image && product.image.url} />
+            <div className="picBg flex items-center justify-center">
+              <div className="flex justify-center items-center w-5/6 h-5/6 mx-auto imgBx1 p-2 object-cover">
+                <img className=' h-full object-cover' alt='camera' src={product.image && product.image.url} />
+              </div>
             </div>
             <div>
           
@@ -438,7 +481,7 @@ const [state, setState] = useState({
               <div>
             <button
                 className="orangeBg text-white h3Dark py-3 px-8 rounded-full"
-                onClick={updateCurrent} 
+                onClick={() => setOpen(true)} 
                 >
                 Book Now
             </button>
@@ -456,29 +499,33 @@ const [state, setState] = useState({
                 <h3>/day</h3>
             </div>
             <div className="genLight mt-8">
-                A modern classic, this 4K mirrorless camera is packed with innovative technologies with an EF-M 15-45mm lens
+                {product.description}
             </div>
             <div className="gryLine2 w-full my-10"></div>
             <div className="h3Bold ">Product Features</div>
-            <div>
-                <ul className="genLight mt-6 list-disc pl-6">
-                   <li> Intuitive mirrorless with DSLR modern technology and EF-M 15-45mm lens</li> 
-                    <li> 24.1 MP, APS-C sensor, 10 fps</li> 
-                    <li> 4K, Wi-Fi, Bluetooth</li> 
-                </ul>
+            <div className="genLight mt-6 list-disc pl-6">
+           
+                  {product.feature1 && product.feature1.length > 0 ? <li>{product.feature1}</li> : null}
+                  {product.feature2 && product.feature2.length > 0 ? <li>{product.feature2}</li> : null }
+                  {product.feature3 && product.feature3.length > 0 ? <li>{product.feature3}</li> : null }
+            
             </div>
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold ">Rent from Jasmine</div>
+            <div className="h3Bold ">Rent from {listingUser.name}</div>
             <div className="genLight mt-8">
-                London based creative. Graphic artist by day, photographer by night. I also love trying out the latest tech.
+                {listingUser.bio}
             </div>
+            <a 
+              className="sendBtn bulkTxt block mt-4 text-center pt-1"
+              href={`mailto:${listingUser.email}`} target="_blank" rel="noopener noreferrer" > Message {listingUser.name}</a>
+
             <button 
                   className="sendBtn bulkTxt block mt-4 text-center pt-1"
                 >
-                Message Jasmine
+                Message {listingUser.name}
             </button>
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold">Collection Location : Hackney</div>
+            <div className="h3Bold">Collection Location : {simpleUser.borough}</div>
             <div className="genLight mt-8">
                 This item is located within this range but is subject to change when booked with the original owner. The location will be confirmed and agreed upon confirmation.            </div>
         </div>
@@ -518,9 +565,116 @@ const [state, setState] = useState({
         )}})}
  		</>
  	}*/}
+
+}
+
+
+
+
     	
     </div>
     : null}
+
+{product && product.name &&  
+<Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "44em"}}>
+              <div style={{"width":"620px"}} className="mx-auto">
+              <div className="h3Bold mt-12 text-center">Review Item Rental</div>
+              <div className="gryLine2 w-full mt-6 mb-10"></div>
+{/*              <div className="h3Sub my-4 ">Canon EOS M50 Black + EF-M 15-45mm IS STM Lens Black</div>
+*/}              <div className="h3Sub my-4 ">{product.name}</div>
+              <div className="flex flex-row">
+                <div className="flex-col flex w-9/12">
+                  <div className="genLight mt-6">
+                    {product.description}
+                  </div>
+                  {listingUser &&
+                  <div className="genLight mt-6">
+                    From {listingUser.name}
+                  </div>
+                }
+                  <div className="genLight mt-6">
+                    The location will be confirmed and agreed upon confirmation.
+                  </div>
+
+                </div>
+                
+                <div className="flex-col flex w-3/12 justify-center items-center">
+                   <div className="w-full flex ">
+                      <img className="w-full" src={product.image.url} alt="eqiupment" />
+                    </div>
+                </div>
+              </div>
+              <div className="gryLine2 w-full my-10"></div>
+           
+              <div className="flex items-center ">
+                <h3>{product.coins}</h3>
+                <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                  <img className='w-100' alt='REN coin' src="../coin.png" />
+                </div>
+                <div className="genLight">x {diffDays + 1} days</div>
+                <div className="genBold">&nbsp;({chageDate(rangeF)} - {chageDate(rangeT)})</div>
+              </div>
+
+           
+              <div className="flex items-center mt-4">
+                <div className="genBold">Total:&nbsp;</div>
+                <h3>{Math.round(parseInt(product.coins) * (diffDays + 1))}</h3>
+                <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                  <img className='w-100' alt='REN coin' src="../coin.png" />
+                </div>
+              </div>
+            
+              <div className="gryLine2 w-full mt-10 mb-3"></div>
+              <div className="flex">
+                <div 
+                  className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
+                  onClick={updateCurrent}
+                >
+                 Confirm and Book
+                </div>
+                <div 
+                  className="sendBtn bulkTxt block mt-4 text-center pt-1 ml-auto"
+                  onClick={() => setOpen(false)}
+                >
+                 Edit Booking
+                </div>
+              </div>
+              </div>
+            </div>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+}
+
     <Footer />
     </div>
   );

@@ -46,16 +46,16 @@ export default ({description, likes, url}) =>{
  const {cart, addToCart} = useContext(CartContext)
 
 
-  useEffect(() => {
-    const getPosts = async () => {
-      const response = await fetch(`${API_URL}7/posts`)
-      const data = await response.json()
-      setPosts(data)
-    }
+  // useEffect(() => {
+  //   const getPosts = async () => {
+  //     const response = await fetch(`${API_URL}7/posts`)
+  //     const data = await response.json()
+  //     setPosts(data)
+  //   }
 
-    getPosts()
+  //   getPosts()
 
-  }, [])
+  // }, [])
 
 
   useEffect(() => {
@@ -154,6 +154,20 @@ export default ({description, likes, url}) =>{
           
              
               </div>
+              <div className="flex flex-row items-center mt-3 w-10/12 mx-auto">
+                <div className="">
+                  <img className='w-100' alt='REN coin' src="../coin.png" />
+                </div>
+                <div className="genBold ml-16">Amount</div>
+                <div className="genBold ml-16">In/Out</div>
+                <div className="genBold ml-16">Type of Transaction</div>
+                
+                
+              
+                
+              </div>
+     
+              <div className="w-10/12 mx-auto">
               {products.map((product) => {
 
                   return(
@@ -161,16 +175,17 @@ export default ({description, likes, url}) =>{
                 <div>
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
+                <div className="gen w-10 ml-20">{product.amount}</div>
                {product.InOrOut === "Ingoing" ? <ArrowLeftIcon className="h-6 w-6 orangeCol ml-12" aria-hidden="true" /> : <ArrowRightIcon className="h-6  ml-12 w-6 orangeCol" aria-hidden="true" />}
-                <div className="genBold w-10 ml-20">{product.amount}</div>
-                <div className="genBold w-10 ml-20">{product.InOrOut}</div>
-                <div className="genBold w-10 ml-20">{product.type}</div>
+                <div className="gen w-10 ml-4">{product.InOrOut}</div>
+                <div className="gen w-10 ml-24">{product.type}</div>
                 
                 
              
                 
               </div>
 )})}
+              </div>
                
 
               </div>

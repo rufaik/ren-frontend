@@ -122,6 +122,8 @@ export default () =>{
       cart
     }
 
+     try{
+
           const response = await fetch(`${API_URL}/orders`, {
           method: 'POST',
           headers: {
@@ -153,6 +155,11 @@ export default () =>{
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     // event.preventDefault();
+
+    } catch(err){
+      setSuccess(false)
+              console.log("nope")
+            }  
 }
 
 

@@ -3,6 +3,8 @@ import {NavLink, Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
 import {CartContext} from '../context/CartContext'
 import { Switch } from '@headlessui/react';
+import { ShoppingCartIcon } from '@heroicons/react/outline'
+// import { ShoppingCartIcon } from '@heroicons/react/solid'
 import {
   cartCoinTotal, 
 
@@ -73,16 +75,22 @@ export default () =>{
             Log Out
           </Link>
           {simpleUser &&
-            <div className="mx-4 menuItem">{simpleUser.coins}</div>
+            <div className="flex flex-row items-center mx-4">
+              <div className="w-6 -mt-1 mr-1">
+                <img src='../coin.png' alt="coin" />
+              </div>
+              <div className="menuItem">{simpleUser.coins}</div>
+            </div>
           }
          {cart && cart.length > 0 &&
           <Link to='/cart'>
-          <div>
-          🛒
-          <span className="ml-2">
+          <div className="flex flex-row items-center">
+          <ShoppingCartIcon className="h-6 w-6 text-black" aria-hidden="true" />
+       
+          <div className=" menuItem pt-1">
           {cartCoinTotal(cart)}
 
-          </span>
+          </div>
           </div>
           </Link>
         }

@@ -332,7 +332,7 @@ useEffect(() => {
 					                        </div>
 					                        <h3>/day</h3>
 					                     </div>
-					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8">{listing.name}</div>
 
 									</Link>	                				
 	                		)} else if (optionListB.includes(listing.borough) && optionList.length < 1 && listing.name.includes(searchWord)) {
@@ -353,7 +353,7 @@ useEffect(() => {
 					                        </div>
 					                        <h3>/day</h3>
 					                     </div>
-					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8">{listing.name}</div>
 
 									</Link>	  
 
@@ -376,7 +376,7 @@ useEffect(() => {
 					                        </div>
 					                        <h3>/day</h3>
 					                     </div>
-					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8">{listing.name}</div>
 
 									</Link>	  
 
@@ -399,7 +399,7 @@ useEffect(() => {
 					                        </div>
 					                        <h3>/day</h3>
 					                     </div>
-					                     <div className="genLight orgBdr pt-2 inline-flex ml-8"> Canon EOS M50 Black</div>
+					                     <div className="genLight orgBdr pt-2 inline-flex ml-8">{listing.name}</div>
 
 									</Link>	  
 

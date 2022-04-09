@@ -127,7 +127,7 @@ export default () =>{
 			   	<tr>
 			   		<td className="flex flex-row items-center">
 
-					   	<img className="PostImage" src="../coin.png" />
+					   	<img className="PostImage" src={cartItem.thumbnail.url} />
 						<span className="normalBold ml-2">{cartItem.name} R.E.N Offer</span>
 					</td>
 					<td className="genLight">

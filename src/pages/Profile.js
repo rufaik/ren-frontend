@@ -10,10 +10,19 @@ import {LikesContext} from '../context/LikesContext'
 import Tabs,{Tab} from 'react-best-tabs';
 import 'react-best-tabs/dist/index.css';
 import { LockClosedIcon } from '@heroicons/react/solid'
-import { Dialog, Transition } from '@headlessui/react'
 import ImageUploading from "react-images-uploading";
 import { addDays } from 'date-fns';
 import Footer from '../components/Footer'
+import EditProfile from '../components/EditProfile'
+import { Menu, Transition, Dialog } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
+import Transactions from './Transactions'
+
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 
 
 export default ({match, history}) =>{
@@ -21,6 +30,7 @@ const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
 const [open, setOpen] = useState(false)
+const [open4, setOpen4] = useState(false)
 const [open1, setOpen1] = useState(false)
 const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
@@ -63,14 +73,25 @@ const [newBooking, setNewBooking] = useState('')
   const [tranStatus, setTranStatus] = useState('Ingoing');
   const [activePayout, setActivePayout] = useState(false);
   const [showPayout, setShowPayout] = useState(false);
+  const [showTransactions, setShowTransactions] = useState(false);
   const [coinsToTransfer, setCoinsToTransfer] = useState(null);
   const [range1, setRange1] = useState(null);
   const [range2, setRange2] = useState(null);
   const [range3, setRange3] = useState(null);
   const [joined, setJoined] = useState(null);
-
-const [name, setName] = useState('')
-const [surname, setSurname] = useState('')
+  const [rentalCount, setRentalCount] = useState(0);
+  const [rentalApproval, setRentalApproval] = useState(100);
+  const [rentalRate, setRentalRate] = useState(100);
+  const [categories, setCategories] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [job, setJob] = useState(null);
+  const [borough, setBorough] = useState(null);
+  const [listingUser, setListingUser] = useState(null);
+  const [dropdown, setDrop] = useState('Select from dropdown')
+  const [name, setName] = useState('')
+  const [surname, setSurname] = useState('')
+  const [start, setStart] = useState('')
+  const [end, setEnd] = useState('')
 
 
 
@@ -80,6 +101,33 @@ useEffect(() => {
   fetchUser()
 
 }, [])
+
+useEffect(() => {
+
+  getCategories()
+
+}, [])
+
+const getCategories = async () => {
+    console.log("yooo")
+      try{
+        const response = await fetch(`${API_URL}/new-listing-pages`, {
+            method: 'GET',
+            headers: {
+            'Content-Type':'application/json',
+            // 'Authorization': `Bearer ${user.jwt}`
+            }
+          })
+          const data = await response.json()
+        console.log("categories", data)
+        console.log("categories1", data[1].categories.dropdown)
+        setCategories(data[1].categories.dropdown)
+
+      } catch(err){
+    console.log("Exception ", err)}
+  
+
+    }
 
 const fetchUser = async (user) => {
   console.log("go", user)
@@ -120,6 +168,21 @@ const fetchUser = async (user) => {
               console.log("nope")
                 setPost1({}); 
                 setLoading(false);
+            }         
+        }
+
+
+const getPopUser = async (productUser) => {
+        const response = await fetch(`${API_URL}/users/${productUser}`, {
+          method: 'GET'
+        })
+        try{
+                const data = await response.json();
+                setListingUser(data);
+                console.log("listingUser", data)
+              
+            } catch(err){
+                
             }         
         }
 
@@ -194,6 +257,9 @@ useEffect(() => {
 
 }, [user])
 
+const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+
 const fetchBookings = async (user) => {
   console.log("gottttt", user)
     const response = await fetch(`${API_URL}/bookings`, {
@@ -205,11 +271,36 @@ const fetchBookings = async (user) => {
     })
     try{
                 const data = await response.json();
-                
+              
                 // setDescription1(data.description)
                 setLoading(false);
                 console.log("sidYYYYY", data)
-            
+                console.log("sidYYYYY1", parseInt(data[0].listing.userID))
+
+                let counter = 0;
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].status === 'Complete' && data[i].listing.userID === id) counter++;
+                }
+                setRentalCount(counter)
+                console.log("OCCUR", counter);
+
+                let counterTotal = 0;
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].listing.userID === id) counterTotal++;
+                }
+                if(counterTotal !== 0) {
+                  setRentalApproval((counter/counterTotal)/100)
+                }
+
+                 let counterPending = 0;
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].listing.userID === id) counterPending++;
+                }
+                if(counterTotal !== 0) {
+                  setRentalRate(((counterTotal-counterPending)/counterTotal)/100)
+                }
+                console.log("OCCUR", counter);
+
 
                 if(data !== null){
                   setPost3(data);
@@ -226,6 +317,9 @@ const fetchBookings = async (user) => {
             }         
         }
 
+
+
+   
 
 
 
@@ -334,8 +428,10 @@ const handleEditSubmit = async (event) => {
 }
 
 
+
 const editBio = async () => {
 
+try{
 
   const response = await fetch(`${API_URL}/users/${simpleUser.id}`, {
     method: 'PUT',
@@ -346,7 +442,10 @@ const editBio = async () => {
     body: JSON.stringify({
       bio: description1,
       name,
-      surname
+      surname,
+      borough,
+      occupation:job,
+      category:dropdown
     })
   })
     const data = await response.json();
@@ -357,6 +456,11 @@ const editBio = async () => {
     setDescription1(data.bio)
     const letterA = data.surname.charAt(0)
     setLetter(letterA)
+    setOpen4(false)
+
+  } catch(err){
+    }
+
 }
 
 // const handleLike = async () => {
@@ -557,6 +661,10 @@ console.log("fullBooking", fullBooking)
 
   const showingPayout = () => {
     setShowPayout(true)
+  }
+
+    const showingTrans = () => {
+    setShowTransactions(true)
   }
 
 
@@ -807,6 +915,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
   }
 const changeDate = (data) => {
+  console.log("join", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate() - 1)
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -814,6 +923,38 @@ const changeDate = (data) => {
   setJoined(joined2.toLocaleDateString('en-EN', options))
 
 }
+
+const changeStartDate = (data) => {
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate() - 1)
+  const options = { month: 'long', day: 'numeric' };
+  const joined2 = new Date(joined1)
+  setStart(joined2.toLocaleDateString('en-EN', options))
+
+}
+
+const changeEndDate = (data) => {
+  console.log("start", data)
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate() - 1)
+  const options = { month: 'long', day: 'numeric' };
+  const joined2 = new Date(joined1)
+  setEnd(joined2.toLocaleDateString('en-EN', options))
+
+}
+
+const chageDate = (data) => {
+  console.log("start", data)
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate() - 1)
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const joined2 = new Date(joined1)
+  return(joined2.toLocaleDateString('en-EN', options))
+
+}
+
+
+// console.log("start", start)
 
 
   // const capit = () => {
@@ -982,14 +1123,14 @@ return (
        
               </div>
 
-              <div className="flex mt-4">
+{/*              <div className="flex mt-4">
                 <div className="genBold">75</div>
                 <div className="gen ml-2">earned in the past 30 days</div>
               </div>
               <div className="flex">
                 <div className="genBold">30</div>
                 <div className="gen ml-2">spent in the past 30 days</div>
-              </div>
+              </div>*/}
         {bookingList.length > 0 
           ?
               <div className="flex mt-4">
@@ -1005,6 +1146,17 @@ return (
                 <div className="gen ml-2"> rental booking(s) have been rejected</div>
               </div>
           : null
+        }
+
+      {user && user.user.id.toString() === id.toString() &&
+        <div>
+          <button onClick={showingTrans} className="orangeCol my-3 text-white block mt-4  cursor-pointer">
+                  See your transactions 
+          </button>
+        </div>
+      }
+      {showTransactions &&
+          <Transactions />
         }
 
       {user && user.user.id.toString() === id.toString() &&
@@ -1125,22 +1277,17 @@ return (
       <div className="capitalize">{letter}</div>
     </h2>
 
+
     {user && user.user.id.toString() === id.toString() 
-      ?<>
-       {edit 
-        ? <button 
-            onClick={() => {
-              setEdit(false)
-              editBio()
-            }} 
-            className="editBtn bulkTxt ml-8 text-center"
-          >
-            Save bio
-          </button>
-        : <button 
+      ?
+      <button 
             onClick={() => {
               setEdit(true)
-              
+              setOpen4(true)
+              setBorough(simpleUser.borough)
+              setJob(simpleUser.occupation)
+              setCategory(simpleUser.category)
+              setDrop(simpleUser.category)
               setName(simpleUser.name)
               setSurname(simpleUser.surname)
             }} 
@@ -1148,8 +1295,6 @@ return (
           >
             Edit bio
           </button>
-      } 
-      </>
       : null
     }
   </div>
@@ -1163,34 +1308,6 @@ return (
    
       <>
     
-    {edit 
-      ?
-          <form onSubmit={handleEditSubmit}>
-            <input
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              placeholder="New description"
-              className="descBox mt-4 gen pl-3"
-            />
-            <input
-              value={surname}
-              onChange={(event) => setSurname(event.target.value)}
-              placeholder="New description"
-              className="descBox mt-4 gen pl-3"
-            />
-            <input
-              value={description1}
-              onChange={(event) => setDescription1(event.target.value)}
-              placeholder="Tell us about yourself"
-              className="descBox my-4 gen pl-3"
-            />
-          </form> 
-
-      : <div className="gen mt-4">
-          {description1}
-        </div>
-
-      }
       </>
                  
   {joined &&
@@ -1206,15 +1323,15 @@ return (
       </div>
     }
     <div className="flex my-3 items-center">
-      <h3>95%</h3>
+      <h3>{rentalApproval}%</h3>
       <div className="gen">&nbsp;Rentals approved</div>
     </div>
     <div className="flex my-3 items-center">
-      <h3>98%</h3>
+      <h3>{rentalRate}%</h3>
       <div className="gen">&nbsp;Response rate</div>
     </div>
     <div className="flex my-3 items-center">
-      <h3>72</h3>
+      <h3>{rentalCount}</h3>
       <div className="gen">&nbsp;Rentals</div>
     </div>
     <div className="lineA mt-8"></div>
@@ -1241,7 +1358,7 @@ return (
             if(listing.userID === id)
                      
                         return(
-                  <div className="flex flex-col overflow-hidden thumbImgBx">
+                  <Link to={`/listing/${listing.id}`} className="flex flex-col overflow-hidden thumbImgBx">
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
                       <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url} alt="playstation" />
                     </div>
@@ -1259,9 +1376,9 @@ return (
                             <div className="gen">{listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(listing.created_at)}</div>
                     </div>
-                  </div>
+                  </Link>
                   )})}
            
         
@@ -1285,15 +1402,19 @@ return (
                   {post3.map((booking, i) => {
                      if (booking.status === "Pending" && `${booking.renter.id}` === id) {
                         return(
-                  <div 
+                  <Link 
+                    to={`/listing/${booking.listing.id}`}
                     className="flex flex-col overflow-hidden thumbImgBx" 
                     onClick={() => {
                         setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
                         setFullBooking(booking)
-                        console.log("list", booking.listing)
-                        setOpen(true)
-                        setStatus("Complete")
-                        setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                        console.log("list1", booking.listing)
+                        // setOpen(true)
+                        // setStatus("Complete")
+                        // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
                       <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
@@ -1312,9 +1433,9 @@ return (
                             <div className="gen">{booking.listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
                     </div>
-                  </div>
+                  </Link>
                   )}})}
 
                  
@@ -1329,7 +1450,7 @@ return (
 
        <div>
                     <div className="h3Bold mt-8 mb-4">Confirmed</div>
-                    <div className="genLight my-4">View your confirmed bookings</div>
+                    <div className="genLight my-4">View your confirmed rentals</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
 
@@ -1342,15 +1463,18 @@ return (
                   {post3.map((booking, i) => {
                      if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
                         return(
-                  <div 
+                  <Link to={`/listing/${booking.listing.id}`}
                     className="flex flex-col overflow-hidden thumbImgBx" 
                     onClick={() => {
                         setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
                         setFullBooking(booking)
                         console.log("list", booking.listing)
-                        setOpen(true)
-                        setStatus("Complete")
-                        setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                        // setOpen(true)
+                        // setStatus("Complete")
+                        // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
                       <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
@@ -1369,9 +1493,9 @@ return (
                             <div className="gen">{booking.listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
                     </div>
-                  </div>
+                  </Link>
                   )}})}
 
                  
@@ -1379,67 +1503,70 @@ return (
                  
                   
                
-
-
+{/*xxxxxxxx
+*/}
             </div>
             </>
 : null}
 
    <div>
                     <div className="h3Bold mt-8 mb-4">All rented booking</div>
-                    <div className="genLight my-4">View your rented bookings</div>
+                    <div className="genLight my-4">View your previous rentals</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
-        { post2 && post2[0]
-          ?<>
-
+      { post3 && post3[0]
+              ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
-            
+               
                 
-                  {post2.map((listing, i) => {
-                     if (listing.booked === true && listing.userID === id) {
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Complete" && `${booking.renter.id}` === id) {
                         return(
-                  <div 
+                   <Link to={`/listing/${booking.listing.id}`} 
                     className="flex flex-col overflow-hidden thumbImgBx" 
                     onClick={() => {
-                        setPop(listing)
-                        console.log("list", listing)
-                        setOpen(true)
+                        setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
+                        setFullBooking(booking)
+                        console.log("list", booking.listing)
+                        // setOpen(true)
+                        // setStatus("Complete")
+                        // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
-                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url}  alt="playstation" />
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
                         <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
                             <div className="flex items-center ">
-                              <h3>{listing.rental}</h3>
+                              <h3>{booking.listing.rental}</h3>
                               <div className="smallCoin flex mb-1 ml-1.5 mr-1">
                                 <img className='w-100' alt='REN coin' src="../coin.png" />
                               </div>
                               <h3>/day</h3>
                             </div>
                             <div className="line mt-1 mb-3"></div>
-                            <div className="gen">{listing.name}</div>
+                            <div className="gen">{booking.listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
                     </div>
-                  </div>
+                  </Link>
                   )}})}
 
                  
 
-                 
-                  
-              
-
-
-            </div>
-             <div className="gryLine2 w-full my-10"></div>
+                     </div>
             </>
-: null}
+: null}        
+                  
+               
+{/*xxxxxxxx
+*/}
 
 
                </div>
@@ -1466,6 +1593,9 @@ return (
                     className="flex flex-col overflow-hidden thumbImgBx" 
                     onClick={() => {
                         setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
                         setFullBooking(booking)
                         console.log("list", booking)
                         setOpen(true)
@@ -1489,7 +1619,7 @@ return (
                             <div className="gen">{booking.listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
                     </div>
                   </div>
                   )}})}
@@ -1522,6 +1652,9 @@ return (
                     className="flex flex-col overflow-hidden thumbImgBx" 
                     onClick={() => {
                         setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
                         setFullBooking(booking)
                         console.log("list", booking.listing)
                         setOpen(true)
@@ -1545,7 +1678,7 @@ return (
                             <div className="gen">{booking.listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
                     </div>
                   </div>
                   )}})}
@@ -1579,6 +1712,9 @@ return (
                     className="flex flex-col overflow-hidden thumbImgBx" 
                     onClick={() => {
                         setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
                         setFullBooking(booking)
                         console.log("list", booking)
                         setOpen(true)
@@ -1600,7 +1736,7 @@ return (
                             <div className="gen">{booking.listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
                     </div>
                   </div>
                   )}})}
@@ -1662,7 +1798,7 @@ return (
                             <div className="gen">{listing.name}</div>
                         </div>
 
-                        <div className="gen pt-9">23rd Sep 2021</div>
+                        <div className="gen pt-9">{chageDate(listing.created_at)}</div>
                     </div>
                   </div>
                   )})}
@@ -1783,11 +1919,13 @@ return (
               <div className="flex flex-row">
                 <div className="flex-col flex w-9/12">
                   <div className="genLight mt-6">
-                    A modern classic, this 4K mirrorless camera is packed with innovative technologies with an EF-M 15-45mm lens
+                    {pop.description}
                   </div>
+                  {listingUser &&
                   <div className="genLight mt-6">
-                    From Jasmine
+                    From {listingUser.name}
                   </div>
+                }
                   <div className="genLight mt-6">
                     The location will be confirmed and agreed upon confirmation.
                   </div>
@@ -1796,27 +1934,30 @@ return (
                 
                 <div className="flex-col flex w-3/12 justify-center items-center">
                    <div className="w-full flex ">
-                      <img className="w-full" src="../bigCam.png" alt="playstation" />
+                      <img className="w-full" src={pop.image.url} alt="eqiupment" />
                     </div>
                 </div>
               </div>
               <div className="gryLine2 w-full my-10"></div>
-
+            {fullBooking &&
               <div className="flex items-center ">
-                <h3>8</h3>
+                <h3>{pop.coins}</h3>
                 <div className="smallCoin flex mb-1 ml-1.5 mr-1">
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
-                <div className="genLight">x 19 days</div>
-                <div className="genBold">&nbsp; (2nd May - 21st May)</div>
+                <div className="genLight">x {fullBooking.rentalDays} days</div>
+                <div className="genBold">&nbsp;({start} - {end})</div>
               </div>
+            }
+            {fullBooking &&
               <div className="flex items-center mt-4">
                 <div className="genBold">Total:&nbsp;</div>
-                <h3>152</h3>
+                <h3>{fullBooking.coins}</h3>
                 <div className="smallCoin flex mb-1 ml-1.5 mr-1">
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
               </div>
+            }
               <div className="gryLine2 w-full mt-10 mb-3"></div>
               <div className="flex">
                 <div 
@@ -1888,7 +2029,8 @@ return (
     
               <div className="flex flex-col justify-center items-center pt-">
           
-                <a className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" href="mailto:kemi@kodedldn.com" target="_blank" rel="noopener noreferrer" > Contact Now</a>
+               {listingUser && <a className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" href={`mailto:${listingUser.email}`} target="_blank" rel="noopener noreferrer" > Contact Now</a>
+               }
                {/* <div 
                   className="orangeCol mb-8 text-white block mt-4 text-center orangeBtm pb-0.5"
                 >
@@ -1901,6 +2043,215 @@ return (
         </div>
       </Dialog>
     </Transition.Root>
+
+
+
+    <Transition.Root show={open4} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen4}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "45em"}}>
+              <div style={{"width":"620px"}} className="mx-auto">
+              <div className="h3Bold mt-12 text-center">Update your profile</div>
+              <div className="gryLine2 w-full mt-6 mb-10"></div>
+{/*              <div className="h3Sub my-4 ">Canon EOS M50 Black + EF-M 15-45mm IS STM Lens Black</div>
+*/}              
+               
+       
+    <div className="shareBox mx-auto " >
+      
+      <div className="flex flex-row item-center">
+      <div className ='flex flex-col'>
+        <div className="genBold w-40">First Name</div>
+       <input
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          placeholder="First Name"
+          className="profileBox pl-4"
+        />
+         </div>
+
+      <div className ='flex flex-col'>
+        <div className="genBold ml-1 w-40 ">Last Name</div>
+      <input
+          value={surname}
+          onChange={(event) => setSurname(event.target.value)}
+          placeholder="Last Name"
+          className="profileBox ml-1 pl-4"
+        />
+        </div>
+      </div>
+
+      <div className ='flex flex-col'>
+        <div className="genBold w-40 mt-4">Bio</div>
+{/*       <input
+          value={description1}
+          onChange={(event) => setDescription1(event.target.value)}
+          placeholder="Enter user unqiue code"
+          className="uniqueBox pl-4"
+        />*/}
+        <textarea
+          value={description1}
+          onChange={(event) => setDescription1(event.target.value)}
+          placeholder="Enter user unqiue code"
+          // className="uniqueBox pl-4"
+          name="Description"
+          id="description"
+          className="uniqueDesc pl-4"
+          maxlength='240'
+          onChange={(event) => setDescription1(event.target.value)}
+        >
+        </textarea>
+        </div>
+
+        <div className="genBold w-40 mt-4">Category</div>
+        <div className="flex flex-col">
+                    <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                      {dropdown}
+                      <ChevronDownIcon className="-mr-1 ml-auto h-5 w-5" aria-hidden="true" />
+                    </Menu.Button>
+                  </div>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    {categories &&
+                      <div className="py-1"> 
+                       {categories.map((cat, index) => { 
+                          return(
+                            <Menu.Item>
+                              {({ active }) => (
+                                <div
+                                  onClick={() => {
+                                    setDrop(cat)
+                                    // setCatError(false)
+                                  }}
+                                  className={classNames(
+                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                    'block px-4 py-2 text-sm'
+                                  )}
+                                >
+                                  {cat}
+                                </div>
+                              )}
+                            </Menu.Item>
+                        )})}
+
+                      </div>
+                     }
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+{/*                {catError &&
+                            <div className="mt-3 genBold text-red-600"> Please select a category </div> 
+                          }*/}
+                         </div>
+
+      <div className ='flex flex-col'>
+        <div className="genBold w-40 mt-4">Your Job</div>
+      <input
+          value={job}
+          placeholder="Occupation"
+          className="uniqueBox  pl-4"
+          onChange={(event) => {
+            setJob(event.target.value)}}
+        />
+        </div>
+
+      <div className ='flex flex-col'>
+        <div className="genBold w-40 mt-4">Your Borough</div>
+       <input
+          value={borough}
+          placeholder="e.g Islington"
+          className="uniqueBox pl-4"
+          onChange={(event) => {
+            setBorough(event.target.value)}}
+        />
+        </div>
+
+      {/*<input
+          value={lastName}
+          placeholder="Number of R.E.N Coins"
+          className="uniqueBox mt-2 pl-4"
+          onChange={(event) => {
+            setLastName(event.target.value)}}
+        />
+       <input
+          value={firstName}
+          placeholder="Enter user unqiue code"
+          className="uniqueBox mt-2 pl-4"
+          onChange={(event) => {
+            setFirstName(event.target.value)}}
+        />
+      <input
+          value={lastName}
+          placeholder="Number of R.E.N Coins"
+          className="uniqueBox mt-2 pl-4"
+          onChange={(event) => {
+            setLastName(event.target.value)}}
+        />*/}
+
+
+      <div className="pt-5">
+        <div className="flex justify-end">
+          <button
+            onClick={() => {
+              editBio()
+            }}
+            type="submit"
+            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white orangeBg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+             
+              
+              
+
+              </div>
+            </div>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+
+
+    
 
 <Footer />
      
