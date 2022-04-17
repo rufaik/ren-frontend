@@ -53,7 +53,7 @@ export default () =>{
 	const [itemValue, setItemValue] = useState('');
 	const [rentalValue, setRentalValue] = useState('');
 	const [calculated, setCalculated] = useState(false);
-	const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+	const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 	const [open, setOpen] = useState(true)
 	const [open1, setOpen1] = useState(true)
 	const [booked, setBooked] = useState(false)
@@ -310,10 +310,16 @@ const handleSubmit1 = async () => {
 		  :
 
 			<div className="sectWidth mx-auto">
-				<h2 className="mt-12">Add new listing</h2>
-				<div className="genLight mt-6">All your items will be insured for <b> up to £20,000 </b> so you and lend with confidence.</div>
+				<h2 
+				className={create === 'darkbg' ? "mt-12 text-white" : "mt-12"}
+				>Add new listing</h2>
+				<div 
+				className={create === 'darkbg' ? "genLight mt-6 text-white" : "genLight mt-6"}
+				>All your items will be insured for <b> up to £20,000 </b> so you and lend with confidence.</div>
 
-				<h2 className="mt-20">Your item listing details</h2>
+				<h2 
+				className={create === 'darkbg' ? "mt-20 text-white" : "mt-20"}
+				>Your item listing details</h2>
 				<div>
 					<div className="flex flex-row">
 					<div className="flex flex-col w-1/2">
@@ -323,7 +329,9 @@ const handleSubmit1 = async () => {
 
 			            <div className="flex flex row">
 		              		<div className ='flex flex-col'>
-					              <div className="genBold pt-4 mr-6 text-right w-40">Name</div>
+					              <div 
+					              className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"}
+					              	>Name</div>
 					              </div>
 		              		<div className="flex flex-row">
 		              			<div className ='flex flex-col'>    
@@ -332,7 +340,7 @@ const handleSubmit1 = async () => {
 					                  type="text"
 					                  name="item-title"
 					                  id="item-title"
-					                  className="uniqueBox mt-4 pl-4"
+					                  className={create === 'darkbg' ? "darkInput uniqueBox mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
 					                  onClick={() => {setNameError(false)}}
 					                  onChange={(event) => {
 					                    setError('')
@@ -350,7 +358,9 @@ const handleSubmit1 = async () => {
 
               <div className="flex flex row">
 		              		<div className ='flex flex-col'>
-					              <div className="genBold pt-4 mr-6 text-right w-40">Featured Image</div>
+					              <div 
+					              className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"}
+					              >Featured Image</div>
 					              </div>
 		              		<div className="flex flex-row">
 {/*		                <input
@@ -388,7 +398,7 @@ const handleSubmit1 = async () => {
 					          <div className="upload__image-wrapper">
 					            <div
 					              style={isDragging ? { color: "red" } : null}
-					              className="uniqueBoxImg mt-4 relative cursor-pointer flex justify-center items-center"
+					              className={create === 'darkbg' ? "darkInput uniqueBoxImg mt-4 relative cursor-pointer flex justify-center items-center" : "uniqueBoxImg mt-4 relative cursor-pointer flex justify-center items-center"}
 					              onClick={onImageUpload}
 					              {...dragProps}
 					            >
@@ -452,7 +462,7 @@ const handleSubmit1 = async () => {
 					          <div className="upload__image-wrapper">
 					            <div
 					              style={isDragging ? { color: "red" } : null}
-					              className="uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center"
+					              className={create === 'darkbg' ? "darkInput uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center" : "uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center"}
 					              onClick={onImageUpload}
 					              {...dragProps}
 					            >
@@ -508,7 +518,7 @@ const handleSubmit1 = async () => {
 					          <div className="upload__image-wrapper">
 					            <div
 					              style={isDragging ? { color: "red" } : null}
-					              className="uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center"
+					              className={create === 'darkbg' ? "darkInput uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center" : " uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center"}
 					              onClick={onImageUpload}
 					              {...dragProps}
 					            >
@@ -566,6 +576,7 @@ const handleSubmit1 = async () => {
 					            <div
 					              style={isDragging ? { color: "red" } : null}
 					              className="uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center"
+					              className={create === 'darkbg' ? "darkInput uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center" : "uniqueBoxSm mt-4 relative cursor-pointer flex justify-center items-center"}
 					              onClick={onImageUpload}
 					              {...dragProps}
 					            >
@@ -593,12 +604,20 @@ const handleSubmit1 = async () => {
 					   </div>
 
 				<div className="flex flex row">
-					<div className="genBold pt-4 mr-6 text-right w-40">Category</div>
+					<div 
+					className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"}
+					>Category</div>
               		<div className="flex flex-row">
               		<div className="flex flex-col">
               			<Menu as="div" className="relative inline-block text-left">
 						      <div>
-						        <Menu.Button className="genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+						        <Menu.Button 
+						        	className="genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+						        	className={create === 'darkbg' 
+							        			? "darkInput genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+							        			: "genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+							        		}
+						        	>
 						          {dropdown}
 						          <ChevronDownIcon className="-mr-1 ml-auto h-5 w-5" aria-hidden="true" />
 						        </Menu.Button>
@@ -651,8 +670,12 @@ const handleSubmit1 = async () => {
 
               	<div className="flex flex row">
               		<div className ='flex flex-col'>
-						<div className="genBold pt-4 mr-6 text-right w-40">Description</div>
-						<div className="genLight pt-2 mr-6 text-right w-40">(Max 240 characters)</div>
+						<div 
+							className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"}
+						>Description</div>
+						<div 
+							className={create === 'darkbg' ? "genLight pt-2 mr-6 text-right w-40 text-white" : "genLight pt-2 mr-6 text-right w-40"}
+						>(Max 240 characters)</div>
 					</div>
               		<div className="flex flex-row">
               {/*			 <input
@@ -674,6 +697,7 @@ const handleSubmit1 = async () => {
 				            	name="Description"
 				                  id="description"
 				                  className="uniqueBoxDesc mt-4 p-4"
+				                  className={create === 'darkbg' ? "darkInput uniqueBoxDesc mt-4 p-4" : "uniqueBoxDesc mt-4 p-4"}
 				                  maxlength='240'
 				                  onClick={() => {setDescError(false)}}
 				                  onChange={(event) => {
@@ -697,10 +721,14 @@ const handleSubmit1 = async () => {
 
               	<div className="flex flex row">
               		<div className ='flex flex-col'>
-						<div className="genBold pt-4 mr-6 text-right w-40">Product Features</div>
+						<div
+							className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"} 
+						>Product Features</div>
 					</div>
 					<div className="flex flex-col">
-              		<div className="flex flex-row uniqueBoxDesc">
+              		<div 
+              			className={create === 'darkbg' ? "darkInput flex flex-row uniqueBoxDesc" : "flex flex-row uniqueBoxDesc"}
+              		>
               {/*			 <input
 			                  placeholder="Last Name"
 			                  type="text"
@@ -733,7 +761,7 @@ const handleSubmit1 = async () => {
 			                  id="feat1"
 			                  placeholder="feature 1"
 			                  onClick={() => {setFeatError(false)}}
-			                  className="featureBox mt-4 pl-4 mx-auto border-none"
+			                  className={create === 'darkbg' ? "darkInputBg featureBox mt-4 pl-4 mx-auto border-none" : "featureBox mt-4 pl-4 mx-auto border-none"}
 			                  onChange={(event) => {
 			                    setError('')
 			                    setFeat1(event.target.value)
@@ -744,7 +772,7 @@ const handleSubmit1 = async () => {
 			                  name="feat2"
 			                  id="feat2"
 			                  placeholder="feature 2"
-			                  className="featureBox mt-4 pl-4 mx-auto border-none"
+			                  className={create === 'darkbg' ? "darkInputBg featureBox mt-4 pl-4 mx-auto border-none" : "featureBox mt-4 pl-4 mx-auto border-none"}
 			                  onChange={(event) => {
 			                    setError('')
 			                    setFeat2(event.target.value)
@@ -755,7 +783,7 @@ const handleSubmit1 = async () => {
 			                  name="feat3"
 			                  id="feat3"
 			                  placeholder="feature 3"
-			                  className="featureBox mt-4 pl-4 mx-auto border-none"
+			                  className={create === 'darkbg' ? "darkInputBg featureBox mt-4 pl-4 mx-auto border-none" : "featureBox mt-4 pl-4 mx-auto border-none"}
 			                  onChange={(event) => {
 			                    setError('')
 			                    setFeat3(event.target.value)
@@ -774,7 +802,9 @@ const handleSubmit1 = async () => {
 
               	<div className="flex flex row">
               		<div className ='flex flex-col'>
-						<div className="genBold pt-4 mr-6 text-right w-40">Location</div>
+						<div
+							className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"}
+						>Location</div>
 					</div>
               		<div className="flex flex-row">
               			<div className="flex flex-col">
@@ -784,7 +814,7 @@ const handleSubmit1 = async () => {
 			                  id="postcode"
 			                  placeholder="e.g. Islington"
 			                  autoComplete="postcode"
-			                  className="uniqueBox mt-4 pl-4"
+			                  className={create === 'darkbg' ? "darkInput uniqueBox mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
 			                  onClick={() => {setLocError(false)}}
 			                  onChange={(event) => {
 			                    setError('')
@@ -803,7 +833,9 @@ const handleSubmit1 = async () => {
 
               	<div className="flex flex row">
               		<div className ='flex flex-col'>
-						<div className="genBold pt-4 mr-6 text-right w-40">Minimum rental days</div>
+						<div
+							className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"} 
+						>Minimum rental days</div>
 					</div>
               		<div className="flex flex-row">
               		<div className="flex flex-col">
@@ -811,7 +843,7 @@ const handleSubmit1 = async () => {
 			                  type="text"
 			                  name="rental"
 			                  id="rental"
-			                  className="uniqueBox mt-4 pl-4"
+			                  className={create === 'darkbg' ? "darkInput uniqueBox mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
 			                  onClick={() => {seRentError(false)}}
 			                  onChange={(event) => {
 			                    setError('')
@@ -861,43 +893,57 @@ const handleSubmit1 = async () => {
 					<div className="flex flex-col w-1/2">
 					<div className="sticky top-4">
 
-						<div className="calcBox">
+						<div 
+							className={create === 'darkbg' ? "calcDrkBox" : "calcBox"}
+							>
 						      <div className="borderBoundary mx-auto">
-						        <div className="h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder">R.E.N Coin Calculator</div>
-						        <div className="normalBold mt-7">Set the item value and desired rental price above to calculate R.E.N price and return on investment.</div>
+						        <div 
+						        className={create === 'darkbg' ? "h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder text-white" : "h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder"}
+						        >R.E.N Coin Calculator</div>
+						        <div
+						        	className={create === 'darkbg' ? "normalBold mt-7 text-white" : "normalBold mt-7"} 
+						        	>Set the item value and desired rental price above to calculate R.E.N price and return on investment.</div>
 						        
 						        <div className="flex flex-row">
-						          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Item value (£)</div>
+						          <div 
+						          className={create === 'darkbg' ? "w-1/3 flex items-center pt-2 justify-end pr-3 normalBold text-white" : "w-1/3 flex items-center pt-2 justify-end pr-3 normalBold"}
+						          >Item value (£)</div>
 						          <input
 						                            value={itemValue}
 						                            onClick={() => {setCoinError(false)}}
 						                            onChange={(event ) => {setItemValue(event.target.value)}}
-						                            className="uniqueBox mt-2 pl-4"
+						                            className={create === 'darkbg' ? "shareInput uniqueBox mt-2 pl-4" : "uniqueBox mt-2 pl-4"}
 						                          
 						                          />
 						        </div>
 						        <div className="flex flex-row">
-						          <div className="w-1/3 flex items-center pt-2 justify-end pr-3 normalBold">Rental price per day (£)</div>
+						          <div
+						          	className={create === 'darkbg' ? "w-1/3 flex items-center pt-2 justify-end pr-3 normalBold text-white" : "w-1/3 flex items-center pt-2 justify-end pr-3 normalBold"} 
+						          >Rental price per day (£)</div>
 						          <input
 						                            value={rentalValue}
 						                            onClick={() => {setCoinError(false)}}
 						                            onChange={(event ) => {setRentalValue(event.target.value)}}
-						                            className="uniqueBox mt-2 pl-4"
+						                            className={create === 'darkbg' ? "shareInput uniqueBox mt-2 pl-4" : "uniqueBox mt-2 pl-4"}
 						                          
 						                          />
 						        </div>
 
 						         <button 
-						                  className="sendBtn bulkTxt ml-auto mr-12 block mt-4 text-center"
-						                  onClick={() => setCalculated(true)} 
-						                  value="Submit"
+						         		className={create === 'darkbg' ? "sendBtnDrk bulkTxt ml-auto mr-12 block mt-4 text-center text-white" : "sendBtn bulkTxt ml-auto mr-12 block mt-4 text-center"}
+						                onClick={() => setCalculated(true)} 
+						                value="Submit"
 						                >
 						                Calculate
 						          </button>
 						          {calculated && itemValue > 0 && rentalValue > 0 &&
 						            <div>
-						              <h2 className="normalBold mt-7">Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
-						              <h2 className="normalBold mt-7">Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
+						              <h2 
+						              	className={create === 'darkbg' ? "normalBold mt-7 text-white" : "normalBold mt-7"}
+						              >Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
+						              <h2 
+						              className={create === 'darkbg' ? "normalBold mt-7 text-white" : "normalBold mt-7"}
+						              >Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
 						            </div>
 
 						          }

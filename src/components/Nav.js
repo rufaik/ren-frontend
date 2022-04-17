@@ -65,7 +65,7 @@ export default () =>{
   	   {user &&
         <>
   	   		<Link to={`/profile/${user.user.id}`} exact className= {create === 'darkbg' ? "ml-4 mr-6 text-white menuItem" : "ml-4 mr-6 menuItem"}> My Profile </Link>
-          <Link to='/home' className="authBtn" style={{"padding":"0.3rem"}} onClick={() => {
+          <Link to='/home' className={create === 'darkbg' ? "authBtn text-white" : "authBtn"} style={{"padding":"0.3rem"}} onClick={() => {
             setUser(null)
             setSimpleUser(null)
             localStorage.removeItem('user') 
@@ -79,15 +79,15 @@ export default () =>{
               <div className="w-6 -mt-1 mr-1">
                 <img src='../coin.png' alt="coin" />
               </div>
-              <div className="menuItem">{simpleUser.coins}</div>
+              <div className={create === 'darkbg' ? "menuItem text-white" : " menuItem"}>{simpleUser.coins}</div>
             </div>
           }
          {cart && cart.length > 0 &&
           <Link to='/cart'>
           <div className="flex flex-row items-center">
-          <ShoppingCartIcon className="h-6 w-6 text-black" aria-hidden="true" />
+          <ShoppingCartIcon className={create === 'darkbg' ? "h-6 w-6 text-white" : "h-6 w-6 text-black"} aria-hidden="true" />
        
-          <div className=" menuItem pt-1">
+          <div className={create === 'darkbg' ? "pt-1 menuItem text-white" : "pt-1 menuItem"}>
           {cartCoinTotal(cart)}
 
           </div>

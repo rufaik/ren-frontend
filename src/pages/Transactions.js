@@ -169,6 +169,7 @@ export default ({description, likes, url}) =>{
      
               <div className="w-10/12 mx-auto h-96 overflow-y-scroll">
               {products.map((product) => {
+                if(parseInt(product.userID) === parseInt(simpleUser.id)) {
 
                   return(
               <div className="flex flex-row items-center mt-3">
@@ -178,15 +179,15 @@ export default ({description, likes, url}) =>{
                 <div className="gen w-10 ml-20">{product.amount}</div>
                {product.InOrOut === "Ingoing" ? <ArrowLeftIcon className="h-6 w-6 orangeCol ml-12" aria-hidden="true" /> : <ArrowRightIcon className="h-6  ml-12 w-6 orangeCol" aria-hidden="true" />}
                 <div className="gen w-10 ml-4">{product.InOrOut}</div>
-                <div className="gen w-10 ml-24">{product.type}</div>
+                <div className="gen w-10 ml-24">{product.type === "SecureBooking" ? "Secure Booking" : product.type}</div>
                 
                 
              
                 
               </div>
-)})}
+)}})}
               </div>
-               <div className="gryLine2 w-full"></div>
+               <div className="gryLine2 w-full mt-3"></div>
 
               </div>
             </div>

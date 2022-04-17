@@ -315,11 +315,33 @@ letter-spacing: 0em;
   border-radius: 50px;
 }
 
+.sendBtnDrk{
+  height: 32px;
+  width: 157px;
+  border: 1px solid white;
+  border-radius: 50px;
+}
+
+
 .sendBtn1{
   height: 32px;
   width: 107px;
   border: 1px solid #000000;
   border-radius: 50px;
+}
+
+.sendBtnDrk1{
+  height: 32px;
+  width: 107px;
+  border: 1px solid white;
+  border-radius: 50px;
+}
+
+.shareInput{
+  background: #BBBFC5;
+/* Blue-Grey Light */
+
+border: 0.5px solid #BBBFC5;
 }
 
 .shareBox{
@@ -602,6 +624,10 @@ top: 102px;
 border: 1px solid #EFF0F2;
 }
 
+.shareLine{
+  border-top: 0.25px solid #E4E4E4
+}
+
 .normalBold{
 font-size: 14px;
 font-style: normal;
@@ -650,6 +676,15 @@ input[type=file] {
   background: #F6F7FA;
   box-shadow: 14px 10px 35px rgba(27, 49, 66, 0.08);
   border-radius: 20px;
+
+}
+
+.calcDrkBox{
+  width: 720px;
+  height: 427px;
+  border-radius: 20px;
+  background: #495461;
+  box-shadow: 6px 16px 26px rgba(0, 0, 0, 0.2);
 
 }
 
@@ -973,6 +1008,13 @@ text-align: left;
   height: 28rem;
 }
 
+.searchThumbDrk{
+  height: 28rem;
+  background: #222222;
+  box-shadow: 14px 10px 35px rgba(27, 49, 66, 0.08);
+  border-radius: 20px;
+}
+
 
 .orgBdr{
   border-top: 1px solid rgba(222, 118, 52, 1)
@@ -1012,6 +1054,17 @@ border: 1px solid #EFF0F2;
   filter: drop-shadow(6px 16px 26px rgba(27, 49, 66, 0.11));
   border-radius: 50px;
 }
+
+.searchBxDrk{
+  width: 640px;
+  height: 60px;
+  box-sizing: border-box;
+  background: #2C3949;
+  box-shadow: 6px 16px 26px rgba(27, 49, 66, 0.11);
+  border-radius: 50px;
+}
+
+
 
 .searchBxHome{
   width: 592px;
@@ -1060,6 +1113,18 @@ color: rgba(255, 255, 255, 0.65);
   border-bottom-width: 3px;
 }
 
+
+.darkInput{
+  background: #222222;
+/* Blue-Grey Light */
+
+border: 0.5px solid #BBBFC5;
+}
   
+  .darkInputBg{
+  background: #222222;
+/* Blue-Grey Light */
+
+}
 
 
