@@ -400,8 +400,8 @@ const [verify, setVerify] = useState(false)
 
             <div className={create === 'darkbg' ? 'grybg pb-8' : 'bluebg pb-8'}>
               <div className='sectWidth mx-auto pt-32'>
-                <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Coins </h2>
-                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Coins.</div>
+                <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Credits </h2>
+                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits.</div>
                 <div className={create === 'darkbg' ? 'h3Light text-black mt-1' : 'h3Light text-white mt-1'}>Buy them. Earn them. Share them! </div>
                 <Link to='/howitworks'> <button  className={create === 'darkbg' ? "findDrkBtn findTxt text-center text-black mt-10" : "findBtn findTxt text-center text-white mt-10"}>Find out more</button></Link>
 
@@ -409,13 +409,13 @@ const [verify, setVerify] = useState(false)
                   <div
                     onClick={() => { setQ1(true); setQ2(false); setQ3(false) }} 
                     className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
-                    >What can I do with my R.E.N Coins?
+                    >What can I do with my R.E.N Credits?
                     </div> 
               }
 
                 {q1 &&
                 <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12' : 'answerBox w-full py-16 pl-16 mt-12'}>
-                  <div className='h3Bold text-white'>What can I do with my R.E.N Coins?</div>
+                  <div className='h3Bold text-white'>What can I do with my R.E.N Credits?</div>
                   <div className='flex flex-row'>
                       <div className='flex flex-col pt-12 w-48  mr-10'>
                         <div className='h-16'>
@@ -449,20 +449,20 @@ const [verify, setVerify] = useState(false)
                   <div 
                   onClick={() => { setQ1(false); setQ2(true); setQ3(false) }} 
                   className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
-                  >How do I get R.E.N Coins?
+                  >How do I get R.E.N Credits?
                   </div> 
               }
                 
                 {q2 &&
                 <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12' : 'answerBox w-full py-16 pl-16 mt-12'}>
-                  <div className='h3Bold text-white'>How do I get R.E.N Coins?</div>
+                  <div className='h3Bold text-white'>How do I get R.E.N Credits?</div>
                   <div className='flex flex-row'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
                         <div className='h-16'>
                          <img className='w-100 mx-auto' alt='credit' src="../credit.png" />
                         </div>
                         <div className='genBold text-center text-white mt-10'>
-                          Top up your R.E.N coin balance with cash
+                          Top up your R.E.N credit balance with cash
                         </div>
                       </div>
 
@@ -476,7 +476,7 @@ const [verify, setVerify] = useState(false)
                           </div>
                         </div>
                           <div className='genBold text-center text-white mt-10'>
-                            Be gifted R.E.N Coins from your friends or your university
+                            Be gifted R.E.N Credits from your friends or your university
                           </div>                     
                       </div>
 
@@ -487,7 +487,7 @@ const [verify, setVerify] = useState(false)
                          <img className='w-100 mx-auto' alt='mac' src="../mac.png" />
                         </div>
                         <div className='genBold text-center text-white mt-10'>
-                          Earn R.E.N Coin rewards when you engaging with R.E.N
+                          Earn R.E.N Credit rewards when you engaging with R.E.N
                         </div>
                       </div>
 
@@ -500,7 +500,7 @@ const [verify, setVerify] = useState(false)
                          <img className='w-100 mx-auto' alt='money' src="../money.png" />
                         </div>
                         <div className='genBold text-center text-white mt-10'>
-                          Earn R.E.N Coins by listing your equipment, then convert your R.E.N Coins to cash!
+                          Earn R.E.N Credits by listing your equipment, then convert your R.E.N Credits to cash!
                         </div>
                       </div>
 
@@ -518,13 +518,13 @@ const [verify, setVerify] = useState(false)
                   <div 
                     onClick={() => { setQ1(false); setQ2(false); setQ3(true) }} 
                     className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
-                    >What is the Pound to R.E.N Coin conversion rate?
+                    >What is the Pound to R.E.N Credit conversion rate?
                     </div>
               }
                 
                 {q3 &&
                 <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12 pb-10' : 'answerBox w-full py-16 pl-16 mt-12 pb-10'}>
-                  <div className='h3Bold text-white'>What is the Pound to R.E.N Coin conversion rate?</div>
+                  <div className='h3Bold text-white'>What is the Pound to R.E.N Credit conversion rate?</div>
                   <div className='flex flex-row relative'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
                         <div className='h-16'>
@@ -558,7 +558,7 @@ const [verify, setVerify] = useState(false)
                          <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 5}
                         </div>
                           <div className='genBold text-center text-white mt-6'>
-                            R.E.N Coin
+                            R.E.N Credit
                           </div>
                         
                       </div>

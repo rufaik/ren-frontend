@@ -15,6 +15,8 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 export default function Example() {
 
   const [content, setContent] = useState(null)
+  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
+
 
   useEffect(() => {
 
@@ -43,16 +45,24 @@ const getContent = async (user) => {
 
 
   return (
-    <div className="bg-white">
+    <div 
+      className={create === 'darkbg' ? "darkbg text-white" : "bg-white"}
+    >
     {content &&
       <div>
         <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">{content[0].smallTitle}</h2>
-            <p className="mt-6 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+            <h2 
+              className={create === 'darkbg' ? "text-base font-semibold text-white tracking-wide uppercase" : "text-base font-semibold text-indigo-600 tracking-wide uppercase"}
+            >{content[0].smallTitle}</h2>
+            <p 
+            className={create === 'darkbg' ? "mt-6 text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl" : "mt-6 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl"}
+            >
               {content[0].largeTitle}
             </p>
-            <p className="max-w-xl mt-8 mx-auto text-xl text-gray-500">
+            <p 
+            className={create === 'darkbg' ? "max-w-xl mt-8 mx-auto text-xl text-white" : "max-w-xl mt-8 mx-auto text-xl text-gray-500"}
+            >
               {content[0].mainBody}
             </p>
           </div>

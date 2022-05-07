@@ -23,7 +23,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 export default function Example() {
 
-  const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
   const [content, setContent] = useState(null)
 
   useEffect(() => {
@@ -79,7 +79,9 @@ const supportLinks = [
 ]
 
   return (
-    <div className="bg-white pt-16">
+    <div 
+      className={create === 'darkbg' ? "darkbg text-white pt-16" : "bg-white pt-16"}
+    >
       {/* Header */}
       {content &&
       <div>
@@ -110,7 +112,10 @@ const supportLinks = [
         </h2>
         <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
           {supportLinks.map((link) => (
-            <div key={link.name} className="flex flex-col bg-white rounded-2xl shadow-xl">
+            <div 
+                key={link.name} 
+                className={create === 'darkbg' ? "flex flex-col darkbg rounded-2xl shadow-xl" : "flex flex-col bg-white rounded-2xl shadow-xl" }
+              >
               <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">
                 <div 
                   className="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2"
@@ -118,10 +123,14 @@ const supportLinks = [
                 >
                   <link.icon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-medium text-gray-900">{link.name}</h3>
+                <h3 
+                  className={create === 'darkbg' ? "text-xl font-medium text-white" : "text-xl font-medium text-gray-900"}
+                >{link.name}</h3>
                 <p className="mt-4 text-base text-gray-500">{link.description}</p>
               </div>
-              <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+              <div 
+                className={create === 'darkbg' ? "p-6 darkBx rounded-bl-2xl rounded-br-2xl md:px-8" : "p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8" }
+              >
                 <a 
                   href={link.href} 
                   className="text-base font-medium text-indigo-700 hover:text-indigo-600"

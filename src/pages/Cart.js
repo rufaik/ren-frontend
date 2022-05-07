@@ -107,7 +107,7 @@ export default () =>{
 			   			className={create === 'darkbg' ? "whiteLine flex flex-row items-center" : "flex flex-row items-center"}
 			   		>
 					   	<img className="PostImage" src={cartItem.thumbnail.url} />
-						<span className="normalBold ml-2"> R.E.N Coins</span>
+						<span className="normalBold ml-2"> R.E.N Credits</span>
 					</td>
 					<td 
 						className={create === 'darkbg' ? "whiteLine genLight" : "genLight"}
@@ -220,7 +220,7 @@ export default () =>{
            
 
               <div className=" flex flex-row items-baseline">
-              	<div className="genBold orangeCol w-28 mt-4">R.E.N Coins:</div>
+              	<div className="genBold orangeCol w-28 mt-4">R.E.N Credits:</div>
               	<div className="genBold">{cartCoinTotal(cart)}</div>
               </div>
               <div className=" flex flex-row items-baseline mt-4">

@@ -1125,7 +1125,7 @@ return (
       <div className="ml-12 coinBox">
           <h2 
           className={create === 'darkbg' ? "items-start text-white" : "items-start"}
-            >Your R.E.N Coins</h2>
+            >Your R.E.N Credits</h2>
           <div className="flex mt-12">
 
             <div>
@@ -1281,7 +1281,7 @@ return (
               Payouts
               </div>
               <div className="genLight mt-4 text-center">
-                Would you like to convert your coins to cash and payout or go to payout dashboard
+                Would you like to convert your credits to cash and payout or go to payout dashboard
               </div>
       
 
@@ -1845,7 +1845,7 @@ return (
 : null}
                 <div>
                     <div className="h3Bold mt-8 mb-4">Confirmed</div>
-                    <div className="genLight my-4">Once you're booking has been complete and your items have been returned, set your booking to <b>COMPLETED</b> and your coins will be released your account</div>
+                    <div className="genLight my-4">Once you're booking has been complete and your items have been returned, set your booking to <b>COMPLETED</b> and your credits will be released your account</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
         { post3 && post3[0]
@@ -1868,7 +1868,7 @@ return (
                         console.log("list", booking.listing)
                         setOpen(true)
                         setStatus("Complete")
-                        setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                        setLast("Congratulations, your order is complete! Your credits will be transferred to your account shortly.")
                       }}>
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
                       <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />

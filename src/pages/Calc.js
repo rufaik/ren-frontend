@@ -377,7 +377,7 @@ console.log(fileBulk)
           </button>
           {calculated && itemValue > 0 && rentalValue > 0 &&
             <div>
-              <h2 className="normalBold mt-5">Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
+              <h2 className="normalBold mt-5">Your item rents for {Math.round(rentalValue * 5)} credits/day </h2>
               <h2 className="normalBold mt-2 mb-4">Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
             </div>
 
@@ -820,7 +820,7 @@ console.log(fileBulk)
     
     <div className="calcBox my-16">
       <div className="borderBoundary mx-auto">
-        <div className="h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder">R.E.N Coin Calculator</div>
+        <div className="h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder">R.E.N Credit Calculator</div>
         <div className="normalBold mt-7 pb-4">Calculate how much you could make!</div>
         
         <div className="flex flex-row">

@@ -675,7 +675,7 @@ const [state, setState] = useState({
                 </div>
               </div>
               {lowFunds ?
-                <div className="normalBold mt-7 mb-3">Unfortunately you dont have enough REN coins, please top up</div>
+                <div className="normalBold mt-7 mb-3">Unfortunately you dont have enough REN credits, please top up</div>
             :
               <div className="gryLine2 w-full mt-10 mb-3"></div>
             }

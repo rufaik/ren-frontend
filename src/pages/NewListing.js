@@ -279,7 +279,7 @@ const handleSubmit1 = async () => {
 			              <div style={{"width":"620px"}} className="mx-auto">
 			              { simpleUser.stripeStatus === "NotStarted"  && 
 				              <div className="h3Bold mt-12 text-center">
-				              	Please set up your payment information to convert your coins into cash!
+				              	Please set up your payment information to convert your credits into cash!
 				              </div>
 				          }
 			              { simpleUser.stripeStatus === "Incomplete"  && 
@@ -898,7 +898,7 @@ const handleSubmit1 = async () => {
 						      <div className="borderBoundary mx-auto">
 						        <div 
 						        className={create === 'darkbg' ? "h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder text-white" : "h3Dark border-solid pt-8 pb-4 border-b-2 inline-flex orangeBorder"}
-						        >R.E.N Coin Calculator</div>
+						        >R.E.N Credit Calculator</div>
 						        <div
 						        	className={create === 'darkbg' ? "normalBold mt-7 text-white" : "normalBold mt-7"} 
 						        	>Set the item value and desired rental price above to calculate R.E.N price and return on investment.</div>
@@ -939,7 +939,7 @@ const handleSubmit1 = async () => {
 						            <div>
 						              <h2 
 						              	className={create === 'darkbg' ? "normalBold mt-5 text-white" : "normalBold mt-5"}
-						              >Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
+						              >Your item rents for {Math.round(rentalValue * 5)} credits/day </h2>
 						              <h2 
 						              className={create === 'darkbg' ? "normalBold mt-2 mb-4 text-white" : "normalBold mt-2 mb-4"}
 						              >Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>

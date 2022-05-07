@@ -160,7 +160,7 @@ export default ({description, likes, url}) =>{
               style={{"width": "44em", "height": "45em"}}
             >
               <div style={{"width":"620px"}} className="mx-auto">
-              <div className="h3Bold mt-12 text-center">Top up your R.E.N Coins</div>
+              <div className="h3Bold mt-12 text-center">Top up your R.E.N Credits</div>
               <div className="gryLine2 w-full mt-6 mb-10"></div>
 {/*              <div className="h3Sub my-4 ">Canon EOS M50 Black + EF-M 15-45mm IS STM Lens Black</div>
 */}              <div className="h3Sub my-4 ">Top up any amount</div>
@@ -188,7 +188,7 @@ export default ({description, likes, url}) =>{
                     console.log("product", product)
                     addToCart(product, topQty)}}
                 >
-                Purchase R.E.N Coins
+                Purchase R.E.N Credits
                 </div>
               )}})}
               <div className="gryLine2 w-full my-10"></div>

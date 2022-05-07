@@ -128,7 +128,7 @@ font-size: 45px;
 font-style: normal;
 font-weight: 700;
 line-height: 72px;
-letter-spacing: -0.045em;
+letter-spacing: 0em;
 }
 
 .coin{
@@ -143,7 +143,7 @@ h3{
   font-style: normal;
   font-weight: 700;
   line-height: 38px;
-  letter-spacing: -0.045em;
+  letter-spacing: 0em;
   text-align: left;
 }
 
@@ -399,7 +399,7 @@ font-size: 24px;
 font-style: normal;
 font-weight: 700;
 line-height: 38px;
-letter-spacing: -0.045em;
+letter-spacing: 0em;
 text-align: center;
 color: #BBBFC5;
 
@@ -424,7 +424,7 @@ font-size: 24px;
 font-style: normal;
 font-weight: 700 !important;
 line-height: 38px;
-letter-spacing: -0.045em;
+letter-spacing: 0em;
 color: var(--is-big);
 
 }
@@ -761,7 +761,7 @@ font-size: 49px;
 font-style: normal;
 font-weight: 700;
 line-height: 72px;
-letter-spacing: -0.035em;
+letter-spacing: 0em;
 text-align: left;
 
 }
@@ -1104,6 +1104,8 @@ text-align: left;
 
 }
 
+.dark
+
 .genLight > b{
   font-weight: 700;
 }
@@ -1184,6 +1186,11 @@ border: 1px solid white;
   box-shadow: 6px 16px 26px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
+
+.darkBx{
+  background: #222222;
+/*  box-shadow: 6px 16px 26px rgba(0, 0, 0, 0.2);
+*/}
 
 
 .searchBx{

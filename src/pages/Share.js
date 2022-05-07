@@ -412,10 +412,10 @@ console.log(fileBulk)
             <div className="shareBox ml-auto">
               <div 
               className={create === 'darkbg' ? "text-white h3Dark" : "h3Dark"}
-              	>Share your R.E.N Coins</div>
+              	>Share your R.E.N Credits</div>
               <div 
               	className={create === 'darkbg' ? "text-white gen mt-4 mb-7" : "gen mt-4 mb-7"}
-              > Simply enter the user’s unique code and submit the number of R.E.N Coins you’d like to share.</div>
+              > Simply enter the user’s unique code and submit the number of R.E.N Credits you’d like to share.</div>
               <input
                           value={first1}
                           placeholder="Enter user unqiue code"
@@ -428,7 +428,7 @@ console.log(fileBulk)
                         />
               <input
                           value={first2}
-                          placeholder="Number of R.E.N Coins"
+                          placeholder="Number of R.E.N Credits"
                           className={create === 'darkbg' ? "text-white uniqueBoxDrk mt-2 pl-4" : "uniqueBox mt-2 pl-4"}
                           onChange={(event) => {
                           	setTransferConfirmation(false)
@@ -446,7 +446,7 @@ console.log(fileBulk)
                 	className={create === 'darkbg' ? "text-white sendBtnDrk bulkTxt ml-20 text-center" : "sendBtn bulkTxt ml-20 text-center"}
                 	onClick={findUsername}
                 >
-                Send R.E.N Coins
+                Send R.E.N Credits
                 </button>
 			</div>
 			{transferConfirmation &&
@@ -455,13 +455,13 @@ console.log(fileBulk)
 					className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
 
 
-				>Congrats! You have shared {first2} coins</div>
+				>Congrats! You have shared {first2} credits</div>
 			}
 			{lowFunds &&
 				<div 
 					className="normalBold mt-3"
 					className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
-				>Unfortunately you dont have enough REN coins, please top up</div>
+				>Unfortunately you dont have enough REN credits, please top up</div>
 			} 
 			</div>
 
@@ -474,7 +474,7 @@ console.log(fileBulk)
 	                </div>
 				{!transferConfirmation1 &&
 					<>
-	    			<div className="h3Bold mx-auto flex justify-center py-8"> Bulk Share R.E.N Coins </div>
+	    			<div className="h3Bold mx-auto flex justify-center py-8"> Bulk Share R.E.N Credits </div>
 	    			<div 
 	    				className="borderBoundary mx-auto"
 	    				className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
@@ -482,7 +482,7 @@ console.log(fileBulk)
 						<div className="gryLine"></div>
 						<div className="h3Sub pt-6">Step 1: Create the template</div>
 						<div className="genLight py-6">First column: R.E.N Code, found in the user profile. This code should have no spaces.
-							Second column: Amount of R.E.N Coins. This should be a whole number. DO NOT ADD TITLES.</div>
+							Second column: Amount of R.E.N Credits. This should be a whole number. DO NOT ADD TITLES.</div>
 						<div className="gryLine1"></div>
 						<div className="h3Sub pt-6">Step 2: Export spreadsheet as CSV</div>
 						<div className="genLight py-6">Click on File > Export as > CSV. This should update the originally downloaded CSV, or save as a new file, ending with the .csv extension.</div>
@@ -529,12 +529,12 @@ console.log(fileBulk)
 			            	<div className="h3Sub">Congrats! You have shared: </div>
 			            	{fileArray.map((fa, i) => { 
 			            		return(
-			            			<div className="h3Sub">{fa[1]} coins with user: {fa[0]}</div>
+			            			<div className="h3Sub">{fa[1]} credits with user: {fa[0]}</div>
 			            		)
 				  	    	})}
 						</>}
 				{lowFunds1 &&
-				<div className="normalBold mt-3 ml-4">Unfortunately you dont have enough REN coins, please top up</div>
+				<div className="normalBold mt-3 ml-4">Unfortunately you dont have enough REN credits, please top up</div>
 			} 
 	</div>
 

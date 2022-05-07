@@ -11,7 +11,7 @@ const [password, setPassword] = useState('')
 const [error, setError] = useState('')
 
 
-const {user, setUser} = useContext(UserContext)
+const {user, setUser, create} = useContext(UserContext)
 console.log('user', user)
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const handleSubmit = async (event) => {
 
 
   return (
-    <div className="Login">
+    <div className={create === 'darkbg' ? "Login darkbg text-white" : "Login"} >
 
 {/*  	   <form onSubmit={handleSubmit}>
   	   		<input 
@@ -96,7 +96,8 @@ const handleSubmit = async (event) => {
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Reset your password</h2>
+            <h2 className= {create === 'darkbg' ? " text-white mt-6 text-center text-3xl font-extrabold" : "mt-6 text-center text-3xl font-extrabold text-gray-900" } 
+            >Reset your password</h2>
 {/*            <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
               <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -110,7 +111,7 @@ const handleSubmit = async (event) => {
               <input
                           value={password}
                           placeholder="New Password"
-                          className="uniqueBox pl-4"
+                          className={create === 'darkbg' ? "uniqueBoxDrk pl-4" : "uniqueBox pl-4"}
                           onChange={(event) => {
                               setError('')
                               setPassword(event.target.value)
@@ -120,7 +121,7 @@ const handleSubmit = async (event) => {
               <input
                           value={password}
                           placeholder="Confirm Password"
-                          className="uniqueBox mt-7 pl-4"
+                          className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4" : "uniqueBox mt-7 pl-4"}
                           onChange={(event) => {
                               setError('')
                               setPassword(event.target.value)
