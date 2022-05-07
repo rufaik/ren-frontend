@@ -210,6 +210,13 @@ letter-spacing: 0em;
   box-shadow: 1px 1px 4px rgba(27, 49, 66, 0.11);
 }
 
+.uniqueBoxDrk1{
+  border-radius: 10px;
+  background: #222222;
+  border: 0.25px solid rgb(187 191 197 / 20%);
+  box-shadow: 1px 1px 4px rgba(27, 49, 66, 0.11);
+}
+
 .profileBox{
   height: 38px;
   width: 179px;

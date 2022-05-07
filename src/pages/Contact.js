@@ -26,6 +26,8 @@ export default () =>{
   const [help, setHelp] = useState('');
   const [hear, setHear] = useState('');
   const [content, setContent] = useState(null)
+  const [complete, setComplete] = useState(false)
+  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 
   useEffect(() => {
 
@@ -55,6 +57,7 @@ const getContent = async (user) => {
 
 
   const handleSubmit = async (receiverID, amount) => {
+    console.log("handling....")
 
       try{
         const response = await fetch(`${API_URL}/customer-emails`, {
@@ -70,12 +73,13 @@ const getContent = async (user) => {
               phone,
               help,
               hear,
-              csemail
+              csemail: content[0].email
             })
           })
 
           const data = await response.json()
           console.log("Contact", data)
+          setComplete(true)
         
          
 
@@ -91,7 +95,10 @@ const getContent = async (user) => {
 
 
   return (
-    <div className="bg-white">
+    <div 
+      className={create === 'darkbg' ? "darkbg text-white" : "bg-white"}
+
+    >
       { content &&
       <div className="relative -mb-20">
       <div className="lg:absolute lg:inset-0">
@@ -110,9 +117,9 @@ const getContent = async (user) => {
             <p className="mt-4 text-lg text-gray-500 sm:mt-3">
               {content[0].introText}
             </p>
-            <form action="#" method="POST" className="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+            <div className="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
               <div>
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="first-name" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
                   {content[0].firstName}
                 </label>
                 <div className="mt-1">
@@ -121,7 +128,7 @@ const getContent = async (user) => {
                     name="first-name"
                     id="first-name"
                     autoComplete="given-name"
-                    className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
                     value={firstName}
                     onChange={(event) => {
                       setFirstName(event.target.value)}}
@@ -129,7 +136,7 @@ const getContent = async (user) => {
                 </div>
               </div>
               <div>
-                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="last-name" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
                   {content[0].lastName}
                 </label>
                 <div className="mt-1">
@@ -141,12 +148,12 @@ const getContent = async (user) => {
                     name="last-name"
                     id="last-name"
                     autoComplete="family-name"
-                    className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
                   {content[0].emailTitle}
                 </label>
                 <div className="mt-1">
@@ -158,12 +165,12 @@ const getContent = async (user) => {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="company" className={create === 'darkbg' ? "block text-sm font-medium text-white" : "block text-sm font-medium text-gray-700"}>
                   {content[0].companyTitle}
                 </label>
                 <div className="mt-1">
@@ -175,13 +182,13 @@ const getContent = async (user) => {
                     name="company"
                     id="company"
                     autoComplete="organization"
-                    className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <div className="flex justify-between">
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="phone" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
                     {content[0].phoneTitle}
                   </label>
                   <span id="phone-description" className="text-sm text-gray-500">
@@ -198,13 +205,13 @@ const getContent = async (user) => {
                     id="phone"
                     autoComplete="tel"
                     aria-describedby="phone-description"
-                    className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <div className="flex justify-between">
-                  <label htmlFor="how-can-we-help" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="how-can-we-help" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
                     {content[0].helpTitle}
                   </label>
                   <span id="how-can-we-help-description" className="text-sm text-gray-500">
@@ -220,12 +227,12 @@ const getContent = async (user) => {
                     name="how-can-we-help"
                     aria-describedby="how-can-we-help-description"
                     rows={4}
-                    className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md uniqueBoxDrk1" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"}
                   />
                 </div>
               </div>
 {/*              <fieldset className="sm:col-span-2">
-                <legend className="block text-sm font-medium text-gray-700">Expected budget</legend>
+                <legend className={create === 'darkbg' ? "block text-sm font-medium text-gray-700 text-white" : "block text-sm font-medium text-gray-700"}>Expected budget</legend>
                 <div className="mt-4 grid grid-cols-1 gap-y-4">
                   <div className="flex items-center">
                     <input
@@ -278,7 +285,7 @@ const getContent = async (user) => {
                 </div>
               </fieldset>
 */}              <div className="sm:col-span-2">
-                <label htmlFor="how-did-you-hear-about-us" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="how-did-you-hear-about-us" className={create === 'darkbg' ? "block text-sm font-medium text-white" : "block text-sm font-medium text-gray-700"}>
                   {content[0].hearTitle}
                 </label>
                 <div className="mt-1">
@@ -289,20 +296,24 @@ const getContent = async (user) => {
                       setHear(event.target.value)}}
                     name="how-did-you-hear-about-us"
                     id="how-did-you-hear-about-us"
-                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    className={create === 'darkbg' ? "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md uniqueBoxDrk1" : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
                   />
                 </div>
               </div>
               <div className="text-right sm:col-span-2">
                 <button
-                  type="submit"
+               
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   onClick={handleSubmit}
                 >
                   {content[0].buttonText}
                 </button>
               </div>
-            </form>
+              {complete &&
+                <div>
+                  <div className="genBold orangeCol"> Thank you for your email, we will be in touch shortly. </div>
+                </div>}
+            </div>
           </div>
         </div>
       </div>
