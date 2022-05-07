@@ -11,7 +11,7 @@ const [password, setPassword] = useState('')
 const [error, setError] = useState('')
 
 
-const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 console.log('user', user)
 
   useEffect(() => {
@@ -102,7 +102,9 @@ console.log("login", simpleUser)
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Log in to your account</h2>
+            <h2 
+            className={create === 'darkbg' ? "mt-6 text-center text-3xl font-extrabold text-white" : "mt-6 text-center text-3xl font-extrabold text-gray-900"}
+            >Log in to your account</h2>
 {/*            <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
               <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -121,7 +123,7 @@ console.log("login", simpleUser)
                   type="email"
                   autoComplete="email"
                   required
-                  className="uniqueBox mt-7 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4" : "uniqueBox mt-7 pl-4"}
                   placeholder="Email address"
                   value={email}
                   onChange={(event) => {
@@ -141,7 +143,7 @@ console.log("login", simpleUser)
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="uniqueBox mt-7 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4" : "uniqueBox mt-7 pl-4"}
                   placeholder="Password"
                   value={password}
                   onChange={(event) => {
@@ -160,7 +162,10 @@ console.log("login", simpleUser)
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                <label 
+                  htmlFor="remember-me" 
+                  className={create === 'darkbg' ? "ml-2 block text-sm text-white" : "ml-2 block text-sm text-gray-900"}
+                >
                   Remember me
                 </label>
               </div>

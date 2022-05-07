@@ -247,9 +247,8 @@ const handleSubmit1 = async () => {
 			      <Dialog 
 			        as="div" 
 			        className="fixed z-10 inset-0 overflow-y-auto" 
-			        onClose={()=> {
-			          setOpen(false)
-			        }}>
+			        onClose={() => window.location.href = `/profile/${user.user.id}`}
+			      >
 			        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 			          <Transition.Child
 			            as={Fragment}
@@ -939,10 +938,10 @@ const handleSubmit1 = async () => {
 						          {calculated && itemValue > 0 && rentalValue > 0 &&
 						            <div>
 						              <h2 
-						              	className={create === 'darkbg' ? "normalBold mt-7 text-white" : "normalBold mt-7"}
+						              	className={create === 'darkbg' ? "normalBold mt-5 text-white" : "normalBold mt-5"}
 						              >Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
 						              <h2 
-						              className={create === 'darkbg' ? "normalBold mt-7 text-white" : "normalBold mt-7"}
+						              className={create === 'darkbg' ? "normalBold mt-2 mb-4 text-white" : "normalBold mt-2 mb-4"}
 						              >Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
 						            </div>
 

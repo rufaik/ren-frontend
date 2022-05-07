@@ -11,7 +11,7 @@ const [password, setPassword] = useState('')
 const [error, setError] = useState('')
 
 
-const {user, setUser} = useContext(UserContext)
+const {user, setUser, create} = useContext(UserContext)
 console.log('user', user)
 
   useEffect(() => {
@@ -96,7 +96,9 @@ const handleSubmit = async (event) => {
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Forgot your password?</h2>
+            <h2 
+            className={create === 'darkbg' ? "mt-6 text-center text-3xl font-extrabold text-white" : "mt-6 text-center text-3xl font-extrabold text-gray-900"}
+            >Forgot your password?</h2>
 {/*            <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
               <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -106,12 +108,15 @@ const handleSubmit = async (event) => {
           </div>
 
           <div className="ml-auto">
-              <div className="shareBox mx-auto gen mt-4 mb-7"> Simply enter your email address, you will recieve a link in your mailbox to reset your password.</div>
+              <div  
+                className={create === 'darkbg' ? "shareBox mx-auto gen mt-4 mb-7 text-white text-center" : "shareBox text-center mx-auto gen mt-4 mb-7"}
+              > Simply enter your email address, you will recieve a link in your mailbox to reset your password.</div>
               <form className="shareBox mx-auto" onSubmit={handleSubmit}>
               <input
                           value={email}
                           placeholder="Email address"
                           className="uniqueBox pl-4"
+                          className={create === 'darkbg' ? "uniqueBoxDrk pl-4" : "uniqueBox pl-4"}
                           onChange={(event) => {
                               setError('')
                               setEmail(event.target.value)

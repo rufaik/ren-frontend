@@ -377,8 +377,8 @@ console.log(fileBulk)
           </button>
           {calculated && itemValue > 0 && rentalValue > 0 &&
             <div>
-              <h2 className="normalBold mt-7">Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
-              <h2 className="normalBold mt-7">Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
+              <h2 className="normalBold mt-5">Your item rents for {Math.round(rentalValue * 5)} coins/day </h2>
+              <h2 className="normalBold mt-2 mb-4">Your would pay off the item in {Math.round(itemValue/rentalValue)} rental days </h2>
             </div>
 
           }

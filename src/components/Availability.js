@@ -98,9 +98,12 @@ export default class Calendar1 extends React.Component {
   }
   .DayPicker-Caption {
     text-align: center;
-    color: #0B1A2C !important;
+    color:  ${this.props.monthColor} !important;
     font-weight: 700 !important
 }
+.DayPicker-Day {
+  color: ${this.props.color};
+  }
 `}</style>
         </Helmet>
         <Dates rangeF1={this.state.from} rangeT1={this.state.to} show={this.props.show} />

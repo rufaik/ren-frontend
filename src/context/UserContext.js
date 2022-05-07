@@ -11,9 +11,10 @@ export default ({children}) => {
 	const [rangeF, setRangeF] = useState(null)
 	const [rangeT, setRangeT] = useState(null)
 	const [create, setCreate] = useState('light')
+	const [darkMode, setDark] = useState(false)
 
 	return(
-		<UserContext.Provider value={{user, setUser, create, setCreate, simpleUser, setSimpleUser, rangeF, setRangeF, rangeT, setRangeT, mainImages, setImages}}>
+		<UserContext.Provider value={{user, setUser, create, setCreate, simpleUser, setSimpleUser, rangeF, setRangeF, rangeT, setRangeT, mainImages, setImages, darkMode, setDark}}>
 			{children}
 		</UserContext.Provider>
 

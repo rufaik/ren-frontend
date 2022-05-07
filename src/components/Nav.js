@@ -13,12 +13,12 @@ import {
 
 export default () =>{
 
-  const {user, setUser, create, setCreate, simpleUser, setSimpleUser, mainImages, setImages} = useContext(UserContext)
+  const {user, setUser, create, setCreate, simpleUser, setSimpleUser, mainImages, setImages, darkMode, setDark} = useContext(UserContext)
   const {cart} = useContext(CartContext)
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(darkMode);
   const [vector, setVector] = useState("../sun.png");
   // console.log("Nav", cart)
-  console.log("Navvy11", mainImages)
+  console.log("Navvy121", create)
 
   return (
     <div className="Nav sectWidth flex items-center mt-8 mx-auto">
@@ -52,7 +52,7 @@ export default () =>{
 
             </Switch>
           </Switch.Group>
-          {enabled ? ( document.body.classList.remove('darkbg'), setCreate('light')) :( document.body.classList.add('darkbg'), setCreate('darkbg'))}
+          {enabled ? ( document.body.classList.remove('darkbg'), setCreate('light'), localStorage.setItem('darkMode', false)) :( document.body.classList.add('darkbg'), setCreate('darkbg'), localStorage.setItem('darkMode', true))}
         </div>
     <div className="Nav flex ml-auto">
 
@@ -60,11 +60,13 @@ export default () =>{
       {user &&
         <Link to='/howitworks'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>How it works</Link>
       }
-      <Link to='/newlisting' className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Add Listing</Link>
+      {user && 
+        <Link to='/newlisting' className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Add Listing</Link>
+      }
       <Link to='/contact'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Contact</Link>
   	   {user &&
         <>
-  	   		<Link to={`/profile/${user.user.id}`} exact className= {create === 'darkbg' ? "ml-4 mr-6 text-white menuItem" : "ml-4 mr-6 menuItem"}> My Profile </Link>
+  	   		<div onClick={() => window.location.href = `/profile/${user.user.id}`} className= {create === 'darkbg' ? "ml-4 mr-6 text-white menuItem cursor-pointer" : "ml-4 mr-6 menuItem cursor-pointer"}> My Profile </div>
           <Link to='/home' className={create === 'darkbg' ? "authBtn text-white" : "authBtn"} style={{"padding":"0.3rem"}} onClick={() => {
             setUser(null)
             setSimpleUser(null)

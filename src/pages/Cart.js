@@ -32,6 +32,8 @@ export default () =>{
 	console.log("context user", user)
  	const [open, setOpen] = useState(true)
  	const [showCart, setShowCart] = useState(true)
+ 	const {create} = useContext(UserContext)
+
 
 
 	return (
@@ -67,22 +69,30 @@ export default () =>{
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
         
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "45em"}}>
+            <div 
+            	className={create === 'darkbg'
+            				? "darkbg text-white inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+            				: "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+            			}
+            	style={{"width": "44em", "height": "45em"}}
+            >
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">Your Basket</div>
-              <div className="gryLine2 w-full mt-6 mb-10"></div>
+              <div 
+              	className={create === 'darkbg' ? "gryLine2 w-full mt-6 mb-10" : "gryLine2 w-full mt-6 mb-10"}
+              ></div>
 {showCart 
         	?<>
               <table>
 				<thead>
 					<tr>
-						<th>
+						<th className={create === 'darkbg' ? "whiteLine" : ""}>
 							Product
 						</th>
-						<th>
+						<th className={create === 'darkbg' ? "whiteLine" : ""}>
 							Price
 						</th>
-						<th>
+						<th className={create === 'darkbg' ? "whiteLine" : ""}>
 							Quanity
 						</th>
 					</tr>
@@ -93,14 +103,20 @@ export default () =>{
 			   		return(
 
 			   	<tr>
-			   		<td className="flex flex-row items-center">
+			   		<td 
+			   			className={create === 'darkbg' ? "whiteLine flex flex-row items-center" : "flex flex-row items-center"}
+			   		>
 					   	<img className="PostImage" src={cartItem.thumbnail.url} />
 						<span className="normalBold ml-2"> R.E.N Coins</span>
 					</td>
-					<td className="genLight">
+					<td 
+						className={create === 'darkbg' ? "whiteLine genLight" : "genLight"}
+					>
 						{formatPrice(cartItem.price_in_cent)}
 					</td>	
-					<td className="pl-8">
+					<td 
+						className={create === 'darkbg' ? "whiteLine pl-8" : "pl-8"}
+					>
 					<div className="flex flex-row items-center genLight">
 						<div 
 							className="orangeCol"
@@ -125,15 +141,20 @@ export default () =>{
 			   			return(
 
 			   	<tr>
-			   		<td className="flex flex-row items-center">
-
+			   		<td 
+			   			className={create === 'darkbg' ? "whiteLine flex flex-row items-center" : "flex flex-row items-center"}
+			   		>
 					   	<img className="PostImage" src={cartItem.thumbnail.url} />
 						<span className="normalBold ml-2">{cartItem.name} R.E.N Offer</span>
 					</td>
-					<td className="genLight">
+					<td 
+						className={create === 'darkbg' ? "whiteLine genLight" : "genLight"}
+					>
 						{formatPrice(cartItem.price_in_cent)}
 					</td>	
-					<td className="pl-8">
+					<td 
+						className={create === 'darkbg' ? "whiteLine pl-8" : "pl-8"}
+					>
 					<div className="flex flex-row items-center genLight">
 						<div 
 							className="orangeCol"

@@ -21,7 +21,7 @@ export default () =>{
 
  const [posts, setPosts] = useState([])
  const [products, setProducts] = useState([])
- const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+ const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
  const [open, setOpen] = useState(true)
  const [topQty, setTopQty] = useState(null)
  const [basket, setBasket] = useState(false)
@@ -29,7 +29,7 @@ export default () =>{
  const [setUpBegan, setSetUpBegan] = useState(null)
  const [isLoading, setIsLoading] = useState(true)
  const [begin, setBegin] = useState(false)
- const [create, setCreate] = useState(true)
+ const [create1, setCreate] = useState(true)
  const [transfer, setTransfer] = useState(false)
 
 
@@ -185,6 +185,7 @@ return(
       <Dialog 
         as="div" 
         className="fixed z-10 inset-0 overflow-y-auto" 
+        // className={create === 'darkbg' ? "darkbg text-white fixed z-10 inset-0 overflow-y-auto" : "fixed z-10 inset-0 overflow-y-auto"}
         onClose={()=> {
           setOpen(false)
           window.location.reload()
@@ -217,7 +218,7 @@ return(
           >
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
               <div style={{"width":"620px"}} className="mx-auto flex justify-center flex-col">
-          {create &&
+          {create1 &&
             <div>
               <div className="genBold mt-12 text-center">
                Get your payout ID

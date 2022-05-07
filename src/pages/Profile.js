@@ -31,11 +31,13 @@ console.log("idd", id)
 console.log("match", id)
 const [open, setOpen] = useState(false)
 const [open4, setOpen4] = useState(false)
+const [open5, setOpen5] = useState(false)
+const [open6, setOpen6] = useState(false)
 const [open1, setOpen1] = useState(false)
 const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
 const [final, setFinalPayout] = useState(false)
-const {user, setUser, simpleUser, setSimpleUser, simpleUser1} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, simpleUser1, create, darkMode, setDark} = useContext(UserContext)
 // console.log("setUser", setUser)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -736,6 +738,26 @@ const createTransaction = async () => {
 
 } 
 
+
+const createTransaction2 = async () => {
+  const data = {
+      amount: Math.round(parseInt(coinsToTransfer)),
+      InOrOut: "Outgoing",
+      type:"Payout",
+      userID:simpleUser.id
+    }
+  const response = await fetch(`${API_URL}/transactions`, {
+       method: 'POST',
+          headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${user.jwt}`
+          },
+          body: JSON.stringify(data)
+        })
+
+
+} 
+
  console.log("FORST", parseInt(coins) * 20 )
  console.log("SEC", Math.round(parseInt(coins) * 20 ))
 
@@ -771,7 +793,7 @@ const createTransaction = async () => {
 
 
    const clearCoins = async (data) => {
-    
+    console.log("clearCoins", coins)
     const data1 = {
       coins: 0,
     }
@@ -789,7 +811,9 @@ const createTransaction = async () => {
           const confirm = await response.json()
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
-           setCoins(simpleUser.coins)
+           setCoins(confirm.coins)
+           console.log("setCoin", coins)
+           console.log("confirm", confirm)
           transferCoins()
 
       } catch(err){
@@ -815,6 +839,7 @@ const createTransaction = async () => {
           const confirm = await response.json()
           console.log("confirm2", confirm)
           setFinalPayout(true)
+          createTransaction2()
           // window.location.reload()
 
       } catch(err){
@@ -1098,7 +1123,9 @@ return (
        </div>
 
       <div className="ml-12 coinBox">
-          <h2 className="items-start">Your R.E.N Coins</h2>
+          <h2 
+          className={create === 'darkbg' ? "items-start text-white" : "items-start"}
+            >Your R.E.N Coins</h2>
           <div className="flex mt-12">
 
             <div>
@@ -1106,9 +1133,13 @@ return (
                 <div className="coin mr-2">
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
-                <h3>{coins}</h3>
+                <h3
+                  className={create === 'darkbg' ? "text-white" : ""}
+                >{coins}</h3>
                 {user && user.user.id.toString() === id.toString() &&
-                <div className="flex flex-col">
+                <div 
+                className={create === 'darkbg' ? "flex flex-col text-white" : "flex flex-col"}
+                >
                   <Link to='/topup' style={{"padding": "0.3rem"}} className="cursor-pointer authBtn ml-10 mb-1">
                     Top up
                   </Link>
@@ -1135,7 +1166,9 @@ return (
           ?
               <div className="flex mt-4">
                 <div className="genBold orangeCol">{bookingList.length}</div>
-                <div className="gen ml-2"> rental booking(s) have been confirmed</div>
+                <div 
+                className={create === 'darkbg' ? "text-white gen ml-2" : "gen ml-2"}
+                > rental booking(s) have been confirmed</div>
               </div>
           : null
         }
@@ -1143,7 +1176,9 @@ return (
           ?
               <div className="flex">
                 <div className="genBold orangeCol">{bookingList.length}</div>
-                <div className="gen ml-2"> rental booking(s) have been rejected</div>
+                <div 
+                  className={create === 'darkbg' ? "text-white gen ml-2" : "gen ml-2"}
+                > rental booking(s) have been rejected</div>
               </div>
           : null
         }
@@ -1232,7 +1267,13 @@ return (
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+            <div 
+              className={create === 'darkbg' 
+                ? "text-white darkbg inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+                : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+              }
+              style={{"width": "44em", "height": "17em"}}
+            >
               <div style={{"width":"620px"}} className="mx-auto flex justify-center flex-col">
      
             <div>
@@ -1246,13 +1287,16 @@ return (
 
               <div className="flex mt-8 mx-12">
                 <div 
-                  className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
-                  onClick={clearCoins}
+                  className="orangeBg orangeBtn bulkTxt text-white cursor-pointer block mt-4 text-center pt-1"
+                  onClick={()=> {
+                    setOpen3(false)
+                    setOpen5(true)
+                  }}
                 >
                   Payout
                 </div>
                 <div 
-                  className="sendBtn bulkTxt block mt-4 text-center pt-1 ml-auto"
+                  className={create === 'darkbg' ? "sendBtnDrk cursor-pointer bulkTxt block mt-4 text-center pt-1 ml-auto" : "sendBtn bulkTxt block mt-4 text-center pt-1 ml-auto"}
                   onClick={goToDashboard}
                 >
                  Dashboard
@@ -1268,10 +1312,161 @@ return (
       </Dialog>
     </Transition.Root>
 
+    <Transition.Root show={open5} as={Fragment}>
+      <Dialog 
+        as="div" 
+        className="fixed z-10 inset-0 overflow-y-auto" 
+        onClose={()=> {
+          setOpen5(false)
+        }}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div 
+              className={create === 'darkbg' 
+                ? "text-white darkbg inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+                : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+              }
+              style={{"width": "44em", "height": "17em"}}
+            >
+              <div style={{"width":"620px"}} className="mx-auto flex justify-center flex-col">
+     
+            <div>
+              <div className="h3Bold mt-12 text-center">
+              Payout Confirmation
+              </div>
+              <div className="genLight mt-4 text-center">
+                You will be paid £{(Math.round(parseInt(coins) * 20 )/100).toFixed(2)}
+              </div>
+      
+
+              <div className="flex mt-8 mx-12">
+                <div 
+                  className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1 cursor-pointer"
+                  onClick={()=> {
+                      setOpen5(false)
+                      clearCoins()
+                      setOpen6(true)}}
+                >
+                  Confirm Payout
+                </div>
+                <div 
+                  className={create === 'darkbg' ? "sendBtnDrk bulkTxt block mt-4 text-center cursor-pointer pt-1 ml-auto" : "sendBtn cursor-pointer bulkTxt block mt-4 text-center pt-1 ml-auto"}
+                  onClick={goToDashboard}
+                >
+                 Dashboard
+                </div>
+            </div>
+          
+              </div>
+              </div>
+              </div>
+           
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+
+     <Transition.Root show={open6} as={Fragment}>
+      <Dialog 
+        as="div" 
+        className="fixed z-10 inset-0 overflow-y-auto" 
+        onClose={()=> {
+          setOpen6(false)
+        }}>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div 
+              className={create === 'darkbg' 
+                ? "text-white darkbg inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+                : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+              }
+              style={{"width": "44em", "height": "17em"}}
+            >
+              <div style={{"width":"620px"}} className="mx-auto flex justify-center flex-col">
+     
+            <div>
+              <div className="h3Bold mt-12 text-center">
+              Payout Confirmed
+              </div>
+              <div className="genLight mt-4 text-center">
+                You can go to your dashboard to manage the payout or click out to continue
+      
+
+              <div className="flex mt-8 mx-12">
+               
+                <div 
+                  className={create === 'darkbg' ? "sendBtnDrk bulkTxt cursor-pointer block mt-4 text-center pt-1 mx-auto" : "sendBtn cursor-pointer bulkTxt block mt-4 text-center pt-1 mx-auto"}
+                  onClick={goToDashboard}
+                >
+                 Dashboard
+                </div>
+            </div>
+          
+              </div>
+              </div>
+              </div>
+              </div>
+           
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+
 
 <div className="sectWidth flex mx-auto mt-10">
-  <div className="leftCol">
-  <div className="flex items-center">
+  <div 
+  className={create === 'darkbg' ? "text-white leftCol" : "leftCol"}>
+  <div 
+    className={create === 'darkbg' ? "text-white flex items-center" : "flex items-center"}
+  >
     <h2 className="flex">
       <div className="capitalize">{first}.</div>
       <div className="capitalize">{letter}</div>
@@ -1291,7 +1486,7 @@ return (
               setName(simpleUser.name)
               setSurname(simpleUser.surname)
             }} 
-            className="editBtn bulkTxt ml-8 text-center"
+            className={create === 'darkbg' ? "editBtnDrk bulkTxt ml-8 text-center" : "editBtn bulkTxt ml-8 text-center"}
           >
             Edit bio
           </button>
@@ -1306,9 +1501,9 @@ return (
       </div>
     </div>
    
-      <>
-    
-      </>
+      <div className="mt-4 mr-4">
+    {description1}
+      </div>
                  
   {joined &&
     <div className="gen greyCol mb-7">
@@ -1322,6 +1517,7 @@ return (
       Select availability
       </div>
     }
+
     <div className="flex my-3 items-center">
       <h3>{rentalApproval}%</h3>
       <div className="gen">&nbsp;Rentals approved</div>
@@ -1343,8 +1539,12 @@ return (
 ?
   <div className="rightCol ml-12">
 
-      <Tabs activeTab="1" className="mt-5 w-100" ulClassName="tabTitle" activityClassName="bg-success activeTabTitle" onClick={(event, tab) => console.log(event, tab)} >
-        <Tab title="Listed" className="mr-3 w-1/3">
+      <Tabs activeTab="1" className="mt-5 w-100" ulClassName="tabTitle whiteText" activityClassName="bg-success activeTabTitle" onClick={(event, tab) => console.log(event, tab)} >
+        <Tab 
+          title="Listed" 
+          className={create === 'darkbg' ? "mr-3 w-1/3 is-big" : "mr-3 w-1/3"}
+          style={{"color": "white"}}
+        >
            
         { post2 && post2[0]
   ?  
@@ -1358,7 +1558,10 @@ return (
             if(listing.userID === id)
                      
                         return(
-                  <Link to={`/listing/${listing.id}`} className="flex flex-col overflow-hidden thumbImgBx">
+                  <Link 
+                    to={`/listing/${listing.id}`} 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
+                  >
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
                       <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url} alt="playstation" />
                     </div>
@@ -1390,8 +1593,11 @@ return (
 
          </Tab>
      
-         <Tab title="Rented" className="mr-3 w-1/3">
-              <div className="mt-3">
+         <Tab 
+          title="Rented" 
+          className={create === 'darkbg' ? "mr-3 w-1/3 is-big" : "mr-3 w-1/3"}
+        >
+              <div className={create === 'darkbg' ? "mt-3 text-white" : "mt-3"}>
 
               { post3 && post3[0]
               ?<>
@@ -1404,7 +1610,7 @@ return (
                         return(
                   <Link 
                     to={`/listing/${booking.listing.id}`}
-                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.listing)
                         changeStartDate(booking.startDate)
@@ -1464,7 +1670,7 @@ return (
                      if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
                         return(
                   <Link to={`/listing/${booking.listing.id}`}
-                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.listing)
                         changeStartDate(booking.startDate)
@@ -1524,7 +1730,7 @@ return (
                      if (booking.status === "Complete" && `${booking.renter.id}` === id) {
                         return(
                    <Link to={`/listing/${booking.listing.id}`} 
-                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.listing)
                         changeStartDate(booking.startDate)
@@ -1572,8 +1778,11 @@ return (
                </div>
           </Tab>
      
-          <Tab title="Bookings" className="mr-3 w-1/3">
-              <div className="mt-3">
+          <Tab 
+            title="Bookings" 
+            className={create === 'darkbg' ? "mr-3 w-1/3 is-big" : "mr-3 w-1/3"}
+          >
+              <div className={create === 'darkbg' ? "mt-3 text-white" : "mt-3"}>
                 <div>
                     <div className="h3Bold mt-8 mb-4">Pending { post3 && post3[0] && <span>: Congratulations!&nbsp;&nbsp;You have bookings!</span>}</div>
                     <div className="genLight my-4">Please click on each item to <b>accept</b> or <b>reject</b> the reservations on your items</div>
@@ -1590,7 +1799,7 @@ return (
                      if (booking.status === "Pending" && booking.listing.userID === id) {
                         return(
                   <div 
-                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.listing)
                         changeStartDate(booking.startDate)
@@ -1649,7 +1858,7 @@ return (
                      if (booking.status === "Confirmed" && booking.listing.userID === id) {
                         return(
                   <div 
-                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.listing)
                         changeStartDate(booking.startDate)
@@ -1709,7 +1918,7 @@ return (
                      if (booking.status === "Complete" && booking.listing.userID === id) {
                         return(
                   <div 
-                    className="flex flex-col overflow-hidden thumbImgBx" 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.listing)
                         changeStartDate(booking.startDate)
@@ -1780,7 +1989,9 @@ return (
             if(listing.userID === id)
                      
                         return(
-                  <div className="flex flex-col overflow-hidden thumbImgBx">
+                  <div 
+                  className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
+                  >
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
                       <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={listing.image && listing.image.url} alt="playstation" />
                     </div>
@@ -2074,7 +2285,13 @@ return (
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "45em"}}>
+            <div 
+              className={create === 'darkbg' 
+                            ? "darkbg text-white inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+                            : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+                          }
+              style={{"width": "44em", "height": "45em"}}
+            >
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">Update your profile</div>
               <div className="gryLine2 w-full mt-6 mb-10"></div>
@@ -2082,7 +2299,9 @@ return (
 */}              
                
        
-    <div className="shareBox mx-auto " >
+    <div 
+      className={create === 'darkbg' ? "darkbg text-white shareBox mx-auto" : "shareBox mx-auto"}
+    >
       
       <div className="flex flex-row item-center">
       <div className ='flex flex-col'>
@@ -2091,7 +2310,7 @@ return (
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="First Name"
-          className="profileBox pl-4"
+          className={create === 'darkbg' ? "text-white profileBoxDrk pl-4" : "profileBox pl-4"}
         />
          </div>
 
@@ -2101,7 +2320,7 @@ return (
           value={surname}
           onChange={(event) => setSurname(event.target.value)}
           placeholder="Last Name"
-          className="profileBox ml-1 pl-4"
+          className={create === 'darkbg' ? "text-white profileBoxDrk pl-4 ml-1" : "profileBox pl-4 ml-1"}
         />
         </div>
       </div>
@@ -2121,7 +2340,7 @@ return (
           // className="uniqueBox pl-4"
           name="Description"
           id="description"
-          className="uniqueDesc pl-4"
+          className={create === 'darkbg' ? "uniqueDescDrk pl-4" : "uniqueDesc pl-4"}
           maxlength='240'
           onChange={(event) => setDescription1(event.target.value)}
         >
@@ -2132,7 +2351,11 @@ return (
         <div className="flex flex-col">
                     <Menu as="div" className="relative inline-block text-left">
                   <div>
-                    <Menu.Button className="genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                    <Menu.Button 
+                      className={create === 'darkbg' 
+                                  ? "text-white uniqueBoxDrk genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" 
+                                  : "genLight uniqueBox inline-flex  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"}
+                      >
                       {dropdown}
                       <ChevronDownIcon className="-mr-1 ml-auto h-5 w-5" aria-hidden="true" />
                     </Menu.Button>
@@ -2185,7 +2408,7 @@ return (
       <input
           value={job}
           placeholder="Occupation"
-          className="uniqueBox  pl-4"
+          className={create === 'darkbg' ? "text-white uniqueBoxDrk pl-4" : "uniqueBox pl-4"}
           onChange={(event) => {
             setJob(event.target.value)}}
         />
@@ -2196,7 +2419,7 @@ return (
        <input
           value={borough}
           placeholder="e.g Islington"
-          className="uniqueBox pl-4"
+          className={create === 'darkbg' ? "text-white uniqueBoxDrk pl-4" : "uniqueBox pl-4"}
           onChange={(event) => {
             setBorough(event.target.value)}}
         />

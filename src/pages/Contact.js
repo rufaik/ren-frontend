@@ -57,7 +57,7 @@ const getContent = async (user) => {
   const handleSubmit = async (receiverID, amount) => {
 
       try{
-        const response = await fetch(`${API_URL}/contacts`, {
+        const response = await fetch(`${API_URL}/customer-emails`, {
             method: 'POST',
             headers: {
             'Content-Type':'application/json',

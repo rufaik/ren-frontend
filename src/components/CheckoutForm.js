@@ -50,7 +50,7 @@ export default () =>{
 
   const stripe = useStripe();
   const elements = useElements();
-  const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 
   const {cart, clearCart} = useContext(CartContext)
 
@@ -249,7 +249,9 @@ console.log("coins", coins)
       <input
       onChange={(event) => setShipping_name(event.target.value)}
       value={shipping_name} 
-      class="w-full px-5 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name"/>
+      class="w-full px-5 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" 
+      className={create === 'darkbg' ? "w-full px-5 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBoxDrk"  : "w-full px-5 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" }
+      id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name"/>
     </div>
 {/*    <div class="mt-2">
       <label class="block text-sm genBold text-gray-600 mt-4" for="cus_email">Email</label>
@@ -263,28 +265,32 @@ console.log("coins", coins)
       <input  
       onChange={(event) => setShipping_address(event.target.value)}
       value={shipping_address}
-      class="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Email"/>
+      className={create === 'darkbg' ? "w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBoxDrk"  :"w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" }
+      id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Email"/>
     </div>
     <div class="mt-2">
       <label class="hidden text-sm block genBold text-gray-600 mt-4" for="cus_email">City</label>
       <input  
       onChange={(event) => setShipping_city(event.target.value)}
       value={shipping_city}
-      class="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="Email"/>
+      className={create === 'darkbg' ? "w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBoxDrk"  :"w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" }
+      id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="Email"/>
     </div>
     <div class="inline-block mt-2 w-1/2 pr-1">
       <label class="hidden block text-sm genBold text-gray-600 mt-4" for="cus_email">Country</label>
       <input  
       onChange={(event) => setShipping_country(event.target.value)}
       value={shipping_country}
-      class="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email" name="cus_email" type="text" required="" placeholder="Country" aria-label="Email"/>
+      className={create === 'darkbg' ? "w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBoxDrk"  :"w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox" }
+      id="cus_email" name="cus_email" type="text" required="" placeholder="Country" aria-label="Email"/>
     </div>
     <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
       <label class="hidden block text-sm genBold text-gray-600 mt-4 " for="cus_email">Zip</label>
       <input  
       onChange={(event) => setShipping_postcode(event.target.value)}
       value={shipping_postcode}
-      class="w-full px-2 py-3 ml-1 border-none text-gray-700 bg-gray-100 rounded paymentBox" id="cus_email"  name="cus_email" type="text" required="" placeholder="Zip" aria-label="Email"/>
+      className={create === 'darkbg' ? "w-full px-2 py-3 ml-1 border-none text-gray-700 bg-gray-100 rounded paymentBoxDrk"  : "w-full px-2 py-3 ml-1 border-none text-gray-700 bg-gray-100 rounded paymentBox" }
+      id="cus_email"  name="cus_email" type="text" required="" placeholder="Zip" aria-label="Email"/>
     </div>
     <div class="">
       <label class="block text-sm genBold text-gray-600 mt-4" for="cus_name">Card</label>
@@ -303,7 +309,7 @@ console.log("coins", coins)
 {success &&
 <div>
 
- <div className="h3Bold mt-12 text-center">
+ <div className="h3Bold mt-12 mx-4 text-center">
      Your order was successfully processed. Click below to view in profile.
       </div>
 
@@ -312,7 +318,7 @@ console.log("coins", coins)
   {user &&
         <Link 
           to={`/profile/${user.user.id}`} 
-          className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
+          className={create === 'darkbg' ? "sendBtnDrk text-white bulkTxt block mt-12 text-center pt-1 mx-auto"  : "sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" }
         > 
           Got it
         </Link>

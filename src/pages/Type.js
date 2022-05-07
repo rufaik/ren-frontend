@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import ReactMarkdown from "react-markdown";
+import {Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
 import {API_URL} from '../utils/urls'
 import {LikesContext} from '../context/LikesContext'
@@ -16,6 +17,11 @@ export default (history) =>{
 	const [userTypes, setUserTypes] = useState([])
 	const [change1, setChage1] = useState('Creative')
 	const [change2, setChage2] = useState('')
+	const [showText, setShowText] = useState(false)
+	const [showText1, setShowText1] = useState(false)
+	const [showText2, setShowText2] = useState(false)
+	const {create} = useContext(UserContext)
+
 
 
 	useEffect(() => {
@@ -62,7 +68,7 @@ const storyPicker =  (data) => {
 
 	return(
 
-		<div className=''>
+		<div className={create === 'darkbg' ? "text-white" : ""}>
 
 			<div className='sectWidth mx-auto pt-36' >
 				<h2 className='mb-8'> Get Inspired! </h2>
@@ -100,32 +106,126 @@ const storyPicker =  (data) => {
 							<h2 className='text-white text-center'>{type.blueBoxTitle}</h2>
 							<div className='h3Dark text-center text-white'>{type.blueBoxDesc}</div>
 						</div>
-						<div className="itemBox mt-16 relative">
+						<div 
+							className={create === 'darkbg' ? "itemBoxDrk mt-16 relative cursor-pointer" : "itemBox mt-16 relative cursor-pointer"}
+							onClick={showText ? () => {setShowText(false)} :  () => {setShowText(true)}}
+						>
+						{!showText &&
 							<div className='flex justify-center items-center' style={{"height": "35rem"}}>
 								<img className='w-100 mx-auto' alt='macbook' src={type.mainImage1 && type.mainImage1.url} />
 							</div>
-							<div className=" w-full h-32 absolute bottom-0 bg-white flex justify-center items-center">
+						}
+						{!showText &&
+							<div 
+								className={create === 'darkbg' 
+												? " w-full h-32 absolute bottom-0 flex justify-center items-center darkTitleBg" 
+												: " w-full h-32 absolute bottom-0 bg-white flex justify-center items-center " 
+											}
+							>
 								<div className="h3Dark24">{type.image1Title}</div>
 							</div>
+						}
+						{showText &&
+							<div 
+								className= "mt-16 relative"
+							>
+								<div className="h3Dark24 text-center">{type.image1Title}</div>
+								<div className="px-8 mt-16">
+									<ReactMarkdown>{type.popuptext}</ReactMarkdown>
+								</div>
 
+								<Link 
+                    				to='/search'
+				                  className="ml-8 mt-10 orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1 cursor-pointer"
+				                 
+				                >
+				                 Search products
+				                </Link>
+							</div>
+						}
 						</div>
 					</div>
 					<div className='flex flex-col w-1/2 ml-4'>
-						<div className="itemBoxSm  relative">
+						<div 
+							className={create === 'darkbg' ? "itemBoxSmDrk relative cursor-pointer" :"itemBoxSm relative cursor-pointer"}
+							onClick={showText1 ? () => {setShowText1(false)} :  () => {setShowText1(true)}}
+						>
+						{!showText1 &&
 							<div className='pt-8' style={{"height": "22.5rem"}}>
 								<img className='h-full mx-auto' alt='macbook' src={type.mainImage2 && type.mainImage2.url} />
 							</div>
-							<div className=" w-full h-32 absolute bottom-0 bg-white flex justify-center items-center">
+						}
+						{!showText1 &&
+							<div 
+								className={create === 'darkbg' 
+												? " w-full h-32 absolute bottom-0 flex justify-center items-center darkTitleBg" 
+												: " w-full h-32 absolute bottom-0 bg-white flex justify-center items-center " 
+											}
+							>
 								<div className="h3Dark24">{type.image2Title}</div>
 							</div>
+						}
+						{showText1 &&
+							<div 
+								className= "mt-16 relative"
+							>
+								<div className="h3Dark24 text-center">{type.image2Title}</div>
+								<div className="px-8 mt-16">
+									<div className="genLight mt-4">
+										Freelancing? Every new project is different, with Rent Equipment Now, you never have to turn a job down because you don’t have the right kit. You can rent the right gear for each job and provide excellent results for your clients so they keep coming back!
+									</div>
+
+								</div>
+								<Link 
+                    				to='/search'
+				                  className="ml-8 mt-10 orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1 cursor-pointer"
+				                 
+				                >
+				                 Search products
+				                </Link>
+							</div>
+						}
 						</div>
-						<div className="itemBoxSm mt-16 relative">
+						<div 
+							className={create === 'darkbg' ? "itemBoxSmDrk mt-16 relative cursor-pointer" :"itemBoxSm mt-16 relative cursor-pointer"}
+							onClick={showText2 ? () => {setShowText2(false)} :  () => {setShowText2(true)}}
+						>
+						{!showText2 &&
 							<div className='pt-8' style={{"height": "22.5rem"}}>
 								<img className='h-full mx-auto' alt='macbook' src={type.mainImage3 && type.mainImage3.url} />
 							</div>
-							<div className=" w-full h-32 absolute bottom-0 bg-white flex justify-center items-center">
+						}
+						{!showText2 &&
+							<div 
+								className={create === 'darkbg' 
+												? " w-full h-32 absolute bottom-0 flex justify-center items-center darkTitleBg" 
+												: " w-full h-32 absolute bottom-0 bg-white flex justify-center items-center " 
+											}
+							>
 								<div className="h3Dark24">{type.image3Title}</div>
 							</div>
+						}
+						{showText2 &&
+							<div 
+								className= "mt-16 relative"
+							>
+								<div className="h3Dark24 text-center">{type.image3Title}</div>
+								<div className="px-8 mt-16">
+									<div className="genLight mt-4">
+										Freelancing? Every new project is different, with Rent Equipment Now, you never have to turn a job down because you don’t have the right kit. You can rent the right gear for each job and provide excellent results for your clients so they keep coming back!
+									</div>
+
+								</div>
+
+								<Link 
+                    				to='/search'
+				                  className="ml-8 mt-10 orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1 cursor-pointer"
+				                 
+				                >
+				                 Search products
+				                </Link>
+							</div>
+						}
 						</div>
 
 					</div>
@@ -159,7 +259,9 @@ const storyPicker =  (data) => {
 					            			<div className="flex flex-row">
 
 					            				<div className="flex flex-col mr-4">
-				            				      <div className="avatar items-center justify-center">
+				            				      <div 
+				            				      	className={create === 'darkbg' ? "avatarDrk items-center justify-center" : "avatar items-center justify-center"}
+				            				      >
 												        <img className="object-cover avatar1 rounded-full" src={story1.avatar && story1.avatar.url} alt="" />
 												   </div>
 												</div>

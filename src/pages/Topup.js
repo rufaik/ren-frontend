@@ -38,7 +38,7 @@ export default ({description, likes, url}) =>{
 
  const [posts, setPosts] = useState([])
  const [products, setProducts] = useState([])
- const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+ const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
  const [open, setOpen] = useState(true)
  const [topQty, setTopQty] = useState(null)
  const [basket, setBasket] = useState(false)
@@ -117,74 +117,7 @@ export default ({description, likes, url}) =>{
 
 
     <div className="bg-white">
-      <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 relative">
-   
 
-
-
-        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">Products</h2>
-
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.map((product) => (
-            <Link 
-    
-          to={fromProductSlugToUrl(product.slug)}
-        >
-            <div key={product.id} className="group relative">
-              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                <img
-                  src={formatImageUrl(product.thumbnail && product.thumbnail.url)}
-                  alt='pic'
-                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.description}
-                  </h3>
-{/*                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-*/}                </div>
-                <p className="text-sm font-medium text-gray-900">{formatPrice(product.price_in_cent)}</p>
-              </div>
-            </div>
-            </Link>
-          ))}
-
-          {posts.map((post) => (
-            <Link 
-    
-          to={`/${post.id}`}
-        >
-            <div key={post.id} className="group relative">
-              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                <img
-                  src={formatImageUrl(post.image && post.image.url)}
-                  alt='pic'
-                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {post.description}
-                   
-                  </h3>
-{/*                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-*/}                </div>
-                <p className="text-sm font-medium text-gray-900">{post.coinPrice}</p>
-              </div>
-            </div>
-            </Link>
-          ))}
-
-
-
-        </div>
-
-      </div>
     </div>
 
 
@@ -219,7 +152,13 @@ export default ({description, likes, url}) =>{
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "45em"}}>
+            <div 
+              className={create === 'darkbg'
+                          ? "darkbg text-white inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+                          : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6"
+                        }
+              style={{"width": "44em", "height": "45em"}}
+            >
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">Top up your R.E.N Coins</div>
               <div className="gryLine2 w-full mt-6 mb-10"></div>

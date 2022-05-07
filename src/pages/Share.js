@@ -18,7 +18,7 @@ const generateInput = ( value, setOnChange) => {
 
 export default () => {
 
-	const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+	const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 	console.log("sim",simpleUser)
 	console.log("user",user)
 
@@ -410,12 +410,17 @@ console.log(fileBulk)
   return (
   	<>
             <div className="shareBox ml-auto">
-              <div className="h3Dark">Share your R.E.N Coins</div>
-              <div className="gen mt-4 mb-7"> Simply enter the user’s unique code and submit the number of R.E.N Coins you’d like to share.</div>
+              <div 
+              className={create === 'darkbg' ? "text-white h3Dark" : "h3Dark"}
+              	>Share your R.E.N Coins</div>
+              <div 
+              	className={create === 'darkbg' ? "text-white gen mt-4 mb-7" : "gen mt-4 mb-7"}
+              > Simply enter the user’s unique code and submit the number of R.E.N Coins you’d like to share.</div>
               <input
                           value={first1}
                           placeholder="Enter user unqiue code"
                           className="uniqueBox pl-4"
+                          className={create === 'darkbg' ? "text-white uniqueBoxDrk pl-4" : "uniqueBox pl-4"}
                           onChange={(event) => {
                           	setTransferConfirmation(false)
                           	setLowFunds(false)
@@ -424,7 +429,7 @@ console.log(fileBulk)
               <input
                           value={first2}
                           placeholder="Number of R.E.N Coins"
-                          className="uniqueBox mt-2 pl-4"
+                          className={create === 'darkbg' ? "text-white uniqueBoxDrk mt-2 pl-4" : "uniqueBox mt-2 pl-4"}
                           onChange={(event) => {
                           	setTransferConfirmation(false)
                           	setLowFunds(false)
@@ -433,21 +438,30 @@ console.log(fileBulk)
               <div className="flex items-center mt-6">
                 <button 
                 	className="bulkTxt underline pointer" 
+                	className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
                 	onClick={() => {setBulk(true)}}
                 >Bulk Share Option
                 </button>
                 <button 
-                	className="sendBtn bulkTxt ml-20 text-center"
+                	className={create === 'darkbg' ? "text-white sendBtnDrk bulkTxt ml-20 text-center" : "sendBtn bulkTxt ml-20 text-center"}
                 	onClick={findUsername}
                 >
                 Send R.E.N Coins
                 </button>
 			</div>
 			{transferConfirmation &&
-				<div className="normalBold mt-3">Congrats! You have shared {first2} coins</div>
+				<div 
+					className="normalBold mt-3"
+					className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
+
+
+				>Congrats! You have shared {first2} coins</div>
 			}
 			{lowFunds &&
-				<div className="normalBold mt-3">Unfortunately you dont have enough REN coins, please top up</div>
+				<div 
+					className="normalBold mt-3"
+					className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
+				>Unfortunately you dont have enough REN coins, please top up</div>
 			} 
 			</div>
 
@@ -461,7 +475,10 @@ console.log(fileBulk)
 				{!transferConfirmation1 &&
 					<>
 	    			<div className="h3Bold mx-auto flex justify-center py-8"> Bulk Share R.E.N Coins </div>
-	    			<div className="borderBoundary mx-auto">
+	    			<div 
+	    				className="borderBoundary mx-auto"
+	    				className={create === 'darkbg' ? "text-white bulkTxt underline pointer" : "bulkTxt underline pointer"}
+	    			>
 						<div className="gryLine"></div>
 						<div className="h3Sub pt-6">Step 1: Create the template</div>
 						<div className="genLight py-6">First column: R.E.N Code, found in the user profile. This code should have no spaces.

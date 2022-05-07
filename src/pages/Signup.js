@@ -14,7 +14,7 @@ const [lastName, setLastName] = useState('')
 const [error, setError] = useState('')
 
 
-const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 console.log('user', user)
 
 
@@ -115,7 +115,9 @@ const handleSubmit = async (event) => {
 
 
   return (
-    <div className="SignUp">
+    <div 
+      className={create === 'darkbg' ? "SignUp text-white" : "SignUp"}
+    >
   	   
 
   	   
@@ -126,7 +128,10 @@ const handleSubmit = async (event) => {
   
 
         <div className="py-4  space-y-6  sm:space-y-5">
-            <h2 className="mt-1 text-center text-3xl font-extrabold text-gray-900">Sign Up!</h2>
+            <h2 
+              className="mt-1 text-center text-3xl font-extrabold text-gray-900"
+              className={create === 'darkbg' ? "mt-1 text-center text-3xl font-extrabold text-white" : "mt-1 text-center text-3xl font-extrabold text-gray-900"}
+            >Sign Up!</h2>
             <div className="shareBox mx-auto gen text-center mt-4 mb-7">Already have an accout? <a href="/login" className="orangeTxt">Log in </a></div>
 
 
@@ -140,7 +145,7 @@ const handleSubmit = async (event) => {
                   name="first-name"
                   id="first-name"
                   autoComplete="given-name"
-                  className="uniqueBox mt-4 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
                   onChange={(event) => {
                     setError('')
                     setFirstName(event.target.value)
@@ -158,7 +163,7 @@ const handleSubmit = async (event) => {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
-                  className="uniqueBox mt-4 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
                   onChange={(event) => {
                     setError('')
                     setLastName(event.target.value)
@@ -181,7 +186,7 @@ const handleSubmit = async (event) => {
                     setError('')
                     setEmail(event.target.value)
                   }}
-                  className="uniqueBox mt-4 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
                 />
               </div>
             </div>
@@ -199,7 +204,7 @@ const handleSubmit = async (event) => {
                     setError('')
                     setPassword(event.target.value)
                   }}                  
-                  className="uniqueBox mt-4 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
                 />
               </div>
             </div>
@@ -212,7 +217,7 @@ const handleSubmit = async (event) => {
                   name="password"
                   type="password"
                   autocomplete="off"
-                  className="uniqueBox mt-4 pl-4"
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
                 />
               </div>
             </div>

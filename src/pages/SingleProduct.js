@@ -30,7 +30,7 @@ const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
 
-const {user, setUser, simpleUser, setSimpleUser, rangeF, rangeT} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, rangeF, rangeT, create} = useContext(UserContext)
 const {addToCart} = useContext(CartContext)
 console.log("user1", simpleUser)
 console.log("setUser", setUser)
@@ -336,7 +336,8 @@ const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
           },
           body: JSON.stringify(data)
         })
-
+  const newData = await response.json();
+  console.log("trans", newData)
 
 }  
 
@@ -455,7 +456,9 @@ const [state, setState] = useState({
     <div>
     <div className="flex flex-row sectWidth mx-auto pt-16">
         <div className="flex flex-col w-1/2 ">
-            <div className="picBg flex items-center justify-center">
+            <div 
+              className={create === 'darkbg' ? "picDrkBg  flex items-center justify-center" : "picBg flex items-center justify-center "}
+            >
               <div className="flex justify-center items-center w-5/6 h-5/6 mx-auto imgBx1 p-2 object-cover">
                 <img className=' h-full object-cover' alt='camera' src={product.image && product.image.url} />
               </div>
@@ -463,12 +466,18 @@ const [state, setState] = useState({
             <div>
           
             <div
-              className="h3Bold mt-8 mb-8"
+              className={create === 'darkbg' ? "text-white h3Bold mt-8 mb-8" : "h3Bold mt-8 mb-8"}
             >Check Availability</div>
             </div>
             
 
-            <Availability show={true} noShow={blockedDates}/>
+            <Availability 
+              show={true} 
+              noShow={blockedDates} 
+              color={create === 'darkbg' ? "white " : "#495461"}
+              monthColor={create === 'darkbg' ? "white " : "#0B1A2C"}
+              
+            />
 
 {/*            <DateRangePicker
   onChange={item => setState({ ...state, ...item })}
@@ -504,7 +513,9 @@ const [state, setState] = useState({
 
 
         </div>
-        <div className="flex flex-col w-1/2">
+        <div 
+          className={create === 'darkbg' ? "text-white flex flex-col w-1/2" : "flex flex-col w-1/2"}
+        >
             <h2>{product.name}</h2>
             <div className="flex items-center mt-8">
                 <div className="h3Bold">{product.coins}</div>
@@ -531,7 +542,8 @@ const [state, setState] = useState({
                 {listingUser.bio}
             </div>
             <a 
-              className="sendBtn bulkTxt block mt-4 text-center pt-1"
+              className=""
+              className={create === 'darkbg' ? "sendBtnDrk bulkTxt block mt-4 text-center pt-1" : "sendBtn bulkTxt block mt-4 text-center pt-1"}
               href={`mailto:${listingUser.email}`} target="_blank" rel="noopener noreferrer" > Message {listingUser.name}</a>
 
            
@@ -733,7 +745,7 @@ const [state, setState] = useState({
               <div className="flex flex-col justify-center items-center pt-">
           
                <div 
-                className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
+                className="sendBtn bulkTxt block mt-4 text-center pt-1 mx-auto" 
                 onClick={() => setOpen1(false)}
                 > 
                   Got it

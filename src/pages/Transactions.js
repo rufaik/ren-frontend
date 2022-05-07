@@ -39,7 +39,7 @@ export default ({description, likes, url}) =>{
 
  const [posts, setPosts] = useState([])
  const [products, setProducts] = useState([])
- const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+ const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
  const [open, setOpen] = useState(true)
  const [topQty, setTopQty] = useState(null)
  const [basket, setBasket] = useState(false)
@@ -145,7 +145,13 @@ export default ({description, likes, url}) =>{
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "45em"}}>
+            <div 
+              className={create === 'darkbg' 
+                          ? "darkbg text-white inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+                          : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+                        }
+              style={{"width": "44em", "height": "45em"}}
+            >
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">Transactions</div>
 

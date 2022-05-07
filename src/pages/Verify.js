@@ -12,7 +12,7 @@ export const Verify = () => {
 
 const [error, setError] = useState('')
 const [open, setOpen] = useState(true)
-const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 
 
 const updateCurrent = async (identityAccessKey) => {
@@ -75,25 +75,33 @@ const updateCurrent = async (identityAccessKey) => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full sm:p-6" style={{"width": "29em", "height": "44em"}}>
+            <div 
+              className={create === 'darkbg' 
+                            ? "darkbg text-white inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full sm:p-6"
+                            : "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full sm:p-6"
+                        }
+              style={{"width": "29em", "height": "44em"}}>
               <div>
                 <div className="mx-auto mt-24 flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100">
                   <BellIcon className="h-6 w-6 text-yellow-600" aria-hidden="true" />
                 </div>
                 <div className="mt-3 text-center sm:mt-5">
-                  <Dialog.Title as="div" className="h3Bold leading-6 text-gray-900 text-center">
+                  <Dialog.Title as="div" className={create === 'darkbg' ? "h3Bold leading-6 text-white text-center" : "h3Bold leading-6 text-gray-900 text-center"}>
                     Almost Done..
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                    <p className={create === 'darkbg' ? "text-sm text-white" : "text-sm text-gray-500"} >
                       Please verify yourself, it will only take a few minutes.
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="mt-5 sm:mt-6 flex justify-center bg-white">
+              <div 
+                className="mt-5 sm:mt-6 flex justify-center bg-white"
+                className={create === 'darkbg' ? "mt-5 sm:mt-6 flex justify-center darkbg" : "mt-5 sm:mt-6 flex justify-center bg-white"}
+              >
                 <VerifyButton
-                  apiKey={"WTfgDRJr7aEG57Hx42mZIgysinkUuqeLzoOB4LRdZi0owgn0dm3ePyzGWyMAEWkb"}
+                  apiKey={"THX2GjRdzueXCGTGAwAvSTnuyAqLMEgrIS9oaIaOeGpM3xFE7VDIjv3B2BczLrOU"}
                   onSubmitted={(identityAccessKey) => {updateCurrent(identityAccessKey)}}
                   onFinish={(identityAccessKey) => {}}
                   onError={(errorCode) => {}}
