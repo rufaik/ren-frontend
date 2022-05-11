@@ -231,10 +231,10 @@ const [verify, setVerify] = useState(false)
                     <div className='w-1/2 relative' >
                       {mainImages &&<div className='flex justify-center ml-8 -mr-8' > <img className='w-100 ml-auto' alt='camera' src={mainImages[0].mainimage.url} /></div> }
                       <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-                      <div className="topLine h-28 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
-                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
+                      <div className="topLine h-20 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
+{/*                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Lens Black</div>
-                      </div>
+*/}                      </div>
                     </div>
 
                   </div>
@@ -306,10 +306,10 @@ const [verify, setVerify] = useState(false)
                     <div className='w-1/2 relative' >
                       <img className='w-100 ml-28' alt='camera' src="../renHomeStereo.png" />
                       <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-                      <div className="topLine h-28 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
-                        <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>SOUNDBOKS</div>
+                      <div className="topLine h-20 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
+{/*                        <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>SOUNDBOKS</div>
                         <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>(GEN. 3)</div>
-                      </div>
+*/}                      </div>
                     </div>
                   </div>
 
@@ -370,10 +370,10 @@ const [verify, setVerify] = useState(false)
                       <div className='w-1/2 relative' >
                         <img className='w-100 ml-auto' alt='camera' src="../renHomeDrone.png" />
                         <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-                        <div className="topLine absolute bottom-0 right-0 h-28 ml-auto mr-4 mt-16 pt-3 w-1/3">
-                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>DJI Mavic 2 Pro with</div>
+                        <div className="topLine absolute bottom-0 right-0 h-20 ml-auto mr-4 mt-16 pt-3 w-1/3">
+{/*                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>DJI Mavic 2 Pro with</div>
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Hasselblad Camera</div>
-                        </div>
+*/}                        </div>
                       </div>
                   </div>
                 </div>
