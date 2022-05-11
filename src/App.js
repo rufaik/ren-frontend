@@ -14,6 +14,7 @@ import Forgot from './pages/Forgot'
 import Cart from './pages/Cart'
 import Type from './pages/Type'
 import Search from './pages/Search'
+import Slide from './pages/Slide'
 import NewListing from './pages/NewListing'
 import Topup from './pages/Topup'
 import TransitionPayout from './pages/TransitionPayout'
@@ -31,7 +32,7 @@ import {API_URL} from './utils/urls'
 
 function App() {
 
-  const {user, setUser, create, simpleUser, setSimpleUser, mainImages, setImages} = useContext(UserContext)
+  const {user, setUser, create, simpleUser, setSimpleUser, mainImages, setImages, lightMode, setLight} = useContext(UserContext)
 
     useEffect(() => {
       if(localStorage.getItem('user')){
@@ -47,6 +48,12 @@ function App() {
         setSimpleUser(simpleUser)
         }
     }, [])
+
+
+
+
+    console.log("APPPPPP", lightMode)
+    console.log("GHHHHHH", user)
 
 
     const getImages = async () => {
@@ -94,6 +101,7 @@ function App() {
           <Route path="/transitionpayout" exact component={TransitionPayout} />
           <Route path="/newlisting" exact component={NewListing} />
           <Route path="/contact" exact component={Contact} />
+          <Route path="/slide" exact component={Slide} />
           <Route path="/about" exact component={About} />
           <Route path="/howitworks" exact component={HowItWorks} />
           <Route path="/forgot" exact component={Forgot} />

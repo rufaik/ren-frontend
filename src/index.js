@@ -4,19 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserContextProvider from './context/UserContext'
+import ModeContextProvider from './context/ModeContext'
 import LikesContextProvider from './context/LikesContext'
 import CartContextProvider from './context/CartContext'
 
 
 ReactDOM.render(
   <React.StrictMode>
-  	<UserContextProvider>
-  		<LikesContextProvider>
-	  		<CartContextProvider>
-	    		<App />
-	    	</CartContextProvider>
-    	</LikesContextProvider>
-    </UserContextProvider>
+    <ModeContextProvider>
+    	<UserContextProvider>
+    		<LikesContextProvider>
+  	  		<CartContextProvider>
+  	    		<App />
+  	    	</CartContextProvider>
+      	</LikesContextProvider>
+      </UserContextProvider>
+    </ModeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

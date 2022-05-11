@@ -37,7 +37,7 @@ const [open1, setOpen1] = useState(false)
 const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
 const [final, setFinalPayout] = useState(false)
-const {user, setUser, simpleUser, setSimpleUser, simpleUser1, create, darkMode, setDark} = useContext(UserContext)
+const {user, setUser, simpleUser, setSimpleUser, simpleUser1, create} = useContext(UserContext)
 // console.log("setUser", setUser)
 
 // const {likesGiven, reloader} = useContext(LikesContext)

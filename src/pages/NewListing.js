@@ -308,7 +308,7 @@ const handleSubmit1 = async () => {
 
 		  :
 
-			<div className="sectWidth mx-auto">
+			<div className={create === 'darkbg' ? "sectWidth mx-auto text-white" : "sectWidth mx-auto"}>
 				<h2 
 				className={create === 'darkbg' ? "mt-12 text-white" : "mt-12"}
 				>Add new listing</h2>
@@ -643,10 +643,16 @@ const handleSubmit1 = async () => {
 								                  	setDrop(cat)
 								                  	setCatError(false)
 								                  }}
-								                  className={classNames(
+								                  className={create === 'darkbg' 
+								                  	? classNames(
 								                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 								                    'block px-4 py-2 text-sm'
-								                  )}
+								                  		)
+								                  	:classNames(
+								                    active ? 'darkBx text-white' : 'text-white',
+								                    'block px-4 py-2 text-sm'
+								                  		)
+								                  }
 								                >
 								                  {cat}
 								                </div>
@@ -998,7 +1004,12 @@ const handleSubmit1 = async () => {
 				            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
 				            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 				          >
-				            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+				            <div className={create === 'darkbg' 
+				            					? "darkbg text-white inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+				            					: "inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" 
+				            				}
+				            	style={{"width": "44em", "height": "17em"}}
+				            >
 				              <div style={{"width":"620px"}} className="mx-auto">
 				              <div className="h3Bold mt-12 text-center">
 				             Congratulations! Your item has been set for listing. Click below to view in profile.
@@ -1009,7 +1020,10 @@ const handleSubmit1 = async () => {
 				          {user &&
 				                <Link 
 				                	to={`/profile/${user.user.id}`} 
-				                	className="sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
+				                	className={create === 'darkbg' 
+				                				? "sendBtnDrk bulkTxt block mt-12 text-center pt-1 mx-auto" 
+				                				: "sendBtn bulkTxt block mt-12 text-center pt-1 mx-auto" 
+				                			}
 				                > 
 				                	Got it
 				                </Link>

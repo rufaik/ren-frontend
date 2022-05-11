@@ -10,6 +10,7 @@ import 'tw-elements';
 import {Verify} from './Verify'
 import { SearchIcon } from '@heroicons/react/outline'
 import {API_URL} from '../utils/urls'
+import 'animate.css'
 
 
 
@@ -168,7 +169,7 @@ const [verify, setVerify] = useState(false)
             </div>
 
             <div className="carousel-inner relative w-full  ">
-                <div className={create === 'darkbg' ? "carousel-item active relative float-left w-full darkbg" : "carousel-item active relative float-left w-full "} 
+                <div className={create === 'darkbg' ? "carousel-item active relative float-left w-full darkbg " : "carousel-item active relative float-left w-full "} 
                   style={{'height':'90vh'}}>
         {/*      <div class="carousel-caption hidden md:block absolute text-center">
                 <h5 class="text-xl">First slide label</h5>
@@ -228,9 +229,9 @@ const [verify, setVerify] = useState(false)
                     </div>
 
                     <div className='w-1/2 relative' >
-                      {mainImages && <img className='w-100 ml-auto' alt='camera' src={mainImages[0].mainimage.url} /> }
+                      {mainImages &&<div className='flex justify-center ml-8 -mr-8' > <img className='w-100 ml-auto' alt='camera' src={mainImages[0].mainimage.url} /></div> }
                       <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-                      <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
+                      <div className="topLine h-28 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Lens Black</div>
                       </div>
@@ -303,9 +304,9 @@ const [verify, setVerify] = useState(false)
                     </div>
 
                     <div className='w-1/2 relative' >
-                      <img className='w-100 ml-auto' alt='camera' src="../renHomeStereo.png" />
+                      <img className='w-100 ml-28' alt='camera' src="../renHomeStereo.png" />
                       <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-                      <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
+                      <div className="topLine h-28 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
                         <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>SOUNDBOKS</div>
                         <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>(GEN. 3)</div>
                       </div>
@@ -369,7 +370,7 @@ const [verify, setVerify] = useState(false)
                       <div className='w-1/2 relative' >
                         <img className='w-100 ml-auto' alt='camera' src="../renHomeDrone.png" />
                         <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-                        <div className="topLine ml-auto mr-4 mt-16 pt-3 w-1/3">
+                        <div className="topLine absolute bottom-0 right-0 h-28 ml-auto mr-4 mt-16 pt-3 w-1/3">
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>DJI Mavic 2 Pro with</div>
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Hasselblad Camera</div>
                         </div>
