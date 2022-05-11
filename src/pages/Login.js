@@ -123,7 +123,7 @@ console.log("login", simpleUser)
                   type="email"
                   autoComplete="email"
                   required
-                  className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4" : "uniqueBox mt-7 pl-4"}
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4 text-white"  : "uniqueBox mt-7 pl-4"}
                   placeholder="Email address"
                   value={email}
                   onChange={(event) => {
@@ -143,7 +143,7 @@ console.log("login", simpleUser)
                   type="password"
                   autoComplete="current-password"
                   required
-                  className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4" : "uniqueBox mt-7 pl-4"}
+                  className={create === 'darkbg' ? "uniqueBoxDrk mt-7 pl-4 text-white" : "uniqueBox mt-7 pl-4"}
                   placeholder="Password"
                   value={password}
                   onChange={(event) => {

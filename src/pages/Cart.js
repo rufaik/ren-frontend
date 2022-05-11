@@ -220,8 +220,8 @@ export default () =>{
            
 
               <div className=" flex flex-row items-baseline">
-              	<div className="genBold orangeCol w-28 mt-4">R.E.N Credits:</div>
-              	<div className="genBold">{cartCoinTotal(cart)}</div>
+              	<div className="genBold orangeCol w-28 mt-4">R.E.N Credits: </div>
+              	<div className="genBold ml-1">{cartCoinTotal(cart)}</div>
               </div>
               <div className=" flex flex-row items-baseline mt-4">
               	<div className="genBold orangeCol w-28">Total to pay:</div>
