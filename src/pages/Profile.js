@@ -1135,7 +1135,7 @@ return (
                 </div>
                 <h3
                   className={create === 'darkbg' ? "text-white" : ""}
-                >{coins}</h3>
+                >{coins}n</h3>
                 {user && user.user.id.toString() === id.toString() &&
                 <div 
                 className={create === 'darkbg' ? "flex flex-col text-white" : "flex flex-col"}

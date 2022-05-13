@@ -1500,17 +1500,30 @@ h3 {
 
 .carousel-item.carousel-fade {
 
-
-
 -webkit-animation-name: fade-in !important;
 -webkit-animation-duration: 3s !important;
 -webkit-animation-delay: 6s !important;
 
-
-
-
-
 }
+
+
+.spaceMark > p  {
+  margin-top: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

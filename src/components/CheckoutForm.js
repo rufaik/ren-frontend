@@ -4,7 +4,8 @@ import {CartContext} from '../context/CartContext'
 import {UserContext} from '../context/UserContext'
 import {
   cartCoinTotal, 
-  cartSubTotal, 
+  cartSubTotal,
+  cartTotal 
 } from '../utils/cart'
 import {formatPrice} from '../utils/format'
 import {API_URL} from '../utils/urls'
@@ -216,6 +217,7 @@ const createTransaction = async (order) => {
 
 useEffect(() =>{
 	const loadToken = async () => {
+    console.log("latch", cart)
 		setLoading(true)
 		const response = await fetch(`${API_URL}/orders/payment`, {
 			method: 'POST',
@@ -300,7 +302,7 @@ console.log("coins", coins)
       <button 
         // class="px-4 py-1 text-white font-light tracking-wider genBold orangeBg rounded" 
         className="orangeBg text-white normalBold text-center w-fit rounded-full py-2 px-12" 
-        onClick={handleSubmit} type="submit">{formatPrice(cartSubTotal(cart))}</button>
+        onClick={handleSubmit} type="submit">{formatPrice(cartTotal(cart))}</button>
     </div>
     {errorMessage && <div>{errorMessage}</div>}
   </form>

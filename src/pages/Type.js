@@ -24,12 +24,17 @@ export default (history) =>{
 
 
 
+
+// const sortNumAsc = new Map([...data].sort((a, b) => a.id[1] - b.id[1]));
+// console.log("Sorted", sortNumAsc)
+
 	useEffect(() => {
 	    const getUserTypes = async () => {
 	      const response = await fetch(`${API_URL}/identity-cards`)
 	      const data = await response.json()
 	      console.log("data", data)
-	      setUserTypes(data)
+	      const sortNumAsc = data.sort((firstItem, secondItem) => firstItem.id - secondItem.id)
+	      setUserTypes(sortNumAsc)
 	      if( history.location.state && history.location.state.card !== null){
 	      	return null
 	      } else{
@@ -130,8 +135,8 @@ const storyPicker =  (data) => {
 								className= "mt-16 relative"
 							>
 								<div className="h3Dark24 text-center">{type.image1Title}</div>
-								<div className="px-8 mt-16">
-									<ReactMarkdown>{type.popuptext}</ReactMarkdown>
+								<div className="px-8 mt-16 spaceMark">
+									<ReactMarkdown children={type.popuptext1} />
 								</div>
 
 								<Link 
@@ -172,7 +177,7 @@ const storyPicker =  (data) => {
 								<div className="h3Dark24 text-center">{type.image2Title}</div>
 								<div className="px-8 mt-16">
 									<div className="genLight mt-4">
-										Freelancing? Every new project is different, with Rent Equipment Now, you never have to turn a job down because you don’t have the right kit. You can rent the right gear for each job and provide excellent results for your clients so they keep coming back!
+										<ReactMarkdown>{type.popuptext2}</ReactMarkdown>
 									</div>
 
 								</div>
@@ -212,7 +217,7 @@ const storyPicker =  (data) => {
 								<div className="h3Dark24 text-center">{type.image3Title}</div>
 								<div className="px-8 mt-16">
 									<div className="genLight mt-4">
-										Freelancing? Every new project is different, with Rent Equipment Now, you never have to turn a job down because you don’t have the right kit. You can rent the right gear for each job and provide excellent results for your clients so they keep coming back!
+										<ReactMarkdown>{type.popuptext3}</ReactMarkdown>
 									</div>
 
 								</div>
