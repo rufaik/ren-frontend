@@ -18,6 +18,8 @@ import Slide from './pages/Slide'
 import NewListing from './pages/NewListing'
 import Topup from './pages/Topup'
 import TransitionPayout from './pages/TransitionPayout'
+import Terms from './pages/Terms'
+import Privacy from './pages/Privacy'
 import Contact from './pages/Contact'
 import About from './pages/About'
 import HowItWorks from './pages/HowItWorks'
@@ -100,6 +102,8 @@ function App() {
           <Route path="/topup" exact component={Topup} />
           <Route path="/transitionpayout" exact component={TransitionPayout} />
           <Route path="/newlisting" exact component={NewListing} />
+          <Route path="/privacy" exact component={Privacy} />
+          <Route path="/Terms" exact component={Terms} />
           <Route path="/contact" exact component={Contact} />
           <Route path="/slide" exact component={Slide} />
           <Route path="/about" exact component={About} />
