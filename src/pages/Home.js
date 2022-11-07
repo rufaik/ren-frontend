@@ -6,6 +6,7 @@ import {formatPrice} from '../utils/format'
 import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
 import VerifyButton from "@passbase/button/react";
+import Marquee from "react-fast-marquee";
 import 'tw-elements';
 import {Verify} from './Verify'
 import { SearchIcon } from '@heroicons/react/outline'
@@ -398,6 +399,15 @@ const [verify, setVerify] = useState(false)
 
             </div>
 
+           
+            <Marquee
+              className="grybg text-white moving genBold py-2 h-12"
+              gradient={false}
+              speed={60}
+            >
+                Use technology more &nbsp; <b>sustainably</b>. It's better for the planet and &nbsp; <b>your pockets</b>.
+              </Marquee>
+
 
             <div className={create === 'darkbg' ? 'grybg pb-8' : 'bluebg pb-8'}>
               <div className='sectWidth mx-auto pt-32'>
@@ -571,6 +581,17 @@ const [verify, setVerify] = useState(false)
 
               </div>
             </div>
+
+             <Marquee
+              className="orangeBg blueBorder text-sm text-white moving normalBold py-2 h-12"
+              gradient={false}
+              speed={60}
+            >
+            <div className="flex flex-row items-center h-12">
+                <div className="mr-8 flex h-6"> <img className='h-full ' alt='camera' src="../armaWhite.png" /> </div>
+                <div>We provide award winning protection in partnership with Arma Karma </div>
+            </div>
+              </Marquee>
 
 {userTypes && userTypes[0] 
   ?         <div className="relative">

@@ -27,6 +27,7 @@ export default (history) =>{
 	const [change2, setChage2] = useState('')
 	const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 	const [listings, setListings] = useState(null)
+	const [itemGroup, setItemGroup] = useState(null)
 	const [finding, setFinding] = useState(true)
 	const [searchWord, setSearchWord] = useState('')
 	console.log("history", history)
@@ -65,12 +66,56 @@ const getListings = async (user) => {
             }         
         }
 
-useEffect(() => {
-if(listings !== null){
-  addToList1()
-}
+// useEffect(() => {
+// if(listings !== null){
+//   addToList1()
+// }
 
-}, [listings])
+// }, [listings])
+
+
+// useEffect(() => {
+// if(itemGroup !== null){
+//   addToList1()
+// }
+
+// }, [itemGroup])
+
+
+
+useEffect(() => {
+
+  getItems()
+
+}, [])
+
+const getItems = async (user) => {
+    const response = await fetch(`${API_URL}/item-groups`, {
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+          // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                
+                // setDescription1(data.description)
+                console.log("side", data)
+                if(data !== null){
+                  setItemGroup(data);
+                  setFinding(false)
+                } else {
+                  console.log("else", user)
+                  setFinding(true)
+                }
+                // history.push(`/profile/${id}`)
+            } catch(err){
+              console.log("nope")
+                setItemGroup({}); 
+            }         
+        }
+
  
   const [selectedId1, setSelectedId1] = useState(null);
   const [selectedIdC, setSelectedIdC] = useState(null);
@@ -91,13 +136,13 @@ if(listings !== null){
   // };
 
     const addToList1 = () => {
-    	listings.map((boro, i) => {
+    	itemGroup.map((boro, i) => {
 	        let updatedItems = itemList1;
-	        updatedItems.push(boro.borough);
+	        updatedItems.push(boro.category);
 	        setItemList1(updatedItems);
 	    	setSelectedId1(boro.borough);
 	    })
-    	listings.map((cat, i) => {
+    	itemGroup.map((cat, i) => {
 	        let updatedItemsC = itemListC;
 	        updatedItemsC.push(cat.category);
 	        setItemListC(updatedItemsC);
@@ -321,10 +366,10 @@ useEffect(() => {
 						<div className="flex flex-col w-9/12">
 
 
-{listings ?
+{itemGroup ?
 								<div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
 
-							{listings.map((listing, i) => {
+							{itemGroup.map((listing, i) => {
 								if(optionList.length < 1 && optionListB < 1 && listing.name.includes(searchWord)) {
 	                			return(
 
@@ -334,7 +379,7 @@ useEffect(() => {
 										
 									>
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
+											<img className="h-48 mx-auto" src={listing.mainImage && listing.mainImage.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div 
@@ -343,7 +388,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.borough}</div>
+											>{listing.category}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -361,7 +406,7 @@ useEffect(() => {
 					                     >{listing.name}</div>
 
 									</Link>	                				
-	                		)} else if (optionListB.includes(listing.borough) && optionList.length < 1 && listing.name.includes(searchWord)) {
+	                		)} else if (optionListB.includes(listing.category) && optionList.length < 1 && listing.name.includes(searchWord)) {
 	                			return(
 
 									<Link 
@@ -370,7 +415,7 @@ useEffect(() => {
 										
 									>
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
+											<img className="h-48 mx-auto" src={listing.mainImage && listing.mainImage.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div 
@@ -379,7 +424,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.borough}</div>
+											>{listing.category}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -407,7 +452,7 @@ useEffect(() => {
 										
 									>
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
+											<img className="h-48 mx-auto" src={listing.mainImage && listing.mainImage.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div 
@@ -416,7 +461,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.borough}</div>
+											>{listing.category}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -436,7 +481,7 @@ useEffect(() => {
 									</Link>	                				
 
 
-	                		)} else if (optionListB.includes(listing.borough) && optionList.includes(listing.category && listing.name.includes(searchWord))) {
+	                		)} else if (optionListB.includes(listing.category) && optionList.includes(listing.category && listing.name.includes(searchWord))) {
 	                			return(
 
 									<Link 
@@ -445,7 +490,7 @@ useEffect(() => {
 										
 									>
 										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={listing.image && listing.image.url}/>
+											<img className="h-48 mx-auto" src={listing.mainImage && listing.mainImage.url}/>
 										</div>
 										<div className="flex justify-between px-8">
 											<div 
@@ -454,7 +499,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.borough}</div>
+											>{listing.category}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -592,6 +637,9 @@ useEffect(() => {
 
 	                : null
 						}
+
+
+
 						</div>
 					</div>
 				</div>

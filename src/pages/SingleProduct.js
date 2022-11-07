@@ -96,6 +96,7 @@ const [open1, setOpen1] = useState(false)
 const [bookings, setBookings] = useState('')
 const [blockedDates, setBlockedDates] = useState([])
 const [listingUser, setListingUser] = useState([])
+const [showButtons, setShowButtons] = useState(true)
 
 
 
@@ -154,16 +155,96 @@ const fetchBookings = async (user) => {
             }         
         }
 
-useEffect(() => {
+const [setter, setSetter] = useState([])
+const [setter1, setSetter1] = useState([])
+const [setter2, setSetter2] = useState([])
+const [itemId, setItemId] = useState(null)
 
-  fetchBookings()
+const checkAvail = async (user) => {
+    const response = await fetch(`${API_URL}/bookings`, {
 
-}, [user])
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+            // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                
+                // setDescription1(data.description)
+                setLoading(false);
+                console.log("bookings", data)
+                const set1 = []
+
+
+                data.map( async (booking, i) => {
+                    if (booking.listing && booking.listing.item_group === 1) {
+                        
+                        let StartDate1 = new Date(booking.startDate)
+                        let EndDate1 = new Date(booking.endDate)
+                        let StartDate2 = new Date(rangeF)
+                        let EndDate2 = new Date(rangeT)
+                        
+
+                    if((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1)) {
+                      setter.push(booking.listing.id)
+                    } else {
+                    console.log("YESssssSoverlapping dates")  
+                    }
+            
+                } else {
+                    console.log("noooo dates")  
+                    }
+                  })
+                console.log("set1", setter)
+                const skus = product.listings
+
+                skus.map(async (sku, i) => {
+                  if(setter.includes(sku.id)) {
+                    setter1.push(sku.id)
+                  } else {
+                    setter2.push(sku.id)
+                  }
+
+                })
+                console.log("setter1:", setter1)
+                console.log("setter2:", setter2,"length", setter2.length)
+                setItemId(setter2[0])
+                setOpen(true)
+                console.log("itemid:", itemId)
+                if(setter2.length <= 0) {
+                  setShowButtons(false)
+                }
+
+    } catch(err){
+              console.log("nope")
+            }         
+        }
+
+// const StartDate1 = new Date(2017, 11, 24)
+// const EndDate1 = new Date(2017, 11, 26)
+
+// const StartDate2 = new Date(2017, 11, 21)
+// const EndDate2 = new Date(2017, 11, 25)
+
+// if((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1)) {
+//     console.log("YESSoverlapping dates")
+// } else {
+//   console.log("NOToverlapping dates")
+// }
+
+// useEffect(() => {
+
+//   fetchBookings()
+
+// }, [user])
 
 
 
 const fetchProduct = async () => {
-        const response = await fetch(`${API_URL}/listings/${id}`)
+      console.log("yyyyyyyy777")
+        const response = await fetch(`${API_URL}/item-groups/${id}`)
         try{
                 const data = await response.json();
                 setProduct(data);
@@ -172,6 +253,7 @@ const fetchProduct = async () => {
                 fetchUser(data.userID)
             } catch(err){
                 setLoading(false);
+                console.log("yyyyyyyy888")
             }         
         }
 
@@ -253,6 +335,7 @@ const updateCurrent = async (data) => {
         console.log("Exception ", err)}
     } else {
         setLowFunds(true)
+        setShowButtons(false)
     }
 
     }
@@ -273,7 +356,7 @@ const makeBooking = async () => {
          body: JSON.stringify({
              status: "Pending",
              rentalDays: diffDays + 1,
-             listing: parseInt(product.id),
+             listing: parseInt(itemId[0]),
              coins: rentalCost,
              startDate: rangeF,
              endDate:rangeT, 
@@ -414,8 +497,9 @@ const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
 useEffect(() => {
 	
 	fetchProduct()
-}, [user])
+}, [])
 
+console.log("itemidnn:", itemId)
 
 
 const [state, setState] = useState({
@@ -460,7 +544,7 @@ const [state, setState] = useState({
               className={create === 'darkbg' ? "picDrkBg  flex items-center justify-center" : "picBg flex items-center justify-center "}
             >
               <div className="flex justify-center items-center w-5/6 h-5/6 mx-auto imgBx1 p-2 object-cover">
-                <img className=' h-full object-cover' alt='camera' src={product.image && product.image.url} />
+                <img className=' h-full object-cover' alt='camera' src={product.mainImage && product.mainImage.url} />
               </div>
             </div>
             <div>
@@ -505,7 +589,7 @@ const [state, setState] = useState({
               <div>
             <button
                 className="orangeBg text-white h3Dark py-3 px-8 rounded-full"
-                onClick={() => setOpen(true)} 
+                onClick={checkAvail} 
                 >
                 Book Now
             </button>
@@ -537,18 +621,20 @@ const [state, setState] = useState({
             
             </div>
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold ">Rent from {listingUser.name}</div>
+            <div className="h3Bold ">Rent from </div>
             <div className="genLight mt-8">
-                {listingUser.bio}
+                
             </div>
             <a 
               className=""
               className={create === 'darkbg' ? "sendBtnDrk bulkTxt block mt-4 text-center pt-1" : "sendBtn bulkTxt block mt-4 text-center pt-1"}
-              href={`mailto:${listingUser.email}`} target="_blank" rel="noopener noreferrer" > Message {listingUser.name}</a>
+              href="/" 
+              target="_blank" 
+              rel="noopener noreferrer" > Message </a>
 
            
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold">Collection Location : {simpleUser.borough}</div>
+            <div className="h3Bold">Collection Location : </div>
             <div className="genLight mt-8">
                 This item is located within this range but is subject to change when booked with the original owner. The location will be confirmed and agreed upon confirmation.            </div>
         </div>
@@ -600,7 +686,12 @@ const [state, setState] = useState({
 
 {product && product.name &&  
 <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" 
+      onClose={() => {
+        setOpen(false)
+        window.location.reload()
+      }}
+      >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -627,6 +718,7 @@ const [state, setState] = useState({
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
+
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "44em"}}>
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">Review Item Rental</div>
@@ -651,7 +743,7 @@ const [state, setState] = useState({
                 
                 <div className="flex-col flex w-3/12 justify-center items-center">
                    <div className="w-full flex ">
-                      <img className="w-full" src={product.image.url} alt="eqiupment" />
+                      <img className="w-full" src={product.mainImage.url} alt="eqiupment" />
                     </div>
                 </div>
               </div>
@@ -674,11 +766,17 @@ const [state, setState] = useState({
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
               </div>
+               { itemId === null || itemId === undefined ?
+                <div className="normalBold mt-7 mb-3">Unfortunately this item is not available on your chosen dates, please pick again</div>
+            : null
+            }
               {lowFunds ?
                 <div className="normalBold mt-7 mb-3">Unfortunately you dont have enough REN credits, please top up</div>
             :
               <div className="gryLine2 w-full mt-10 mb-3"></div>
             }
+           
+            { showButtons ?
               <div className="flex">
                 <div 
                   className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
@@ -693,8 +791,11 @@ const [state, setState] = useState({
                  Edit Booking
                 </div>
               </div>
+              : null
+            }
               </div>
             </div>
+          
           </Transition.Child>
         </div>
       </Dialog>
@@ -746,7 +847,7 @@ const [state, setState] = useState({
           
                <div 
                 className="sendBtn bulkTxt block mt-4 text-center pt-1 mx-auto" 
-                onClick={() => setOpen1(false)}
+                onClick={() => window.location.reload()}
                 > 
                   Got it
                 </div>

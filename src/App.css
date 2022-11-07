@@ -583,6 +583,13 @@ box-shadow: 14px 10px 35px 0px #1B314214;
   border-color: #DE7634;
 }
 
+.blueBorder{
+  border-color: rgba(11, 26, 44, 1);
+  border-width: 1px;
+  border-style: solid; 
+
+}
+
 .signupBx{
 border: 0.5px solid #BBBFC5;
   box-shadow: 1px 1px 4px 0px #1B31421C;
