@@ -38,7 +38,7 @@ const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
 const [final, setFinalPayout] = useState(false)
 const {user, setUser, simpleUser, setSimpleUser, simpleUser1, create} = useContext(UserContext)
-// console.log("setUser", setUser)
+ console.log("setUser", user)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
 
@@ -103,6 +103,16 @@ useEffect(() => {
   fetchUser()
 
 }, [])
+
+
+useEffect(() => {
+
+  if( user && user.user.id.toString() !== id.toString()) {
+    
+    window.location.href = '/home'
+  }
+
+}, [user])
 
 useEffect(() => {
 
@@ -1535,7 +1545,7 @@ return (
 
   </div>
 
- {user && user.user.id.toString() === id.toString()
+ {user && user.user.id.toString() === "8"
 ?
   <div className="rightCol ml-12">
 
@@ -1716,7 +1726,7 @@ return (
 : null}
 
    <div>
-                    <div className="h3Bold mt-8 mb-4">All rented booking</div>
+                    <div className="h3Bold mt-8 mb-4">All rented bookings</div>
                     <div className="genLight my-4">View your previous rentals</div>
                     <div className="gryLine2 w-full my-10"></div>
                 </div>
@@ -1975,9 +1985,9 @@ return (
       className="mt-5 w-100">
         <div className="mr-3 w-full " >
            <div className='h3Bold borderbot border-black py-2'>
-           Listed
+           Rented
            </div>
-        { post2 && post2[0]
+{/*        { post2 && post2[0]
   ?   
            <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
@@ -2015,12 +2025,160 @@ return (
                   )})}
             </div>
         : null}
+*/}
+
+
+         <div className={create === 'darkbg' ? "mt-3 text-white" : "mt-3"}>
+
+              { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+               
+                
+        
+
+                 
+
+                 
+               
+
+
+            </div>
+            </>
+: null}
+
+       <div>
+                    <div className="h3Bold mt-8 mb-4">Upcoming</div>
+                    <div className="genLight my-4">View your upcoming rentals</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
+
+      { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+               
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
+                        return(
+                  <Link to={`/listing/${booking.listing.id}`}
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
+                    onClick={() => {
+                        setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
+                        setFullBooking(booking)
+                        console.log("list", booking.listing)
+                        // setOpen(true)
+                        // setStatus("Complete")
+                        // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                      }}>
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
+                    </div>
+                  </Link>
+                  )}})}
+
+                 
+
+                 
+                  
+               
+{/*xxxxxxxx
+*/}
+            </div>
+            </>
+: null}
+
+   <div>
+                    <div className="h3Bold mt-8 mb-4">All rented bookings</div>
+                    <div className="genLight my-4">View your previous rentals</div>
+                    <div className="gryLine2 w-full my-10"></div>
+                </div>
+      { post3 && post3[0]
+              ?<>
+                  <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
+
+               
+                
+                  {post3.map((booking, i) => {
+                     if (booking.status === "Complete" && `${booking.renter.id}` === id) {
+                        return(
+                   <Link to={`/listing/${booking.listing.id}`} 
+                    className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
+                    onClick={() => {
+                        setPop(booking.listing)
+                        changeStartDate(booking.startDate)
+                        changeEndDate(booking.endDate)
+                        getPopUser(booking.listing.userID)
+                        setFullBooking(booking)
+                        console.log("list", booking.listing)
+                        // setOpen(true)
+                        // setStatus("Complete")
+                        // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
+                      }}>
+                    <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
+                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                    </div>
+                    <div className="flex flex-row px-8">
+
+                        <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
+                            <div className="flex items-center ">
+                              <h3>{booking.listing.rental}</h3>
+                              <div className="smallCoin flex mb-1 ml-1.5 mr-1">
+                                <img className='w-100' alt='REN coin' src="../coin.png" />
+                              </div>
+                              <h3>/day</h3>
+                            </div>
+                            <div className="line mt-1 mb-3"></div>
+                            <div className="gen">{booking.listing.name}</div>
+                        </div>
+
+                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
+                    </div>
+                  </Link>
+                  )}})}
+
+                 
+
+                     </div>
+            </>
+: null}        
+                  
+               
+{/*xxxxxxxx
+*/}
+
+
+               </div>
            
 
 
 
 
          </div>
+
+
+
      
          
      

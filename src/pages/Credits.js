@@ -110,132 +110,10 @@ const [verify, setVerify] = useState(false)
 
   return (
     <div className={create === 'darkbg' ? 'darkbg' : null}>
-{/*	    {posts.map(post => (
-      <Link to={`/${post.id}`}>
-  	    <Post 
-  	      description={post.description}
-  	      likes={post.likes}
-  	      url={post.image && post.image.url}
-  	    />
-      </Link>
-      ))}
 
-      <h1>Products</h1>
+      
 
-    {products.map(product => (
-      <Link 
-          style={{
-            color:'black',
-            textDecoration: 'none'
-          }}
-          to={fromProductSlugToUrl(product.slug)}
-        >
-        <Post 
-          description={product.description}
-          likes={formatPrice(product.price_in_cent)}
-          url={product.thumbnail && product.thumbnail.url}
-        />
-      </Link>
-      ))}*/}
-        {verify &&
-          <Verify />
-          }
-        <div
-          id="carouselDarkVariant"
-          // className="carousel slide carousel-fade carousel-dark relative sectWidth mx-auto mt-10"
-          className="carousel slide carousel-fade carousel-dark relative sectWidth mx-auto mt-10 "
-          data-bs-ride="carousel"
-        >
-
-            <div className="carousel-inner relative w-full  ">
-                <div className={create === 'darkbg' ? "carousel-item active relative float-left w-full darkbg " : "carousel-item active relative float-left w-full "} 
-                  style={{'height':'90vh'}}>
-        {/*      <div class="carousel-caption hidden md:block absolute text-center">
-                <h5 class="text-xl">First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-              </div>
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(19).webp"
-                class="block w-1/2"
-                alt="Motorbike Smoke"
-              />*/}
-                  <div className={create === 'darkbg' ? "flex w-100  h-5/6" : "flex w-100  h-5/6 "}>
-
-                    <div className={create === 'darkbg' ? 'w-1/2 flex flex-col darkbg' : 'w-1/2 flex flex-col '}>
-                      <h2 className={create === 'darkbg' ? "heroFont mt-16 text-white" : "heroFont mt-16 "}>A PLATFORM THAT</h2>
-                      <h2 className={create === 'darkbg' ? "heroFont text-white" : "heroFont orangeCol"}>POWERS POTENTIAL</h2>
-                      <div className="w-10/12">
-                        <div className={create === 'darkbg' ? "h3Light mt-6 text-white" : "h3Light mt-6 "}>Rent the kit you need from the brands you love all in one place.</div>
-                      </div>
-                      <div className="searchBxHome mt-12 ml-auto items-center flex flex-row">
-                        <input
-                                  id="searchWord"
-                                  name="searchWord"
-                                  type="text"
-                                  required
-                                  className="border-0 noRing bg-transparent w-11/12 ml-7 genBold text-white py-2"
-                                  placeholder="Cameras, laptops, speakers, drones..."
-                                  value={searchWord}
-                                  onChange={(event) => {
-                                    setSearchWord(event.target.value)
-                                  }}
-                                  onKeyDown={(e) => {
-                                   if (e.key === 'Enter') {
-                                    console.log('do validate');
-                                    history.push({ 
-                                       pathname: '/search',
-                                       state: searchWord
-                                      });
-
-                                  }
-                                  }}
-                                />
-                          <div 
-                            className="w-10 h-10 rounded-full flex justify-center items-center ml-auto mr-2" 
-                            style={{"backgroundColor": "#0B1A2C"}}
-                            onClick={() => {
-                              history.push({ 
-                                         pathname: '/search',
-                                         state: searchWord
-                                        });
-                            }}
-
-                            >
-                            <SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                          </div>
-                      </div>
-
-                    </div>
-
-                    <div className='w-1/2 relative' >
-                      {mainImages &&<div className='flex justify-center ml-8 -mr-8 -mt-12 animate__animated animate__zoomIn' > <img className='w-100 ml-auto' alt='camera' src="../newMain.png"/></div> }
-{/*                      <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-*/}                      <div className="topLine h-10 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
-{/*                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
-                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Lens Black</div>
-*/}                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-
-            
-              </div>
-
-            </div>
-
-           
-            <Marquee
-              className="grybg text-white moving genBold py-2 h-12"
-              gradient={false}
-              speed={60}
-            >
-                Use technology more &nbsp; <b>sustainably</b>. It's better for the planet and &nbsp; <b>your pockets</b>.
-              </Marquee>
-
-{/*
-            <div className={create === 'darkbg' ? 'grybg pb-8' : 'bluebg pb-8'}>
+            <div className={create === 'darkbg' ? 'mt-20 grybg pb-8' : 'mt-20 bluebg pb-8'}>
               <div className='sectWidth mx-auto pt-32'>
                 <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Credits </h2>
                 <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits.</div>
@@ -331,7 +209,7 @@ const [verify, setVerify] = useState(false)
 
 
 
-
+{/*
                       <div className='flex flex-col pt-12 w-48 mx-10'>
                         <div className='h-16'>
                          <img className='w-100 mx-auto' alt='money' src="../money.png" />
@@ -340,7 +218,7 @@ const [verify, setVerify] = useState(false)
                           Earn R.E.N Credits by listing your equipment, then convert your R.E.N Credits to cash!
                         </div>
                       </div>
-
+*/}
 
 
 
@@ -407,54 +285,10 @@ const [verify, setVerify] = useState(false)
 
               </div>
             </div>
-*/}
-             <Marquee
-              className="orangeBg blueBorder text-sm text-white moving normalBold py-2 h-12"
-              gradient={false}
-              speed={60}
-            >
-            <div className="flex flex-row items-center h-12">
-                <div className="mr-8 flex h-6"> <img className='h-full ' alt='camera' src="../armaWhite.png" /> </div>
-                <div>We provide award winning protection in partnership with Arma Karma </div>
-            </div>
-              </Marquee>
 
-{userTypes && userTypes[0] 
-  ?         <div className="relative">
-              <div className={create === 'darkbg' ? "backgroundDrkShape w-5/12 h-full top-0 right-0 -z-10" : "backgroundShape w-5/12 h-full top-0 right-0 -z-10"}></div>
-              <div className='sectWidth mx-auto pt-36 pb-16  '>
-                
-                <h2 className={create === 'darkbg' ? 'text-white pb-16' : 'pb-16'}>Explore R.E.N whoever you are</h2>
-                <div className='flex flex-row'>
-                {userTypes.map((type, i) => {
-                return(
-
-                <Link 
-                   to={{
-                      pathname: '/type',
-                      state: {
-                        card: type.title
-                      }
-                    }}
-                   
-                  className={create === 'darkbg' ? 'identityCardDrk p-8 pt-12 mr-8 relative' : 'identityCard p-8 pt-12 mr-8 relative'}
-                  >
-                  <div className=''>
-                    <img className='w-100' alt='icon' src={type.icon && type.icon.url} />
-                  </div>
-                  <div className={create === 'darkbg' ? 'text-white h3Bold my-4' : 'h3Bold my-4'}>{type.cardTitle}</div>
-                  <div className={create === 'darkbg' ? 'text-white genLight' : 'genLight'}>{type.description}</div>
-                  <div className='absolute bottom-4 right-6'>
-                  <img className='w-100 ml-auto' alt='arrow' src="../arrow.png" />
-                  </div>
-                </Link >
-              )})}
-              </div>
-              </div>
-            </div>
-    : null
-}
+           <div className="-mt-16"> 
   <Footer />
+  </div>
             </div>
 
 

@@ -14,6 +14,7 @@ import Forgot from './pages/Forgot'
 import Cart from './pages/Cart'
 import Type from './pages/Type'
 import Search from './pages/Search'
+import Credits from './pages/Credits'
 import Slide from './pages/Slide'
 import NewListing from './pages/NewListing'
 import Topup from './pages/Topup'
@@ -99,6 +100,7 @@ function App() {
           <Route path="/reset" exact component={Reset} />
           <Route path="/type" exact component={Type} />
           <Route path="/search" exact component={Search} />
+          <Route path="/credits" exact component={Credits} />
           <Route path="/topup" exact component={Topup} />
           <Route path="/transitionpayout" exact component={TransitionPayout} />
           <Route path="/newlisting" exact component={NewListing} />

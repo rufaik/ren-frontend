@@ -9,6 +9,7 @@ import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
 import {Verify} from './Verify'
 import Footer from '../components/Footer'
+import { MailIcon, PhoneIcon } from '@heroicons/react/outline'
 
 
 
@@ -27,7 +28,7 @@ export default () =>{
   const [hear, setHear] = useState('');
   const [content, setContent] = useState(null)
   const [complete, setComplete] = useState(false)
-  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
+  const {user, setUser, simpleUser, setSimpleUser, create, mainImages} = useContext(UserContext)
 
   useEffect(() => {
 
@@ -99,226 +100,317 @@ const getContent = async (user) => {
       className={create === 'darkbg' ? "darkbg text-white" : "bg-white"}
 
     >
-      { content &&
-      <div className="relative -mb-20">
-      <div className="lg:absolute lg:inset-0">
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <img
-            className="h-56 w-full object-cover lg:absolute lg:h-full"
-            src={content[0].mainImage.url}
-            alt=""
-          />
-        </div>
-      </div>
-      <div className="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 sectWidth xl:ml-12 xl:mt-24 lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
-        <div className="lg:pr-8">
-          <div className="max-w-md mx-auto sm:max-w-lg lg:mx-0">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{content[0].mainTitle}</h2>
-            <p className="mt-4 text-lg text-gray-500 sm:mt-3">
-              {content[0].introText}
-            </p>
-            <div className="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-              <div>
-                <label htmlFor="first-name" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
-                  {content[0].firstName}
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    name="first-name"
-                    id="first-name"
-                    autoComplete="given-name"
-                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
-                    value={firstName}
-                    onChange={(event) => {
-                      setFirstName(event.target.value)}}
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="last-name" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
-                  {content[0].lastName}
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    value={lastName}
-                    onChange={(event) => {
-                      setLastName(event.target.value)}}
-                    name="last-name"
-                    id="last-name"
-                    autoComplete="family-name"
-                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="email" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
-                  {content[0].emailTitle}
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="email"
-                    value={email}
-                    onChange={(event) => {
-                      setEmail(event.target.value)}}
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="company" className={create === 'darkbg' ? "block text-sm font-medium text-white" : "block text-sm font-medium text-gray-700"}>
-                  {content[0].companyTitle}
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    value={company}
-                    onChange={(event) => {
-                      setCompany(event.target.value)}}
-                    name="company"
-                    id="company"
-                    autoComplete="organization"
-                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="flex justify-between">
-                  <label htmlFor="phone" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
-                    {content[0].phoneTitle}
-                  </label>
-                  <span id="phone-description" className="text-sm text-gray-500">
-                    Optional
-                  </span>
-                </div>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    value={phone}
-                    onChange={(event) => {
-                      setPhone(event.target.value)}}
-                    name="phone"
-                    id="phone"
-                    autoComplete="tel"
-                    aria-describedby="phone-description"
-                    className={create === 'darkbg' ? "block w-full shadow-sm uniqueBoxDrk1 sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="flex justify-between">
-                  <label htmlFor="how-can-we-help" className={create === 'darkbg' ? "block text-sm font-medium  text-white" : "block text-sm font-medium text-gray-700"}>
-                    {content[0].helpTitle}
-                  </label>
-                  <span id="how-can-we-help-description" className="text-sm text-gray-500">
-                    Max. 500 characters
-                  </span>
-                </div>
-                <div className="mt-1">
-                  <textarea
-                    id="how-can-we-help"
-                    value={help}
-                    onChange={(event) => {
-                      setHelp(event.target.value)}}
-                    name="how-can-we-help"
-                    aria-describedby="how-can-we-help-description"
-                    rows={4}
-                    className={create === 'darkbg' ? "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md uniqueBoxDrk1" : "block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"}
-                  />
-                </div>
-              </div>
-{/*              <fieldset className="sm:col-span-2">
-                <legend className={create === 'darkbg' ? "block text-sm font-medium text-gray-700 text-white" : "block text-sm font-medium text-gray-700"}>Expected budget</legend>
-                <div className="mt-4 grid grid-cols-1 gap-y-4">
-                  <div className="flex items-center">
-                    <input
-                      id="budget-under-25k"
-                      name="budget"
-                      defaultValue="under_25k"
-                      type="radio"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                    />
-                    <label htmlFor="budget-under-25k" className="ml-3">
-                      <span className="block text-sm text-gray-700">Less than $25K</span>
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      id="budget-25k-50k"
-                      name="budget"
-                      defaultValue="25k-50k"
-                      type="radio"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                    />
-                    <label htmlFor="budget-25k-50k" className="ml-3">
-                      <span className="block text-sm text-gray-700">$25K – $50K</span>
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      id="budget-50k-100k"
-                      name="budget"
-                      defaultValue="50k-100k"
-                      type="radio"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                    />
-                    <label htmlFor="budget-50k-100k" className="ml-3">
-                      <span className="block text-sm text-gray-700">$50K – $100K</span>
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      id="budget-over-100k"
-                      name="budget"
-                      defaultValue="over_100k"
-                      type="radio"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                    />
-                    <label htmlFor="budget-over-100k" className="ml-3">
-                      <span className="block text-sm text-gray-700">$100K+</span>
-                    </label>
-                  </div>
-                </div>
-              </fieldset>
-*/}              <div className="sm:col-span-2">
-                <label htmlFor="how-did-you-hear-about-us" className={create === 'darkbg' ? "block text-sm font-medium text-white" : "block text-sm font-medium text-gray-700"}>
-                  {content[0].hearTitle}
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    value={hear}
-                    onChange={(event) => {
-                      setHear(event.target.value)}}
-                    name="how-did-you-hear-about-us"
-                    id="how-did-you-hear-about-us"
-                    className={create === 'darkbg' ? "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md uniqueBoxDrk1" : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"}
-                  />
-                </div>
-              </div>
-              <div className="text-right sm:col-span-2">
-                <button
-               
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleSubmit}
+
+{ content &&
+
+    <div className="bg-gray-100 mt-16">
+      <div className="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        <div className="relative bg-white shadow-xl">
+          <h2 className="sr-only">Contact us</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3">
+            {/* Contact information */}
+            <div className="relative overflow-hidden bg-indigo-700 py-10 px-6 sm:px-10 xl:p-12">
+              <div className="pointer-events-none absolute inset-0 sm:hidden" aria-hidden="true">
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  width={343}
+                  height={388}
+                  viewBox="0 0 343 388"
+                  fill="none"
+                  preserveAspectRatio="xMidYMid slice"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  {content[0].buttonText}
-                </button>
+                  <path
+                    d="M-99 461.107L608.107-246l707.103 707.107-707.103 707.103L-99 461.107z"
+                    fill="url(#linear1)"
+                    fillOpacity=".1"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="linear1"
+                      x1="254.553"
+                      y1="107.554"
+                      x2="961.66"
+                      y2="814.66"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#fff" />
+                      <stop offset={1} stopColor="#fff" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                </svg>
               </div>
-              {complete &&
+              <div
+                className="pointer-events-none absolute top-0 right-0 bottom-0 hidden w-1/2 sm:block lg:hidden"
+                aria-hidden="true"
+              >
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  width={359}
+                  height={339}
+                  viewBox="0 0 359 339"
+                  fill="none"
+                  preserveAspectRatio="xMidYMid slice"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M-161 382.107L546.107-325l707.103 707.107-707.103 707.103L-161 382.107z"
+                    fill="url(#linear2)"
+                    fillOpacity=".1"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="linear2"
+                      x1="192.553"
+                      y1="28.553"
+                      x2="899.66"
+                      y2="735.66"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#fff" />
+                      <stop offset={1} stopColor="#fff" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div
+                className="pointer-events-none absolute top-0 right-0 bottom-0 hidden w-1/2 lg:block"
+                aria-hidden="true"
+              >
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  width={160}
+                  height={678}
+                  viewBox="0 0 160 678"
+                  fill="none"
+                  preserveAspectRatio="xMidYMid slice"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M-161 679.107L546.107-28l707.103 707.107-707.103 707.103L-161 679.107z"
+                    fill="url(#linear3)"
+                    fillOpacity=".1"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="linear3"
+                      x1="192.553"
+                      y1="325.553"
+                      x2="899.66"
+                      y2="1032.66"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#fff" />
+                      <stop offset={1} stopColor="#fff" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-white">Contact information</h3>
+              <p className="mt-6 max-w-3xl text-base text-indigo-50">
+                {content[0].introText}
+              </p>
+              <dl className="mt-8 space-y-6">
+                <dt>
+                  <span className="sr-only">Phone number</span>
+                </dt>
+                {mainImages &&
+                <dd className="flex text-base text-indigo-50">
+                  <PhoneIcon className="h-6 w-6 flex-shrink-0 text-indigo-200" aria-hidden="true" />
+                  <span className="ml-3">+{mainImages[0].mainNumber}</span>
+                </dd>
+              }
+                <dt>
+                  <span className="sr-only">Email</span>
+                </dt>
+                {mainImages &&
+                <dd className="flex text-base text-indigo-50">
+                  <MailIcon className="h-6 w-6 flex-shrink-0 text-indigo-200" aria-hidden="true" />
+                  <span className="ml-3">{mainImages[0].mainEmail}</span>
+                </dd>
+              }
+              </dl>
+              <ul role="list" className="mt-8 flex space-x-12">
+                <li>
+                  {mainImages && 
+                      <Link  to={{ pathname: `${mainImages[0].facebook }`}} target="_blank">
+                        <div className="socialBx mr-4">
+                              <img  alt='social' src={create === 'darkbg' ? "../faceD.png"  : "../faceL.png"} />
+                          </div>
+                      </Link>
+                    }
+                </li>
+                <li>
+                  {mainImages && 
+                    <Link  to={{ pathname: `${mainImages[0].linkedin }`}} target="_blank">
+                    <div className="socialBx mr-4">
+                          <img  alt='social' src={create === 'darkbg' ? "../linkD.png"  : "../linkL.png"} />
+                      </div>
+                    </Link>
+                  }
+                </li>
+                <li>
+                  {mainImages && 
+                    <Link  to={{ pathname: `${mainImages[0].instagram }`}} target="_blank">
+                      <div className="socialBx mr-4">
+                          <img  alt='social' src={create === 'darkbg' ? "../instaD.png"  : "../instaL.png"} />
+                      </div>
+                    </Link>
+                  }
+                </li>
+              
+              </ul>
+            </div>
+
+            {/* Contact form */}
+            <div className="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
+              <h3 className="text-lg font-medium text-gray-900">{content[0].mainTitle}</h3>
+              <form action="#" method="POST" className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                 <div>
-                  <div className="genBold orangeCol"> Thank you for your email, we will be in touch shortly. </div>
-                </div>}
+                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">
+                    {content[0].firstName}
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="first-name"
+                      id="first-name"
+                      autoComplete="given-name"
+                      className="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      value={firstName}
+                      onChange={(event) => {
+                        setFirstName(event.target.value)}}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="last-name" className="block text-sm font-medium text-gray-900">
+                    {content[0].lastName}
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      value={lastName}
+                      onChange={(event) => {
+                        setLastName(event.target.value)}}
+                      type="text"
+                      name="last-name"
+                      id="last-name"
+                      autoComplete="family-name"
+                      className="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+                   {content[0].emailTitle}
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      value={email}
+                      onChange={(event) => {
+                        setEmail(event.target.value)}}
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      className="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-900">
+                      {content[0].phoneTitle}
+                    </label>
+                    <span id="phone-optional" className="text-sm text-gray-500">
+                      Optional
+                    </span>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      value={phone}
+                      onChange={(event) => {
+                        setPhone(event.target.value)}}
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      autoComplete="tel"
+                      className="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      aria-describedby="phone-optional"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
+                    Subject
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="subject"
+                      id="subject"
+                      className="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <div className="flex justify-between">
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-900">
+                      {content[0].helpTitle}
+                    </label>
+                    <span id="message-max" className="text-sm text-gray-500">
+                      Max. 500 characters
+                    </span>
+                  </div>
+                  <div className="mt-1">
+                    <textarea
+                      value={help}
+                      onChange={(event) => {
+                        setHelp(event.target.value)}}
+                      id="message"
+                      name="message"
+                      rows={4}
+                      className="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      aria-describedby="message-max"
+                      defaultValue={''}
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2 sm:flex sm:justify-end">
+                  <button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="mt-2 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+                  >
+                  {content[0].buttonText}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      </div>
-    }
+    </div>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <Footer />
     </div>
   )

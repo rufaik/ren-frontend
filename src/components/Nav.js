@@ -67,14 +67,18 @@ export default () =>{
         </div>
     <div className="Nav flex ml-auto">
 
-      <Link to='/about'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>About</Link>
+      <Link to='/search'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Browse</Link>
+
+      <Link to='/credits'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Explore R.E.N Credits</Link>
+
+      <Link to='/about'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>About us</Link>
       
-      <Link to='/howitworks'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>How it works</Link>
+      <Link to='/howitworks'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Partner with us</Link>
       
-      {user && 
+{/*      {user && 
         <Link to='/newlisting' className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Add Listing</Link>
-      }
-      <Link to='/contact'  className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Contact</Link>
+      }*/}
+      <Link to='/contact'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Contact</Link>
   	   {user &&
         <>
   	   		<div onClick={() => window.location.href = `/profile/${user.user.id}`} className= {create === 'darkbg' ? "ml-4 mr-6 text-white menuItem cursor-pointer" : "ml-4 mr-6 menuItem cursor-pointer"}> My Profile </div>

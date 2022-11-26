@@ -374,7 +374,7 @@ useEffect(() => {
 	                			return(
 
 									<Link 
-										to={`/listing/${listing.id}`} 
+										to={`/listing/${itemGroup.id}`} 
 										className={create === 'darkbg' ? "h-96 searchThumbDrk pt-4" : "h-96 searchThumb pt-4"}
 										
 									>

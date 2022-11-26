@@ -5,7 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.3.0",
     "@headlessui/react": "^1.4.1",
-    "@heroicons/react": "^1.0.5",
+    "@heroicons/react": "^1.0.6",
     "@passbase/button": "^4.2.4",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.21.2",

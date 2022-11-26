@@ -115,6 +115,15 @@ export default () =>{
 
  //  }, [])
 
+ 	useEffect(() => {
+	   if(user && simpleUser.id === 8) {
+	   	return
+	   } else {
+	   	window.location.href = '/home'
+	   }
+
+  }, [])
+
 
 
 	useEffect(() => {
