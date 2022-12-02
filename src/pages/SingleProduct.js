@@ -622,21 +622,25 @@ const [state, setState] = useState({
             </div>
             <div className="gryLine2 w-full my-10"></div>
             <div className="h3Bold ">Retail Price : </div>
+        {product && product.buyNow === true 
+           ? <div>
             <a 
               className=""
-              className={create === 'darkbg' ? "sendBtnDrk bulkTxt block mt-4 text-center pt-1" : "sendBtn bulkTxt block mt-4 text-center pt-1"}
-              href="/" 
+              className={create === 'darkbg' ? "sendBtnDrk bulkTxt block mt-8 text-center pt-1" : "sendBtn bulkTxt block mt-8 text-center pt-1"}
+              href={product && product.affLink} 
               target="_blank" 
               rel="noopener noreferrer" > BUY NOW</a>
-            <a className="genLight mt-8">
+            <div className="genLight mt-8">
              Purchase this product today and get 10% off!
                 
-            </a>
-            <a className="genLight  mt-8">
+            </div>
+            </div>
+            : 
+            <div className="genLight  mt-8">
             This product is not currently available for purchase but you can still rent it out today!
                 
-            </a>
-            
+            </div>
+            }
 
            
             <div className="gryLine2 w-full my-10"></div>
