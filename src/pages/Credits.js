@@ -118,8 +118,8 @@ const [verify, setVerify] = useState(false)
                 <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Credits </h2>
                 <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits.</div>
                 <div className={create === 'darkbg' ? 'h3Light text-black mt-1' : 'h3Light text-white mt-1'}>Buy them. Earn them. Share them! </div>
-                <Link to='/howitworks'> <button  className={create === 'darkbg' ? "findDrkBtn findTxt text-center text-black mt-10" : "findBtn findTxt text-center text-white mt-10"}>Find out more</button></Link>
-
+{/*                <Link to='/howitworks'> <button  className={create === 'darkbg' ? "findDrkBtn findTxt text-center text-black mt-10" : "findBtn findTxt text-center text-white mt-10"}>Find out more</button></Link>
+*/}
                {!q1 && 
                   <div
                     onClick={() => { setQ1(true); setQ2(false); setQ3(false) }} 
@@ -152,7 +152,7 @@ const [verify, setVerify] = useState(false)
                           </div>
                         </div>
                           <div className='genBold text-center text-white mt-10'>
-                            Rent all equipment on the platform
+                            Share R.E.N Credits with other registered users
                           </div>                        
                       </div>
                   </div>
@@ -177,7 +177,7 @@ const [verify, setVerify] = useState(false)
                          <img className='w-100 mx-auto' alt='credit' src="../credit.png" />
                         </div>
                         <div className='genBold text-center text-white mt-10'>
-                          Top up your R.E.N credit balance with cash
+                          Top up your R.E.N Credit balance with cash
                         </div>
                       </div>
 
@@ -202,7 +202,7 @@ const [verify, setVerify] = useState(false)
                          <img className='w-100 mx-auto' alt='mac' src="../mac.png" />
                         </div>
                         <div className='genBold text-center text-white mt-10'>
-                          Earn R.E.N Credit rewards when you engaging with R.E.N
+                          Be rewarded with R.E.N Credits for engaging with R.E.N!
                         </div>
                       </div>
 

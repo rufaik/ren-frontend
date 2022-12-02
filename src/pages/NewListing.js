@@ -115,14 +115,14 @@ export default () =>{
 
  //  }, [])
 
- 	useEffect(() => {
-	   if(user && simpleUser.id === 8) {
-	   	return
-	   } else {
-	   	window.location.href = '/home'
-	   }
+ 	// useEffect(() => {
+	 //   if(user && simpleUser.id === 8) {
+	 //   	return
+	 //   } else {
+	 //   	window.location.href = '/home'
+	 //   }
 
-  }, [])
+  // }, [])
 
 
 
@@ -321,9 +321,9 @@ const handleSubmit1 = async () => {
 				<h2 
 				className={create === 'darkbg' ? "mt-12 text-white" : "mt-12"}
 				>Add new listing</h2>
-				<div 
+				{/*<div 
 				className={create === 'darkbg' ? "genLight mt-6 text-white" : "genLight mt-6"}
-				>All your items will be insured for <b> up to £20,000 </b> so you and lend with confidence.</div>
+				>All your items will be insured for <b> up to £20,000 </b> so you and lend with confidence.</div>*/}
 
 				<h2 
 				className={create === 'darkbg' ? "mt-20 text-white" : "mt-20"}
@@ -819,7 +819,7 @@ const handleSubmit1 = async () => {
               		<div className ='flex flex-col'>
 						<div
 							className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"}
-						>Location</div>
+						>Brand</div>
 					</div>
               		<div className="flex flex-row">
               			<div className="flex flex-col">
@@ -850,7 +850,7 @@ const handleSubmit1 = async () => {
               		<div className ='flex flex-col'>
 						<div
 							className={create === 'darkbg' ? "genBold pt-4 mr-6 text-right w-40 text-white" : "genBold pt-4 mr-6 text-right w-40"} 
-						>Minimum rental days</div>
+						>Retail Price</div>
 					</div>
               		<div className="flex flex-row">
               		<div className="flex flex-col">

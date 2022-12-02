@@ -101,7 +101,7 @@ const getItems = async (user) => {
                 const data = await response.json();
                 
                 // setDescription1(data.description)
-                console.log("side", data)
+                console.log("side1", data)
                 if(data !== null){
                   setItemGroup(data);
                   setFinding(false)
@@ -298,7 +298,7 @@ useEffect(() => {
 				              	}
 			              			<div 
 			              			className={create === 'darkbg' ? "h3Sub mt-12 mb-4 text-white" : "h3Sub mt-12 mb-4"}
-			              			>Location</div>
+			              			>Brand</div>
 			              		{borough && borough[0] &&
 			              			<div>
 
@@ -374,7 +374,7 @@ useEffect(() => {
 	                			return(
 
 									<Link 
-										to={`/listing/${itemGroup.id}`} 
+										to={`/listing/${listing.id}`} 
 										className={create === 'darkbg' ? "h-96 searchThumbDrk pt-4" : "h-96 searchThumb pt-4"}
 										
 									>

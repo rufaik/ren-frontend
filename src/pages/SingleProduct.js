@@ -354,7 +354,7 @@ const makeBooking = async () => {
              // 'Access-Control-Allow-Origin':'https://rent-equipment-now.netlify.app'
          },
          body: JSON.stringify({
-             status: "Pending",
+             status: "Confirmed",
              rentalDays: diffDays + 1,
              listing: parseInt(itemId[0]),
              coins: rentalCost,
@@ -621,20 +621,26 @@ const [state, setState] = useState({
             
             </div>
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold ">Rent from </div>
-            <div className="genLight mt-8">
-                
-            </div>
+            <div className="h3Bold ">Retail Price : </div>
             <a 
               className=""
               className={create === 'darkbg' ? "sendBtnDrk bulkTxt block mt-4 text-center pt-1" : "sendBtn bulkTxt block mt-4 text-center pt-1"}
               href="/" 
               target="_blank" 
-              rel="noopener noreferrer" > Message </a>
+              rel="noopener noreferrer" > BUY NOW</a>
+            <a className="genLight mt-8">
+             Purchase this product today and get 10% off!
+                
+            </a>
+            <a className="genLight  mt-8">
+            This product is not currently available for purchase but you can still rent it out today!
+                
+            </a>
+            
 
            
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold">Collection Location : </div>
+            <div className="h3Bold">Brand : </div>
             <div className="genLight mt-8">
                 This item is located within this range but is subject to change when booked with the original owner. The location will be confirmed and agreed upon confirmation.            </div>
         </div>
@@ -838,8 +844,11 @@ const [state, setState] = useState({
           >
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
               <div style={{"width":"620px"}} className="mx-auto">
-              <div className="h3Bold mt-12 text-center">
+        {/*      <div className="h3Bold mt-12 text-center">
               Congratulations, this item has been submitted to lender for approval you will get a notification once they approve!
+              </div>*/}
+              <div className="h3Bold mt-12 text-center">
+              Congratulations, you have booked this item!
               </div>
 
     

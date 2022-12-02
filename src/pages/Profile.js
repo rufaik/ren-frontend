@@ -1521,14 +1521,14 @@ return (
 
     </div>
   }
-    {user && user.user.id.toString() === id.toString() &&
+{/*    {user && user.user.id.toString() === id.toString() &&
       <div className="orangeCol my-3 text-white block mt-4 underline cursor-pointer" onClick={() => setOpen2(true)}
       >
       Select availability
       </div>
-    }
+    }*/}
 
-    <div className="flex my-3 items-center">
+  {/*  <div className="flex my-3 items-center">
       <h3>{rentalApproval}%</h3>
       <div className="gen">&nbsp;Rentals approved</div>
     </div>
@@ -1539,7 +1539,7 @@ return (
     <div className="flex my-3 items-center">
       <h3>{rentalCount}</h3>
       <div className="gen">&nbsp;Rentals</div>
-    </div>
+    </div>*/}
     <div className="lineA mt-8"></div>
 
 
