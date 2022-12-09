@@ -29,6 +29,7 @@ export default ({match, history}) =>{
 const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
+const pageID = parseInt(id)
 
 const {user, setUser, simpleUser, setSimpleUser, rangeF, rangeT, create} = useContext(UserContext)
 const {addToCart} = useContext(CartContext)
@@ -177,9 +178,12 @@ const checkAvail = async (user) => {
                 console.log("bookings", data)
                 const set1 = []
 
+                //are there any bookings in this item group?
+                //do they clash with any items/skus/listing in this item group? if they do add them to setter
+                //are there any that don't?
 
                 data.map( async (booking, i) => {
-                    if (booking.listing && booking.listing.item_group === 1) {
+                    if (booking.listing && booking.listing.item_group.toString() === id.toString()) {
                         
                         let StartDate1 = new Date(booking.startDate)
                         let EndDate1 = new Date(booking.endDate)
@@ -190,16 +194,19 @@ const checkAvail = async (user) => {
                     if((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1)) {
                       setter.push(booking.listing.id)
                     } else {
-                    console.log("YESssssSoverlapping dates")  
+                    console.log("no overlapping dates")  
                     }
             
                 } else {
-                    console.log("noooo dates")  
+                    console.log("no bookings exist in this item group")  
                     }
                   })
                 console.log("set1", setter)
+                //get the items/skus/listing in that item group
                 const skus = product.listings
 
+                //add the items/skus/listing that have clashing dates to setter 1
+                // add the available items/skus/listing to setter 2
                 skus.map(async (sku, i) => {
                   if(setter.includes(sku.id)) {
                     setter1.push(sku.id)
@@ -210,7 +217,9 @@ const checkAvail = async (user) => {
                 })
                 console.log("setter1:", setter1)
                 console.log("setter2:", setter2,"length", setter2.length)
-                setItemId(setter2[0])
+                console.log("itemidS:", setter2[0])
+                //itemId has the winning items/skus/listing
+                setItemId(parseInt(setter2[0]))
                 setOpen(true)
                 console.log("itemid:", itemId)
                 if(setter2.length <= 0) {
@@ -345,6 +354,10 @@ const updateCurrent = async (data) => {
 
 const makeBooking = async () => {
     const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
+    console.log("data1pageID", parseInt(pageID))
+    console.log("data1id", parseInt(id))
+    console.log("data1itemgroup", itemId)
+
  try{
      const response = await fetch(`${API_URL}/bookings`, {
          method: 'POST',
@@ -356,7 +369,8 @@ const makeBooking = async () => {
          body: JSON.stringify({
              status: "Confirmed",
              rentalDays: diffDays + 1,
-             listing: parseInt(itemId[0]),
+             listing: parseInt(itemId),
+             item_group: parseInt(pageID),
              coins: rentalCost,
              startDate: rangeF,
              endDate:rangeT, 

@@ -54,6 +54,8 @@ export default ({history}) =>{
  const [q1, setQ1] = useState(true)
  const [q2, setQ2] = useState(false)
  const [q3, setQ3] = useState(false)
+ const [q4, setQ4] = useState(false)
+ const [q5, setQ5] = useState(false)
  const [first1, setFirst1] = useState(1)
  const [darkMode, setDarkMode] = useState(true)
 const [verify, setVerify] = useState(false)
@@ -167,7 +169,7 @@ const [verify, setVerify] = useState(false)
                       <div className="w-10/12">
                         <div className={create === 'darkbg' ? "h3Light mt-6 text-white" : "h3Light mt-6 "}>Rent the kit you need from the brands you love all in one place.</div>
                       </div>
-                      <div className="searchBxHome mt-12 ml-auto items-center flex flex-row">
+                      <div className="searchBxHome mt-12 items-center flex flex-row">
                         <input
                                   id="searchWord"
                                   name="searchWord"
@@ -210,7 +212,7 @@ const [verify, setVerify] = useState(false)
                     <div className='w-1/2 relative' >
                       {mainImages &&<div className='flex justify-center ml-8 -mr-8 -mt-12 animate__animated animate__zoomIn' > <img className='w-100 ml-auto' alt='camera' src="../newMain.png"/></div> }
 {/*                      <div className={create === 'darkbg' ? "absolute rectangle1" : "absolute rectangle"}></div>
-*/}                      <div className="topLine h-10 absolute bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
+*/}                      <div className="topLine h-10  bottom-0 right-0 ml-auto mr-4 mt-16 pt-3 w-1/3">
 {/*                          <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Canon EOS M50 Black + EF-M 15-45mm IS STM </div>
                           <div className={create === 'darkbg' ? "miniText text-white" : "miniText" }>Lens Black</div>
 */}                      </div>
@@ -230,9 +232,188 @@ const [verify, setVerify] = useState(false)
               className="grybg text-white moving genBold py-2 h-12"
               gradient={false}
               speed={60}
+              style={{"fontSize": "17px"}}
             >
-                Use technology more &nbsp; <b>sustainably</b>. It's better for the planet and &nbsp; <b>your pockets</b>.
+            Access a wide range of tech - Use it sustainably - No long term commitments - No hassle.
               </Marquee>
+              <div className={create === 'darkbg' ? '' : 'lightGrBg'}>
+
+                <div className='sectWidth mx-auto pt-32 pb-28'>
+                  <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> RENTERS LOVE US! </h2>
+                <div className="flex flex-row ">
+
+                <div className="w-60 h-96 relative mr-4 reviewShadow">
+                  <div className="bg-black h-24 w-24 rounded-full absolute top-4 left-0 right-0 mx-auto z-10">
+                    <img className='w-full' alt='ren' src="../r3.png" />
+                  </div>
+                  <div className="bg-white h-80 w-full rounded bottom-0 absolute">
+                  <div className="flex flex-row justify-center items-center pt-16">
+                    <div className="genBold mr-2">  Ayokunle A</div>
+                    <img className='w-1 h-1 rounded-full' alt='dot' src="../dot1.png" />
+                    <div className="genLight ml-2"> Videographer</div>
+                  </div>
+                  <div className="flex flex-row mx-auto justify-center mt-2">
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    
+                  </div>
+                  <div className="reviewTxt text-center px-4 pt-4">
+Straightforward and easy process. Hawa was very flexible and made the whole process so much easier. Also an extremely nice team which always helps. Defo recommend and i'll be back myself!                  
+                  </div>
+
+                  </div>
+                </div>
+                <div className="w-60 h-96 relative mr-4 reviewShadow">
+                  <div className="bg-black h-24 w-24 rounded-full absolute top-4 left-0 right-0 mx-auto z-10">
+                    <img className='w-full' alt='ren' src="../r1.png" /></div>
+                  <div className="bg-white h-80 w-full rounded bottom-0 absolute">
+                  <div className="flex flex-row justify-center items-center pt-16">
+                    <div className="genBold mr-2">  Lara C</div>
+                    <img className='w-1 h-1 rounded-full' alt='dot' src="../dot1.png" />
+                    <div className="genLight ml-2"> Entrepreneur</div>
+                  </div>
+                  <div className="flex flex-row mx-auto justify-center mt-2">
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    
+                  </div>
+                  <div className="reviewTxt text-center px-4 pt-4">
+                    Amazing! Such a good speaker, excellent communication from R.E.N throughout and they made sure the speakers were fully charged and ready for us to use! 😍👏
+                  </div>
+
+                  </div>
+                </div>
+                <div className="w-60 h-96 relative mr-4 reviewShadow">
+                  <div className="bg-black h-24 w-24 rounded-full absolute top-4 left-0 right-0 mx-auto z-10">
+                    <img className='w-full' alt='ren' src="../r2.png" /></div>
+                  <div className="bg-white h-80 w-full rounded bottom-0 absolute">
+                  <div className="flex flex-row justify-center items-center pt-16">
+                    <div className="genBold mr-2"> Godiah V</div>
+                    <img className='w-1 h-1 rounded-full' alt='dot' src="../dot1.png" />
+                    <div className="genLight ml-2">  Insurance Adjuster</div>
+                  </div>
+                  <div className="flex flex-row mx-auto justify-center mt-2">
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    
+                  </div>
+                  <div className="reviewTxt text-center px-4 pt-4">
+Such a lovely team, very patient and understanding! communication was 10/10! Kit was amazing! 100% recommend!                  
+                  </div>
+
+                  </div>
+                </div>
+                <div className="w-60 h-96 relative mr-4 reviewShadow">
+                  <div className="bg-black h-24 w-24 rounded-full absolute top-4 left-0 right-0 mx-auto z-10">
+                    <img className='w-full' alt='ren' src="../r5.png" /></div>
+                  <div className="bg-white h-80 w-full rounded bottom-0 absolute">
+                  <div className="flex flex-row justify-center items-center pt-16">
+                    <div className="genBold mr-2"> Viktor G</div>
+                    <img className='w-1 h-1 rounded-full' alt='dot' src="../dot1.png" />
+                    <div className="genLight ml-2"> Photographer</div>
+                  </div>
+                  <div className="flex flex-row mx-auto justify-center mt-2">
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    
+                  </div>
+                  <div className="reviewTxt text-center px-4 pt-4">
+Great service, would recommend to anyone looking for high quality equipment                  
+                  </div>
+
+                  </div>
+                </div>
+                <div className="w-60 h-96 relative reviewShadow">
+                  <div className="bg-black h-24 w-24 rounded-full absolute top-4 left-0 right-0 mx-auto z-10">
+                    <img className='w-full' alt='ren' src="../r4.png" /></div>
+                  <div className="bg-white h-80 w-full rounded bottom-0 absolute">
+                  <div className="flex flex-row justify-center items-center pt-16">
+                    <div className="genBold mr-2"> Daniella</div>
+                    <img className='w-1 h-1 rounded-full' alt='dot' src="../dot1.png" />
+                    <div className="genLight ml-2">  Event Manager</div>
+                  </div>
+                  <div className="flex flex-row mx-auto justify-center mt-2">
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    <div className='w-6 px-0.5'>
+                      <img className='w-full' alt='star' src="../star1.png" />
+                    </div>
+                    
+                  </div>
+                  <div className="reviewTxt text-center px-4 pt-4">
+R.E.N is such an amazing and friendly service, the speakers were fantastic! Thank you so much, we really appreciate it.                 
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+              </div>
 
 {/*
             <div className={create === 'darkbg' ? 'grybg pb-8' : 'bluebg pb-8'}>
@@ -412,6 +593,7 @@ const [verify, setVerify] = useState(false)
               className="orangeBg blueBorder text-sm text-white moving normalBold py-2 h-12"
               gradient={false}
               speed={60}
+              style={{"fontSize": "17px"}}
             >
             <div className="flex flex-row items-center h-12">
                 <div className="mr-8 flex h-6"> <img className='h-full ' alt='camera' src="../armaWhite.png" /> </div>
@@ -454,6 +636,115 @@ const [verify, setVerify] = useState(false)
             </div>
     : null
 }
+
+
+<div className={create === 'darkbg' ? 'mt-20  pb-8' : 'mt-20 lightGrBg pb-8'}>
+              <div className='sectWidth mx-auto pt-32'>
+               <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> FREQUENTLY ASKED QUESTIONS </h2>
+               <div className={create === 'darkbg' ? 'text-white h3Light my-6' : 'h3Light my-6'}>The questions we get asked the most about our rental process.</div>
+                
+
+
+
+{/*                <Link to='/howitworks'> <button  className={create === 'darkbg' ? "findDrkBtn findTxt text-center text-black mt-10" : "findBtn findTxt text-center text-white mt-10"}>Find out more</button></Link>
+*/}
+               {!q1 && 
+                  <div
+                    onClick={() => { setQ1(true); setQ2(false); setQ3(false); setQ4(false); setQ5(false); }} 
+                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold py-12 pl-16 mt-12 cursor-pointer' : 'questionTxt h3Bold py-12 pl-16 mt-12 cursor-pointer'}
+                    >What about insurance?
+                    </div> 
+              }
+
+                {q1 &&
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-8 pl-8 mb-4' : 'answerBox w-full py-8 pl-8 mt-12 mb-4'}>
+                  <div className='h3Bold text-white'>What about insurance?</div>
+                 <div className='text-white genLight mt-6 pr-16'>
+                 Yes! All of the equipment is insured with our partners at Arma Karma when you rent through R.E.N.
+                 </div>
+
+                </div>
+                }
+
+
+               {!q2 && 
+                  <div 
+                  onClick={() => { setQ1(false); setQ2(true); setQ3(false); setQ4(false); setQ5(false); }} 
+                  className={create === 'darkbg' ? 'unSelectedTxt h3Bold py-8 pl-8 mt-12cursor-pointer' : 'questionTxt h3Bold py-8 pl-8 mt-12 cursor-pointer'}
+                  >How long is a rental day?
+                  </div> 
+              }
+                
+                {q2 &&
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-8 pl-8 mt-12 ' : 'answerBox w-full py-8 pl-8  mt-12'}>
+                  <div className='h3Bold text-white'>How long is a rental day?</div>
+                   <div className='text-white genLight mt-6 pr-16'>
+                      Can I extend a hire? Sometimes plans change and you need the kit for longer than you thought you would, if this happens, feel free to give us a call and we’d be more than happy to help.                 
+                      </div>
+
+                </div>
+
+              }
+
+
+               {!q3 && 
+                  <div 
+                    onClick={() => { setQ1(false); setQ2(false); setQ3(true); setQ4(false); setQ5(false); }} 
+                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold py-8 pl-8 mt-12 cursor-pointer' : 'questionTxt h3Bold py-8 pl-8 mt-12 cursor-pointer'}
+                    >How do I verify my ID?
+                    </div>
+              }
+                
+                {q3 &&
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-8 pl-8 mt-12' : 'answerBox w-full py-8 pl-8 mt-12'}>
+                  <div className='h3Bold text-white'>How do I verify my ID?</div>
+                   <div className='text-white genLight mt-6 pr-16'>
+                 It’s simple, when creating your account you will be guided through the ID verification steps. It's quick and easy!
+
+                 </div>
+
+                </div>
+              }
+
+               {!q4 && 
+                  <div 
+                    onClick={() => { setQ1(false); setQ2(false); setQ3(false); setQ5(false); setQ4(true) }} 
+                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold py-8 pl-8 mt-12 cursor-pointer' : 'questionTxt h3Bold py-8 pl-8 mt-12 cursor-pointer'}
+                    >Do you deliver? 
+                    </div>
+              }
+                
+                {q4 &&
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-8 pl-8 mt-12' : 'answerBox w-full py-8 pl-8 mt-12 pb-10'}>
+                  <div className='h3Bold text-white'>Do you deliver? </div>
+                   <div className='text-white genLight mt-6 pr-16'>
+                 We currently don't deliver but collection and drop off is easy, if you have any questions at all, just contact us. 
+                 </div>
+
+                </div>
+              }
+
+               {!q5 && 
+                  <div 
+                    onClick={() => { setQ1(false); setQ2(false); setQ3(false); setQ4(false); setQ5(true) }} 
+                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold py-8 pl-8 mt-12 cursor-pointer' : 'questionTxt h3Bold py-8 pl-8 mt-12 cursor-pointer'}
+                    >How do I buy R.E.N Credits? 
+                    </div>
+              }
+                
+                {q5 &&
+                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-8 pl-8 mt-12' : 'answerBox w-full py-8 pl-8 mt-12'}>
+                  <div className='h3Bold text-white'>How do I buy R.E.N Credits? </div>
+                   <div className='text-white genLight mt-6 pr-16'>
+                 Simply top-up via your account and then you’re ready to rent! Find out more about R.E.N credits <span> <a href="/credits" className="underline"> here</a></span>.
+                 </div>
+
+                </div>
+              }
+
+
+              </div>
+            </div>
   <Footer />
             </div>
 

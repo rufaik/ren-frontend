@@ -69,7 +69,7 @@ export default () =>{
 
       <Link to='/search'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Browse</Link>
 
-      <Link to='/credits'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Explore R.E.N Credits</Link>
+      <Link to='/credits'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>R.E.N Credits</Link>
 
       <Link to='/about'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>About us</Link>
       

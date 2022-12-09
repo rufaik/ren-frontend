@@ -74,12 +74,12 @@ const getListings = async (user) => {
 // }, [listings])
 
 
-// useEffect(() => {
-// if(itemGroup !== null){
-//   addToList1()
-// }
+useEffect(() => {
+if(itemGroup !== null){
+  addToList1()
+}
 
-// }, [itemGroup])
+}, [itemGroup])
 
 
 
@@ -138,9 +138,9 @@ const getItems = async (user) => {
     const addToList1 = () => {
     	itemGroup.map((boro, i) => {
 	        let updatedItems = itemList1;
-	        updatedItems.push(boro.category);
+	        updatedItems.push(boro.brand);
 	        setItemList1(updatedItems);
-	    	setSelectedId1(boro.borough);
+	    	setSelectedId1(boro.brand);
 	    })
     	itemGroup.map((cat, i) => {
 	        let updatedItemsC = itemListC;
@@ -388,7 +388,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.category}</div>
+											>{listing.brand}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -406,7 +406,7 @@ useEffect(() => {
 					                     >{listing.name}</div>
 
 									</Link>	                				
-	                		)} else if (optionListB.includes(listing.category) && optionList.length < 1 && listing.name.includes(searchWord)) {
+	                		)} else if (optionListB.includes(listing.brand) && optionList.length < 1 && listing.name.includes(searchWord)) {
 	                			return(
 
 									<Link 
@@ -424,7 +424,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.category}</div>
+											>{listing.brand}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -461,7 +461,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.category}</div>
+											>{listing.brand}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3
@@ -481,7 +481,7 @@ useEffect(() => {
 									</Link>	                				
 
 
-	                		)} else if (optionListB.includes(listing.category) && optionList.includes(listing.category && listing.name.includes(searchWord))) {
+	                		)} else if (optionListB.includes(listing.brand) && optionList.includes(listing.category && listing.name.includes(searchWord))) {
 	                			return(
 
 									<Link 
@@ -499,7 +499,7 @@ useEffect(() => {
 											>{listing.category}</div>
 											<div 
 												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.category}</div>
+											>{listing.brand}</div>
 										</div>
 										<div className="flex items-center pl-8">
 					                        <h3

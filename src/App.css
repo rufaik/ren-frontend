@@ -495,6 +495,27 @@ box-shadow: 14px 10px 35px 0px #1B314214;
 
 }
 
+.newBlueBg{
+  background: #443CCC;
+}
+
+.lightGrBg{
+  background: #E5E5E5
+}
+
+.reviewTxt{
+  
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 20px;
+    letter-spacing: 0em;
+
+}
+
+.reviewShadow{
+  box-shadow: 2px 4px 11px rgba(142, 142, 142, 0.15);
+}
 
 
 .StripeElement {
@@ -731,7 +752,11 @@ letter-spacing: 0em;
 
 }
 
-
+.aboutgrad{
+   background-image: url(./images/gradabout.png);
+       background-size: 158%;
+    background-position: 12%;
+}
 
 .h3Sub{
 font-size: 19px;
@@ -938,26 +963,43 @@ letter-spacing: 0em;
 
 }
 
+.blueTxt{
+  color: rgba(52, 38, 201, 1);
+}
+
 .answerBox{
-  background: rgba(44, 57, 73, 1);
+/*  background: rgba(44, 57, 73, 1);
+*/  background: #443CCC;
   box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
 }
 
 
 .answerDrkBox{
-  background: rgba(73, 84, 97, 1);
+/*  background: rgba(73, 84, 97, 1);
+*/  
+  background: #443CCC;
   box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
 }
 
 .questionTxt{
-  color: rgba(255, 255, 255, 0.5);
+/*  color: rgba(255, 255, 255, 0.5);
+*/
+color: white;
+background: rgba(68, 60, 204, 0.5);
+ box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
+  border-radius: 10px;
 
 }
 
 .unSelectedTxt{
-  color: #707070;
+/*  color: #707070;
+*/
+color: white;
+background: rgba(68, 60, 204, 0.5);
+ box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
+  border-radius: 10px;
 }
 
 
@@ -997,6 +1039,22 @@ border-radius: 10px;
   box-shadow: 6px 16px 26px 0px #5A5A5A0F;
 }
 
+.aboutGen{
+font-size: 20px;
+font-weight: 300;
+line-height: 32px;
+
+
+}
+
+.aboutHeader{
+
+font-size: 35px;
+font-weight: 700;
+line-height: 56px;
+
+
+}
 
 
 .backgroundShape{

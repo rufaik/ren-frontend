@@ -116,8 +116,29 @@ const [verify, setVerify] = useState(false)
             <div className={create === 'darkbg' ? 'mt-20 grybg pb-8' : 'mt-20 bluebg pb-8'}>
               <div className='sectWidth mx-auto pt-32'>
                 <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Credits </h2>
-                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits.</div>
-                <div className={create === 'darkbg' ? 'h3Light text-black mt-1' : 'h3Light text-white mt-1'}>Buy them. Earn them. Share them! </div>
+                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits, buy them, spend them and best of all, share them! The R.E.N platform exists to increase access to the most innovative consumer technology on the market, we created R.E.N Credits to help us do just that.</div>
+                <h2 className={create === 'darkbg' ? 'text-black mt-6' : 'text-white mt-6'}> What does this mean for you </h2>
+                <ol className={create === 'darkbg' ? 'h3Light text-black mt-4 list-decimal list-inside' : 'h3Light text-white mt-4 list-decimal list-inside'}> 
+                  <li>Purchase R.E.N credits and start renting straight away.</li>
+                  <li>Purchase R.E.N Credits and share them with other registered users.</li>
+                </ol>
+                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}>All you need is the unique ID of the user/s you want to share credits with (this can be found in your account)...It’s really that simple! </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {/*                <Link to='/howitworks'> <button  className={create === 'darkbg' ? "findDrkBtn findTxt text-center text-black mt-10" : "findBtn findTxt text-center text-white mt-10"}>Find out more</button></Link>
 */}
                {!q1 && 
