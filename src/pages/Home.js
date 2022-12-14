@@ -415,6 +415,109 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
 
               </div>
 
+              <div className='pb-56'>
+                <div className='sectWidth mx-auto pt-32'>
+                <h2> HOW IT WORKS</h2>
+                <div className="h3Light mt-12">
+                R.E.N makes it easy for you to access the kit you need from the brands you love, without breaking the bank. Our managed rental service means no more awkward pick-ups from strangers. All our items are QA tested, insured and delivered to your door in just a few days.
+                </div>
+                </div>
+                <div>
+                <div className="mt-10 flex flex-row px-12 justify-center relative">
+                <div  className="sectWidth absolute top-16 z-10">
+                          <img
+                            className="w-full"
+                            src="../homedot.svg"
+                          />
+                        </div>
+                  <div className=" relative mr-48 z-20">
+
+                      <div className="outlineText1">
+                      1
+                      </div>
+                      <div className="blueBg4 py-10 px-8 w-60 h-96 absolute rounded top-36 left-20">
+                        <div  className="w-12">
+                          <img
+                            className="w-full"
+                            src="../calH.png"
+                          />
+                        </div>
+                        <div className="h3Bold text-white mt-4">
+                        Select Rental Dates
+                        </div>
+                        <div className="genLight text-white mt-4">
+                        Choose your equipment and dates and we’ll ship everything to your doorstep
+                        </div>
+                      </div>
+                  </div>
+                  <div className=" relative mr-48 z-20">
+
+                      <div className="outlineText1">
+                      2
+                      </div>
+                      <div className="blueBg1 py-10 px-8 w-60 h-96 absolute rounded top-36 left-20">
+                        <div  className="w-12">
+                          <img
+                            className="w-full"
+                            src="../camH.png"
+                          />
+                        </div>
+                        <div className="h3Bold text-white mt-4">
+                        Select Rental Dates
+                        </div>
+                        <div className="genLight text-white mt-4">
+                        Choose your equipment and dates and we’ll ship everything to your doorstep
+                        </div>
+                      </div>
+                  </div>                
+                  <div className=" relative mr-48 z-20">
+
+                      <div className="outlineText1">
+                      3
+                      </div>
+                      <div className="blueBg2 py-10 px-8 w-60 h-96 absolute rounded top-36 left-20">
+                        <div  className="w-12">
+                          <img
+                            className="w-full"
+                            src="../vec1.png"
+                          />
+                        </div>
+                        <div className="h3Bold text-white mt-4">
+                        Select Rental Dates
+                        </div>
+                        <div className="genLight text-white mt-4">
+                        Choose your equipment and dates and we’ll ship everything to your doorstep
+                        </div>
+                      </div>
+                  </div>                
+                  <div className=" relative mr-48 z-20">
+
+                      <div className="outlineText1">
+                      4
+                      </div>
+                      <div className="blueBg3 py-10 px-8 w-60 h-96 absolute rounded top-36 left-20">
+                        <div  className="w-12">
+                          <img
+                            className="w-full"
+                            src="../chat.png"
+                          />
+                        </div>
+                        <div className="h3Bold text-white mt-4">
+                        Select Rental Dates
+                        </div>
+                        <div className="genLight text-white mt-4">
+                        Choose your equipment and dates and we’ll ship everything to your doorstep
+                        </div>
+                      </div>
+                  </div>                
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
 {/*
             <div className={create === 'darkbg' ? 'grybg pb-8' : 'bluebg pb-8'}>
               <div className='sectWidth mx-auto pt-32'>
@@ -590,7 +693,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
             </div>
 */}
              <Marquee
-              className="orangeBg blueBorder text-sm text-white moving normalBold py-2 h-12"
+              className="orangeBg text-sm text-white moving normalBold py-2 h-12"
               gradient={false}
               speed={60}
               style={{"fontSize": "17px"}}

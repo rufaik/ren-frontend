@@ -73,7 +73,7 @@ export default () =>{
 
       <Link to='/about'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>About us</Link>
       
-      <Link to='/howitworks'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Partner with us</Link>
+      <Link to='/partners'  className={create === 'darkbg' ? "mx-4 menuItem text-white" : "mx-4 menuItem"}>Partner with us</Link>
       
 {/*      {user && 
         <Link to='/newlisting' className={create === 'darkbg' ? "mx-6 menuItem text-white" : "mx-6 menuItem"}>Add Listing</Link>

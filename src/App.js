@@ -24,6 +24,7 @@ import Privacy from './pages/Privacy'
 import Contact from './pages/Contact'
 import About from './pages/About'
 import HowItWorks from './pages/HowItWorks'
+import Partners from './pages/Partners'
 import {UserContext} from './context/UserContext'
 import {API_URL} from './utils/urls'
 
@@ -110,6 +111,7 @@ function App() {
           <Route path="/slide" exact component={Slide} />
           <Route path="/about" exact component={About} />
           <Route path="/howitworks" exact component={HowItWorks} />
+          <Route path="/partners" exact component={Partners} />
           <Route path="/forgot" exact component={Forgot} />
           <Route path="/cart" exact component={Cart} />
           <Route path="/profile/:id" exact component={Profile} />
