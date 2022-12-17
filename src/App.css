@@ -253,6 +253,16 @@ letter-spacing: 0em;
   -webkit-text-fill-color: white;
 }
 
+.outlineText1Drk{
+  font-size: 250px;
+  font-weight: 700;
+  line-height: 401px;
+  letter-spacing: 0em;
+  -webkit-text-stroke: 1px white;
+  -webkit-text-fill-color: #1A1A1A);
+
+}
+
 .rotateArrow{
   transform: rotate(-5deg);
 }
@@ -566,6 +576,10 @@ box-shadow: 14px 10px 35px 0px #1B314214;
   box-shadow: 2px 4px 11px rgba(142, 142, 142, 0.15);
 }
 
+.reviewShadowDrk{
+  box-shadow: 2px 4px 11px 0px rgba(142, 142, 142, 0.15);
+}
+
 
 .StripeElement {
   height: 38px;
@@ -662,7 +676,8 @@ box-shadow: 14px 10px 35px 0px #1B314214;
 }
 
 .blueBorder{
-  border-color: rgba(11, 26, 44, 1);
+/*  border-color: rgba(11, 26, 44, 1);
+*/  border-color: rgba(68, 60, 204, 1);
   border-width: 1px;
   border-style: solid; 
 
@@ -980,7 +995,9 @@ text-align: right;
 }
 
 .bluebg{
-  background-color: rgba(11, 26, 44, 1);
+/*  background-color: rgba(11, 26, 44, 1);
+*/  background-color: rgba(68, 60, 204, 1);
+  background-color: #443CCC;
 
 }
 
@@ -1032,6 +1049,22 @@ letter-spacing: 0em;
   border-radius: 10px;
 }
 
+.answerBox1{
+/*  background: rgba(44, 57, 73, 1);
+*/  background: white;
+  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
+  border-radius: 10px;
+}
+
+
+.answerDrkBox1{
+/*  background: rgba(73, 84, 97, 1);
+*/  
+  background: #443CCC;
+  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
+  border-radius: 10px;
+}
+
 .questionTxt{
 /*  color: rgba(255, 255, 255, 0.5);
 */
@@ -1049,6 +1082,20 @@ color: white;
 background: rgba(68, 60, 204, 0.5);
  box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
+}
+
+
+.questionTxt1{
+  color: rgba(255, 255, 255, 0.5);
+
+
+
+}
+
+.unSelectedTxt1{
+  color: #707070;
+
+
 }
 
 
@@ -1355,7 +1402,7 @@ border: 1px solid white;
 }
 
 [type='checkbox'], [type='radio']  {
-  color: #0B1A2C !important;
+  color: #443CCC !important;
   --tw-ring-color: transparent !important;
 
 }
@@ -1642,13 +1689,19 @@ letter-spacing: 0em;
 
 }
 
+strong{
+  font-weight: 700;
+}
+
+p{
+  margin-bottom: 1rem;
+}
 
 
 
-
-
-
-
+p > a {
+  text-decoration: underline;
+}
 
 
 

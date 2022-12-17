@@ -57,7 +57,8 @@ const getContent = async (user) => {
 
 
 
-  const handleSubmit = async (receiverID, amount) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     console.log("handling....")
 
       try{

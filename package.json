@@ -37,6 +37,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-slideshow-image": "^3.7.0",
+    "remark-gfm": "^3.0.1",
     "tw-elements": "^1.0.0-alpha10",
     "web-vitals": "^1.0.1"
   },

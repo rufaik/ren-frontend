@@ -113,16 +113,16 @@ const [verify, setVerify] = useState(false)
 
       
 
-            <div className={create === 'darkbg' ? 'mt-20 grybg pb-8' : 'mt-20 bluebg pb-8'}>
+            <div className={create === 'darkbg' ? 'mt-20 pb-8 -mb-20' : 'mt-20 bluebg pb-8 -mb-20'}>
               <div className='sectWidth mx-auto pt-32'>
-                <h2 className={create === 'darkbg' ? 'text-black' : 'text-white'}> Powered by R.E.N Credits </h2>
-                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits, buy them, spend them and best of all, share them! The R.E.N platform exists to increase access to the most innovative consumer technology on the market, we created R.E.N Credits to help us do just that.</div>
-                <h2 className={create === 'darkbg' ? 'text-black mt-6' : 'text-white mt-6'}> What does this mean for you </h2>
-                <ol className={create === 'darkbg' ? 'h3Light text-black mt-4 list-decimal list-inside' : 'h3Light text-white mt-4 list-decimal list-inside'}> 
+                <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> Powered by R.E.N Credits </h2>
+                <div className={create === 'darkbg' ? 'h3Light text-white mt-4' : 'h3Light text-black mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits, buy them, spend them and best of all, share them! The R.E.N platform exists to increase access to the most innovative consumer technology on the market, we created R.E.N Credits to help us do just that.</div>
+                <h2 className={create === 'darkbg' ? 'text-white mt-6' : 'text-black mt-6'}> What does this mean for you </h2>
+                <ol className={create === 'darkbg' ? 'h3Light text-white mt-4 list-decimal list-inside' : 'h3Light text-black mt-4 list-decimal list-inside'}> 
                   <li>Purchase R.E.N credits and start renting straight away.</li>
                   <li>Purchase R.E.N Credits and share them with other registered users.</li>
                 </ol>
-                <div className={create === 'darkbg' ? 'h3Light text-black mt-4' : 'h3Light text-white mt-4'}>All you need is the unique ID of the user/s you want to share credits with (this can be found in your account)...It’s really that simple! </div>
+                <div className={create === 'darkbg' ? 'h3Light text-white mt-4' : 'h3Light text-black mt-4'}>All you need is the unique ID of the user/s you want to share credits with (this can be found in your account)...It’s really that simple! </div>
 
 
 
@@ -144,20 +144,20 @@ const [verify, setVerify] = useState(false)
                {!q1 && 
                   <div
                     onClick={() => { setQ1(true); setQ2(false); setQ3(false) }} 
-                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
+                    className={create === 'darkbg' ? 'unSelectedTxt1 h3Bold my-8 cursor-pointer' : 'questionTxt1 h3Bold my-8 cursor-pointer'}
                     >What can I do with my R.E.N Credits?
                     </div> 
               }
 
                 {q1 &&
-                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12' : 'answerBox w-full py-16 pl-16 mt-12'}>
-                  <div className='h3Bold text-white'>What can I do with my R.E.N Credits?</div>
+                <div className={create === 'darkbg' ? 'answerDrkBox1 w-full py-16 pl-16 mt-12 text-white' : 'answerBox1 bg-white w-full py-16 pl-16 mt-12 text-black'}>
+                  <div className='h3Bold '>What can I do with my R.E.N Credits?</div>
                   <div className='flex flex-row'>
                       <div className='flex flex-col pt-12 w-48  mr-10'>
                         <div className='h-16'>
                          <img className='w-100 mx-auto' alt='mac' src="../mac.png" />
                         </div>
-                        <div className='genBold text-center text-white mt-10'>
+                        <div className='genBold text-center mt-10'>
                           Rent all equipment on the platform
                         </div>
                       </div>
@@ -172,7 +172,7 @@ const [verify, setVerify] = useState(false)
                            <img className='w-100 mx-auto' alt='coin' src="../bigCoin.png" />
                           </div>
                         </div>
-                          <div className='genBold text-center text-white mt-10'>
+                          <div className='genBold text-center mt-10'>
                             Share R.E.N Credits with other registered users
                           </div>                        
                       </div>
@@ -184,20 +184,20 @@ const [verify, setVerify] = useState(false)
                {!q2 && 
                   <div 
                   onClick={() => { setQ1(false); setQ2(true); setQ3(false) }} 
-                  className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
+                  className={create === 'darkbg' ? 'unSelectedTxt1 h3Bold my-8 cursor-pointer' : 'questionTxt1 h3Bold my-8 cursor-pointer'}
                   >How do I get R.E.N Credits?
                   </div> 
               }
                 
                 {q2 &&
-                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12' : 'answerBox w-full py-16 pl-16 mt-12'}>
-                  <div className='h3Bold text-white'>How do I get R.E.N Credits?</div>
+                <div className={create === 'darkbg' ? 'answerDrkBox1 w-full py-16 pl-16 mt-12 text-white' : 'answerBox1 w-full py-16 pl-16 mt-12 text-black'}>
+                  <div className='h3Bold '>How do I get R.E.N Credits?</div>
                   <div className='flex flex-row'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
                         <div className='h-16'>
                          <img className='w-100 mx-auto' alt='credit' src="../credit.png" />
                         </div>
-                        <div className='genBold text-center text-white mt-10'>
+                        <div className='genBold text-center  mt-10'>
                           Top up your R.E.N Credit balance with cash
                         </div>
                       </div>
@@ -211,7 +211,7 @@ const [verify, setVerify] = useState(false)
                            <img className='w-100 mx-auto' alt='coin' src="../bigCoin.png" />
                           </div>
                         </div>
-                          <div className='genBold text-center text-white mt-10'>
+                          <div className='genBold text-center mt-10'>
                             Be gifted R.E.N Credits from your friends or your university
                           </div>                     
                       </div>
@@ -222,7 +222,7 @@ const [verify, setVerify] = useState(false)
                         <div className='h-16'>
                          <img className='w-100 mx-auto' alt='mac' src="../mac.png" />
                         </div>
-                        <div className='genBold text-center text-white mt-10'>
+                        <div className='genBold text-center mt-10'>
                           Be rewarded with R.E.N Credits for engaging with R.E.N!
                         </div>
                       </div>
@@ -253,14 +253,14 @@ const [verify, setVerify] = useState(false)
                {!q3 && 
                   <div 
                     onClick={() => { setQ1(false); setQ2(false); setQ3(true) }} 
-                    className={create === 'darkbg' ? 'unSelectedTxt h3Bold my-8 cursor-pointer' : 'questionTxt h3Bold my-8 cursor-pointer'}
+                    className={create === 'darkbg' ? 'unSelectedTxt1 h3Bold my-8 cursor-pointer' : 'questionTxt1 h3Bold my-8 cursor-pointer'}
                     >What is the Pound to R.E.N Credit conversion rate?
                     </div>
               }
                 
                 {q3 &&
-                <div className={create === 'darkbg' ? 'answerDrkBox w-full py-16 pl-16 mt-12 pb-10' : 'answerBox w-full py-16 pl-16 mt-12 pb-10'}>
-                  <div className='h3Bold text-white'>What is the Pound to R.E.N Credit conversion rate?</div>
+                <div className={create === 'darkbg' ? 'answerDrkBox1 w-full py-16 pl-16 mt-12 pb-10 text-white' : 'answerBox1 w-full py-16 pl-16 mt-12 pb-10 text-black'}>
+                  <div className='h3Bold'>What is the Pound to R.E.N Credit conversion rate?</div>
                   <div className='flex flex-row relative'>
                       <div className='flex flex-col pt-12 w-48 mr-10'>
                         <div className='h-16'>
@@ -273,7 +273,7 @@ const [verify, setVerify] = useState(false)
                           onChange={(event) => {
                             setFirst1(event.target.value)}}
                         />
-                        <div className='genBold text-center text-white mt-6'>
+                        <div className='genBold text-center  mt-6'>
                          Pound Sterling
                         </div>
                       </div>
@@ -293,7 +293,7 @@ const [verify, setVerify] = useState(false)
                         </div>
                          <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 5}
                         </div>
-                          <div className='genBold text-center text-white mt-6'>
+                          <div className='genBold text-center mt-6'>
                             R.E.N Credit
                           </div>
                         

@@ -1145,7 +1145,7 @@ return (
                 </div>
                 <h3
                   className={create === 'darkbg' ? "text-white" : ""}
-                >{coins}n</h3>
+                >{coins}</h3>
                 {user && user.user.id.toString() === id.toString() &&
                 <div 
                 className={create === 'darkbg' ? "flex flex-col text-white" : "flex flex-col"}
@@ -1153,9 +1153,9 @@ return (
                   <Link to='/topup' style={{"padding": "0.3rem"}} className="cursor-pointer authBtn ml-10 mb-1">
                     Top up
                   </Link>
-                  <button onClick={confirmPayout} className=" cursor-pointer authBtn ml-10 mt-1">
+                  {/*<button onClick={confirmPayout} className=" cursor-pointer authBtn ml-10 mt-1">
                     Payouts 
-                  </button>
+                  </button>*/}
 {/*                  <button onClick={clearCoins} className="authBtn ml-10 mt-1 onClick">
                     OUTTTT
                   </button>*/}
@@ -1193,13 +1193,13 @@ return (
           : null
         }
 
-      {user && user.user.id.toString() === id.toString() &&
+{/*      {user && user.user.id.toString() === id.toString() &&
         <div>
           <button onClick={showingTrans} className="orangeCol my-3 text-white block mt-4  cursor-pointer">
                   See your transactions 
           </button>
         </div>
-      }
+      }*/}
       {showTransactions &&
           <Transactions />
         }

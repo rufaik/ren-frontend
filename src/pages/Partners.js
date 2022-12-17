@@ -25,12 +25,93 @@ export default function Example() {
 
   const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
   const [content, setContent] = useState(null)
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [csemail, setCSEmail] = useState('');
+  const [company, setCompany] = useState('partner');
+  const [phone, setPhone] = useState('');
+  const [help, setHelp] = useState('');
+  const [hear, setHear] = useState('');
+  const [content1, setContent1] = useState(null)
+  const [details, setDetails] = useState(false)
+  const [complete, setComplete] = useState(false)
 
   useEffect(() => {
 
   getContent()
 
 }, [])
+
+
+  const handleSubmit1 = async (event) => {
+    event.preventDefault()
+    if(firstName === '' || email === '') {
+      setDetails(true)
+    }else {
+      handleSubmit()
+    }
+
+  }
+
+  const handleSubmit = async () => {
+
+    console.log("handlingc....")
+
+      try{
+        const response = await fetch(`${API_URL}/customer-emails`, {
+            method: 'POST',
+            headers: {
+            'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+              firstName,
+              lastName,
+              email,
+              company,
+              phone,
+              help,
+              hear,
+              csemail: content1[0].email
+            })
+          })
+
+          const data = await response.json()
+          console.log("Contact", data) 
+          setDetails(false)
+          setComplete(true) 
+
+
+      } catch(err){
+    console.log("Exception ", err)}
+
+    }  
+
+useEffect(() => {
+
+  getContent1()
+
+}, [])  
+
+   const getContent1 = async (user) => {
+    const response = await fetch(`${API_URL}/contacts`, {
+       method: 'GET',
+        headers: {
+          'Content-Type':'application/json',
+          // 'Authorization': `Bearer ${user.jwt}`
+        }
+    })
+    try{
+                const data = await response.json();
+                console.log("sidet", data)
+                setContent1(data);
+                // history.push(`/profile/${id}`)
+            } catch(err){
+              console.log("nope")
+            }         
+        }
+
+ 
 
 // const getContent1 = async (user) => {
 //     const response = await fetch(`${API_URL}/how-it-works`, {
@@ -216,7 +297,7 @@ const supportLinks = [
         </div>
       </div>
     </div>
-    <div className="flex flex-row ">
+    <div className="flex flex-row -mb-20">
     <div className="w-8/12 pl-48 py-24">
       <div className="partnerHeader">
         {content[0].formTitle}
@@ -225,43 +306,47 @@ const supportLinks = [
       {content[0].formDesc}
       </div>
 
-      <div className="genBold mt-16 ">Name</div>
+      <div className="genBold mt-16 flex flex-row">
+        <div>Name</div>
+        <div className="-mt-2">*</div>
+      </div>
        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <input
-             
+                  value={firstName}
+                  onChange={(event) => {
+                        setFirstName(event.target.value)}}
                   type="text"
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
-                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
-                  onChange={(event) => {
-                    // setError('')
-                    // setLastName(event.target.value)
-                  }}
+                  className={create === 'darkbg' ? "uniqueBox mt-4 pl-4 text-black" : "uniqueBox mt-4 pl-4 text-black"}
+                  
 
                 />
               </div>
             </div>
-      <div className="genBold mt-4 ">Email</div>
+      <div className="genBold mt-4 flex flex-row">
+        <div>Email</div>
+        <div className="-mt-2">*</div>
+      </div>
        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <input
-             
+                  value={email}
+                  onChange={(event) => {
+                        setEmail(event.target.value)}}
                   type="text"
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
-                  className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
-                  onChange={(event) => {
-                    // setError('')
-                    // setLastName(event.target.value)
-                  }}
+                  className={create === 'darkbg' ? "uniqueBox mt-4 pl-4 text-black" : "uniqueBox mt-4 pl-4 text-black"}
+                 
 
                 />
               </div>
             </div>
-      <div className="genBold mt-4 ">Message</div>
+      <div className="genBold mt-4 flex flex-row">Message</div>
        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                {/* <input
@@ -278,20 +363,31 @@ const supportLinks = [
 
                 />*/}
                  <textarea
-                      // value={help}
-                      // onChange={(event) => {
-                      //   setHelp(event.target.value)}}
+                      value={help}
+                      onChange={(event) => {
+                        setHelp(event.target.value)}}
                       id="message"
                       name="message"
                       rows={4}
-                      className="uniqueBoxDesc mt-4 pl-4"
+                      className="uniqueBoxDesc mt-4 pl-4 text-black"
                       aria-describedby="message-max"
                       defaultValue={''}
                     />
               </div>
             </div>
 
-              <button href="/contact"  className="orangeBg text-white h3Dark py-5 w-60 text-center h3Bold rounded cursor-pointer mt-8">Get in touch!</button>
+              <button 
+              onClick={handleSubmit1}
+              href="/contact"  
+              className="orangeBg text-white h3Dark py-5 w-60 text-center h3Bold rounded cursor-pointer mt-8">
+              Get in touch!
+              </button>
+              { details &&
+                <div className="genBold orangeCol mt-4">Please make sure your name and email have been added</div>
+              }
+              { complete &&
+                <div className="genBold orangeCol mt-4">Thank you!</div>
+              }
 
     </div>
     <div className="w-4/12">
