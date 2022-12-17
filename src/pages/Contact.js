@@ -104,7 +104,7 @@ const getContent = async (user) => {
 
 { content &&
 
-    <div className="bg-gray-100 mt-16">
+    <div className={create === 'darkbg' ?  " mt-16 -mb-20" : "bg-gray-100 mt-16 -mb-20"}>
       <div className="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
         <div className="relative bg-white shadow-xl">
           <h2 className="sr-only">Contact us</h2>
@@ -265,7 +265,7 @@ const getContent = async (user) => {
             </div>
 
             {/* Contact form */}
-            <div className="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
+            <div className={create === 'darkbg' ? "py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12 grybg" : "py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12"}>
               <h3 className="text-lg font-medium text-gray-900">{content[0].mainTitle}</h3>
               <form action="#" method="POST" className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                 <div>

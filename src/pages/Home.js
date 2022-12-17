@@ -770,7 +770,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
 }
 
 
-<div className={create === 'darkbg' ? 'mt-20  pb-8' : 'mt-20 lightGrBg pb-8'}>
+<div className={create === 'darkbg' ? 'mt-20  pb-8 -mb-20' : 'mt-20 lightGrBg pb-8 -mb-20'}>
               <div className='sectWidth mx-auto pt-32'>
                <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> FREQUENTLY ASKED QUESTIONS </h2>
                <div className={create === 'darkbg' ? 'text-white h3Light my-6' : 'h3Light my-6'}>The questions we get asked the most about our rental process.</div>
