@@ -2,7 +2,8 @@ import React, {useState, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
 
 
-export default () =>{
+const Create = () => {
+
 
   const [description, setDescription] = useState('')
   const [file, setFile] = useState(null)
@@ -84,5 +85,6 @@ export default () =>{
 }
 
 
+export default Create;
 
 

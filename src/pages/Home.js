@@ -254,18 +254,18 @@ const getContent = async (user) => {
 
            
             <Marquee
-              className="grybg text-white moving genBold py-2 h-12"
+              className="blueBg1 text-white moving genBold py-2 h-12"
               gradient={false}
               speed={60}
               style={{"fontSize": "19px"}}
             >
             Access a wide range of tech - Use it sustainably - No long term commitments - No hassle.
               </Marquee>
-              <div className={create === 'darkbg' ? '' : 'lightGrBg'}>
+              <div className={create === 'darkbg' ? '' : 'lightGrBg1'}>
 
                 <div className='sectWidth mx-auto pt-32 pb-28'>
-                  <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> RENTERS LOVE US! </h2>
-                <div className="flex flex-row ">
+                  <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> Renters Love us! </h2>
+                <div className="flex flex-row  mt-12">
 
                 <div className="w-60 h-96 relative mr-4 ">
                   <div className="bg-black h-24 w-24 rounded-full absolute top-4 left-0 right-0 mx-auto z-10">
@@ -446,7 +446,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
 { content &&
               <div className='pb-56'>
                 <div className={create === 'darkbg' ? 'sectWidth mx-auto pt-32 text-white' : 'sectWidth mx-auto pt-32 text-black'}>
-                <h2> HOW IT WORKS</h2>
+                <h2> How it works</h2>
                 <div className="h3Light mt-12">
                 R.E.N makes it easy for you to access the kit you need from the brands you love, without breaking the bank. Our managed rental service means no more awkward pick-ups from strangers. All our items are QA tested, insured and delivered to your door in just a few days.
                 </div>
@@ -770,9 +770,9 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
 }
 
 
-<div className={create === 'darkbg' ? 'mt-20  pb-8 -mb-20' : 'mt-20 lightGrBg pb-8 -mb-20'}>
+<div className={create === 'darkbg' ? 'mt-20  pb-8 -mb-20' : 'mt-20 lightGrBg1 pb-8 -mb-20'}>
               <div className='sectWidth mx-auto pt-32'>
-               <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> FREQUENTLY ASKED QUESTIONS </h2>
+               <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> Frequently asked questions </h2>
                <div className={create === 'darkbg' ? 'text-white h3Light my-6' : 'h3Light my-6'}>The questions we get asked the most about our rental process.</div>
                 
 

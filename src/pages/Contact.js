@@ -1,34 +1,26 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {Link } from 'react-router-dom'
-import Post from '../components/Post'
-import {formatPrice} from '../utils/format'
-import {fromProductSlugToUrl} from '../utils/products'
 import {API_URL} from '../utils/urls'
 import {UserContext} from '../context/UserContext'
-import VerifyButton from "@passbase/button/react";
 import 'tw-elements';
-import {Verify} from './Verify'
 import Footer from '../components/Footer'
 import { MailIcon, PhoneIcon } from '@heroicons/react/outline'
 
 
 
-const formatImageUrl = (url) => `${API_URL}${url}`
 
 
-export default () =>{
+const Contact = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [csemail, setCSEmail] = useState('');
-  const [company, setCompany] = useState('');
+  const company = '';
+  const hear = '';
   const [phone, setPhone] = useState('');
   const [help, setHelp] = useState('');
-  const [hear, setHear] = useState('');
   const [content, setContent] = useState(null)
-  const [complete, setComplete] = useState(false)
-  const {user, setUser, simpleUser, setSimpleUser, create, mainImages} = useContext(UserContext)
+  const { create, mainImages} = useContext(UserContext)
 
   useEffect(() => {
 
@@ -81,7 +73,6 @@ const getContent = async (user) => {
 
           const data = await response.json()
           console.log("Contact", data)
-          setComplete(true)
         
          
 
@@ -232,7 +223,7 @@ const getContent = async (user) => {
                 </dd>
               }
               </dl>
-              <ul role="list" className="mt-8 flex space-x-12">
+              <ul  className="mt-8 flex space-x-12">
                 <li>
                   {mainImages && 
                       <Link  to={{ pathname: `${mainImages[0].facebook }`}} target="_blank">
@@ -417,5 +408,5 @@ const getContent = async (user) => {
   )
 }
 
-
+export default Contact;
 

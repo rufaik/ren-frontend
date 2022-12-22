@@ -1,5 +1,4 @@
-import React, {useState, useEffect, useContext, createContext} from 'react'
-import {getCart, saveCart} from '../utils/cart'
+import React, { createContext} from 'react'
 
 
 export const ModeContext = createContext(null)

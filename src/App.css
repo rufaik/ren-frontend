@@ -562,6 +562,10 @@ box-shadow: 14px 10px 35px 0px #1B314214;
   background: #EFF0F2
 }
 
+.lightGrBg1{
+  background: #F6F8FB
+}
+
 .reviewTxt{
   
     font-size: 13px;
@@ -872,7 +876,7 @@ input[type=file] {
 }
 
 .heroFont{
-font-size: 44px;
+font-size: 45px;
 font-style: normal;
 font-weight: 700;
 line-height: 72px;
@@ -1051,10 +1055,14 @@ letter-spacing: 0em;
 
 .answerBox1{
 /*  background: rgba(44, 57, 73, 1);
-*/  background: white;
+*/  
+/*background: white;
+*/  
+  background: #443CCC;
   box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
 }
+
 
 
 .answerDrkBox1{
@@ -1086,10 +1094,7 @@ background: rgba(68, 60, 204, 0.5);
 
 
 .questionTxt1{
-  color: rgba(255, 255, 255, 0.5);
-
-
-
+   color: rgba(0, 0, 0, 0.5);
 }
 
 .unSelectedTxt1{
@@ -1174,7 +1179,7 @@ border-bottom-left-radius: 20px;
 }
 
 .titleBox{
-  background: #2C3949;
+  background: #3227C1;
 border-radius: 10px;
 }
 
@@ -1397,7 +1402,7 @@ border: 1px solid white;
   width: 592px;
   height: 60px;
   box-shadow: 6px 16px 26px 0px #1B31421C;
-  background: #2C3949;
+  background: #5346DC;
   border-radius: 50px;
 }
 
@@ -1706,6 +1711,8 @@ p > a {
 
 
 
-
+p > strong {
+  color: #DE7634;
+}
 
 

@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useContext, Fragment} from 'react'
 import {UserContext} from '../context/UserContext'
 import {API_URL} from '../utils/urls'
-import Footer from '../components/Footer'
 import { Dialog, Transition } from '@headlessui/react'
 
 
@@ -9,7 +8,6 @@ export default ({history}) =>{
 
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
-const [username, setUsername] = useState('')
 const [firstName, setFirstName] = useState('')
 const [lastName, setLastName] = useState('')
 const [error, setError] = useState('')

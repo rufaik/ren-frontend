@@ -1,22 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Link } from 'react-router-dom'
-import Post from '../components/Post'
 import Footer from '../components/Footer'
-import {formatPrice} from '../utils/format'
-import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
-import VerifyButton from "@passbase/button/react";
-import Marquee from "react-fast-marquee";
 import 'tw-elements';
-import {Verify} from './Verify'
-import { SearchIcon } from '@heroicons/react/outline'
 import {API_URL} from '../utils/urls'
 import 'animate.css'
 
 
 
 
-const formatImageUrl = (url) => `${API_URL}${url}`
 
 // const cardDets = [
 //   {
@@ -44,27 +35,22 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
 
-export default ({history}) =>{
+const Credits = ({history}) => {
 
 
- const [posts, setPosts] = useState([])
- const [products, setProducts] = useState([])
  const [userTypes, setUserTypes] = useState([])
- const {user, setUser, simpleUser, setSimpleUser, create, mainImages} = useContext(UserContext)
+ const {simpleUser, create} = useContext(UserContext)
  const [q1, setQ1] = useState(true)
  const [q2, setQ2] = useState(false)
  const [q3, setQ3] = useState(false)
  const [first1, setFirst1] = useState(1)
- const [darkMode, setDarkMode] = useState(true)
-const [verify, setVerify] = useState(false)
-  const [searchWord, setSearchWord] = useState('')
+
 
 
   useEffect(() => {
     const getPosts = async () => {
       const response = await fetch(`${API_URL}/posts`)
-      const data = await response.json()
-      setPosts(data)
+    
     }
 
     getPosts()
@@ -77,7 +63,6 @@ const [verify, setVerify] = useState(false)
       const response = await fetch(`${API_URL}/products`)
       const data = await response.json()
       console.log("data", data[0].id)
-      setProducts(data)
     }
 
     getProducts()
@@ -113,16 +98,16 @@ const [verify, setVerify] = useState(false)
 
       
 
-            <div className={create === 'darkbg' ? 'mt-20 pb-8 -mb-20' : 'mt-20 bluebg pb-8 -mb-20'}>
+            <div className={create === 'darkbg' ? 'mt-20 pb-8 -mb-20' : 'mt-20  pb-8 -mb-20'}>
               <div className='sectWidth mx-auto pt-32'>
                 <h2 className={create === 'darkbg' ? 'text-white' : 'text-black'}> Powered by R.E.N Credits </h2>
-                <div className={create === 'darkbg' ? 'h3Light text-white mt-4' : 'h3Light text-black mt-4'}> At Rent Equipment Now, our currency is R.E.N Credits, buy them, spend them and best of all, share them! The R.E.N platform exists to increase access to the most innovative consumer technology on the market, we created R.E.N Credits to help us do just that.</div>
-                <h2 className={create === 'darkbg' ? 'text-white mt-6' : 'text-black mt-6'}> What does this mean for you </h2>
-                <ol className={create === 'darkbg' ? 'h3Light text-white mt-4 list-decimal list-inside' : 'h3Light text-black mt-4 list-decimal list-inside'}> 
-                  <li>Purchase R.E.N credits and start renting straight away.</li>
-                  <li>Purchase R.E.N Credits and share them with other registered users.</li>
-                </ol>
-                <div className={create === 'darkbg' ? 'h3Light text-white mt-4' : 'h3Light text-black mt-4'}>All you need is the unique ID of the user/s you want to share credits with (this can be found in your account)...It’s really that simple! </div>
+                <div className={create === 'darkbg' ? 'h3Light text-white mt-4' : 'h3Light text-black mt-4'}> 
+                At Rent Equipment Now, our currency is R.E.N Credits, buy them, spend them and best of all, share them! The R.E.N platform exists to increase access to the most innovative consumer technology on the market, we created R.E.N Credits to help us do just that.                
+                </div>
+                <div className={create === 'darkbg' ? 'h3Light text-white mt-4' : 'h3Light text-black mt-4'}> 
+                All you need is the unique ID of the user/s you want to share credits with (this can be found in your account)...It’s really that simple!’
+                </div>
+
 
 
 
@@ -291,7 +276,7 @@ const [verify, setVerify] = useState(false)
                            <img className='w-100 mx-auto' alt='coin' src="../bigCoin.png" />
                           </div>
                         </div>
-                         <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 5}
+                         <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 3}
                         </div>
                           <div className='genBold text-center mt-6'>
                             R.E.N Credit
@@ -315,3 +300,7 @@ const [verify, setVerify] = useState(false)
 
   );
 }
+
+
+export default Credits;
+

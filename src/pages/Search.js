@@ -210,7 +210,7 @@ useEffect(() => {
 			                  name="searchWord"
 			                  type="text"
 			                  required
-			                  className="border-0 noRing bg-transparent genBold w-11/12 ml-4 py-2 text-white"
+			                  className={create === 'darkbg' ? "border-0 noRing bg-transparent genBold w-11/12 ml-4 py-2 text-white" : "border-0 noRing bg-transparent genBold w-11/12 ml-4 py-2 text-black"}
 			                  placeholder="Cameras, laptops, speakers, drones..."
 			                  value={searchWord}
 			                  onChange={(event) => {

@@ -1,12 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react'
-import {NavLink, Link} from 'react-router-dom'
+import React, { useContext} from 'react'
+import { Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
-import {CartContext} from '../context/CartContext'
-import { Switch } from '@headlessui/react';
 
 export default () =>{
 
-  const {user, setUser, create, setCreate, simpleUser, setSimpleUser, mainImages} = useContext(UserContext)
+  const { create, mainImages} = useContext(UserContext)
 
 
   return (
@@ -25,13 +23,13 @@ export default () =>{
   				<div className="w-1/5 flex flex-col">
   					<Link to='/home'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Home</Link>
   					<Link to='/about'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>About</Link>
-  					<Link to='/howitworks'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>How it works</Link>
-  					<Link to='/contact'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Contact</Link>
+{/*  					<Link to='/howitworks'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>How it works</Link>
+*/}  					<Link to='/contact'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Contact</Link>
   				</div>
-  				<div className="w-1/5 flex flex-col">
+  				{/*<div className="w-1/5 flex flex-col">
   				{user &&	<Link to={`/profile/${user.user.id}`}  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Profile</Link> }
   					<Link to='/newlisting'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Add Listing</Link>
-  				</div>
+  				</div>*/}
   				<div className="w-1/5 flex flex-col">
   					<Link to='/privacy'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Privacy Policy</Link>
   					<Link to='/terms'  className={create === 'darkbg' ? "mb-6 genLight " : "mb-6  genLight text-white"}>Terms & Conditions</Link>
@@ -61,7 +59,7 @@ export default () =>{
   				</div>
   			</div>
   			<div className={create === 'darkbg' ? "pb-8 pt-32 mx-auto text-center copy" : "pb-8 pt-32 mx-auto text-center copy text-white"}>
-  				Copyright © 2021 Rent Equipment Now | All Rights Reserved
+  				Copyright © 2023 Rent Equipment Now | All Rights Reserved
   			</div>
   		</div>
   	</div>

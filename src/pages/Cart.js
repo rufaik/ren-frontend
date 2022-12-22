@@ -1,13 +1,10 @@
-import React, {useState, useEffect, useCallback, useContext, Fragment} from 'react'
+import React, {useState, useCallback, useContext, Fragment} from 'react'
 import {
 	cartSubTotal,
 	cartCoinTotal, 
-	cartTotal, 
-	shouldPayShipping, 
-	SHIPPING_RATE
+	cartTotal
 } from '../utils/cart'
 import {formatPrice} from '../utils/format'
-import {API_URL} from '../utils/urls'
 import Checkout from '../components/Checkout'
 import {CartContext} from '../context/CartContext'
 import {UserContext} from '../context/UserContext'
@@ -16,12 +13,13 @@ import { Dialog, Transition } from '@headlessui/react'
 
 
 
-const formatImageUrl = (url) => `${API_URL}${url}`
-
-export default () =>{
 
 
-  const {user, setUser} = useContext(UserContext)
+const Cart = () => {
+
+
+
+  const {user} = useContext(UserContext)
 
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}), [])
@@ -30,7 +28,7 @@ export default () =>{
 	console.log("context cart", cart)
 	console.log("context addToCart", addToCart)
 	console.log("context user", user)
- 	const [open, setOpen] = useState(true)
+ 	const open = true
  	const [showCart, setShowCart] = useState(true)
  	const {create} = useContext(UserContext)
 
@@ -106,7 +104,7 @@ export default () =>{
 			   		<td 
 			   			className={create === 'darkbg' ? "whiteLine flex flex-row items-center" : "flex flex-row items-center"}
 			   		>
-					   	<img className="PostImage" src={cartItem.thumbnail.url} />
+					   	<img className="PostImage" alt="PostImage" src={cartItem.thumbnail.url} />
 						<span className="normalBold ml-2"> R.E.N Credits</span>
 					</td>
 					<td 
@@ -144,7 +142,7 @@ export default () =>{
 			   		<td 
 			   			className={create === 'darkbg' ? "whiteLine flex flex-row items-center" : "flex flex-row items-center"}
 			   		>
-					   	<img className="PostImage" src={cartItem.thumbnail.url} />
+					   	<img className="PostImage" alt="PostImage" src={cartItem.thumbnail.url} />
 						<span className="normalBold ml-2">{cartItem.name} R.E.N Offer</span>
 					</td>
 					<td 
@@ -286,3 +284,6 @@ export default () =>{
 		</div>
 	);
 }
+
+
+export default Cart;

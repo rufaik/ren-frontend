@@ -14,11 +14,10 @@ import {
 
 export default () =>{
 
-  const {user, setUser, create, setCreate, simpleUser, setSimpleUser, mainImages, setImages, lightMode, setLight} = useContext(UserContext)
+  const {user, setUser, create, setCreate, simpleUser, setSimpleUser, mainImages, setImages} = useContext(UserContext)
   const {cart} = useContext(CartContext)
   const {mode} = useContext(ModeContext)
   const [enabled, setEnabled] = useState(mode);
-  const [vector, setVector] = useState("../sun.png");
   console.log("mode", mode)
   console.log("Navvy121", create)
 
@@ -83,10 +82,12 @@ export default () =>{
         <>
   	   		<div onClick={() => window.location.href = `/profile/${user.user.id}`} className= {create === 'darkbg' ? "ml-4 mr-6 text-white menuItem cursor-pointer" : "ml-4 mr-6 menuItem cursor-pointer"}> My Profile </div>
           <Link to='/home' className={create === 'darkbg' ? "authBtn text-white" : "authBtn"} style={{"padding":"0.3rem"}} onClick={() => {
+            window.location.href = '/home'
             setUser(null)
             setSimpleUser(null)
             localStorage.removeItem('user') 
             localStorage.removeItem('simpleUser') 
+            localStorage.removeItem('cart') 
 
             }}>
             Log Out

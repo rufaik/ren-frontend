@@ -1,23 +1,18 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Link } from 'react-router-dom'
-import {formatPrice} from '../utils/format'
-import {fromProductSlugToUrl} from '../utils/products'
 import {API_URL} from '../utils/urls'
 import {UserContext} from '../context/UserContext'
 import Footer from '../components/Footer'
 import ReactMarkdown from 'react-markdown'
-import ReactDom from 'react-dom'
 import remarkGfm from 'remark-gfm'
 
 
-const formatImageUrl = (url) => `${API_URL}${url}`
 
 
 /* This example requires Tailwind CSS v2.0+ */
 export default function Example() {
 
   const [content, setContent] = useState(null)
-  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
+  const { create} = useContext(UserContext)
 
 
   useEffect(() => {
@@ -56,7 +51,7 @@ const getContent = async (user) => {
     <div  className=" absolute left-0 -top-32 -z-10">
          <img 
           src="../dotcurve.png"
-          alt="" 
+          alt="curve" 
         />    
     </div> 
     <div className='sectWidth mx-auto pt-32 pb-16'>
@@ -65,18 +60,18 @@ const getContent = async (user) => {
 
     <div className="flex flex-row w-full">
 
-    <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg w-2/5 z-10 relative">
+    <div  className=" flex justify-center items-center imgBx rounded-t-full rounded-b-lg z-10 relative">
  
          <img 
           src={content[0].heroImg.url}
           className="rounded-t-full rounded-b-lg w-full h-full object-cover" 
-          alt="" 
+          alt="ren" 
           width="66%" 
         />
        
       <div className="genBold absolute -bottom-8  right-0">Founder of R.E.N</div>    
     </div> 
-    <div className="w-3/5 pl-36">
+    <div className="w-8/12 pr-10 pl-36">
     <h3 className="text-left blueTxt mb-8 aboutHeader">{content[0].firstSubHeading}</h3>
     <div className="aboutGen">
       <ReactMarkdown children={content[0].introTxt} remarkPlugins={[remarkGfm]} />
@@ -89,16 +84,16 @@ const getContent = async (user) => {
     <div className="h-20 orangeBg flex items-center  ">
       <div className="sectWidth mx-auto px-4 flex items-center flex-row justify-between">
         <div>
-          <img className="w-32" src={content[0].orangeBxImage1 && content[0].orangeBxImage1.url} />
+          <img className="w-32" alt="sponsor" src={content[0].orangeBxImage1 && content[0].orangeBxImage1.url} />
         </div>
         <div>
-          <img className="w-32" src={content[0].orangeBxImage2 && content[0].orangeBxImage2.url} />
+          <img className="w-32" alt="sponsor" src={content[0].orangeBxImage2 && content[0].orangeBxImage2.url} />
         </div>
         <div>
-          <img className="w-32" src={content[0].orangeBxImage3 && content[0].orangeBxImage3.url} />
+          <img className="w-32" alt="sponsor" src={content[0].orangeBxImage3 && content[0].orangeBxImage3.url} />
         </div>
         <div>
-          <img className="w-32" src={content[0].orangeBxImage4 && content[0].orangeBxImage4.url} />
+          <img className="w-32" alt="sponsor" src={content[0].orangeBxImage4 && content[0].orangeBxImage4.url} />
         </div>
       </div>
     </div>
@@ -107,7 +102,7 @@ const getContent = async (user) => {
      <div  className=" absolute -right-48 top-0 -z-10">
          <img 
           src="../dotcurve1.png"
-          alt="" 
+          alt="curve" 
         />    
     </div> 
     <h3 className="text-left blueTxt mb-8 aboutHeader">{content[0].secondSubHeading}</h3>
@@ -127,7 +122,7 @@ const getContent = async (user) => {
 <div>
   <img 
     src="../orgSmile.png"
-    alt="w-full" 
+    alt="smile" 
   />
   <div className="h3Bold text-white my-6"> {content[0].purpleBxHeader}</div>
   <div className="genLight text-white">{content[0].purpleBxTxt}</div>
@@ -140,7 +135,7 @@ const getContent = async (user) => {
 <div style={{"width": "44rem"}} className="z-10">
   <img 
     src={content[0].purpleBxImg.url}
-    alt="w-full" 
+    alt="contact" 
   />
   
 </div>

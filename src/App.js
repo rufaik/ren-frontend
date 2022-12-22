@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useEffect, useContext} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
 import Home from './pages/Home'
@@ -36,7 +36,7 @@ import {API_URL} from './utils/urls'
 
 function App() {
 
-  const {user, setUser, create, simpleUser, setSimpleUser, mainImages, setImages, lightMode, setLight} = useContext(UserContext)
+  const {user, setUser, create, setSimpleUser, setImages, lightMode} = useContext(UserContext)
 
     useEffect(() => {
       if(localStorage.getItem('user')){

@@ -1,14 +1,14 @@
-import React, {useState, useEffect, useContext, Fragment} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../context/UserContext'
 
 
 
 export default ({rangeF1, rangeT1, show}) =>{
 
-	 const [from, setFrom] = useState('')
-	 const [from1, setFrom1] = useState('')
-	 const [to, setTo] = useState('')
-	 const [to1, setTo1] = useState('')
+	 // const [from, setFrom] = useState('')
+	 // const [from1, setFrom1] = useState('')
+	 // const [to, setTo] = useState('')
+	 // const [to1, setTo1] = useState('')
 	 const [HS1, setHS1] = useState('Start Date')
 	 const [HS2, setHS2] = useState('Start Date')
 	 const [HS3, setHS3] = useState('Start Date')
@@ -20,7 +20,7 @@ export default ({rangeF1, rangeT1, show}) =>{
 	 const [HT4, setHT4] = useState('End Date')
 	 const [HT5, setHT5] = useState('End Date')
 	 const [showDates, setShowDates] = useState(show)
-	 const {user, setUser, simpleUser, setSimpleUser, create, rangeF, setRangeF, rangeT, setRangeT} = useContext(UserContext)
+	 const { create, rangeF, setRangeF, rangeT, setRangeT} = useContext(UserContext)
 
 	 useEffect(() => {
 

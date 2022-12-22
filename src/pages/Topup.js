@@ -125,7 +125,7 @@ export default ({description, likes, url}) =>{
 
 
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={() => window.location.href = `/profile/${user.user.id}`}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -176,7 +176,7 @@ export default ({description, likes, url}) =>{
                               }}
 
                             />
-                    <div className="genLight ml-6">Cost: {formatPrice(topQty*20)}</div>
+                    <div className="genLight ml-6">Cost: {formatPrice(topQty*33)}</div>
                 </div>
           {products.map((product) => {
             if(product.name === "1"){
@@ -188,7 +188,7 @@ export default ({description, likes, url}) =>{
                     console.log("product", product)
                     addToCart(product, topQty)}}
                 >
-                Purchase R.E.N Credits
+                Add to basket
                 </div>
               )}})}
               <div className="gryLine2 w-full my-10"></div>

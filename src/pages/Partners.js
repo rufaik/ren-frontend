@@ -191,9 +191,9 @@ const supportLinks = [
       <div className='sectWidth mx-auto pt-24'>
         <div className="flex flex-row w-full">
           <div className="w-7/12">
-            <h1 className="w-11/12">
+            <h2 className="w-8/12">
               {content[0].header}
-            </h1>
+            </h2>
             <div className="h3Light mt-12 w-10/12">
             {content[0].heroTxt}
             </div>
@@ -393,7 +393,8 @@ const supportLinks = [
     <div className="w-4/12">
     <div className="w-full"> 
         <img
-            className="w-full"
+            className=""
+            style={{'maxWidth': '130%'}}
             src={content[0].formImg[0].url}
             alt=""
           />

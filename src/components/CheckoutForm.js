@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useCallback, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import {CartContext} from '../context/CartContext'
 import {UserContext} from '../context/UserContext'
 import {
   cartCoinTotal, 
-  cartSubTotal,
   cartTotal 
 } from '../utils/cart'
 import {formatPrice} from '../utils/format'
@@ -12,46 +11,13 @@ import {API_URL} from '../utils/urls'
 import { Link} from 'react-router-dom'
 
 
-const Card_Styles = {
-	style: {
-		base: {
-	
-      width: "100%",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.75rem",
-      paddingBottom: "0.75rem",
-      border: "none !important",
-      borderRadius: "0.25rem",
-      color: "rgba(55, 65, 81, 1)",
-      backgroundColor: "red",
-      boxShadow: "1px 1px 4px 0px #1b31421c"
-
-		}
-	}
-}
-
-const generateInput = (label, value, setOnChange) => {
-  return(
-      <div >
-        <div className="genBold w-36" >{label} </div>
-        <input 
-          id={label}
-          value={value}
-          className="w-full px-2 py-3 border-none text-gray-700 bg-gray-100 rounded paymentBox"
-          onChange={(event) => setOnChange(event.target.value)}
-          value={value}
-        />
-      </div>
-    )
-}
 
 export default () =>{
 
 
   const stripe = useStripe();
   const elements = useElements();
-  const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
+  const {user, simpleUser, setSimpleUser, create} = useContext(UserContext)
 
   const {cart, clearCart} = useContext(CartContext)
 
@@ -95,13 +61,7 @@ export default () =>{
   },
 };
 
-  const valid = () => {
-    if(!shipping_name || !shipping_address || !shipping_county || !shipping_country || !shipping_postcode){
-      return false
-    }
 
-    return true
-  }
 
   const handleSubmit = async (event) => {
   	event.preventDefault();
