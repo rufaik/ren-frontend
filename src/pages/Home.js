@@ -1,14 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {Link } from 'react-router-dom'
-import Post from '../components/Post'
 import Footer from '../components/Footer'
-import {formatPrice} from '../utils/format'
-import {fromProductSlugToUrl} from '../utils/products'
 import {UserContext} from '../context/UserContext'
-import VerifyButton from "@passbase/button/react";
 import Marquee from "react-fast-marquee";
 import 'tw-elements';
-import {Verify} from './Verify'
 import { SearchIcon } from '@heroicons/react/outline'
 import {API_URL} from '../utils/urls'
 import 'animate.css'
@@ -16,7 +11,6 @@ import 'animate.css'
 
 
 
-const formatImageUrl = (url) => `${API_URL}${url}`
 
 // const cardDets = [
 //   {
@@ -44,21 +38,18 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
 
-export default ({history}) =>{
 
 
- const [posts, setPosts] = useState([])
- const [products, setProducts] = useState([])
+const Home = ({history}) => {
+
+
  const [userTypes, setUserTypes] = useState([])
- const {user, setUser, simpleUser, setSimpleUser, create, mainImages} = useContext(UserContext)
+ const { create, mainImages} = useContext(UserContext)
  const [q1, setQ1] = useState(true)
  const [q2, setQ2] = useState(false)
  const [q3, setQ3] = useState(false)
  const [q4, setQ4] = useState(false)
  const [q5, setQ5] = useState(false)
- const [first1, setFirst1] = useState(1)
- const [darkMode, setDarkMode] = useState(true)
- const [verify, setVerify] = useState(false)
  const [searchWord, setSearchWord] = useState('')
  const [content, setContent] = useState(null)
 
@@ -78,40 +69,16 @@ const getContent = async (user) => {
     })
     try{
                 const data = await response.json();
-                console.log("side", data)
                 setContent(data);
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
             }         
         }
 
 
-  useEffect(() => {
-    const getPosts = async () => {
-      const response = await fetch(`${API_URL}/posts`)
-      const data = await response.json()
-      setPosts(data)
-    }
-
-    getPosts()
-
-  }, [])
 
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetch(`${API_URL}/products`)
-      const data = await response.json()
-      console.log("data", data[0].id)
-      setProducts(data)
-    }
-
-    getProducts()
-    // console.log("products", products)
-
-  }, [])
-
+ 
 
 
 
@@ -119,16 +86,12 @@ const getContent = async (user) => {
     const getUserTypes = async () => {
       const response = await fetch(`${API_URL}/identity-cards`)
       const data = await response.json()
-      console.log("data", data)
       setUserTypes(data)
-    }
-
-    getUserTypes()
-    console.log("userTypes", userTypes)
-
+    };
+    getUserTypes();
   }, [])
 
-  console.log("home", simpleUser)
+
 
 
 
@@ -164,9 +127,7 @@ const getContent = async (user) => {
         />
       </Link>
       ))}*/}
-        {verify &&
-          <Verify />
-          }
+
         <div
           id="carouselDarkVariant"
           // className="carousel slide carousel-fade carousel-dark relative sectWidth mx-auto mt-10"
@@ -208,7 +169,6 @@ const getContent = async (user) => {
                                   }}
                                   onKeyDown={(e) => {
                                    if (e.key === 'Enter') {
-                                    console.log('do validate');
                                     history.push({ 
                                        pathname: '/search',
                                        state: searchWord
@@ -259,7 +219,8 @@ const getContent = async (user) => {
               speed={60}
               style={{"fontSize": "19px"}}
             >
-            Access a wide range of tech - Use it sustainably - No long term commitments - No hassle.
+            Access a wide range of Tech 📸  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Use it Sustainably ♻️ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No long term commitments 🚫 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  No hassle 😁
+
               </Marquee>
               <div className={create === 'darkbg' ? '' : 'lightGrBg1'}>
 
@@ -457,6 +418,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           <img
                             className="w-full"
                             src="../homedot.svg"
+                            alt=""
                           />
                         </div>
                   <div className=" relative mr-48 z-20">
@@ -469,6 +431,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           <img
                             className="w-full"
                             src="../calH.png"
+                            alt=""
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
@@ -489,6 +452,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           <img
                             className="w-full"
                             src="../camH.png"
+                            alt=""
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
@@ -509,6 +473,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           <img
                             className="w-full"
                             src="../vec1.png"
+                            alt=""
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
@@ -529,6 +494,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           <img
                             className="w-full"
                             src="../chat.png"
+                            alt=""
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
@@ -928,3 +894,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
 
   );
 }
+
+export default Home;
+
+

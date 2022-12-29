@@ -1,19 +1,13 @@
 import React, {useState, useEffect, useContext, Fragment} from 'react'
-import Post from '../components/Post'
 import Availability from '../components/Availability'
 import Share from './Share'
 import {API_URL} from '../utils/urls'
 import Payout from './Payout'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../context/UserContext'
-import {LikesContext} from '../context/LikesContext'
-import Tabs,{Tab} from 'react-best-tabs';
 import 'react-best-tabs/dist/index.css';
-import { LockClosedIcon } from '@heroicons/react/solid'
 import ImageUploading from "react-images-uploading";
-import { addDays } from 'date-fns';
 import Footer from '../components/Footer'
-import EditProfile from '../components/EditProfile'
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import Transactions from './Transactions'
@@ -24,8 +18,8 @@ function classNames(...classes) {
 }
 
 
+const Profile = ({match, history}) => {
 
-export default ({match, history}) =>{
 const {id} = match.params
 console.log("idd", id)
 console.log("match", id)
@@ -36,8 +30,7 @@ const [open6, setOpen6] = useState(false)
 const [open1, setOpen1] = useState(false)
 const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
-const [final, setFinalPayout] = useState(false)
-const {user, setUser, simpleUser, setSimpleUser, simpleUser1, create} = useContext(UserContext)
+const {user, simpleUser, setSimpleUser, simpleUser1, create} = useContext(UserContext)
  console.log("setUser", user)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -48,31 +41,23 @@ const {user, setUser, simpleUser, setSimpleUser, simpleUser1, create} = useConte
 
 // console.log("isPostAlreadyLiked", isPostAlreadyLiked)
 
-const [post1, setPost1] = useState({})
-const [post2, setPost2] = useState({})
-const [post3, setPost3] = useState({})
-const [loading, setLoading] = useState(true)
-const [edit, setEdit] = useState(false)
-const [description1, setDescription1] = useState('')
-const [letter, setLetter] = useState('')
-const [first, setFirst] = useState('')
-const [unique, setUnique] = useState('')
-const [code, setCode] = useState('')
-const [coins, setCoins] = useState(0)
-const [file, setFile] = useState(null)
-const [profile, setProfile] = useState('/profile.jpg')
-const [error, setError] = useState('')
-const [show, setShow] = useState('collapse')
-const [pop, setPop] = useState({})
-const [fullBooking, setFullBooking] = useState({})
-const [status, setStatus] = useState('')
-const [lastStatement, setLast] = useState('')
-const [newBooking, setNewBooking] = useState('')
-// const [profileUser, setProfileUser] = useState([])
+  const [post1, setPost1] = useState({})
+  const [post2, setPost2] = useState({})
+  const [post3, setPost3] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [description1, setDescription1] = useState('')
+  const [letter, setLetter] = useState('')
+  const [first, setFirst] = useState('')
+  const [code, setCode] = useState('')
+  const [coins, setCoins] = useState(0)
+  const [file, setFile] = useState(null)
+  const [error, setError] = useState('')
+  const [pop, setPop] = useState({})
+  const [fullBooking, setFullBooking] = useState({})
+  const [status, setStatus] = useState('')
+  const [lastStatement, setLast] = useState('')
   const [bookingList, setBookingList] = useState([]);
   const [bookingList1, setBookingList1] = useState([]);
-  const [reject, setReject] = useState(false);
-  const [tranStatus, setTranStatus] = useState('Ingoing');
   const [activePayout, setActivePayout] = useState(false);
   const [showPayout, setShowPayout] = useState(false);
   const [showTransactions, setShowTransactions] = useState(false);
@@ -199,11 +184,11 @@ const getPopUser = async (productUser) => {
         }
 
 
-useEffect(() => {
+// useEffect(() => {
 
-  fetchListings()
+//   fetchListings()
 
-}, [user])
+// }, [user])
 
 
 
@@ -231,36 +216,36 @@ setRange3(simpleUser1)
 
 }
 
-const fetchListings = async (user) => {
-  console.log("gosssss", user)
-    const response = await fetch(`${API_URL}/listings`, {
-       method: 'GET',
-        headers: {
-          'Content-Type':'application/json',
-          // 'Authorization': `Bearer ${user.jwt}`
-        }
-    })
-    try{
-                const data = await response.json();
+// const fetchListings = async (user) => {
+//   console.log("gosssss", user)
+//     const response = await fetch(`${API_URL}/listings`, {
+//        method: 'GET',
+//         headers: {
+//           'Content-Type':'application/json',
+//           // 'Authorization': `Bearer ${user.jwt}`
+//         }
+//     })
+//     try{
+//                 const data = await response.json();
                 
-                // setDescription1(data.description)
-                setLoading(false);
-                console.log("sideeeee", data)
-                if(data !== null){
-                  setPost2(data);
+//                 // setDescription1(data.description)
+//                 setLoading(false);
+//                 console.log("sideeeee", data)
+//                 if(data !== null){
+//                   setPost2(data);
           
-                } else {
-                  console.log("else", user)
+//                 } else {
+//                   console.log("else", user)
                
 
-                }
-                // history.push(`/profile/${id}`)
-            } catch(err){
-              console.log("nope")
-                setPost2({}); 
-                setLoading(false);
-            }         
-        }
+//                 }
+//                 // history.push(`/profile/${id}`)
+//             } catch(err){
+//               console.log("nope")
+//                 setPost2({}); 
+//                 setLoading(false);
+//             }         
+//         }
 
 
 useEffect(() => {
@@ -848,7 +833,6 @@ const createTransaction2 = async () => {
 
           const confirm = await response.json()
           console.log("confirm2", confirm)
-          setFinalPayout(true)
           createTransaction2()
           // window.location.reload()
 
@@ -1487,7 +1471,6 @@ return (
       ?
       <button 
             onClick={() => {
-              setEdit(true)
               setOpen4(true)
               setBorough(simpleUser.borough)
               setJob(simpleUser.occupation)
@@ -2209,7 +2192,7 @@ return (
   );
 }
 
-
+export default Profile;
 
 
 
