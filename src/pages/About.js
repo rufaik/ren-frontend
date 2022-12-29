@@ -132,10 +132,11 @@ const getContent = async (user) => {
  
   
 </div>
-<div style={{"width": "44rem"}} className="z-10">
+<div style={{"width": "44rem"}} className="border rounded aboutBorder z-10">
   <img 
     src={content[0].purpleBxImg.url}
     alt="contact" 
+    className="rounded"
   />
   
 </div>

@@ -194,14 +194,14 @@ const supportLinks = [
             <h2 className="w-8/12">
               {content[0].header}
             </h2>
-            <div className="h3Light mt-12 w-10/12">
+            <div className="h3Light mt-12 w-10/12 mb-24">
             {content[0].heroTxt}
             </div>
           </div>
           <div className="w-5/12 relative">
             <div className="absolute z-10">
              <img
-            className="w-full"
+            className="w-full rounded-md"
             src={content[0].heroImg.url}
             alt=""
           />

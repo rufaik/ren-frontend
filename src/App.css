@@ -1061,6 +1061,11 @@ letter-spacing: 0em;
   background: #443CCC;
   box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
+  color: white;
+}
+
+.aboutBorder{
+  border-color: #aeabe2;
 }
 
 
@@ -1071,6 +1076,7 @@ letter-spacing: 0em;
   background: #443CCC;
   box-shadow: 14px 10px 35px 0px rgba(27, 49, 66, 0.15);
   border-radius: 10px;
+  color: white;
 }
 
 .questionTxt{
