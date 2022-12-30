@@ -74,6 +74,7 @@ export default () =>{
   		
   	})
 
+ console.log("resultresult", result)
     const data = {
       paymentIntent: result.paymentIntent,
       shipping_name,
