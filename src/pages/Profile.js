@@ -1190,11 +1190,11 @@ return (
 
       {user && user.user.id.toString() === id.toString() &&
         <div>
-        {activePayout &&
+     {/*   {activePayout &&
           <button onClick={showingPayout} className="orangeCol my-3 text-white block mt-4 underline cursor-pointer">
                   Set up your payment information
           </button>
-        }
+        }*/}
         </div>
       }
         {showPayout &&
@@ -1535,7 +1535,7 @@ return (
       <div
       className="mt-5 w-100">
         <div className="mr-3 w-full " >
-           <div className='h3Bold borderbot border-black py-2'>
+           <div className={create === 'darkbg' ? "h3Bold borderbot border-white py-2 text-white" : "h3Bold borderbot border-black py-2"}>
            Rented
            </div>
 {/*        { post2 && post2[0]
