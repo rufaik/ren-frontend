@@ -48,6 +48,7 @@ const handleSubmit = async () => {
           body: JSON.stringify({
           email,
           password,
+          confirmed: false,
           username: email,
           name: firstName,
           surname: lastName
