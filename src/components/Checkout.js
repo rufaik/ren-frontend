@@ -5,7 +5,6 @@ import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PK}`);
 
-console.log("stripePromise", stripePromise)
 
 
 export default () =>{
