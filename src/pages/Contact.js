@@ -20,6 +20,7 @@ const Contact = () => {
   const [phone, setPhone] = useState('');
   const [help, setHelp] = useState('');
   const [content, setContent] = useState(null)
+  const [success, setSuccess] = useState(false)
   const { create, mainImages} = useContext(UserContext)
 
   useEffect(() => {
@@ -73,6 +74,7 @@ const getContent = async (user) => {
 
           const data = await response.json()
           console.log("Contact", data)
+          setSuccess(true)
         
          
 
@@ -369,7 +371,8 @@ const getContent = async (user) => {
                     />
                   </div>
                 </div>
-                <div className="sm:col-span-2 sm:flex sm:justify-end">
+                <div className="sm:col-span-2 sm:flex sm:justify-end items-center">
+                {success && <div className="genBold orangeCol mr-8">Thank you, we will be in touch</div>}
                   <button
                     type="submit"
                     onClick={handleSubmit}

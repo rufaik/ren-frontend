@@ -154,6 +154,7 @@ const getItems = async (user) => {
 	    setCategory(uniqueCategory);
 }
 console.log("category1", category)
+console.log("itemGroup", itemGroup)
 
 
 const [selectedId1a, setSelectedId1a] = useState(null);

@@ -14,10 +14,18 @@ const [firstName, setFirstName] = useState('')
 const [lastName, setLastName] = useState('')
 const [error, setError] = useState('')
 const [alreadyUser, setAlreadyUser] = useState(false)
+const [samePassword, setSame] = useState(null)
+const [emptyFields, setEmpty] = useState(null)
+const [confirm, setConfirm] = useState('')
+  const [image, setImages] = React.useState([]);
+  const [image1, setImages1] = React.useState([]);
 
 
 const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
 console.log('user', user)
+
+console.log('imageimage', image)
+console.log('image1image1', image1)
 
 
 // useEffect(() => {
@@ -27,15 +35,46 @@ console.log('user', user)
 //   }
 // }, [user])
 
-const checkUser = (event) => {
-  event.preventDefault()
 
+const checkPasswords = async (event) => {
+  event.preventDefault()
+  console.log("password", password)
+  console.log("confirm", confirm)
+  console.log("length", password.length)
+
+  if(password !== confirm || password.length < 1) {
+    
+    setSame(false)
+  } else {
+    checkSubmit()
+    setSame(true)
+  }
+}
+
+const checkSubmit = async () => {
+
+  if(email === '' || password === ""  || firstName === "" || lastName === "" || samePassword === false  || image.length === 0 || image1.length === 0) {
+    setEmpty(false)
+    console.log("empty")
+  } else {
+    checkUser()
+     setEmpty(true)
+    console.log("notempty")
+
+  }
+}
+
+const checkUser = () => {
+  //event.preventDefault()
+console.log("checkUser")
     if(user) {
     setAlreadyUser(true)
   }else {
     handleSubmit()
 }
 }
+
+
 
 const handleSubmit = async () => {
   
@@ -63,18 +102,18 @@ const handleSubmit = async () => {
       
           return //Stop execution
         } 
-        saveImage(data)
+        await saveImage(data)
         localStorage.setItem('user', JSON.stringify(data))
         setUser(data)
         localStorage.setItem('simpleUser', JSON.stringify(data.user))
         setSimpleUser(data.user)
         createUsername(data)
-
+        window.location.href = '/home'
 
 
 
      } catch(err){
-      setError('Something went wrong', err)
+      console.log("err", err)
      }      
 
 }
@@ -130,8 +169,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
 
-  const [image, setImages] = React.useState([]);
-  const [image1, setImages1] = React.useState([]);
+
   const [showSave, setShowSave] = useState(true)
   console.log("image", image)
   console.log("image1", image1)
@@ -164,9 +202,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   try{
         const response = await fetch(`${API_URL}/verifies`, {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsImlhdCI6MTY2ODE5OTkzMCwiZXhwIjoxNjcwNzkxOTMwfQ.ftfPfYfLx0FmQcnu6jebuyXmEsPsp9twHFA_aHKMcs4`
-          },          
+         
           body: formData
         })
 
@@ -175,7 +211,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
         const data = await response.json()
        
         console.log("dataK1", data) 
-        window.location.href = '/home'
+        // window.location.href = '/home'
 
       }catch(err){
         console.log("Exception", err)
@@ -286,14 +322,21 @@ const formatImageUrl = (url) => `${API_URL}${url}`
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <input
                   placeholder="Confirm Password"
-                  id="password"
+                  id="confirmPassword"
                   name="password"
                   type="password"
+                  value={confirm}
                   autocomplete="off"
                   className={create === 'darkbg' ? "uniqueBoxDrk mt-4 pl-4" : "uniqueBox mt-4 pl-4"}
+                  onChange={(event) => {
+                    setError('')
+                    setConfirm(event.target.value)
+                  }}
                 />
               </div>
             </div>
+
+            
 
 
    
@@ -343,10 +386,10 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                                  <img className="w-100" src="../camsketch.png" />
 
                                
-                              {simpleUser && simpleUser.image === null
+                              {/*{simpleUser && simpleUser.image === null
                                 ? <img className="absolute uploadSketch" src="../upload.png" /> 
                                 : null
-                              }
+                              }*/}
                               
                               {imageList.map((image, index) => (
                               <div key={index} className=" flex justify-center items-center imgBx2 rounded-t-lg rounded-b-lg absolute top-0 left-0">
@@ -389,10 +432,10 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                                  <img className="w-100" src="../camsketch.png" />
 
                                
-                              {simpleUser && simpleUser.image === null
+                              {/*{simpleUser && simpleUser.image === null
                                 ? <img className="absolute uploadSketch" src="../upload.png" /> 
                                 : null
-                              }
+                              }*/}
                               
                               {imageList.map((image1, index) => (
                               <div key={index} className=" flex justify-center items-center imgBx2 rounded-t-lg rounded-b-lg absolute top-0 left-0">
@@ -412,16 +455,24 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                   </div>
 
       <div className="pt-5">
-        <div className="flex justify-center ">
+        <div className="flex flex-col justify-center ">
           <button
             // type="submit"
-            onClick={checkUser}
+            onClick={(event) => checkPasswords(event)}
            // onClick={(event) => handleSubmit(event)} 
             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white orangeBg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Sign Up
           </button>
-         
+          {samePassword === false &&
+              <div className="genBold my-4" style={{"color": "red"}}>Your passwords do not match</div>}
+
+          {emptyFields === false &&
+              <div className="genBold my-4" style={{"color": "red"}}>Please complete ALL the above fields</div>}
+          
+          {error &&
+              <div className="genBold my-4" style={{"color": "red"}}>{error}</div>}
+
         </div>
       </div>
        {alreadyUser &&
@@ -431,7 +482,6 @@ const formatImageUrl = (url) => `${API_URL}${url}`
           }
     </form>
 
-{error && <p>{error}</p>}
 
 
 

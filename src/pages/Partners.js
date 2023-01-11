@@ -298,7 +298,7 @@ const supportLinks = [
       </div>
     </div>
     <div className="flex flex-row -mb-20">
-    <div className="w-8/12 pl-48 py-24">
+    <div className="w-8/12 pl-48 pt-24">
       <div className="partnerHeader">
         {content[0].formTitle}
       </div>

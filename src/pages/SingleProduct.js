@@ -601,7 +601,7 @@ const [state, setState] = useState({
               direction="horizontal"
                 />;*/}
               <div>
-          {simpleUser && simpleUser.confirmed === true &&
+          {simpleUser && simpleUser.verified === true &&
         <>
             <button
                 className="orangeBg text-white h3Dark py-3 px-8 rounded-full"

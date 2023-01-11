@@ -75,6 +75,13 @@ export default () =>{
   	})
 
  console.log("resultresult", result)
+
+ console.log("user coins",(user.user.coins))
+ console.log("parse user coins",parseInt(user.user.coins))
+ console.log("simple coins",(simpleUser.coins))
+ console.log("parse simple coins",parseInt(simpleUser.coins))
+
+
     const data = {
       paymentIntent: result.paymentIntent,
       shipping_name,
@@ -112,10 +119,19 @@ export default () =>{
 
           createTransaction(order)
 
+ console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
+ console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
+ console.log("1user coins",(user.user.coins))
+ console.log("1parse user coins",parseInt(user.user.coins))
+ console.log("1simple coins",(simpleUser.coins))
+ console.log("1parse simple coins",parseInt(simpleUser.coins))
+ console.log("1parse order coins", Math.round(parseInt(order.coins)))
+ console.log("1order coins", order.coins)
 
 
     console.log("handleSubmit result", result)
     console.log("handleSubmit order", order)
+    console.log("coinssss order", coins)
     
     // We don't want to let default form submission happen here,
     // which would refresh the page.
