@@ -94,7 +94,7 @@ export default () =>{
       cart
     }
 
-    console.log("data")
+    console.log("data123", data)
 
      try{
 
