@@ -66,7 +66,7 @@ export default () =>{
   const handleSubmit = async (event) => {
   	event.preventDefault();
 	setLoading(true)
-  	console.log("handleSubmit", event)
+  	console.log("handleSubmit1", token)
   	const result = await stripe.confirmCardPayment(token,{
   		payment_method:{
   			card: elements.getElement(CardElement)
@@ -93,6 +93,8 @@ export default () =>{
       users_permissions_user:user.user.id,
       cart
     }
+
+    console.log("data")
 
      try{
 
