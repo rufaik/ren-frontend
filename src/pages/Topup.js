@@ -45,16 +45,16 @@ export default ({description, likes, url}) =>{
  const {cart, addToCart} = useContext(CartContext)
 
 
-  useEffect(() => {
-    const getPosts = async () => {
-      const response = await fetch(`${API_URL}/posts`)
-      const data = await response.json()
-      setPosts(data)
-    }
+  // useEffect(() => {
+  //   const getPosts = async () => {
+  //     const response = await fetch(`${API_URL}/posts`)
+  //     const data = await response.json()
+  //     setPosts(data)
+  //   }
 
-    getPosts()
+  //   getPosts()
 
-  }, [])
+  // }, [])
 
 
   useEffect(() => {

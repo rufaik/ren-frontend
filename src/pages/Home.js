@@ -435,10 +435,10 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
-                        {content && content[0].card1Title}
+                        {content && content[0]?.card1Title}
                         </div>
                         <div className="genLight text-white mt-4">
-                        {content && content[0].card1Text}
+                        {content && content[0]?.card1Text}
                         </div>
                       </div>
                   </div>
@@ -456,10 +456,10 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
-                        {content && content[0].card2Title}
+                        {content && content[0]?.card2Title}
                         </div>
                         <div className="genLight text-white mt-4">
-                        {content && content[0].card2Text}
+                        {content && content[0]?.card2Text}
                         </div>
                       </div>
                   </div>                
@@ -477,10 +477,10 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
-                        {content && content[0].card3Title}
+                        {content && content[0]?.card3Title}
                         </div>
                         <div className="genLight text-white mt-4">
-                        {content && content[0].card3Text}
+                        {content && content[0]?.card3Text}
                         </div>
                       </div>
                   </div>                
@@ -498,10 +498,10 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                           />
                         </div>
                         <div className="h3Bold text-white mt-4">
-                        {content && content[0].card4Title}
+                        {content && content[0]?.card4Title}
                         </div>
                         <div className="genLight text-white mt-4">
-                        {content && content[0].card4Text}
+                        {content && content[0]?.card4Text}
                         </div>
                       </div>
                   </div>                

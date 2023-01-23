@@ -32,7 +32,7 @@ export default () =>{
   return (
     <div className="Nav sectWidth flex items-center mt-8 mx-auto relative z-30">
         <Link className="logoBox" to='/home'>
-           {mainImages && <img className='w-100' alt='REN logo' src={create === 'darkbg' ? mainImages[0].lightlogo.url :  mainImages[0].darklogo.url} /> }
+           {mainImages && <img className='w-100' alt='REN logo' src={create === 'darkbg' ? mainImages[0]?.lightlogo?.url :  mainImages[0]?.darklogo?.url} /> }
         </Link>
         <div className="ml-20">
           <Switch.Group

@@ -15,7 +15,7 @@ export default () =>{
   				<div className="w-1/5">
   					<Link  to='/home'>
 						<div className="logoBox">
-                    {mainImages && <img  alt='REN logo' src={create === 'darkbg' ? mainImages[0].lightlogo.url :  mainImages[0].darklogo.url} /> }
+                    {mainImages && <img  alt='REN logo' src={create === 'darkbg' ? mainImages[0]?.lightlogo?.url :  mainImages[0]?.darklogo?.url} /> }
 
 				        </div>
 			        </Link>
@@ -36,21 +36,21 @@ export default () =>{
   				</div>
   				<div className="w-1/5 flex flex-row justify-end">
             {mainImages && 
-    					<Link  to={{ pathname: `${mainImages[0].facebook }`}} target="_blank">
+    					<Link  to={{ pathname: `${mainImages[0]?.facebook }`}} target="_blank">
   						  <div className="socialBx mr-4">
   				            <img  alt='social' src={create === 'darkbg' ? "../faceD.png"  : "../faceL.png"} />
   				        </div>
 			        </Link>
             }
             {mainImages && 
-              <Link  to={{ pathname: `${mainImages[0].linkedin }`}} target="_blank">
+              <Link  to={{ pathname: `${mainImages[0]?.linkedin }`}} target="_blank">
   						<div className="socialBx mr-4">
 				            <img  alt='social' src={create === 'darkbg' ? "../linkD.png"  : "../linkL.png"} />
 				        </div>
 			        </Link>
             }
             {mainImages && 
-              <Link  to={{ pathname: `${mainImages[0].instagram }`}} target="_blank">
+              <Link  to={{ pathname: `${mainImages[0]?.instagram }`}} target="_blank">
   						  <div className="socialBx mr-4">
 				            <img  alt='social' src={create === 'darkbg' ? "../instaD.png"  : "../instaL.png"} />
 				        </div>
