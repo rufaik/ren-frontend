@@ -90,6 +90,9 @@ export default () =>{
       shipping_country,
       shipping_postcode,
       coins: cartCoinTotal(cart),
+      total_in_cents: cartTotal(cart),
+      subtotal_in_cents: cartSubTotal(cart),
+      taxes_in_cents: cartSubTotal(cart) * 0.03,
       users_permissions_user:user.user.id,
       cart
     }
