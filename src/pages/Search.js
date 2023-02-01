@@ -31,6 +31,7 @@ export default (history) =>{
 	const [finding, setFinding] = useState(true)
 	const [searchWord, setSearchWord] = useState('')
 	console.log("history", history)
+	console.log("searchWord", searchWord)
 
 
 useEffect(() => {
@@ -371,7 +372,7 @@ useEffect(() => {
 								<div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
 
 							{itemGroup.map((listing, i) => {
-								if(optionList.length < 1 && optionListB < 1 && listing.name.includes(searchWord)) {
+								if(optionList.length < 1 && optionListB < 1 && listing.name.toLowerCase().includes(searchWord.toLowerCase())) {
 	                			return(
 
 									<Link 
@@ -404,47 +405,10 @@ useEffect(() => {
 					                     </div>
 					                     <div 
 					                     className={create === 'darkbg' ? "text-white genLight orgBdr pt-2 inline-flex ml-8" : "genLight orgBdr pt-2 inline-flex ml-8"}
-					                     >{listing.name}</div>
+					                     >{listing.name}</div> 
 
 									</Link>	                				
-	                		)} else if (optionListB.includes(listing.brand) && optionList.length < 1 && listing.name.includes(searchWord)) {
-	                			return(
-
-									<Link 
-										to={`/listing/${listing.id}`} 
-										className={create === 'darkbg' ? "h-96 searchThumbDrk pt-4" : "h-96 searchThumb pt-4"}
-										
-									>
-										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
-											<img className="h-48 mx-auto" src={listing.mainImage && listing.mainImage.url}/>
-										</div>
-										<div className="flex justify-between px-8">
-											<div 
-												className="genLight"
-												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.category}</div>
-											<div 
-												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
-											>{listing.brand}</div>
-										</div>
-										<div className="flex items-center pl-8">
-					                        <h3
-					                        	className={create === 'darkbg' ? "text-white" : ""}
-					                        >{listing.coins}</h3>
-					                        <div className="smallCoin flex mb-1 ml-0.5 mr-0">
-					                          <img className='w-100' alt='REN coin' src="../coin.png" />
-					                        </div>
-					                        <h3
-					                        	className={create === 'darkbg' ? "text-white" : ""}
-					                        >/day</h3>
-					                     </div>
-					                     <div 
-					                     className={create === 'darkbg' ? "text-white genLight orgBdr pt-2 inline-flex ml-8" : "genLight orgBdr pt-2 inline-flex ml-8"}
-					                     >{listing.name}</div>
-
-									</Link>	                				
-
-	                		)} else if (optionList.includes(listing.category) && optionListB.length < 1 && listing.name.includes(searchWord)) {
+	                		)} else if (optionListB.includes(listing.brand) && optionList.length < 1 && listing.name.toLowerCase().includes(searchWord)) {
 	                			return(
 
 									<Link 
@@ -481,8 +445,45 @@ useEffect(() => {
 
 									</Link>	                				
 
+	                		)} else if (optionList.includes(listing.category) && optionListB.length < 1 && listing.name.toLowerCase().includes(searchWord)) {
+	                			return(
 
-	                		)} else if (optionListB.includes(listing.brand) && optionList.includes(listing.category && listing.name.includes(searchWord))) {
+									<Link 
+										to={`/listing/${listing.id}`} 
+										className={create === 'darkbg' ? "h-96 searchThumbDrk pt-4" : "h-96 searchThumb pt-4"}
+										
+									>
+										<div className="h-4/6 mb-8 flex justify-center items-center self-center">
+											<img className="h-48 mx-auto" src={listing.mainImage && listing.mainImage.url}/>
+										</div>
+										<div className="flex justify-between px-8">
+											<div 
+												className="genLight"
+												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
+											>{listing.category}</div>
+											<div 
+												className={create === 'darkbg' ? "genLight text-white" : "genLight"}
+											>{listing.brand}</div>
+										</div>
+										<div className="flex items-center pl-8">
+					                        <h3
+					                        	className={create === 'darkbg' ? "text-white" : ""}
+					                        >{listing.coins}</h3>
+					                        <div className="smallCoin flex mb-1 ml-0.5 mr-0">
+					                          <img className='w-100' alt='REN coin' src="../coin.png" />
+					                        </div>
+					                        <h3
+					                        	className={create === 'darkbg' ? "text-white" : ""}
+					                        >/day</h3>
+					                     </div>
+					                     <div 
+					                     className={create === 'darkbg' ? "text-white genLight orgBdr pt-2 inline-flex ml-8" : "genLight orgBdr pt-2 inline-flex ml-8"}
+					                     >{listing.name}</div>
+
+									</Link>	                				
+
+
+	                		)} else if (optionListB.includes(listing.brand) && optionList.includes(listing.category && listing.name.toLowerCase().includes(searchWord))) {
 	                			return(
 
 									<Link 

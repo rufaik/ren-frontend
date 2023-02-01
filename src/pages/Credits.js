@@ -276,7 +276,7 @@ const Credits = ({history}) => {
                            <img className='w-100 mx-auto' alt='coin' src="../bigCoin.png" />
                           </div>
                         </div>
-                         <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 3}
+                         <div className="conversionBox bg-white text-black mt-10 genBold py-1 pl-2 w-8/12 mx-auto"> {first1 * 1}
                         </div>
                           <div className='genBold text-center mt-6'>
                             R.E.N Credit

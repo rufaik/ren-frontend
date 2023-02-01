@@ -640,7 +640,7 @@ const [state, setState] = useState({
             
             </div>
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold ">Retail Price : </div>
+            <div className="h3Bold ">Retail Price : £{product?.retailPrice}</div>
         {product && product.buyNow === true 
            ? <div>
             <a 
@@ -663,7 +663,7 @@ const [state, setState] = useState({
 
            
             <div className="gryLine2 w-full my-10"></div>
-            <div className="h3Bold">Brand : </div>
+            <div className="h3Bold">Brand : {product?.brand} </div>
             <div className="genLight mt-8">
                 This item is located within this range but is subject to change when booked with the original owner. The location will be confirmed and agreed upon confirmation.            </div>
         </div>

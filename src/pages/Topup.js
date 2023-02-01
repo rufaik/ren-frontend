@@ -176,7 +176,7 @@ export default ({description, likes, url}) =>{
                               }}
 
                             />
-                    <div className="genLight ml-6">Cost: {formatPrice(topQty*33)}</div>
+                    <div className="genLight ml-6">Cost: {formatPrice(topQty*100)}</div>
                 </div>
           {products.map((product) => {
             if(product.name === "1"){
