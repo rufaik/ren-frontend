@@ -3,7 +3,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 
- const stripePromise = loadStripe(`pk_live_8dhdfkRedEZZ0Y0XWPmWoapy004KqsjtgC`);
+ const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PK}`);
 
 
 
