@@ -203,7 +203,7 @@ const getContent = async (user) => {
               </div>
               <h3 className="text-lg font-medium text-white">Contact information</h3>
               <p className="mt-6 max-w-3xl text-base text-indigo-50">
-                {content[0].introText}1
+                {content[0].introText}
               </p>
               <dl className="mt-8 space-y-6">
                 <dt>
