@@ -664,8 +664,6 @@ const [state, setState] = useState({
            
             <div className="gryLine2 w-full my-10"></div>
             <div className="h3Bold">Brand : {product?.brand} </div>
-            <div className="genLight mt-8">
-                This item is located within this range but is subject to change when booked with the original owner. The location will be confirmed and agreed upon confirmation.            </div>
         </div>
     </div>
 
@@ -748,7 +746,7 @@ const [state, setState] = useState({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
 
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "44em"}}>
+            <div className="inline-block align-bottom overflow-scroll bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "44em"}}>
               <div style={{"width":"620px"}} className="mx-auto">
               <div className="h3Bold mt-12 text-center">Review Item Rental</div>
               <div className="gryLine2 w-full mt-6 mb-10"></div>
