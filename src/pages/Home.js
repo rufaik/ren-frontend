@@ -409,7 +409,7 @@ R.E.N is such an amazing and friendly service, the speakers were fantastic! Than
                 <div className={create === 'darkbg' ? 'sectWidth mx-auto pt-32 text-white' : 'sectWidth mx-auto pt-32 text-black'}>
                 <h2> How it works</h2>
                 <div className="h3Light mt-12">
-                R.E.N makes it easy for you to access the kit you need from the brands you love, without breaking the bank. Our managed rental service means no more awkward pick-ups from strangers. All our items are QA tested, insured and delivered to your door in just a few days.
+                  {content && content[0]?.mainText}                
                 </div>
                 </div>
                 <div>
