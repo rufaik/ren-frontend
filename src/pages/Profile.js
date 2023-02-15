@@ -527,6 +527,7 @@ const handleImgSubmit = async (event) => {
 
   }
 
+console.log("post3", post3)
 
 
   const acceptBooking = async (event) => {
@@ -972,6 +973,15 @@ const chageDate = (data) => {
 
 }
 
+const chageDate1 = (data) => {
+  console.log("start", data)
+  const date = new Date(data)
+  const joined1 = date.setDate(date.getDate())
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const joined2 = new Date(joined1)
+  return(joined2.toLocaleDateString('en-EN', options))
+
+}
 
 // console.log("start", start)
 
@@ -1614,13 +1624,13 @@ return (
                   {post3.map((booking, i) => {
                      if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
                         return(
-                  <Link to={`/listing/${booking.listing.id}`}
+                  <Link to={`/listing/${booking.item_group.id}`}
                     className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
-                        setPop(booking.listing)
+                        setPop(booking.item_group)
                         changeStartDate(booking.startDate)
                         changeEndDate(booking.endDate)
-                        getPopUser(booking.listing.userID)
+                        // getPopUser(booking.listing.userID)
                         setFullBooking(booking)
                         console.log("list", booking.listing)
                         // setOpen(true)
@@ -1628,23 +1638,25 @@ return (
                         // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
-                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                      <img className="object-contain rounded-3xl lg:rounded-2xl mx-auto" src={booking.item_group.mainImage && booking.item_group.mainImage.url}  alt="playstation" />
                     </div>
                     <div className="flex flex-row px-8">
 
                         <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
                             <div className="flex items-center ">
-                              <h3>{booking.listing.rental}</h3>
+                              <h3>{booking.item_group.coins}</h3>
                               <div className="smallCoin flex mb-1 ml-1.5 mr-1">
                                 <img className='w-100' alt='REN coin' src="../coin.png" />
                               </div>
                               <h3>/day</h3>
                             </div>
                             <div className="line mt-1 mb-3"></div>
-                            <div className="gen">{booking.listing.name}</div>
+                            <div className="gen">{booking.item_group.name}</div>
                         </div>
-
-                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
+                        <div className="flex flex-col item-center">
+                          <div className="gen pt-9">{chageDate1(booking.startDate)},</div>
+                          <div className="gen">{chageDate1(booking.endDate)}</div>
+                        </div>
                     </div>
                   </Link>
                   )}})}
@@ -1677,10 +1689,10 @@ return (
                    <Link to={`/listing/${booking.listing.id}`} 
                     className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
-                        setPop(booking.listing)
+                        setPop(booking.item_group)
                         changeStartDate(booking.startDate)
                         changeEndDate(booking.endDate)
-                        getPopUser(booking.listing.userID)
+                        // getPopUser(booking.listing.userID)
                         setFullBooking(booking)
                         console.log("list", booking.listing)
                         // setOpen(true)
@@ -1688,23 +1700,23 @@ return (
                         // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
                       }}>
                     <div className="flex-shrink-0 relative flex justify-content mx-auto thumbImg">
-                      <img className="object-cover rounded-3xl lg:rounded-2xl mx-auto" src={booking.listing.image && booking.listing.image.url}  alt="playstation" />
+                      <img className="object-contain rounded-3xl lg:rounded-2xl mx-auto" src={booking.item_group.mainImage && booking.item_group.mainImage.url}  alt="booking" />
                     </div>
                     <div className="flex flex-row px-8">
 
                         <div className="flex-1 py-6 pr-4 flex flex-col justify-between">
                             <div className="flex items-center ">
-                              <h3>{booking.listing.rental}</h3>
+                              <h3>{booking.item_group.coins}</h3>
                               <div className="smallCoin flex mb-1 ml-1.5 mr-1">
                                 <img className='w-100' alt='REN coin' src="../coin.png" />
                               </div>
                               <h3>/day</h3>
                             </div>
                             <div className="line mt-1 mb-3"></div>
-                            <div className="gen">{booking.listing.name}</div>
+                            <div className="gen">{booking.item_group.name}</div>
                         </div>
 
-                        <div className="gen pt-9">{chageDate(booking.listing.created_at)}</div>
+                        <div className="gen pt-9">{chageDate1(booking.startDate)} - {chageDate1(booking.endDate)}</div>
                     </div>
                   </Link>
                   )}})}
@@ -1841,11 +1853,12 @@ return (
                   <div className="genLight mt-6">
                     {pop.description}
                   </div>
-                  {listingUser &&
+                  {/*{listingUser &&*/}
                   <div className="genLight mt-6">
-                    From {listingUser.name}
+{/*                    From {listingUser.name}
+*/}                    From ???
                   </div>
-                }
+                {/*}*/}
                   <div className="genLight mt-6">
                     The location will be confirmed and agreed upon confirmation.
                   </div>
@@ -1854,12 +1867,12 @@ return (
                 
                 <div className="flex-col flex w-3/12 justify-center items-center">
                    <div className="w-full flex ">
-                      <img className="w-full" src={pop.image.url} alt="eqiupment" />
+                      <img className="w-full" src={pop.image1.url} alt="eqiupment" />
                     </div>
                 </div>
               </div>
               <div className="gryLine2 w-full my-10"></div>
-            {fullBooking &&
+{/*            {fullBooking &&
               <div className="flex items-center ">
                 <h3>{pop.coins}</h3>
                 <div className="smallCoin flex mb-1 ml-1.5 mr-1">
@@ -1868,8 +1881,8 @@ return (
                 <div className="genLight">x {fullBooking.rentalDays} days</div>
                 <div className="genBold">&nbsp;({start} - {end})</div>
               </div>
-            }
-            {fullBooking &&
+            }*/}
+{/*            {fullBooking &&
               <div className="flex items-center mt-4">
                 <div className="genBold">Total:&nbsp;</div>
                 <h3>{fullBooking.coins}</h3>
@@ -1877,7 +1890,7 @@ return (
                   <img className='w-100' alt='REN coin' src="../coin.png" />
                 </div>
               </div>
-            }
+            }*/}
               <div className="gryLine2 w-full mt-10 mb-3"></div>
               <div className="flex">
                 <div 

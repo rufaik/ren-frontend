@@ -98,6 +98,7 @@ const [bookings, setBookings] = useState('')
 const [blockedDates, setBlockedDates] = useState([])
 const [listingUser, setListingUser] = useState([])
 const [showButtons, setShowButtons] = useState(true)
+const [productImage, setProductImage] = useState("")
 
 
 
@@ -257,6 +258,7 @@ const fetchProduct = async () => {
         try{
                 const data = await response.json();
                 setProduct(data);
+                setProductImage(data.mainImage.url)
                 console.log("matchhhhhh", data)
                 setLoading(false);
                 fetchUser(data.userID)
@@ -558,9 +560,63 @@ const [state, setState] = useState({
               className={create === 'darkbg' ? "picDrkBg  flex items-center justify-center" : "picBg flex items-center justify-center "}
             >
               <div className="flex justify-center items-center w-5/6 h-5/6 mx-auto imgBx1 p-2 object-cover">
-                <img className=' h-full object-cover' alt='camera' src={product.mainImage && product.mainImage.url} />
+                <img className=' h-full object-contain' alt='camera' src={productImage} />
               </div>
+
+
+
             </div>
+
+          {product.image1 && product.image1.url &&
+            <div className="flex justify-end pr-16 mt-6">
+                <button
+                  class="cursor-pointer top-auto bottom-4 left-auto right-16  flex items-center justify-center p-0  border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline "
+                  type="button"
+                  data-bs-target="#carouselDarkVariant"
+                  data-bs-slide="prev"
+                  onClick={() => {
+                    if(productImage === product.mainImage.url && product.image3.url){
+                      setProductImage(product.image3.url)
+                    } else if(productImage === product.mainImage.url && product.image2.url && !product.image3.url){
+                      setProductImage(product.image2.url)
+                    } else if(productImage === product.mainImage.url && product.image1.url && !product.image2.url && !product.image3.url){
+                      setProductImage(product.image1.url)
+                    }  else  if(productImage === product.image1.url){
+                      setProductImage(product.mainImage.url)
+                    } else  if(productImage === product.image2.url){
+                      setProductImage(product.image1.url)
+                    } else  if(productImage === product.image3.url){
+                      setProductImage(product.image2.url)
+                    }              
+                  }}                >
+                  <span class={create === 'darkbg' ? " carousel-control-prev-icon carousel-control-prev-iconD inline-block bg-no-repeat" : "carousel-control-prev-icon inline-block bg-no-repeat"} aria-hidden="true"></span>
+                </button>
+                 <button
+                  class="cursor-pointer ml-4 top-auto bottom-4 left-auto right-5  flex items-center justify-end p-0 border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline"
+                  type="button"
+                  data-bs-target="#carouselDarkVariant"
+                  data-bs-slide="next"
+                  onClick={() => {
+                    if(productImage === product.mainImage.url){
+                      setProductImage(product.image1.url)
+                    } else if(productImage === product.image1.url && product.image2 && product.image2.url){
+                      setProductImage(product.image2.url)
+                    } else if(productImage === product.image1.url && product.image2 && !product.image2.url){
+                      setProductImage(product.mainImage.url)
+                    } else if(productImage === product.image2.url && product.image3 && product.image3.url){
+                      setProductImage(product.image3.url)
+                    } else if(productImage === product.image2.url && product.image3 && !product.image3.url){
+                      setProductImage(product.image2.url)
+                    } else {
+                      setProductImage(product.mainImage.url)
+                    }
+                  }}                
+                  >
+                  <span class={create === 'darkbg' ? "carousel-control-next-icon carousel-control-next-iconD inline-block bg-no-repeat" :"carousel-control-next-icon inline-block bg-no-repeat" } aria-hidden="true"></span>
+                </button>
+              </div>
+            }
+
             <div>
           
             <div

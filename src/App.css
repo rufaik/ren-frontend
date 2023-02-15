@@ -946,12 +946,12 @@ text-align: left;
 }
 
 .carousel-control-next-icon {
-    background-image: url(./images/next.png) !important;
-/*    background-image: url(data:image/svg xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
+    background-image: url(./images/snex.svg) !important;
+/*    background-image: url(data:image/svg  xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
 */}
 
 .carousel-control-next-iconD {
-    background-image: url(./images/nextD.png) !important;
+    background-image: url(./images/snexD.svg) !important;
 /*    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
 */}
 
@@ -964,12 +964,12 @@ text-align: left;
 
 
 .carousel-control-prev-icon {
-    background-image: url(./images/prev.png) !important;
+    background-image: url(./images/sprev.svg) !important;
 /*    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
 */}
 
 .carousel-control-prev-iconD {
-    background-image: url(./images/prevD.png) !important;
+    background-image: url(./images/sprevD.svg) !important;
 /*    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e);
 */}
 
@@ -1720,5 +1720,11 @@ p > a {
 p > strong {
   color: #DE7634;
 }
+
+
+.react-player__preview{
+  border-radius: 1.1rem;
+}
+
 
 
