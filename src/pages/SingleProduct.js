@@ -862,13 +862,13 @@ const [state, setState] = useState({
             { showButtons ?
               <div className="flex">
                 <div 
-                  className="orangeBg orangeBtn bulkTxt text-white block mt-4 text-center pt-1"
+                  className="orangeBg orangeBtn cursor-pointer bulkTxt text-white block mt-4 text-center pt-1"
                   onClick={updateCurrent}
                 >
                  Confirm and Book
                 </div>
                 <div 
-                  className="sendBtn bulkTxt block mt-4 text-center pt-1 ml-auto"
+                  className="sendBtn bulkTxt cursor-pointer block mt-4 text-center pt-1 ml-auto"
                   onClick={() => setOpen(false)}
                 >
                  Edit Booking
@@ -919,20 +919,26 @@ const [state, setState] = useState({
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "17em"}}>
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  sm:w-full sm:p-6" style={{"width": "44em", "height": "19em"}}>
               <div style={{"width":"620px"}} className="mx-auto">
         {/*      <div className="h3Bold mt-12 text-center">
               Congratulations, this item has been submitted to lender for approval you will get a notification once they approve!
               </div>*/}
-              <div className="h3Bold mt-12 text-center">
-              Congratulations, you have booked this item!
+              <div className=" mt-4 text-center flex flex-col justify-center">
+              <div className="h3Bold mb-2 ">Thank you, we have received your booking! </div>
+              <div className="genLight">
+              <div className="genBold">Next steps: </div>
+              1. Please contact us now to organise item collection and drop-off details on 07375070855.<br></br>
+              2. Collect your item at a convenient time for you. <br></br>
+              3. Drop off your item once your rental is complete.
+              </div>
               </div>
 
     
               <div className="flex flex-col justify-center items-center pt-">
           
                <div 
-                className="sendBtn bulkTxt block mt-4 text-center pt-1 mx-auto" 
+                className="sendBtn bulkTxt block mt-4 text-center pt-1 mx-auto cursor-pointer" 
                 onClick={() => window.location.reload()}
                 > 
                   Got it
