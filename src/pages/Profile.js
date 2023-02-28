@@ -327,7 +327,7 @@ const newBookings =  () => {
     //     console.log("original", original)
 
   post3.map((booking, i) => {
-    if (booking.status === "Confirmed" && `${booking.renter.id}` === id) {
+    if (booking.status === "Confirmed" && `${booking?.renter?.id}` === id) {
       let updatedItems = bookingList;
       updatedItems.push(booking.id);
       setBookingList(updatedItems);
@@ -349,7 +349,7 @@ const newBookingsRej =  () => {
     //     console.log("original", original)
 
   post3.map((booking, i) => {
-    if (booking.status === "Rejected" && `${booking.renter.id}` === id) {
+    if (booking.status === "Rejected" && `${booking?.renter?.id}` === id) {
       let updatedItems = bookingList;
       updatedItems.push(booking.id);
       setBookingList1(updatedItems);
@@ -1620,7 +1620,7 @@ return (
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
 
                
-                vvvv
+             
                   {post3.map((booking, i) => {
                      if (booking.status === "Confirmed" && `${booking?.renter?.id}` === id) {
                         return(
@@ -1684,7 +1684,7 @@ return (
                
                 
                   {post3.map((booking, i) => {
-                     if (booking.status === "Complete" && `${booking.renter.id}` === id) {
+                     if (booking.status === "Complete" && `${booking?.renter?.id}` === id) {
                         return(
                    <Link to={`/listing/${booking.listing.id}`} 
                     className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
