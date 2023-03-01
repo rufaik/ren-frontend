@@ -10,6 +10,7 @@ import ImageUploading from "react-images-uploading";
 import Footer from '../components/Footer'
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { ChevronUpIcon } from '@heroicons/react/solid'
 import Transactions from './Transactions'
 
 
@@ -30,6 +31,8 @@ const [open6, setOpen6] = useState(false)
 const [open1, setOpen1] = useState(false)
 const [open2, setOpen2] = useState(false)
 const [open3, setOpen3] = useState(false)
+const [upSection, setUp] = useState(true)
+const [allSection, setAll] = useState(false)
 const {user, simpleUser, setSimpleUser, simpleUser1, create} = useContext(UserContext)
  console.log("setUser", user)
 
@@ -1609,12 +1612,22 @@ return (
             </>
 : null}
 
-       <div>
+       <div
+          onClick={() => upSection ? setUp(false) : setUp(true)}
+          className="relative"
+        >
                     <div className="h3Bold mt-8 mb-4">Upcoming</div>
                     <div className="genLight my-4">View your upcoming rentals</div>
                     <div className="gryLine2 w-full my-10"></div>
+                   {upSection &&
+                     <ChevronUpIcon className="-mr-1 ml-auto h-10 w-10 absolute top-0 right-10" aria-hidden="true" />
+                    }
+                   {!upSection &&
+                     <ChevronDownIcon className="-mr-1 ml-auto h-10 w-10 absolute top-0 right-10" aria-hidden="true" />
+                    }
                 </div>
-
+{upSection &&
+  <div>
       { post3 && post3[0]
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
@@ -1672,11 +1685,25 @@ return (
             </>
 : null}
 
-   <div>
+ </div>
+ }
+
+   <div
+          onClick={() => allSection ? setAll(false) : setAll(true)}
+          className="relative"
+    >
                     <div className="h3Bold mt-8 mb-4">All rented bookings</div>
                     <div className="genLight my-4">View your previous rentals</div>
                     <div className="gryLine2 w-full my-10"></div>
+                    {allSection &&
+                     <ChevronUpIcon className="-mr-1 ml-auto h-10 w-10 absolute top-0 right-10" aria-hidden="true" />
+                    }
+                   {!allSection &&
+                     <ChevronDownIcon className="-mr-1 ml-auto h-10 w-10 absolute top-0 right-10" aria-hidden="true" />
+                    }
                 </div>
+{allSection &&
+  <div>
       { post3 && post3[0]
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
@@ -1731,7 +1758,11 @@ return (
 
                      </div>
             </>
-: null}        
+      : null} 
+    
+  </div>
+  }
+       
                   
                
 {/*xxxxxxxx
