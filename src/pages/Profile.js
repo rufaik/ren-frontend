@@ -1686,7 +1686,7 @@ return (
                   {post3.map((booking, i) => {
                      if (booking.status === "Complete" && `${booking?.renter?.id}` === id) {
                         return(
-                   <Link to={`/listing/${booking.listing.id}`} 
+                   <Link to={`/listing/${booking.item_group.id}`} 
                     className={create === 'darkbg' ? "flex flex-col overflow-hidden thumbImgBxDrk text-white" : "flex flex-col overflow-hidden thumbImgBx"}
                     onClick={() => {
                         setPop(booking.item_group)
@@ -1714,10 +1714,16 @@ return (
                             </div>
                             <div className="line mt-1 mb-3"></div>
                             <div className="gen">{booking.item_group.name}</div>
+                            <div className="orangeCol pt-2">{booking.status}</div>
                         </div>
 
-                        <div className="gen pt-9">{chageDate1(booking.startDate)} - {chageDate1(booking.endDate)}</div>
+                       <div className="flex flex-col item-center">
+                          <div className="gen pt-9">{chageDate1(booking.startDate)},</div>
+                          <div className="gen">{chageDate1(booking.endDate)}</div>
+                        </div>
+
                     </div>
+
                   </Link>
                   )}})}
 
