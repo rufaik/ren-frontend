@@ -1627,7 +1627,7 @@ return (
                     }
                 </div>
 {upSection &&
-  <div>
+  <div className="mb-16"> 
       { post3 && post3[0]
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
@@ -1703,7 +1703,7 @@ return (
                     }
                 </div>
 {allSection &&
-  <div>
+  <div className="mb-16">
       { post3 && post3[0]
               ?<>
                   <div className="mt-0 lg:mt-12 max-w-lg grid gap-5 grid-cols-2 lg:max-w-none">
