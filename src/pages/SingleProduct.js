@@ -51,9 +51,9 @@ const changeEndDate = (data) => {
 }
 
 const chageDate = (data) => {
-  console.log("start", data)
+  console.log("start2", data)
   const date = new Date(data)
-  const joined1 = date.setDate(date.getDate() - 1)
+  const joined1 = date.setDate(date.getDate())
   const options = { month: 'long', day: 'numeric' };
   const joined2 = new Date(joined1)
   return(joined2.toLocaleDateString('en-EN', options))

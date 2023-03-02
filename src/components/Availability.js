@@ -14,26 +14,43 @@ export default class Calendar1 extends React.Component {
     this.handleDayClick = this.handleDayClick.bind(this);
     this.handleResetClick = this.handleResetClick.bind(this);
     this.state = this.getInitialState();
-  }
+   
+}
 
   getInitialState() {
     return {
       from: undefined,
       to: undefined,
+      selectedDay: undefined,
     };
   }
 
-  handleDayClick(day) {
+  handleDayClick(day, modifiers = {}) {
+    
+    if (modifiers.disabled) {
+      return;
+    } else 
+    this.setState({
+      selectedDay: modifiers.selected ? undefined : day,
+    });
     const range = DateUtils.addDayToRange(day, this.state);
     this.setState(range);
-    console.log(range)
   }
+
+  // handleDayClick(day) {
+  //   const range = DateUtils.addDayToRange(day, this.state);
+  //   this.setState(range);
+  //   console.log(range)
+  // }
 
   handleResetClick() {
     this.setState(this.getInitialState());
   }
 
   render() {
+     const disabledDays = {
+      before: new Date()
+    };
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
     console.log('this', this)
@@ -60,7 +77,8 @@ export default class Calendar1 extends React.Component {
           selectedDays={[from, { from, to }]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
-          disabledDays={this.props.noShow}
+          disabledDays={disabledDays}
+          //disabledDays={this.props.noShow}
       //     disabledDays={[
       //   new Date(2022, 3, 12),
       //   new Date(2022, 3, 2),
@@ -104,6 +122,11 @@ export default class Calendar1 extends React.Component {
 .DayPicker-Day {
   color: ${this.props.color};
   }
+.DayPicker-Day--disabled {
+    color: #DCE0E0;
+    cursor: default;
+     
+}
 `}</style>
         </Helmet>
         <Dates rangeF1={this.state.from} rangeT1={this.state.to} show={this.props.show} />
