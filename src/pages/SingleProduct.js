@@ -186,16 +186,16 @@ const checkAvail = async (user) => {
                 data.map( async (booking, i) => {
                     if (booking.listing && booking.listing.item_group.toString() === id.toString()) {
                         
-                        let StartDate1 = new Date(booking.startDate)
-                        let EndDate1 = new Date(booking.endDate)
-                        let StartDate2 = new Date(rangeF)
+                        let StartDateA = new Date(booking.startDate)
+                        let EndDateB= new Date(booking.endDate)
+                        let StartDate1 = new Date(rangeF)
                         let EndDate2 = new Date(rangeT)
-                        
-
-                    if((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1)) {
-                      setter.push(booking.listing.id)
+                      
+                    if((EndDate2.toLocaleDateString("en-US") < StartDateA.toLocaleDateString("en-US")) || (StartDate1.toLocaleDateString("en-US") > EndDateB.toLocaleDateString("en-US"))) {
+                     
+                      console.log(" setter fine") 
                     } else {
-                    console.log("no overlapping dates")  
+                    setter.push(booking.listing.id)
                     }
             
                 } else {
@@ -874,7 +874,8 @@ const [state, setState] = useState({
                  Edit Booking
                 </div>
               </div>
-              : null
+              : 
+              <div className="mt-6 orangeCol normalBold">Sorry, this item is currently unavailable for your selected dates</div>
             }
               </div>
             </div>

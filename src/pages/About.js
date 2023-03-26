@@ -126,9 +126,11 @@ const getContent = async (user) => {
   />
   <div className="h3Bold text-white my-6"> {content[0].purpleBxHeader}</div>
   <div className="genLight text-white">{content[0].purpleBxTxt}</div>
-  <button href="/contact" style={{"fontSize": "18px"}} className="orangeBg text-white py-2 w-64 text-center h3Bold rounded cursor-pointer mt-8">Get in touch!</button>
-  
+  <a href="/contact" >
+  <button style={{"fontSize": "18px"}} className="orangeBg text-white py-2 w-64 text-center h3Bold rounded cursor-pointer mt-8">Get in touch!</button>
+  </a>
 </div>
+
  
   
 </div>

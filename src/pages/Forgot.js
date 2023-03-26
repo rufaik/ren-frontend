@@ -9,6 +9,8 @@ export default ({history}) =>{
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [error, setError] = useState('')
+const [enterBtn, setEnter] = useState('Send')
+
 
 
 const {user, setUser, create} = useContext(UserContext)
@@ -34,31 +36,33 @@ const handleSubmit = async (event) => {
 	event.preventDefault()
 		
 	try{
-          const response = await fetch(`${API_URL}/auth/local/`, {
+
+
+
+          const response = await fetch(`${API_URL}/auth/forgot-password`, {
       		method: 'POST',
       		headers: {
       		'Content-Type':'application/json'
       		},
       		body: JSON.stringify({
-      		identifier: email,
-      		password
+      		 email,
+      
       		})
       	})
+            const data = await response.json()
+         
       
-      	const data = await response.json()
-      	console.log("data", data) 
       
-      	if(data.message){
+      
+      	if(data?.message){
       		setError(data.message[0].messages[0].message)
-      
-      		return //Stop execution
-      	} 
+      	} else {
+             setEnter("Email Sent!")
+        }
 
-        localStorage.setItem('user', JSON.stringify(data))
-      	setUser(data)
 
      } catch(err){
-     	setError('Something went wrong' + err)
+     console.log("err", err)
      }      
 
 }
@@ -130,9 +134,9 @@ const handleSubmit = async (event) => {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-white" aria-hidden="true" />
                 </span>
-               Send
+               {enterBtn}
               </button>
-
+                {error && <div className="orangeCol normalBold mt-6">{error}</div>}
               </form>
             </div>
         </div>

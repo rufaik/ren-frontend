@@ -232,7 +232,7 @@ const Cart = () => {
           
 
               <div 
-                  className="orangeBg text-white normalBold text-center w-fit rounded-full py-2 px-12 mt-8"
+                  className="orangeBg text-white normalBold text-center w-fit rounded-full py-2 px-12 mt-8 cursor-pointer"
                   style={{"width":"fit-content"}}
                   onClick={() => {
                     setShowCheckout(true)

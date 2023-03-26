@@ -35,6 +35,7 @@ export default () =>{
   const [shipping_postcode, setShipping_postcode] = useState('');
   
   const [coins, setCoins] = useState(null);
+  const [err, setErr] = useState(null);
 
   console.log("money", cartCoinTotal(cart))
 
@@ -67,12 +68,14 @@ export default () =>{
   	event.preventDefault();
 	setLoading(true)
   	console.log("handleSubmit1", token)
+
   	const result = await stripe.confirmCardPayment(token,{
   		payment_method:{
   			card: elements.getElement(CardElement)
   		}
   		
   	})
+
 
  console.log("resultresult", result)
 
@@ -108,9 +111,11 @@ export default () =>{
         })
 
           const order = await response.json()
-
+          if(result && result.error){
+            setSuccess(false)
+            setErr(result.error.message)
+          } else {
           setSuccess(true)
-
           setCoins(Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
 
           setLoading(false)
@@ -120,6 +125,9 @@ export default () =>{
           clearCart()
 
           createTransaction(order)
+        }
+
+          
 
  console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
  console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
@@ -141,6 +149,7 @@ export default () =>{
 
     } catch(err){
       setSuccess(false)
+      setErr(result.error.message)
               console.log("nope")
             }  
 }
@@ -283,7 +292,7 @@ console.log("coins", coins)
         className="orangeBg text-white normalBold text-center w-fit rounded-full py-2 px-12" 
         onClick={handleSubmit} type="submit">{formatPrice(cartTotal(cart))}</button>
     </div>
-    {errorMessage && <div>{errorMessage}</div>}
+    {err && <div className="orangeCol normalBold mt-6">{err}</div>}
   </form>
 </div>
 }
@@ -292,6 +301,7 @@ console.log("coins", coins)
 
  <div className="h3Bold mt-12 mx-4 text-center">
      Your order was successfully processed. Click below to view in profile.
+
       </div>
 
 
@@ -305,7 +315,8 @@ console.log("coins", coins)
         </Link>
     }
       </div>
-      </div>
+  </div>
+  
 }
 
    
