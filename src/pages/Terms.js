@@ -63,7 +63,7 @@ const getContent = async (user) => {
               {content[0].largeTitle}
             </p>
             <div 
-            className={create === 'darkbg' ? "text-center max-w-xl mt-8 mx-auto text-xl text-white" : "text-center max-w-xl mt-8 mx-auto text-xl text-gray-500"}
+            className={create === 'darkbg' ? "text-justify mt-8 mx-auto text-xl text-white" : "text-justify mt-8 mx-auto text-xl text-gray-500"}
             >
               
                <ReactMarkdown>
