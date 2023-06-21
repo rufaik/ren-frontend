@@ -32,7 +32,7 @@ export default (history) =>{
 	    const getUserTypes = async () => {
 	      const response = await fetch(`${API_URL}/identity-cards`)
 	      const data = await response.json()
-	      console.log("data", data)
+	      // console.log("data", data)
 	      const sortNumAsc = data.sort((firstItem, secondItem) => firstItem.id - secondItem.id)
 	      setUserTypes(sortNumAsc)
 	      if( history.location.state && history.location.state.card !== null){
@@ -43,7 +43,7 @@ export default (history) =>{
     }
 
     getUserTypes()
-    console.log("userTypes", userTypes)
+    // console.log("userTypes", userTypes)
 
 
   }, [])

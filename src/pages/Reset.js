@@ -15,7 +15,7 @@ const [same, setSame] = useState(false)
 
 
 const {user, setUser, setSimpleUser, create} = useContext(UserContext)
-console.log('user', user)
+// console.log('user', user)
 
   useEffect(() => {
   if(localStorage.getItem('user')){
@@ -32,17 +32,17 @@ useEffect(() => {
 }, [user])
 
 const { search } = useLocation();
-console.log("search", search);
+// console.log("search", search);
 const searchParams = new URLSearchParams(search);
 const param = searchParams.get("code");
-console.log("param", param);
+// console.log("param", param);
 
 
 const checkPasswords = async (event) => {
   event.preventDefault()
 
   if(password !== passwordConfirmation || password.length < 1) {
-    console.log("pass")
+    // console.log("pass")
     setSame(true)
   } else {
     handleSubmit()
@@ -74,11 +74,11 @@ const handleSubmit = async () => {
       	})
       
       	const data = await response.json()
-      	console.log("data", data) 
+      	// console.log("data", data) 
 
         localStorage.setItem('user', JSON.stringify(data))
         localStorage.setItem('simpleUser', JSON.stringify(data.user))
-        console.log("data login", data)
+        // console.log("data login", data)
         setUser(data)
         setSimpleUser(data.user)
 

@@ -84,12 +84,12 @@ export default ({match, history}) =>{
 	  const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 const {id} = match.params
-console.log("idd", id)
-console.log("match", id)
+// console.log("idd", id)
+// console.log("match", id)
 
 const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
-console.log("user1", user)
-console.log("setUser", setUser)
+// console.log("user1", user)
+// console.log("setUser", setUser)
 
 const {likesGiven, reloader} = useContext(LikesContext)
 
@@ -97,7 +97,7 @@ const isPostAlreadyLiked = (() => {
 	return likesGiven && likesGiven.find(like => like.post && like.post.id == id)
 })()
 
-console.log("isPostAlreadyLiked", isPostAlreadyLiked)
+// console.log("isPostAlreadyLiked", isPostAlreadyLiked)
 
 const [post, setPost] = useState({})
 const [loading, setLoading] = useState(true)
@@ -114,7 +114,7 @@ const fetchPost = async () => {
                 setPost(data);
                 setDescription(data.description)
                 setLoading(false);
-                console.log("post", data)
+                // console.log("post", data)
             } catch(err){
                 setPost({}); 
                 setLoading(false);
@@ -134,7 +134,7 @@ const handleDelete = async () => {
 
 const handleEditSubmit = async (event) => {
 	event.preventDefault()
-	console.log("handleEditSubmit")
+	// console.log("handleEditSubmit")
 
 	const response = await fetch(`${API_URL}/posts/${id}`, {
 		method: 'PUT',
@@ -148,7 +148,7 @@ const handleEditSubmit = async (event) => {
 	})
 	const data = await response.json();
 	fetchPost()
-	console.log("handleEditSubmit data", data)
+	// console.log("handleEditSubmit data", data)
 }
 
 
@@ -167,7 +167,7 @@ const handleLike = async () => {
 		fetchPost()
 		reloader()
 	} catch(err){
-		console.log("Exception ", err)
+		// console.log("Exception ", err)
 	}
 }
 
@@ -182,7 +182,7 @@ const handleRemoveLike = async () => {
 		fetchPost()
 		reloader()
 	} catch(err){
-		console.log("Exception ", err)
+		// console.log("Exception ", err)
 	}
 }
 
@@ -237,7 +237,8 @@ const handleRemoveLike = async () => {
           localStorage.setItem('simpleUser', JSON.stringify(confirm))
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+  }
 	} else {
 		setLowFunds(true)
 	}

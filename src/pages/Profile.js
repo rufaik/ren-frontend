@@ -22,8 +22,8 @@ function classNames(...classes) {
 const Profile = ({match, history}) => {
 
 const {id} = match.params
-console.log("idd", id)
-console.log("match", id)
+// console.log("idd", id)
+// console.log("match", id)
 const [open, setOpen] = useState(false)
 const [open4, setOpen4] = useState(false)
 const [open5, setOpen5] = useState(false)
@@ -34,7 +34,7 @@ const [open3, setOpen3] = useState(false)
 const [upSection, setUp] = useState(true)
 const [allSection, setAll] = useState(false)
 const {user, simpleUser, setSimpleUser, simpleUser1, create} = useContext(UserContext)
- console.log("setUser", user)
+ // console.log("setUser", user)
 
 // const {likesGiven, reloader} = useContext(LikesContext)
 
@@ -109,7 +109,7 @@ useEffect(() => {
 }, [])
 
 const getCategories = async () => {
-    console.log("yooo")
+    // console.log("yooo")
       try{
         const response = await fetch(`${API_URL}/new-listing-pages`, {
             method: 'GET',
@@ -119,18 +119,19 @@ const getCategories = async () => {
             }
           })
           const data = await response.json()
-        console.log("categories", data)
-        console.log("categories1", data[1].categories.dropdown)
+        // console.log("categories", data)
+        // console.log("categories1", data[1].categories.dropdown)
         setCategories(data[1].categories.dropdown)
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
   
 
     }
 
 const fetchUser = async (user) => {
-  console.log("go", user)
+  // console.log("go", user)
     const response = await fetch(`${API_URL}/users/${id}`, {
        method: 'GET',
         headers: {
@@ -143,7 +144,7 @@ const fetchUser = async (user) => {
                 
                 // setDescription1(data.description)
                 setLoading(false);
-                console.log("side", data)
+                // console.log("side", data)
                 if(data !== null){
                   setPost1(data);
                   setFirst(data.name)
@@ -154,7 +155,7 @@ const fetchUser = async (user) => {
                   const letterA = data.surname.charAt(0)
                   setLetter(letterA)
                 } else {
-                  console.log("else", user)
+                  // console.log("else", user)
                   setFirst(user.user.name)
                   setCode(user.user.username)
                   setCoins(user.user.coins)
@@ -165,7 +166,7 @@ const fetchUser = async (user) => {
                 }
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
                 setPost1({}); 
                 setLoading(false);
             }         
@@ -179,7 +180,7 @@ const getPopUser = async (productUser) => {
         try{
                 const data = await response.json();
                 setListingUser(data);
-                console.log("listingUser", data)
+                // console.log("listingUser", data)
               
             } catch(err){
                 
@@ -198,8 +199,8 @@ const getPopUser = async (productUser) => {
 const callRange1 =  () => {
 
   const sold = localStorage.getItem("simpleUser1")
-  console.log("simpleUser1", sold.value)
-  console.log("state", window)
+  // console.log("simpleUser1", sold.value)
+  // console.log("state", window)
 
 
 
@@ -261,7 +262,7 @@ const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 :
 
 
 const fetchBookings = async (user) => {
-  console.log("gottttt", user)
+  // console.log("gottttt", user)
     const response = await fetch(`${API_URL}/bookings`, {
        method: 'GET',
         headers: {
@@ -274,15 +275,15 @@ const fetchBookings = async (user) => {
               
                 // setDescription1(data.description)
                 setLoading(false);
-                console.log("sidYYYYY", data)
-                console.log("sidYYYYY1", parseInt(data[0].listing.userID))
+                // console.log("sidYYYYY", data)
+                // console.log("sidYYYYY1", parseInt(data[0].listing.userID))
 
                 let counter = 0;
                 for (let i = 0; i < data.length; i++) {
                   if (data[i].status === 'Complete' && data[i].listing.userID === id) counter++;
                 }
                 setRentalCount(counter)
-                console.log("OCCUR", counter);
+                // console.log("OCCUR", counter);
 
                 let counterTotal = 0;
                 for (let i = 0; i < data.length; i++) {
@@ -299,20 +300,20 @@ const fetchBookings = async (user) => {
                 if(counterTotal !== 0) {
                   setRentalRate(((counterTotal-counterPending)/counterTotal)/100)
                 }
-                console.log("OCCUR", counter);
+                // console.log("OCCUR", counter);
 
 
                 if(data !== null){
                   setPost3(data);
           
                 } else {
-                  console.log("else", user)
+                  console.log("else")
                
 
                 }
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
                 setLoading(false);
             }         
         }
@@ -334,7 +335,7 @@ const newBookings =  () => {
       let updatedItems = bookingList;
       updatedItems.push(booking.id);
       setBookingList(updatedItems);
-      console.log("updatedItems", updatedItems)
+      // console.log("updatedItems", updatedItems)
   }
 })}
 
@@ -356,7 +357,7 @@ const newBookingsRej =  () => {
       let updatedItems = bookingList;
       updatedItems.push(booking.id);
       setBookingList1(updatedItems);
-      console.log("updatedItems", updatedItems)
+      // console.log("updatedItems", updatedItems)
   }
 })}
 
@@ -373,7 +374,7 @@ if(simpleUser && simpleUser.stripeStatus !== "Completed") {
 
   }, [simpleUser])
 
-console.log("bookingList", bookingList)
+// console.log("bookingList", bookingList)
 
   // const addToList = item => {
   //   //copy the selected item array
@@ -410,7 +411,7 @@ console.log("bookingList", bookingList)
 
 const handleEditSubmit = async (event) => {
   event.preventDefault()
-  console.log("handleEditSubmit")
+  // console.log("handleEditSubmit")
 
   const response = await fetch(`${API_URL}/users/${id}`, {
     method: 'PUT',
@@ -424,7 +425,7 @@ const handleEditSubmit = async (event) => {
   })
   const data = await response.json();
   fetchUser()
-  console.log("handleEditSubmit data", data)
+  // console.log("handleEditSubmit data", data)
 }
 
 
@@ -451,7 +452,7 @@ try{
     const data = await response.json();
     setSimpleUser(data)
     localStorage.setItem('simpleUser', JSON.stringify(data))
-    console.log("editBio data", data)
+    // console.log("editBio data", data)
     setFirst(data.name)
     setDescription1(data.bio)
     const letterA = data.surname.charAt(0)
@@ -522,15 +523,15 @@ const handleImgSubmit = async (event) => {
   
         const data = await response.json()
   
-        console.log("dataR", data) 
+        // console.log("dataR", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
   }
 
-console.log("post3", post3)
+// console.log("post3", post3)
 
 
   const acceptBooking = async (event) => {
@@ -558,13 +559,13 @@ console.log("post3", post3)
   
         const data = await response.json()
   
-        console.log("dataRRRRRRR", data) 
+        // console.log("dataRRRRRRR", data) 
 
         // window.location.reload()
         setOpen1(true)
         createTransaction1()
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
@@ -619,7 +620,7 @@ const createTransaction1 = async () => {
 
   // }
 
-console.log("fullBooking", fullBooking)
+// console.log("fullBooking", fullBooking)
 
   const rejectBooking = async (event) => {
     //item.booked to false
@@ -648,9 +649,9 @@ console.log("fullBooking", fullBooking)
   
         const data = await response.json()
         releaseItem()
-        console.log("Rejected", data) 
+        // console.log("Rejected", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
@@ -685,12 +686,12 @@ const releaseItem = async () => {
   })
   const data = await response.json();
  shareCoins()
-  console.log("releaseItem", data)
+  // console.log("releaseItem", data)
 }
 
 
    const shareCoins = async () => {
-    console.log()
+    // console.log()
     const data2 = {
       coins:  
         fullBooking.renter.coins === null 
@@ -713,8 +714,8 @@ const releaseItem = async () => {
           createTransaction()        
 
       } catch(err){
-    console.log("Exception ", err)}
-
+    // console.log("Exception ", err)}
+}
     } 
 
 const createTransaction = async () => {
@@ -757,8 +758,8 @@ const createTransaction2 = async () => {
 
 } 
 
- console.log("FORST", parseInt(coins) * 20 )
- console.log("SEC", Math.round(parseInt(coins) * 20 ))
+ // console.log("FORST", parseInt(coins) * 20 )
+ // console.log("SEC", Math.round(parseInt(coins) * 20 ))
 
   const confirmPayout = async (data) => {
     setCoinsToTransfer(simpleUser.coins)
@@ -768,7 +769,7 @@ const createTransaction2 = async () => {
 
   const goToDashboard = async (data) => {
     
-    console.log("CLICK2")
+    // console.log("CLICK2")
        try{
         const response = await fetch(`${API_URL}/payouts/getLink`, {
             method: 'POST',
@@ -779,11 +780,11 @@ const createTransaction2 = async () => {
           })
 
           const confirm = await response.json()
-          console.log("confirm2", confirm)
+          // console.log("confirm2", confirm)
           window.location.href = `${confirm.url}`
 
       } catch(err){
-    console.log("Payment ", err)
+    // console.log("Payment ", err)
       }
 
     }
@@ -792,7 +793,7 @@ const createTransaction2 = async () => {
 
 
    const clearCoins = async (data) => {
-    console.log("clearCoins", coins)
+    // console.log("clearCoins", coins)
     const data1 = {
       coins: 0,
     }
@@ -811,12 +812,13 @@ const createTransaction2 = async () => {
           setSimpleUser(confirm)
            localStorage.setItem('simpleUser', JSON.stringify(confirm))
            setCoins(confirm.coins)
-           console.log("setCoin", coins)
-           console.log("confirm", confirm)
+           // console.log("setCoin", coins)
+           // console.log("confirm", confirm)
           transferCoins()
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
 
     }
 
@@ -825,7 +827,7 @@ const createTransaction2 = async () => {
       account: post1.payoutID, 
       amount: Math.round(parseInt(coinsToTransfer) * 20)
       }
-      console.log("CLICK2")
+      // console.log("CLICK2")
        try{
         const response = await fetch(`${API_URL}/payouts/coinPay`, {
             method: 'POST',
@@ -836,12 +838,12 @@ const createTransaction2 = async () => {
           })
 
           const confirm = await response.json()
-          console.log("confirm2", confirm)
+          // console.log("confirm2", confirm)
           createTransaction2()
           // window.location.reload()
 
       } catch(err){
-    console.log("Payment ", err)
+    // console.log("Payment ", err)
       }
     }
 
@@ -860,13 +862,13 @@ const createTransaction2 = async () => {
 //   }
 // }, [user])
 
-console.log("coins", coins)
+// console.log("coins", coins)
 
 
 // const url = post.image && post.image.url
 const formatImageUrl = (url) => `${API_URL}${url}`
 
-                  console.log("if", post1)
+                  // console.log("if", post1)
 
 
   const [image, setImages] = React.useState([]);
@@ -875,14 +877,14 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   const maxNumber = 69;
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log("iiiiii", imageList, addUpdateIndex);
+    // console.log("iiiiii", imageList, addUpdateIndex);
     setImages(imageList);
-    console.log("imageList", imageList)
+    // console.log("imageList", imageList)
   };  
 
   const saveImage = async (event) => {
     event.preventDefault()
-    console.log('handling', image)
+    // console.log('handling', image)
 
 
   
@@ -908,9 +910,9 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   
         const data = await response.json()
         getUser()
-        console.log("dataK1", data) 
+        // console.log("dataK1", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
@@ -930,15 +932,15 @@ const formatImageUrl = (url) => `${API_URL}${url}`
         setSimpleUser(data)
            localStorage.setItem('simpleUser', JSON.stringify(data))
         setShowSave(false)
-        console.log("dataK1", data) 
+        // console.log("dataK1", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
   }
 const changeDate = (data) => {
-  console.log("join", data)
+  // console.log("join", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate() - 1)
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -957,7 +959,7 @@ const changeStartDate = (data) => {
 }
 
 const changeEndDate = (data) => {
-  console.log("start", data)
+  // console.log("start", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate() - 1)
   const options = { month: 'long', day: 'numeric' };
@@ -967,7 +969,7 @@ const changeEndDate = (data) => {
 }
 
 const chageDate = (data) => {
-  console.log("start", data)
+  // console.log("start", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate() - 1)
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -977,7 +979,7 @@ const chageDate = (data) => {
 }
 
 const chageDate1 = (data) => {
-  console.log("start", data)
+  // console.log("start", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate())
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -1034,7 +1036,7 @@ return (
           }) => (
             // write your building UI
             <div className="upload__image-wrapper relative">
-            {console.log(imageList)}
+           
               <div
                 style={isDragging ? { color: "red" } : null}
                 className="imgBx rounded-t-full border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"
@@ -1645,7 +1647,7 @@ return (
                         changeEndDate(booking.endDate)
                         // getPopUser(booking.listing.userID)
                         setFullBooking(booking)
-                        console.log("list", booking.listing)
+                        // console.log("list", booking.listing)
                         // setOpen(true)
                         // setStatus("Complete")
                         // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")
@@ -1721,7 +1723,7 @@ return (
                         changeEndDate(booking.endDate)
                         // getPopUser(booking.listing.userID)
                         setFullBooking(booking)
-                        console.log("list", booking.listing)
+                        // console.log("list", booking.listing)
                         // setOpen(true)
                         // setStatus("Complete")
                         // setLast("Congratulations, your order is complete! Your coins will be transferred to your account shortly.")

@@ -56,8 +56,8 @@ function App() {
 
 
 
-    console.log("APPPPPP", lightMode)
-    console.log("GHHHHHH", user)
+    // console.log("APPPPPP", lightMode)
+    // console.log("GHHHHHH", user)
 
 
     const getImages = async () => {
@@ -73,7 +73,8 @@ function App() {
           setImages(data)
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
   
 
     }

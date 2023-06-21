@@ -56,7 +56,7 @@ export default function Example() {
 
   const handleSubmit = async () => {
 
-    console.log("handlingc....")
+    // console.log("handlingc....")
 
       try{
         const response = await fetch(`${API_URL}/customer-emails`, {
@@ -77,13 +77,14 @@ export default function Example() {
           })
 
           const data = await response.json()
-          console.log("Contact", data) 
+          // console.log("Contact", data) 
           setDetails(false)
           setComplete(true) 
 
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
 
     }  
 
@@ -103,11 +104,11 @@ useEffect(() => {
     })
     try{
                 const data = await response.json();
-                console.log("sidet", data)
+                // console.log("sidet", data)
                 setContent1(data);
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
             }         
         }
 
@@ -141,11 +142,11 @@ const getContent = async (user) => {
     })
     try{
                 const data = await response.json();
-                console.log("side", data)
+                // console.log("side", data)
                 setContent(data);
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
             }         
         }
 

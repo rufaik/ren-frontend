@@ -15,7 +15,7 @@ const [error, setError] = useState('')
 
 
 const {user, setUser, simpleUser, setSimpleUser} = useContext(UserContext)
-console.log('user', user)
+// console.log('user', user)
 
 
 
@@ -38,7 +38,7 @@ const handleSubmit = async (event) => {
         })
       
         const data = await response.json()
-        console.log("data", data) 
+        // console.log("data", data) 
       
         if(data.message){
           setError(data.message[0].messages[0].message)
@@ -61,10 +61,10 @@ const handleSubmit = async (event) => {
 
 
    const createUsername = async (data) => {
-    console.log()
+    // console.log()
     const username1 = data.user.name + "-" + data.user.surname.charAt(0) + "-" + getRndInteger(100, 1000) + data.user.id
 
-      console.log("username", username1.toLowerCase())
+      // console.log("username", username1.toLowerCase())
     const data2 = {
       username: username1.toLowerCase()      
     }
@@ -80,12 +80,12 @@ const handleSubmit = async (event) => {
           })
 
           const shared = await response.json()
-          console.log(shared)
+          // console.log(shared)
          localStorage.setItem('simpleUser', JSON.stringify(shared))
          
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)}
 
     }  
 
@@ -94,7 +94,7 @@ const handleSubmit = async (event) => {
      if( simpleUser ){
       const username = simpleUser.name + "-" + simpleUser.surname.charAt(0) + "-" + getRndInteger(100, 1000) + simpleUser.id
 
-      console.log("username", username.toLowerCase())
+      // console.log("username", username.toLowerCase())
      }
 
     // console.log("products", products)

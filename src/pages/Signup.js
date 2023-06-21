@@ -22,10 +22,10 @@ const [confirm, setConfirm] = useState('')
 
 
 const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
-console.log('user', user)
+// console.log('user', user)
 
-console.log('imageimage', image)
-console.log('image1image1', image1)
+// console.log('imageimage', image)
+// console.log('image1image1', image1)
 
 
 // useEffect(() => {
@@ -38,9 +38,9 @@ console.log('image1image1', image1)
 
 const checkPasswords = async (event) => {
   event.preventDefault()
-  console.log("password", password)
-  console.log("confirm", confirm)
-  console.log("length", password.length)
+  // console.log("password", password)
+  // console.log("confirm", confirm)
+  // console.log("length", password.length)
 
   if(password !== confirm || password.length < 1) {
     
@@ -55,18 +55,18 @@ const checkSubmit = async () => {
 
   if(email === '' || password === ""  || firstName === "" || lastName === "" || samePassword === false  || image.length === 0 || image1.length === 0) {
     setEmpty(false)
-    console.log("empty")
+    // console.log("empty")
   } else {
     checkUser()
      setEmpty(true)
-    console.log("notempty")
+    // console.log("notempty")
 
   }
 }
 
 const checkUser = () => {
   //event.preventDefault()
-console.log("checkUser")
+// console.log("checkUser")
     if(user) {
     setAlreadyUser(true)
   }else {
@@ -95,7 +95,7 @@ const handleSubmit = async () => {
         })
       
         const data = await response.json()
-        console.log("data", data) 
+        // console.log("data", data) 
       
         if(data.message){
           setError(data.message[0].messages[0].message)
@@ -113,17 +113,17 @@ const handleSubmit = async () => {
 
 
      } catch(err){
-      console.log("err", err)
+      // console.log("err", err)
      }      
 
 }
 
 
    const createUsername = async (data) => {
-    console.log()
+    // console.log()
     const username1 = data.user.name + "-" + data.user.surname.charAt(0) + "-" + getRndInteger(100, 1000) + data.user.id
 
-      console.log("username", username1.toLowerCase())
+      // console.log("username", username1.toLowerCase())
     const data2 = {
       username: username1.toLowerCase()      
     }
@@ -139,12 +139,13 @@ const handleSubmit = async () => {
           })
 
           const shared = await response.json()
-          console.log(shared)
+          // console.log(shared)
          localStorage.setItem('simpleUser', JSON.stringify(shared))
          
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
 
     }  
 
@@ -153,7 +154,7 @@ const handleSubmit = async () => {
      if( simpleUser ){
       const username = simpleUser.name + "-" + simpleUser.surname.charAt(0) + "-" + getRndInteger(100, 1000) + simpleUser.id
 
-      console.log("username", username.toLowerCase())
+      // console.log("username", username.toLowerCase())
      }
 
     // console.log("products", products)
@@ -171,27 +172,27 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 
   const [showSave, setShowSave] = useState(true)
-  console.log("image", image)
-  console.log("image1", image1)
+  // console.log("image", image)
+  // console.log("image1", image1)
 
   const maxNumber = 69;
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log("iiiiii", imageList, addUpdateIndex);
+    // console.log("iiiiii", imageList, addUpdateIndex);
     setImages(imageList);
-    console.log("imageList", imageList)
+    // console.log("imageList", imageList)
   };  
 
     const onChange1 = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log("pppppp",imageList, addUpdateIndex);
+    // console.log("pppppp",imageList, addUpdateIndex);
     setImages1(imageList);
-    console.log("imageList2", imageList)
+    // console.log("imageList2", imageList)
   };
 
   const saveImage = async (info) => {
 
-    console.log('handling1')
+    // console.log('handling1')
 
 
     const formData = new FormData()
@@ -210,11 +211,11 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   
         const data = await response.json()
        
-        console.log("dataK1", data) 
+        // console.log("dataK1", data) 
         // window.location.href = '/home'
 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
@@ -375,7 +376,6 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         }) => (
                           // write your building UI
                           <div className="upload__image-wrapper relative">
-                          {console.log(imageList)}
                             <div
                               style={isDragging ? { color: "red" } : null}
                               className="imgBx2 mr-2 rounded-t-lg border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"
@@ -421,7 +421,6 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         }) => (
                           // write your building UI
                           <div className="upload__image-wrapper relative">
-                          {console.log(imageList)}
                             <div
                               style={isDragging ? { color: "red" } : null}
                               className="imgBx2 ml-2 overflow-hidden rounded-t-lg border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"

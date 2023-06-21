@@ -29,7 +29,7 @@ const fadeProperties = {
   indicators: false,
   arrows: false,
   onChange: (oldIndex, newIndex) => {
-    console.log(`fade transition from ${oldIndex} to ${newIndex}`);
+    // console.log(`fade transition from ${oldIndex} to ${newIndex}`);
   }
 }
 
@@ -61,16 +61,16 @@ export default ({description, likes, url}) =>{
     const getProducts = async () => {
       const response = await fetch(`${API_URL}/products`)
       const data = await response.json()
-      console.log("data", data)
+      // console.log("data", data)
       setProducts(data)
     }
 
     getProducts()
-    console.log("products", products)
+    // console.log("products", products)
 
   }, [])
 
-  console.log("home", simpleUser)
+  // console.log("home", simpleUser)
 
 
 
@@ -185,7 +185,7 @@ export default ({description, likes, url}) =>{
                   className="orangeBg text-white normalBold text-center w-fit rounded-full py-2 px-4 mt-4"
                   style={{"width":"fit-content"}}
                   onClick={() => {
-                    console.log("product", product)
+                    // console.log("product", product)
                     addToCart(product, topQty)}}
                 >
                 Add to basket
@@ -207,7 +207,7 @@ export default ({description, likes, url}) =>{
                 <div 
                   className="orangeBg text-white normalBold text-center w-28  rounded-full pb-1 pt-2 px-4 ml-4"
                   onClick={() => {
-                    console.log("product", product)
+                    // console.log("product", product)
                     
                     addToCart(product, 1)}}
                 >

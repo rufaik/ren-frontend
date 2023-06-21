@@ -19,8 +19,8 @@ const generateInput = ( value, setOnChange) => {
 export default () => {
 
 	const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
-	console.log("sim",simpleUser)
-	console.log("user",user)
+	// console.log("sim",simpleUser)
+	// console.log("user",user)
 
 
 
@@ -57,7 +57,7 @@ export default () => {
 
 
     const findUsername = async () => {
-    	console.log("findUsername")
+    	// console.log("findUsername")
     	try{
 	    	const response = await fetch(`${API_URL}/users`, {
 	          method: 'GET',
@@ -75,7 +75,8 @@ export default () => {
           })
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 	
 
     }
@@ -85,7 +86,7 @@ export default () => {
 //First find current User, subtract shared coins from my account
 
    const updateCurrent = async (realUserId) => {
-   	    	console.log("updateCurrent")
+   	    	// console.log("updateCurrent")
 
     const data1 = {
       coins: Math.round(parseInt(simpleUser.coins) - parseInt(first2))
@@ -108,7 +109,8 @@ export default () => {
           findUser(realUserId)
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 	} else {
 		setLowFunds(true)
 	}
@@ -129,10 +131,11 @@ export default () => {
 
           const dataOtherUser = await response.json()
           shareCoins(dataOtherUser, realUserId)
-          console.log("dataOtherUser", dataOtherUser)
+          // console.log("dataOtherUser", dataOtherUser)
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 	
 
     }
@@ -140,7 +143,7 @@ export default () => {
 //Update the other user with the shared coins
 
    const shareCoins = async (dataOtherUser, realUserId) => {
-   	console.log()
+   	// console.log()
     const data2 = {
       coins:  
       	dataOtherUser.coins === null 
@@ -164,7 +167,8 @@ export default () => {
          
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 
     }    
 
@@ -176,7 +180,7 @@ export default () => {
   	const data3 = {
       name: "yo"
     }
-  	console.log("bulkk", name)
+  	// console.log("bulkk", name)
 
 	const formData = new FormData()
     formData.append('data', JSON.stringify(data3))
@@ -190,9 +194,9 @@ export default () => {
   
         const data = await response.json()
   
-        console.log("dataK", data) 
+        // console.log("dataK", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
       }
 
   }
@@ -201,10 +205,10 @@ export default () => {
 
 
 const bulkUpdate2 = (event) => {
-	   console.log(fileBulk);
+	   // console.log(fileBulk);
             Papa.parse(fileBulk, {
               complete: function(results) {
-                console.log("Finished:", results.data);
+                // console.log("Finished:", results.data);
                 setFileArray(results.data)
 
                 var arr= [['1','20'],['5','20'],['11','20']]
@@ -216,7 +220,7 @@ var secondNumbers = []
 for(var x = 0;x<results.data.length;x++){
   var secondNumber = results.data[x][1]//index 1 = 2nd number in item
   secondNumbers.push(parseInt(secondNumber)) //parseInt - change string to number
-  console.log("secondNumbers", secondNumbers)
+  // console.log("secondNumbers", secondNumbers)
 }
 
 //now add the ones in second item
@@ -225,7 +229,7 @@ for (var y = 0 ; y<secondNumbers.length;y++){
   total+=secondNumbers[y] 
 }
 
-console.log("total", total)
+// console.log("total", total)
 // document.write(total)
 
 updateCurrent1(total)
@@ -254,7 +258,7 @@ updateCurrent1(total)
 
    const updateCurrent1 = async (total) => {
    	const battle =  Math.round(parseInt(simpleUser.coins) - parseInt(total))
-   	console.log()
+   	// console.log()
     const data1 = {
       coins: Math.round(parseInt(simpleUser.coins) - parseInt(total))
     }
@@ -276,7 +280,8 @@ updateCurrent1(total)
           
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 	} else {
 		setLowFunds1(true)
 	}
@@ -287,7 +292,7 @@ updateCurrent1(total)
 // Convert Username
 
     const findUsername1 = async (receiverID, amount) => {
-    	console.log("findUsername")
+    	// console.log("findUsername")
     	try{
 	    	const response = await fetch(`${API_URL}/users`, {
 	          method: 'GET',
@@ -305,7 +310,8 @@ updateCurrent1(total)
           })
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 	
 
     }
@@ -324,10 +330,11 @@ updateCurrent1(total)
 
           const dataOtherUser = await response.json()
           shareCoins1(dataOtherUser, receiverID, amount)
-          console.log("dataOtherUser", dataOtherUser)
+          // console.log("dataOtherUser", dataOtherUser)
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 	
 
     }
@@ -335,7 +342,7 @@ updateCurrent1(total)
 //Update the other user with the shared coins
 
    const shareCoins1 = async (dataOtherUser, receiverID, amount) => {
-   	console.log()
+   	// console.log()
     const data2 = {
       coins:  
       	dataOtherUser.coins === null 
@@ -359,7 +366,8 @@ updateCurrent1(total)
          
 
     	} catch(err){
-		console.log("Exception ", err)}
+		// console.log("Exception ", err)
+	}
 
     }    
 
@@ -403,7 +411,7 @@ updateCurrent1(total)
 	const [upload, setUpload] = useState(false);
 
 
-console.log(fileBulk)
+// console.log(fileBulk)
 
 
 
@@ -505,7 +513,7 @@ console.log(fileBulk)
 									className="mt-4"
 							        onChange={(e) => {
 							          const files = e.target.files;
-							          console.log(files);
+							          // console.log(files);
 							          if (files) {
 							          	setFileBulk(e.target.files[0])
 							          	setOriginal(simpleUser.coins)

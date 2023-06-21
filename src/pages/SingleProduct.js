@@ -27,21 +27,21 @@ const formatImageUrl = (url) => `${API_URL}${url}`
 
 export default ({match, history}) =>{
 const {id} = match.params
-console.log("idd", id)
-console.log("match", id)
+// console.log("idd", id)
+// console.log("match", id)
 const pageID = parseInt(id)
 
 const {user, setUser, simpleUser, setSimpleUser, rangeF, rangeT, create} = useContext(UserContext)
 const {addToCart} = useContext(CartContext)
-console.log("user1", simpleUser)
-console.log("setUser", setUser)
+// console.log("user1", simpleUser)
+// console.log("setUser", setUser)
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
 
 const diffDays = Math.round(Math.abs((rangeF - rangeT) / oneDay));
 
 const changeEndDate = (data) => {
-  console.log("start", data)
+  // console.log("start", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate() - 1)
   const options = { month: 'long', day: 'numeric' };
@@ -51,7 +51,7 @@ const changeEndDate = (data) => {
 }
 
 const chageDate = (data) => {
-  console.log("start2", data)
+  // console.log("start2", data)
   const date = new Date(data)
   const joined1 = date.setDate(date.getDate())
   const options = { month: 'long', day: 'numeric' };
@@ -61,9 +61,9 @@ const chageDate = (data) => {
 }
 
 
-console.log("rangenF, ranSgeT", diffDays)
-console.log("rangenF, ranSgeT1", chageDate(rangeT) )
-console.log("rangenF, ranSgeT2", rangeF )
+// console.log("rangenF, ranSgeT", diffDays)
+// console.log("rangenF, ranSgeT1", chageDate(rangeT) )
+// console.log("rangenF, ranSgeT2", rangeF )
 
 
 // const {likesGiven, reloader} = useContext(LikesContext)
@@ -135,7 +135,7 @@ const fetchBookings = async (user) => {
                 
                 // setDescription1(data.description)
                 setLoading(false);
-                console.log("bookings", data)
+                // console.log("bookings", data)
 
                 data.map( async (booking, i) => {
                     if ( booking.listing && `${booking.listing.id}` === id && (booking.status === 'Pending' || 'Confirmed')) {
@@ -148,12 +148,12 @@ const fetchBookings = async (user) => {
                     const block = {  after: new Date(first), before: new Date(first1)}
 
                     blockedDates.push(block)
-                    console.log("blockedDates", blockedDates)
+                    // console.log("blockedDates", blockedDates)
             
                 }})
             
     } catch(err){
-              console.log("nope")
+              // console.log("nope")
             }         
         }
 
@@ -176,7 +176,7 @@ const checkAvail = async (user) => {
                 
                 // setDescription1(data.description)
                 setLoading(false);
-                console.log("bookings", data)
+                // console.log("bookings", data)
                 const set1 = []
 
                 //are there any bookings in this item group?
@@ -193,16 +193,16 @@ const checkAvail = async (user) => {
                       
                     if((EndDate2.toLocaleDateString("en-US") < StartDateA.toLocaleDateString("en-US")) || (StartDate1.toLocaleDateString("en-US") > EndDateB.toLocaleDateString("en-US"))) {
                      
-                      console.log(" setter fine") 
+                      // console.log(" setter fine") 
                     } else {
                     setter.push(booking.listing.id)
                     }
             
                 } else {
-                    console.log("no bookings exist in this item group")  
+                    // console.log("no bookings exist in this item group")  
                     }
                   })
-                console.log("set1", setter)
+                // console.log("set1", setter)
                 //get the items/skus/listing in that item group
                 const skus = product.listings
 
@@ -216,19 +216,19 @@ const checkAvail = async (user) => {
                   }
 
                 })
-                console.log("setter1:", setter1)
-                console.log("setter2:", setter2,"length", setter2.length)
-                console.log("itemidS:", setter2[0])
+                // console.log("setter1:", setter1)
+                // console.log("setter2:", setter2,"length", setter2.length)
+                // console.log("itemidS:", setter2[0])
                 //itemId has the winning items/skus/listing
                 setItemId(parseInt(setter2[0]))
                 setOpen(true)
-                console.log("itemid:", itemId)
+                // console.log("itemid:", itemId)
                 if(setter2.length <= 0) {
                   setShowButtons(false)
                 }
 
     } catch(err){
-              console.log("nope")
+              // console.log("nope")
             }         
         }
 
@@ -253,18 +253,18 @@ const checkAvail = async (user) => {
 
 
 const fetchProduct = async () => {
-      console.log("yyyyyyyy777")
+      // console.log("yyyyyyyy777")
         const response = await fetch(`${API_URL}/item-groups/${id}`)
         try{
                 const data = await response.json();
                 setProduct(data);
                 setProductImage(data.mainImage.url)
-                console.log("matchhhhhh", data)
+                // console.log("matchhhhhh", data)
                 setLoading(false);
                 fetchUser(data.userID)
             } catch(err){
                 setLoading(false);
-                console.log("yyyyyyyy888")
+                // console.log("yyyyyyyy888")
             }         
         }
 
@@ -276,7 +276,7 @@ const fetchUser = async (productUser) => {
         try{
                 const data = await response.json();
                 setListingUser(data);
-                console.log("listingUser", data)
+                // console.log("listingUser", data)
               
             } catch(err){
                 
@@ -299,7 +299,7 @@ const handleDelete = async () => {
 
 const handleEditSubmit = async (event) => {
 	event.preventDefault()
-	console.log("handleEditSubmit")
+	// console.log("handleEditSubmit")
 
 	const response = await fetch(`${API_URL}/products/${id}`, {
 		method: 'PUT',
@@ -313,17 +313,17 @@ const handleEditSubmit = async (event) => {
 	})
 	const data = await response.json();
 	fetchProduct()
-	console.log("handleEditSubmit data", data)
+	// console.log("handleEditSubmit data", data)
 }
 
 const updateCurrent = async (data) => {
-    console.log("simpleUser.coins", simpleUser.coins)
-    console.log("product.rental", product.rental)
+    // console.log("simpleUser.coins", simpleUser.coins)
+    // console.log("product.rental", product.rental)
     const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
     const data1 = {
       coins: Math.round(parseInt(simpleUser.coins) - parseInt(rentalCost))
     }
-    console.log("data1", data1)
+    // console.log("data1", data1)
 
     if(parseInt(simpleUser.coins) > parseInt(rentalCost)){
         try{
@@ -343,7 +343,8 @@ const updateCurrent = async (data) => {
           makeBooking()
 
         } catch(err){
-        console.log("Exception ", err)}
+        // console.log("Exception ", err)
+      }
     } else {
         setLowFunds(true)
         setShowButtons(false)
@@ -356,9 +357,9 @@ const updateCurrent = async (data) => {
 
 const makeBooking = async () => {
     const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
-    console.log("data1pageID", parseInt(pageID))
-    console.log("data1id", parseInt(id))
-    console.log("data1itemgroup", itemId)
+    // console.log("data1pageID", parseInt(pageID))
+    // console.log("data1id", parseInt(id))
+    // console.log("data1itemgroup", itemId)
 
  try{
      const response = await fetch(`${API_URL}/bookings`, {
@@ -381,11 +382,11 @@ const makeBooking = async () => {
          })
      })
      const data1 = await response.json();
-     console.log("data11", data1)
+     // console.log("data11", data1)
     bookItem()
     createTransaction(data1) 
  } catch(err){
-     console.log("Exception ", err)
+     // console.log("Exception ", err)
  }
 }
 
@@ -394,7 +395,7 @@ const makeBooking = async () => {
 
 const bookItem = async () => {
 
-    console.log("bookItem")
+    // console.log("bookItem")
 try {
     const response = await fetch(`${API_URL}/listings/${id}`, {
         method: 'PUT',
@@ -410,15 +411,15 @@ try {
     fetchProduct()
     setOpen(false)
     setOpen1(true)
-    console.log("handleEditSubmit data", data)
+    // console.log("handleEditSubmit data", data)
   } catch(err){
-     console.log("Exception ", err)
+     // console.log("Exception ", err)
  }
 }
 
 
 const createTransaction = async (data1) => {
-    console.log("data1", data1)
+    // console.log("data1", data1)
 const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
   const data = {
       amount: rentalCost,
@@ -436,7 +437,7 @@ const rentalCost = Math.round(parseInt(product.coins) * (diffDays + 1))
           body: JSON.stringify(data)
         })
   const newData = await response.json();
-  console.log("trans", newData)
+  // console.log("trans", newData)
 
 }  
 
@@ -515,7 +516,7 @@ useEffect(() => {
 	fetchProduct()
 }, [])
 
-console.log("itemidnn:", itemId)
+// console.log("itemidnn:", itemId)
 
 
 const [state, setState] = useState({

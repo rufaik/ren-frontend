@@ -18,8 +18,8 @@ export default () =>{
   const {cart} = useContext(CartContext)
   const {mode} = useContext(ModeContext)
   const [enabled, setEnabled] = useState(mode);
-  console.log("mode", mode)
-  console.log("Navvy121", create)
+  // console.log("mode", mode)
+  // console.log("Navvy121", create)
 
 
     useEffect(() => {

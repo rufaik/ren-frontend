@@ -38,7 +38,7 @@ const [status, setStatus] = useState(null)
   }, [simpleUser])
 
     const getStripeStatus = async () => {
-      console.log("get")
+      // console.log("get")
       try{
         const response = await fetch(`${API_URL}/payouts/retrieveStatus`, {
             method: 'POST',
@@ -49,7 +49,7 @@ const [status, setStatus] = useState(null)
           })
 
           const confirm = await response.json()
-          console.log("confirm", confirm)
+          // console.log("confirm", confirm)
           if(confirm.charges_enabled === true){
             // setStatus("Completed")
             updateCurrent()
@@ -60,13 +60,13 @@ const [status, setStatus] = useState(null)
           
 
       } catch(err){
-    console.log("Payment ", err)
+    // console.log("Payment ", err)
       }
 
   }
 
    const updateCurrent = async () => {
-    console.log("updateCurrent")
+    // console.log("updateCurrent")
     const data1 = {
       stripeStatus: "Completed"
     }
@@ -87,7 +87,8 @@ const [status, setStatus] = useState(null)
             window.location.href = `${THIS_URL}/profile/${user.user.id}`
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
 
     }
 

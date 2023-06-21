@@ -14,7 +14,7 @@ const [enterBtn, setEnter] = useState('Send')
 
 
 const {user, setUser, create} = useContext(UserContext)
-console.log('user', user)
+// console.log('user', user)
 
   useEffect(() => {
   if(localStorage.getItem('user')){
@@ -62,7 +62,7 @@ const handleSubmit = async (event) => {
 
 
      } catch(err){
-     console.log("err", err)
+     // console.log("err", err)
      }      
 
 }

@@ -39,11 +39,11 @@ const getContent = async (user) => {
     })
     try{
                 const data = await response.json();
-                console.log("side", data)
+                // console.log("side", data)
                 setContent(data);
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
             }         
         }
 
@@ -52,7 +52,7 @@ const getContent = async (user) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log("handling....")
+    // console.log("handling....")
 
       try{
         const response = await fetch(`${API_URL}/customer-emails`, {
@@ -73,13 +73,14 @@ const getContent = async (user) => {
           })
 
           const data = await response.json()
-          console.log("Contact", data)
+          // console.log("Contact", data)
           setSuccess(true)
         
          
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
 
     }    
 

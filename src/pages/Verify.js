@@ -37,39 +37,40 @@ const updateCurrent = async (identityAccessKey) => {
     
 
       } catch(err){
-    console.log("Exception ", err)}
+    // console.log("Exception ", err)
+  }
 
     }
 
 const formatImageUrl = (url) => `${API_URL}${url}`
 
-                  console.log("if", post1)
+                  // console.log("if", post1)
 
 
   const [image, setImages] = React.useState([]);
   const [image1, setImages1] = React.useState([]);
   const [showSave, setShowSave] = useState(true)
-  console.log("image", image)
-  console.log("image1", image1)
+  // console.log("image", image)
+  // console.log("image1", image1)
 
   const maxNumber = 69;
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log("iiiiii", imageList, addUpdateIndex);
+    // console.log("iiiiii", imageList, addUpdateIndex);
     setImages(imageList);
-    console.log("imageList", imageList)
+    // console.log("imageList", imageList)
   };  
 
     const onChange1 = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log("pppppp",imageList, addUpdateIndex);
+    // console.log("pppppp",imageList, addUpdateIndex);
     setImages1(imageList);
-    console.log("imageList2", imageList)
+    // console.log("imageList2", imageList)
   };
 
   const saveImage = async (event) => {
     event.preventDefault()
-    console.log('handling', image)
+    // console.log('handling', image)
 
 
   
@@ -101,9 +102,9 @@ const formatImageUrl = (url) => `${API_URL}${url}`
   
         const data = await response.json()
         // getUser()
-        console.log("dataK1", data) 
+        // console.log("dataK1", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
@@ -181,7 +182,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         }) => (
                           // write your building UI
                           <div className="upload__image-wrapper relative">
-                          {console.log(imageList)}
+                          
                             <div
                               style={isDragging ? { color: "red" } : null}
                               className="imgBx2 mr-4 rounded-t-lg border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"
@@ -227,7 +228,7 @@ const formatImageUrl = (url) => `${API_URL}${url}`
                         }) => (
                           // write your building UI
                           <div className="upload__image-wrapper relative">
-                          {console.log(imageList)}
+                         
                             <div
                               style={isDragging ? { color: "red" } : null}
                               className="imgBx2 ml-4 overflow-hidden rounded-t-lg border border-black-100 cursor-pointer rounded-b-lg flex justify-center items-center"

@@ -12,17 +12,17 @@ export default ({children}) => {
 	const [rangeT, setRangeT] = useState(null)
 	const [create, setCreate] = useState('light')
 	const [lightMode, setLight] = useState(true)
-	console.log("ussss", user)
-	console.log("lllllllll", lightMode)
-	console.log("crrrrrrr", create)
+	// console.log("ussss", user)
+	// console.log("lllllllll", lightMode)
+	// console.log("crrrrrrr", create)
 
 
 	useEffect(() => {
       if(localStorage.getItem('lightMode')){
         const lightMode1 = JSON.parse(localStorage.getItem('lightMode'))
         setLight(lightMode1)
-        console.log("doffffff", lightMode1)       
-        console.log("dotttttt", lightMode)       
+        // console.log("doffffff", lightMode1)       
+        // console.log("dotttttt", lightMode)       
         }
     }, [lightMode])
 

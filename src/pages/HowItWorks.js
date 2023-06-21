@@ -42,11 +42,11 @@ const getContent = async (user) => {
     })
     try{
                 const data = await response.json();
-                console.log("side", data)
+                // console.log("side", data)
                 setContent(data);
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
             }         
         }
 

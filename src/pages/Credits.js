@@ -62,7 +62,7 @@ const Credits = ({history}) => {
     const getProducts = async () => {
       const response = await fetch(`${API_URL}/products`)
       const data = await response.json()
-      console.log("data", data[0].id)
+      // console.log("data", data[0].id)
     }
 
     getProducts()
@@ -77,16 +77,16 @@ const Credits = ({history}) => {
     const getUserTypes = async () => {
       const response = await fetch(`${API_URL}/identity-cards`)
       const data = await response.json()
-      console.log("data", data)
+      // console.log("data", data)
       setUserTypes(data)
     }
 
     getUserTypes()
-    console.log("userTypes", userTypes)
+    // console.log("userTypes", userTypes)
 
   }, [])
 
-  console.log("home", simpleUser)
+  // console.log("home", simpleUser)
 
 
 

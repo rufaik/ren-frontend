@@ -30,8 +30,8 @@ export default (history) =>{
 	const [itemGroup, setItemGroup] = useState(null)
 	const [finding, setFinding] = useState(true)
 	const [searchWord, setSearchWord] = useState('')
-	console.log("history", history)
-	console.log("searchWord", searchWord)
+	// console.log("history", history)
+	// console.log("searchWord", searchWord)
 
 
 useEffect(() => {
@@ -52,17 +52,17 @@ const getListings = async (user) => {
                 const data = await response.json();
                 
                 // setDescription1(data.description)
-                console.log("side", data)
+                // console.log("side", data)
                 if(data !== null){
                   setListings(data);
                   setFinding(false)
                 } else {
-                  console.log("else", user)
+                  // console.log("else", user)
                   setFinding(true)
                 }
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
                 setListings({}); 
             }         
         }
@@ -102,17 +102,17 @@ const getItems = async (user) => {
                 const data = await response.json();
                 
                 // setDescription1(data.description)
-                console.log("side1", data)
+                // console.log("side1", data)
                 if(data !== null){
                   setItemGroup(data);
                   setFinding(false)
                 } else {
-                  console.log("else", user)
+                  // console.log("else", user)
                   setFinding(true)
                 }
                 // history.push(`/profile/${id}`)
             } catch(err){
-              console.log("nope")
+              // console.log("nope")
                 setItemGroup({}); 
             }         
         }
@@ -154,16 +154,16 @@ const getItems = async (user) => {
 	    setBorough(uniqueBorough);
 	    setCategory(uniqueCategory);
 }
-console.log("category1", category)
-console.log("itemGroup", itemGroup)
+// console.log("category1", category)
+// console.log("itemGroup", itemGroup)
 
 
 const [selectedId1a, setSelectedId1a] = useState(null);
   const [optionList, setOptionList] = useState([]);
 const [selectedId1B, setSelectedId1B] = useState(null);
   const [optionListB, setOptionListB] = useState([]);
-console.log("optionList", optionList)
-console.log("optionListB", optionListB)
+// console.log("optionList", optionList)
+// console.log("optionListB", optionListB)
 
 
   const addToList = (person, list, setList, setSelect) => {

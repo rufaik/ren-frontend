@@ -37,7 +37,7 @@ export default () =>{
   const [coins, setCoins] = useState(null);
   const [err, setErr] = useState(null);
 
-  console.log("money", cartCoinTotal(cart))
+  // console.log("money", cartCoinTotal(cart))
 
 
   const Card_Styles = {
@@ -67,7 +67,7 @@ export default () =>{
   const handleSubmit = async (event) => {
   	event.preventDefault();
 	setLoading(true)
-  	console.log("handleSubmit1", token)
+  	// console.log("handleSubmit1", token)
 
   	const result = await stripe.confirmCardPayment(token,{
   		payment_method:{
@@ -77,12 +77,12 @@ export default () =>{
   	})
 
 
- console.log("resultresult", result)
+ // console.log("resultresult", result)
 
- console.log("user coins",(user.user.coins))
- console.log("parse user coins",parseInt(user.user.coins))
- console.log("simple coins",(simpleUser.coins))
- console.log("parse simple coins",parseInt(simpleUser.coins))
+ // console.log("user coins",(user.user.coins))
+ // console.log("parse user coins",parseInt(user.user.coins))
+ // console.log("simple coins",(simpleUser.coins))
+ // console.log("parse simple coins",parseInt(simpleUser.coins))
 
 
     const data = {
@@ -97,7 +97,7 @@ export default () =>{
       cart
     }
 
-    console.log("data123", data)
+    // console.log("data123", data)
 
      try{
 
@@ -129,19 +129,19 @@ export default () =>{
 
           
 
- console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
- console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
- console.log("1user coins",(user.user.coins))
- console.log("1parse user coins",parseInt(user.user.coins))
- console.log("1simple coins",(simpleUser.coins))
- console.log("1parse simple coins",parseInt(simpleUser.coins))
- console.log("1parse order coins", Math.round(parseInt(order.coins)))
- console.log("1order coins", order.coins)
+ // console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
+ // console.log("1Math",Math.round(parseInt(user.user.coins) + parseInt(order.coins)))
+ // console.log("1user coins",(user.user.coins))
+ // console.log("1parse user coins",parseInt(user.user.coins))
+ // console.log("1simple coins",(simpleUser.coins))
+ // console.log("1parse simple coins",parseInt(simpleUser.coins))
+ // console.log("1parse order coins", Math.round(parseInt(order.coins)))
+ // console.log("1order coins", order.coins)
 
 
-    console.log("handleSubmit result", result)
-    console.log("handleSubmit order", order)
-    console.log("coinssss order", coins)
+ //    console.log("handleSubmit result", result)
+ //    console.log("handleSubmit order", order)
+ //    console.log("coinssss order", coins)
     
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -150,7 +150,7 @@ export default () =>{
     } catch(err){
       setSuccess(false)
       setErr(result.error.message)
-              console.log("nope")
+              // console.log("nope")
             }  
 }
 
@@ -175,7 +175,7 @@ const createTransaction = async (order) => {
 }
 
   const topUpCoins = async (order) => {
-    console.log("coins", coins)
+    // console.log("coins", coins)
     const data = {
       coins: Math.round(parseInt(simpleUser.coins) + parseInt(order.coins))
     }
@@ -195,8 +195,8 @@ const createTransaction = async (order) => {
 
 
 
-    console.log(" response", response)
-    console.log("confirm", confirm)
+    // console.log(" response", response)
+    // console.log("confirm", confirm)
     
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -227,8 +227,8 @@ useEffect(() =>{
 	loadToken()
 }, [cart])
 
-console.log("checkout", user)
-console.log("coins", coins)
+// console.log("checkout", user)
+// console.log("coins", coins)
   return (
   	<div>
 {!success &&

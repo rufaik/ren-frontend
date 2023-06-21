@@ -30,7 +30,7 @@ const fadeProperties = {
   indicators: false,
   arrows: false,
   onChange: (oldIndex, newIndex) => {
-    console.log(`fade transition from ${oldIndex} to ${newIndex}`);
+    // console.log(`fade transition from ${oldIndex} to ${newIndex}`);
   }
 }
 
@@ -62,16 +62,16 @@ export default ({description, likes, url}) =>{
     const getProducts = async () => {
       const response = await fetch(`${API_URL}/transactions`)
       const data = await response.json()
-      console.log("data", data)
+      // console.log("data", data)
       setProducts(data)
     }
 
     getProducts()
-    console.log("products", products)
+    // console.log("products", products)
 
   }, [])
 
-  console.log("home", simpleUser)
+  // console.log("home", simpleUser)
 
 
 

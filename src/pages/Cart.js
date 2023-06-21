@@ -25,9 +25,9 @@ const Cart = () => {
 	const forceUpdate = useCallback(() => updateState({}), [])
 	const[showCheckout, setShowCheckout] = useState(false)
 	const {cart, addToCart} = useContext(CartContext)
-	console.log("context cart", cart)
-	console.log("context addToCart", addToCart)
-	console.log("context user", user)
+	// console.log("context cart", cart)
+	// console.log("context addToCart", addToCart)
+	// console.log("context user", user)
  	const open = true
  	const [showCart, setShowCart] = useState(true)
  	const {create} = useContext(UserContext)

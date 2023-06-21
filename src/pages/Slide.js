@@ -46,7 +46,7 @@ const [verify, setVerify] = useState(false)
     const getProducts = async () => {
       const response = await fetch(`${API_URL}/products`)
       const data = await response.json()
-      console.log("data", data[0].id)
+      // console.log("data", data[0].id)
       setProducts(data)
     }
 
@@ -62,16 +62,16 @@ const [verify, setVerify] = useState(false)
     const getUserTypes = async () => {
       const response = await fetch(`${API_URL}/identity-cards`)
       const data = await response.json()
-      console.log("data", data)
+      // console.log("data", data)
       setUserTypes(data)
     }
 
     getUserTypes()
-    console.log("userTypes", userTypes)
+    // console.log("userTypes", userTypes)
 
   }, [])
 
-  console.log("home", simpleUser)
+  // console.log("home", simpleUser)
 
 
 
@@ -91,7 +91,7 @@ const fadeProperties = {
   indicators: false,
   arrows: false,
   onChange: (oldIndex, newIndex) => {
-    console.log(`fade transition from ${oldIndex} to ${newIndex}`);
+    console.log(`fade transition`);
   }
 }
 
@@ -159,7 +159,7 @@ const fadeProperties = {
                                   }}
                                   onKeyDown={(e) => {
                                    if (e.key === 'Enter') {
-                                    console.log('do validate');
+                                    // console.log('do validate');
                                     history.push({ 
                                        pathname: '/search',
                                        state: searchWord
@@ -242,7 +242,7 @@ const fadeProperties = {
                                   }}
                                   onKeyDown={(e) => {
                                    if (e.key === 'Enter') {
-                                    console.log('do validate');
+                                    // console.log('do validate');
                                     history.push({ 
                                        pathname: '/search',
                                        state: searchWord
@@ -306,7 +306,7 @@ const fadeProperties = {
                                   }}
                                   onKeyDown={(e) => {
                                    if (e.key === 'Enter') {
-                                    console.log('do validate');
+                                    // console.log('do validate');
                                     history.push({ 
                                        pathname: '/search',
                                        state: searchWord

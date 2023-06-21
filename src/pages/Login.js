@@ -12,7 +12,7 @@ const [error, setError] = useState('')
 
 
 const {user, setUser, simpleUser, setSimpleUser, create} = useContext(UserContext)
-console.log('user', user)
+// console.log('user', user)
 
   useEffect(() => {
   if(localStorage.getItem('user')){
@@ -46,7 +46,7 @@ const handleSubmit = async (event) => {
       	})
       
       	const data = await response.json()
-      	console.log("data", data) 
+      	// console.log("data", data) 
       
       	if(data.message){
       		setError(data.message[0].messages[0].message)
@@ -56,10 +56,10 @@ const handleSubmit = async (event) => {
 
         localStorage.setItem('user', JSON.stringify(data))
         localStorage.setItem('simpleUser', JSON.stringify(data.user))
-        console.log("data login", data)
+        // console.log("data login", data)
       	setUser(data)
         setSimpleUser(data.user)
-        console.log("login", simpleUser)
+        // console.log("login", simpleUser)
 
 
      } catch(err){
@@ -68,7 +68,7 @@ const handleSubmit = async (event) => {
 
 }
 
-console.log("login", simpleUser)
+// console.log("login", simpleUser)
 
 
   return (

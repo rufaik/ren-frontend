@@ -9,7 +9,7 @@ const Create = () => {
   const [file, setFile] = useState(null)
   const [error, setError] = useState('')
 
-  console.log("file", file)
+  // console.log("file", file)
 
       const {user} = useContext(UserContext)
 
@@ -47,9 +47,9 @@ const Create = () => {
   
         const data = await response.json()
   
-        console.log("dataK", data) 
+        // console.log("dataK", data) 
       }catch(err){
-        console.log("Exception", err)
+        // console.log("Exception", err)
         setError(err)
       }
 
